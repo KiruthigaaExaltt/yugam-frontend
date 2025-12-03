@@ -1,0 +1,96 @@
+.feature-card {
+    border-radius: 10px;
+    padding: 1.5rem;
+    min-height: 200px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.08);
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* space between icon and title */
+}
+
+.icon {
+    background: #f3f3ff;
+    padding: 0.7rem;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    color: #4a4aff;
+}
+
+.badge {
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.badge.new {
+    background: #d6fbe5;
+    color: #1fa055;
+}
+
+.badge.enhanced {
+    background: #e2e4ff;
+    color: #3b41f0;
+}
+
+.title {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.description {
+    margin-top: 0.5rem;
+    color: #555;
+}
+
+.demo-button {
+    margin-top: 1rem;
+    padding-left: 0;
+}
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Button default style */
+.demo-button.p-button {
+    background-color: #e0e0e0; /* grey */
+    color: black !important;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Icon color */
+.demo-button .p-button-icon {
+    color: black !important;
+     position: relative;
+    top: 2px; 
+}
+
+/* Button hover → green (highest priority) */
+.demo-button.p-button:hover {
+    background-color: #4CAF50; /* green */
+    color: white !important;
+    border-color: #4CAF50;
+}
+
+/* Card hover → button turns blue ONLY if button is not hovered */
+.feature-card:hover .demo-button.p-button:not(:hover) {
+    background-color: #007BFF; /* blue */
+    color: white !important;
+    border-color: #007BFF;
+}
