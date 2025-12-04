@@ -1,4 +1,5 @@
-import MidCard from "./midCard/MidCard";
+import MidCard from "./HOC/midCard/MidCard";
+
 
 const ExampleCard = () => {
     return (

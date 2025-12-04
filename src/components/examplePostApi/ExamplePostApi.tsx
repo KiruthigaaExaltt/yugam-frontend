@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { RootState, AppDispatch } from '../store.ts';
-import { increment, decrement, incrementByAmount } from '../Slices/exampleCounterSlice.ts';
-import { useGetPostsQuery, type Post } from '../Slices/exampleSlice.ts';
+import { increment, decrement, incrementByAmount } from './exampleCounterSlice.ts';
+import { useGetPostsQuery, type Post } from './exampleSlice.ts';
 
 const ExamplePostApi: React.FC = () => {
   // Redux counter state

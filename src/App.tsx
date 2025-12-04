@@ -5,7 +5,7 @@ import FormUI from './components/FormUI';
 import { ThemeProvider } from '../src/context/ThemeContext';
 import ReactIcon from './components/ReactIcon';
 import ExampleCard from './components/ExampleCard';
-import ExamplePostApi from './components/ExamplePostApi';
+import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
 import { Provider } from 'react-redux';
 import { store } from './store';
 

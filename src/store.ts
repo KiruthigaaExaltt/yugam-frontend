@@ -1,7 +1,7 @@
 // src/app/store.ts
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import counterReducer from '../src/Slices/exampleCounterSlice';
-import { apiSlice } from '../src/Slices/exampleSlice';
+import counterReducer from './components/examplePostApi/exampleCounterSlice';
+import { apiSlice } from './components/examplePostApi/exampleSlice';
 
 // Combine multiple reducers
 const rootReducer = combineReducers({
