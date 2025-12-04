@@ -6,6 +6,7 @@ import { ThemeProvider } from '../src/context/ThemeContext';
 import ReactIcon from './components/ReactIcon';
 import ExampleCard from './components/ExampleCard';
 import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
+import SmallCard from './components/SmallCard';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <ExampleTheme />
           <FormUI />
           <ReactIcon />
+          <SmallCard />
         </div>
       </ThemeProvider>
   );
