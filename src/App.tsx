@@ -5,10 +5,11 @@ import FormUI from './components/FormUI';
 import { ThemeProvider } from '../src/context/ThemeContext';
 import ReactIcon from './components/ReactIcon';
 import ExampleCard from './components/ExampleCard';
-import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
+// import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
 import SmallCard from './components/SmallCard';
 import BaseLayout from './layouts/BaseLayout';
 import ExampleNavbar from './components/ExampleNavBar';
+import ExampleTable from './components/ExampleTable';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
          <BaseLayout >
         <div className="p-4 flex flex-column gap-4">
           <ThemeButton />
-          <ExamplePostApi />
+          {/* <ExamplePostApi /> */}
           <ExampleCard />
           <h1>PrimeReact Theme Toggle with Context</h1>
 
@@ -25,6 +26,7 @@ function App() {
           <ReactIcon />
           <SmallCard />
           <ExampleNavbar />
+          <ExampleTable />
           
         </div>
         </BaseLayout>
