@@ -7,7 +7,8 @@ import { TieredMenu } from 'primereact/tieredmenu';
 import { useTheme } from '../context/ThemeContext';
 
 import './BaseLayout.css';
-import NavigationMenu from './NavigationMenu';
+import NavigationMenu from '../components/sideBar/NavigationMenu';
+
 
 interface BaseLayoutProps {
   children: ReactNode;
