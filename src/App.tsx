@@ -6,12 +6,9 @@ import { ThemeProvider } from '../src/context/ThemeContext';
 import ReactIcon from './components/ReactIcon';
 import ExampleCard from './components/ExampleCard';
 import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
-import { Provider } from 'react-redux';
-import { store } from './store';
 
 function App() {
   return (
-    <Provider store={store}>
       <ThemeProvider>
         <div className="p-4 flex flex-column gap-4">
           <ThemeButton />
@@ -24,7 +21,6 @@ function App() {
           <ReactIcon />
         </div>
       </ThemeProvider>
-    </Provider>
   );
 }
 

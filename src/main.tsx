@@ -7,11 +7,18 @@ import { PrimeReactProvider } from 'primereact/api';
 import 'primereact/resources/primereact.min.css';
 import 'primeflex/primeflex.css';
 
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store';
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <PrimeReactProvider>
-      <App />
-    </PrimeReactProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <PrimeReactProvider>
+          <App />
+        </PrimeReactProvider>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );
