@@ -8,6 +8,7 @@ import ExampleCard from './components/ExampleCard';
 import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
 import SmallCard from './components/SmallCard';
 import BaseLayout from './layouts/BaseLayout';
+import ExampleNavbar from './components/ExampleNavBar';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <FormUI />
           <ReactIcon />
           <SmallCard />
+          <ExampleNavbar />
           
         </div>
         </BaseLayout>
