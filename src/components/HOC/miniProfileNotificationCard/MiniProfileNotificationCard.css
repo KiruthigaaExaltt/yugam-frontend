@@ -1,99 +1,104 @@
- 
 /* =========================
    CARD
 ========================= */
 .pro-custom-card {
-  width: 100%;              
-  max-width: 70rem;          
-  /* margin: 0 auto; */
+  width: 100%;
+  max-width: 70rem;
   padding: 2rem !important;
-  border-radius: 1rem;
+  border-radius: var(--border-radius);
   box-sizing: border-box;
-  background: #fff;
+  background: var(--surface-card);
+  box-shadow: var(--card-shadow);
+  background-color: var(--card-bg);
 }
 
- 
 /* Title */
 .pro-card-title {
   font-size: 1.25rem;
   margin-bottom: 1.5rem;
+  color: var(--text-color);
 }
- 
+
 /* =========================
    ITEM ROW
 ========================= */
 .item-row {
   display: flex;
   align-items: center;
-  border: 1px solid #e6e8ec;
+  border: 1px solid var(--surface-border);
   border-radius: 0.75rem;
   padding: 0.875rem 1.125rem;
-  background: #fff;
+  background: var(--surface-card);
   margin: 0.625rem 0;
   gap: 1rem;
   box-sizing: border-box;
+  background-color: var(--itemcard-bg);
+
 }
- 
+
 /* Avatar circle */
 .avatar {
-  background: #eaf0ff;
+  background: var(--icon-bg);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 600;
   font-size: 1rem;
+  color: var(--text-color);
 }
- 
+
 .logo-icon,
 .avatar-img {
   border-radius: 50%;
 }
- 
+
 /* Text block */
 .text-block h4 {
   font-size: 1rem;
   margin: 0;
   font-weight: 600;
+  color: var(--text-color);
 }
- 
+
 .text-block p {
   margin: 0;
   font-size: 0.8125rem;
-  color: #6b7280;
+  color: var(--text-muted);
 }
- 
-/* Spacer pushes things to the right */
+
+/* Spacer */
 .spacer {
   flex: 1;
 }
- 
+
 /* Status chip */
 .status-chip {
   padding: 0.4rem 0.75rem;
   border-radius: 0.5rem;
   font-size: 0.75rem;
+  background: var(--badge-info-bg);
+  color: var(--badge-info-text);
 }
- 
+
 /* Eye icon */
 .eye-icon {
   font-size: 1.2rem;
   opacity: 0.5;
   cursor: pointer;
   margin-left: 0.5rem;
+  color: var(--text-muted);
 }
- 
+
 /* =========================
    MOBILE (rem only)
 ========================= */
-@media (max-width: 48rem) {   /* 768px */
+@media (max-width: 48rem) { /* 768px */
   .custom-card {
     padding: 1.5rem !important;
   }
- 
+
   .item-row {
     padding: 0.75rem 1rem;
   }
 }
- 
- 

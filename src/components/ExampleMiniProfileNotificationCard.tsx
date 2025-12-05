@@ -15,7 +15,7 @@ const ExampleMiniProfileNotificationCard: FC = () => {
       initials: "SC",
       name: "Sarah Chen",
       role: "Senior React Developer",
-      statusColor: "#cfe6ff",
+      // statusColor: "#cfe6ff",
 
       // Display control (PER CARD)
       showAvatar: false,        // show initials avatar
@@ -87,7 +87,7 @@ const ExampleMiniProfileNotificationCard: FC = () => {
               initials={initials}
               name={item.showName ? item.name : ""}
               role={item.showRole ? item.role : ""}
-              statusColor={item.statusColor}
+              // statusColor={item.statusColor}
               avatarWidth="3.5rem"
               avatarHeight="3.5rem"
             />

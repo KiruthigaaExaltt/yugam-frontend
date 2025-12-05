@@ -8,7 +8,7 @@ export interface NotificationCardProps {
   name: string;
   role: string;
   status?: string;
-  statusColor: string;
+  statusColor?: string;
   logo?: ReactNode;
   about?: string;
   onDelete?: () => void;
@@ -26,7 +26,7 @@ const MiniProfileNotificationCard: FC<NotificationCardProps> = ({
   name,
   role,
   status,
-  statusColor,
+  // statusColor,
   logo,
   about,
   onDelete,
@@ -72,7 +72,7 @@ const MiniProfileNotificationCard: FC<NotificationCardProps> = ({
       <div className="spacer" />
  
       {status && (
-        <span className="status-chip" style={{ backgroundColor: statusColor }}>
+         <span className="status-chip" >
           {status}
         </span>
       )}
