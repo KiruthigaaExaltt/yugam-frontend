@@ -10,12 +10,37 @@ import SmallCard from './components/SmallCard';
 import BaseLayout from './layouts/BaseLayout';
 import ExampleNavbar from './components/ExampleNavBar';
 import ExampleTable from './components/ExampleTable';
+// import { useEffect } from 'react';
 
 function App() {
+  // useEffect(() => {
+  //   const themeName = 'lara-light-blue';
+  //    const existingLink = document.getElementById('theme-css') as HTMLLinkElement;
+  //   if (existingLink) {
+  //     existingLink.href = `https://unpkg.com/primereact/resources/themes/${themeName}/theme.css`;
+  //   } else {
+  //     const link = document.createElement('link');
+  //     link.id = 'theme-css';
+  //     link.rel = 'stylesheet';
+  //     link.href = `https://unpkg.com/primereact/resources/themes/${themeName}/theme.css`;
+  //     document.head.appendChild(link);
+  //   }
+  //   const existingVariable = document.getElementById('variable-css') as HTMLLinkElement;
+  //   if (existingVariable) {
+  //     existingVariable.href = 'http://localhost:5173/src/styles/variables.css';
+  //   } else {
+  //     const link = document.createElement('link');
+  //     link.id = 'variable-css';
+  //     link.rel = 'stylesheet';
+  //     link.href = '../styles/variables.css';
+  //     document.head.appendChild(link);
+  //   }
+  // }, []);
   return (
       <ThemeProvider>
          <BaseLayout >
         <div className="p-4 flex flex-column gap-4">
+          {/* <h1 className='testing'>checking the font</h1> */}
           <ThemeButton />
           {/* <ExamplePostApi /> */}
           <ExampleCard />

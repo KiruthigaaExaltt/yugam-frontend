@@ -1,96 +1,143 @@
-.feature-card {
-    border-radius: 10px;
-    padding: 1.5rem;
-    min-height: 200px;
-    box-shadow: 0 0 3px rgba(0,0,0,0.08);
-    transition: 0.2s ease;
-    cursor: pointer;
+/* ===================================== */
+/*              CARD WRAPPER             */
+/* ===================================== */
+.card-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+  /* padding: 5px 20px 20px 20px; */
 }
-
 .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: 100%;
 }
 
 .left {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem; /* space between icon and title */
-}
-
-.icon {
-    background: #f3f3ff;
-    padding: 0.7rem;
-    border-radius: 10px;
-    font-size: 1.4rem;
-    color: #4a4aff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 100%;
+  white-space: nowrap; /* keeps everything on same line */
 }
 
 .badge {
-    padding: 3px 8px;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 500;
+  margin-left: auto; /* pushes it to far right */
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 16px;
 }
 
-.badge.new {
-    background: #d6fbe5;
-    color: #1fa055;
+.p-card-content {
+  padding-top: 0 !important;
 }
 
-.badge.enhanced {
-    background: #e2e4ff;
-    color: #3b41f0;
+
+/* ===================================== */
+/*                 CARD                   */
+/* ===================================== */
+
+.card {
+  background-color: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  padding: 16px;
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--font-family);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.title {
-    margin: 0;
-    font-size: 1.2rem;
+/* ===================================== */
+/*              CARD HEADER               */
+/* ===================================== */
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.description {
-    margin-top: 0.5rem;
-    color: #555;
+.card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: var(--icon-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.demo-button {
-    margin-top: 1rem;
-    padding-left: 0;
-}
-.cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
 }
 
-/* Button default style */
-.demo-button.p-button {
-    background-color: #e0e0e0; /* grey */
-    color: black !important;
-    border: 1px solid #d1d1d1;
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+/* ===================================== */
+/*               CARD VALUE               */
+/* ===================================== */
+
+.card-value {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--text-color);
 }
 
-/* Icon color */
-.demo-button .p-button-icon {
-    color: black !important;
-     position: relative;
-    top: 2px; 
+/* ===================================== */
+/*                 BADGES                 */
+/* ===================================== */
+
+.badge {
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 20px;
+  display: inline-block;
+  font-weight: 500;
 }
 
-/* Button hover → green (highest priority) */
-.demo-button.p-button:hover {
-    background-color: #4CAF50; /* green */
-    color: white !important;
-    border-color: #4CAF50;
+/* Success Badge */
+.badge.success {
+  background: var(--badge-success-bg);
+  color: var(--badge-success-text);
 }
 
-/* Card hover → button turns blue ONLY if button is not hovered */
-.feature-card:hover .demo-button.p-button:not(:hover) {
-    background-color: #007BFF; /* blue */
-    color: white !important;
-    border-color: #007BFF;
+/* Info Badge */
+.badge.info {
+  background: var(--badge-info-bg);
+  color: var(--badge-info-text);
+}
+
+/* ===================================== */
+/*              CARD FOOTER               */
+/* ===================================== */
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ===================================== */
+/*                 BUTTONS                */
+/* ===================================== */
+
+.card-btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--btn-default-bg);
+  border: 1px solid var(--btn-default-border);
+  color: var(--btn-default-text);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.card-btn:hover {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--btn-hover-text);
 }

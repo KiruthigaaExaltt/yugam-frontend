@@ -1,288 +1,38 @@
-/* Base Layout Styles */
+/* Layout container */
+
+.base-layout {
+  font-family: var(--font-family);
+}
+
 .base-layout {
   display: flex;
-  flex-direction: column; /* header on top, content below */
+  flex-direction: column;
   min-height: 100vh;
-  background: var(--surface-ground);
-  color: var(--text-color);
-  transition: all 0.3s ease;
 }
 
-/* Top header (full width) */
-.top-header {
-  width: 100%;
-  flex-shrink: 0;
-}
-
-/* Content row holds sidebar (left) and main (right) */
+/* Sidebar + Main content wrapper */
 .content-row {
   display: flex;
   flex: 1;
-  min-height: 0; /* allow children to control scrolling */
+  width: 100%;
 }
 
-/* Sidebar Wrapper */
+/* Sidebar is fixed width */
 .sidebar-wrapper {
   width: 23.75rem;
-  min-width: 17.5rem; /* 280px → 17.5rem */
-  background: var(--surface-card);
-  border-right: 1px solid var(--surface-border);
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease;
-  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
-}
-
-
-.base-layout.sidebar-hidden .sidebar-wrapper {
-  width: 0;
-  min-width: 0;
-  overflow: hidden;
-  border-right: none;
-}
-
-/* Sidebar Header */
-.sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 1rem;
-  border-bottom: 1px solid var(--surface-border);
-  background: var(--surface-card);
+  min-width: 17.5rem;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
   flex-shrink: 0;
-  gap: 1rem;
+  position: relative;
+  z-index: 2;
 }
 
-.sidebar-header h3 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--primary-color);
-  flex: 1;
-}
-
-.sidebar-header .p-button {
-  flex-shrink: 0;
-  min-width: 40px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.sidebar-header .p-button-danger {
-  color: #ef4444 !important;
-}
-
-.sidebar-header .p-button-danger:hover {
-  background-color: #fee2e2 !important;
-}
-
-.sidebar-header .close-btn {
-  color: #ef4444 !important;
-}
-
-.sidebar-header .close-btn:hover {
-  background-color: #fee2e2 !important;
-  color: #dc2626 !important;
-}
-
-/* Navigation Menu */
-.navigation-menu {
-  padding: 0.5rem 0;
-  max-height: calc(100vh - 160px);
-  overflow-y: auto;
-  flex: 1;
-}
-
-.navigation-menu .p-panelmenu {
-  background: transparent !important;
-  border: none !important;
-}
-
-.navigation-menu .p-panelmenu-header {
-  background: transparent !important;
-  border: none !important;
-  padding: 0.75rem 1rem !important;
-  color: var(--text-color) !important;
-}
-
-.navigation-menu .p-panelmenu-header:hover {
-  background: var(--surface-hover) !important;
-}
-
-.navigation-menu .p-panelmenu-content {
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-}
-
-.navigation-menu .p-panelmenu-content .p-menuitem {
-  border: none !important;
-}
-
-.navigation-menu .p-menuitem-link {
-  padding: 0.75rem 1.5rem !important;
-  color: var(--text-color) !important;
-}
-
-.navigation-menu .p-menuitem-link:hover {
-  background: var(--surface-hover) !important;
-}
-
-/* Main Container */
+/* Prevent main content from going under sidebar */
 .main-container {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease;
   min-width: 0;
-}
-
-/* Header Toolbar */
-.header-toolbar {
-  background: var(--surface-card) !important;
-  border-bottom: 1px solid var(--surface-border) !important;
-  padding: 1rem !important;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.header-toolbar h2 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--text-color);
-}
-
-/* Page Content */
-.page-content {
-  flex: 1;
-  padding: 2rem;
-  overflow-y: auto;
   background: var(--surface-ground);
-}
-
-/* Footer inside main content */
-.page-footer {
-  flex: 0 0 auto;
-  padding: 1rem 2rem;
-  border-top: 1px solid var(--surface-border);
-  background: var(--surface-card);
-}
-
-/* Profile Menu */
-.profile-menu {
-  min-width: 150px;
-}
-
-.profile-menu .p-menuitem-link {
-  padding: 0.75rem 1rem !important;
-  color: var(--text-color) !important;
-}
-
-.profile-menu .p-menuitem-link:hover {
-  background: var(--surface-hover) !important;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .sidebar-wrapper {
-    position: fixed;
-    left: 0;
-    top: 64px;
-    height: 100vh;
-    z-index: 1000;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
-  }
-
-  .base-layout.sidebar-hidden .sidebar-wrapper {
-    display: none;
-  }
-
-  .page-content {
-    padding: 1rem;
-  }
-
-  .header-toolbar {
-    padding: 0.75rem !important;
-    gap: 0.5rem;
-  }
-
-  .header-toolbar h2 {
-    font-size: 1.2rem;
-  }
-}
-
-/* Scrollbar Styling */
-.navigation-menu::-webkit-scrollbar,
-.page-content::-webkit-scrollbar {
-  width: 6px;
-}
-
-.navigation-menu::-webkit-scrollbar-track,
-.page-content::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.navigation-menu::-webkit-scrollbar-thumb,
-.page-content::-webkit-scrollbar-thumb {
-  background: var(--surface-border);
-  border-radius: 3px;
-}
-
-.navigation-menu::-webkit-scrollbar-thumb:hover,
-.page-content::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-color);
-}
-
-/* Dark mode specific styles */
-:root.dark .sidebar-wrapper {
-  background: var(--card-background);
-  border-right-color: var(--surface-c);
-  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
-}
-
-:root.dark .sidebar-header {
-  background: var(--card-background);
-  border-bottom-color: var(--surface-c);
-}
-
-:root.dark .sidebar-header .p-button-danger {
-  color: #fca5a5 !important;
-}
-
-:root.dark .sidebar-header .p-button-danger:hover {
-  background-color: rgba(239, 68, 68, 0.1) !important;
-  color: #fecaca !important;
-}
-
-:root.dark .base-layout {
-  background: var(--background);
-}
-
-:root.dark .header-toolbar {
-  background: var(--card-background) !important;
-  border-bottom-color: var(--surface-c) !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-:root.dark .page-content {
-  background: var(--background);
-}
-
-:root.dark .navigation-menu .p-panelmenu-header:hover {
-  background: var(--surface-b) !important;
-}
-
-:root.dark .navigation-menu .p-menuitem-link:hover {
-  background: var(--surface-b) !important;
-}
-
-:root.dark .profile-menu .p-menuitem-link:hover {
-  background: var(--surface-b) !important;
+  position: relative;
+  z-index: 1;
 }

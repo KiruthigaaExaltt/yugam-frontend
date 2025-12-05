@@ -44,7 +44,7 @@ const SmallCard = () => {
           contentPosition="column"
           minWidth={300}
           maxWidth={700}
-          height={100}
+          height={150}
           titleWeight="lighter"
           titleColor="black"
           titleSize="1em"

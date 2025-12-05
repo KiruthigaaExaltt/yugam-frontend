@@ -9,6 +9,7 @@ export default function ThemeButton() {
     <Button
       label={`Toggle Theme (Current: ${theme})`}
       onClick={toggleTheme}
+      style={{ backgroundColor: 'var(--primary-color)' }}
     />
   );
 }

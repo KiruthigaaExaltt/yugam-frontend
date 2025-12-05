@@ -66,3 +66,15 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-normal);
+  color: var(--text-color);
+  line-height: var(--line-height-normal);
+  background: var(--background);
+}
+
+ .testing {
+  font-family: var(--font-family) !important;
+ }
