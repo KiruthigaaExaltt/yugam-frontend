@@ -10,6 +10,7 @@ import SmallCard from './components/SmallCard';
 import BaseLayout from './layouts/BaseLayout';
 import ExampleNavbar from './components/ExampleNavBar';
 import ExampleTable from './components/ExampleTable';
+import ExampleMiniProfileNotificationCard from './components/ExampleMiniProfileNotificationCard';
 // import { useEffect } from 'react';
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           {/* <h1 className='testing'>checking the font</h1> */}
           <ThemeButton />
           {/* <ExamplePostApi /> */}
+          <ExampleMiniProfileNotificationCard />
           <ExampleCard />
           <h1>PrimeReact Theme Toggle with Context</h1>
 

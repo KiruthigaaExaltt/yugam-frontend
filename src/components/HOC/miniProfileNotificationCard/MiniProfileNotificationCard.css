@@ -1,0 +1,117 @@
+/* =========================
+   PAGE LAYOUT
+========================= */
+/* .page-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  width: 10%;              
+  padding: 3rem;
+  box-sizing: border-box;
+} */
+ 
+/* =========================
+   CARD
+========================= */
+.pro-custom-card {
+  width: 100%;              
+  max-width: 50rem;          
+  /* margin: 0 auto; */
+  padding: 2rem !important;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.inner-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+ 
+/* Title */
+.pro-card-title {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+ 
+/* =========================
+   ITEM ROW
+========================= */
+.item-row {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e6e8ec;
+  border-radius: 0.75rem;
+  padding: 0.875rem 1.125rem;
+  background: #fff;
+  width: 100%;
+  margin: 0.625rem 0;
+  gap: 1rem;
+  box-sizing: border-box;
+}
+ 
+/* Avatar circle */
+.avatar {
+  background: #eaf0ff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1rem;
+}
+ 
+.logo-icon,
+.avatar-img {
+  border-radius: 50%;
+}
+ 
+/* Text block */
+.text-block h4 {
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 600;
+}
+ 
+.text-block p {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #6b7280;
+}
+ 
+/* Spacer pushes things to the right */
+.spacer {
+  flex: 1;
+}
+ 
+/* Status chip */
+.status-chip {
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+}
+ 
+/* Eye icon */
+.eye-icon {
+  font-size: 1.2rem;
+  opacity: 0.5;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+ 
+/* =========================
+   MOBILE (rem only)
+========================= */
+@media (max-width: 48rem) {   /* 768px */
+  .custom-card {
+    padding: 1.5rem !important;
+  }
+ 
+  .item-row {
+    padding: 0.75rem 1rem;
+  }
+}
+ 
+ 
