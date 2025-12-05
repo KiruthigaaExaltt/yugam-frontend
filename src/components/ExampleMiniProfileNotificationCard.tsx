@@ -73,7 +73,7 @@ const ExampleMiniProfileNotificationCard: FC = () => {
   return (
 
     <Card className="pro-custom-card">
-      <div className="inner-card-wrapper">
+      <div>
         <h3 className="pro-card-title">Recent Applications</h3>
 
         {applications.map((item, index) => {
@@ -90,8 +90,6 @@ const ExampleMiniProfileNotificationCard: FC = () => {
               statusColor={item.statusColor}
               avatarWidth="3.5rem"
               avatarHeight="3.5rem"
-              width="50rem"
-              height="auto"
             />
           );
         })}
