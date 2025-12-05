@@ -52,14 +52,16 @@ const SmallCard: React.FC<SmallCardProps> = ({
   minWidth,
   maxWidth,
 }) => {
+
   const dynamicStyle: React.CSSProperties = {
     ...style,
     width: width,           // optional fixed width
     minWidth: minWidth,     // card can grow if content is larger
     maxWidth: maxWidth,     // optional max width
     height,
+    backgroundColor: "var(--card-bg)"
   };
-  ;
+  
 
   // const isHorizontal = iconPosition === "left" || iconPosition === "right";
   // const isVertical = iconPosition === "top" || iconPosition === "bottom";
