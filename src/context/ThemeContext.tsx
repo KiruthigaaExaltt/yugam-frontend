@@ -48,6 +48,15 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const themeName = themes[theme];
 
+    /** ==========================================
+     *  APPLY DARK CLASS TO BODY (CSS VARIABLES)
+     ========================================== */
+    if (theme === 'dark') {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+
     /** -------------------------------
      *  1. LOAD PRIMEREACT THEME
      --------------------------------*/

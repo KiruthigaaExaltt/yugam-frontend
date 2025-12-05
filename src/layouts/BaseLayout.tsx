@@ -100,13 +100,6 @@ export const BaseLayout = ({ children, title }: BaseLayoutProps) => {
           <aside className="sidebar-wrapper">
             <div className="sidebar-header">
               <h3 className="m-0">ExaltAI</h3>
-              <Button
-                icon="pi pi-times"
-                className="p-button-rounded p-button-text close-btn"
-                onClick={() => setSidebarVisible(false)}
-                aria-label="Close Sidebar"
-                severity="danger"
-              />
             </div>
             <NavigationMenu />
           </aside>
