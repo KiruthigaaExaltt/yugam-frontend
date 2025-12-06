@@ -12,6 +12,7 @@ import ExampleNavbar from './components/ExampleNavBar';
 import ExampleTable from './components/ExampleTable';
 import ExampleMiniProfileNotificationCard from './components/ExampleMiniProfileNotificationCard';
 import { Routes, Route } from "react-router-dom";
+import TailwindFlexCard from './components/TailwindFlexCard';
 // import { useEffect } from 'react';
 
 function App() {
@@ -68,8 +69,9 @@ function App() {
           <Route
             path="/"
             element={
-              <div className="p-4 flex flex-column gap-4">
+              <div className="p-4 flex flex-col gap-4">
                 <ThemeButton />
+                <TailwindFlexCard />
                 <ExampleMiniProfileNotificationCard />
                 <ExampleCard />
                 <h1>PrimeReact Theme Toggle with Context</h1>
@@ -78,11 +80,12 @@ function App() {
                 <ReactIcon />
                 <SmallCard />
                 <ExampleNavbar />
-                <ExampleTable />
+                <ExampleTable /> 
               </div>
             }
           />
 
+        
           <Route path="/table" element={<ExampleTable />} />
           <Route path="/navbar" element={<ExampleNavbar />} />
           <Route path="/card" element={<ExampleCard />} />

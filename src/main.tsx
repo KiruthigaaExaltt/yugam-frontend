@@ -4,7 +4,7 @@ import App from './App';
 import { PrimeReactProvider } from 'primereact/api';
 
 import 'primereact/resources/primereact.min.css';
-import 'primeflex/primeflex.css';
+
 import './styles/variables.css';
 import './index.css';
 import './layouts/BaseLayout.css';

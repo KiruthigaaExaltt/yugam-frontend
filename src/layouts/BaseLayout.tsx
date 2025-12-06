@@ -9,7 +9,6 @@ import { useTheme } from '../context/ThemeContext';
 import './BaseLayout.css';
 import NavigationMenu from '../components/sideBar/NavigationMenu';
 
-
 interface BaseLayoutProps {
   children: ReactNode;
   title?: string;
@@ -20,28 +19,16 @@ export const BaseLayout = ({ children, title }: BaseLayoutProps) => {
   const menuRef = useRef<TieredMenu>(null);
   const { theme, toggleTheme } = useTheme();
 
-  // Profile menu items
   const profileMenuItems = [
-    {
-      label: 'Profile',
-      icon: 'pi pi-user',
-      command: () => console.log('Profile clicked'),
-    },
-    {
-      label: 'Settings',
-      icon: 'pi pi-cog',
-      command: () => console.log('Settings clicked'),
-    },
+    { label: 'Profile', icon: 'pi pi-user', command: () => console.log('Profile clicked') },
+    { label: 'Settings', icon: 'pi pi-cog', command: () => console.log('Settings clicked') },
     { separator: true },
-    {
-      label: 'Logout',
-      icon: 'pi pi-sign-out',
-      command: () => console.log('Logout clicked'),
-    },
+    { label: 'Logout', icon: 'pi pi-sign-out', command: () => console.log('Logout clicked') },
   ];
 
+  // LEFT SIDE TOOLBAR
   const toolbarStart = (
-    <div className="flex align-items-center gap-2">
+    <div className="flex items-center gap-2">
       <Button
         icon="pi pi-bars"
         className="p-button-rounded p-button-text"
@@ -52,27 +39,30 @@ export const BaseLayout = ({ children, title }: BaseLayoutProps) => {
     </div>
   );
 
+  // RIGHT SIDE TOOLBAR
   const toolbarEnd = (
-    <div className="flex align-items-center gap-3">
+    <div className="flex items-center gap-3">
       <Button
         icon={theme === 'dark' ? 'pi pi-sun' : 'pi pi-moon'}
         className="p-button-rounded p-button-text"
         onClick={toggleTheme}
         aria-label="Toggle Dark Mode"
       />
+
       <Button
         icon="pi pi-bell"
         className="p-button-rounded p-button-text p-button-danger p-badge"
         badge="3"
         badgeClassName="p-badge-danger"
-        aria-label="Notifications"
       />
+
       <Avatar
         image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.jpg"
         shape="circle"
-        style={{ cursor: 'pointer' }}
+        className="cursor-pointer"
         onClick={(e) => menuRef.current?.toggle(e)}
       />
+
       <TieredMenu
         ref={menuRef}
         model={profileMenuItems}
@@ -84,38 +74,37 @@ export const BaseLayout = ({ children, title }: BaseLayoutProps) => {
 
   return (
     <div className={`base-layout ${sidebarVisible ? 'sidebar-visible' : 'sidebar-hidden'}`}>
-      {/* Top Header (full width) */}
+      
+      {/* HEADER */}
       <header className="top-header">
-        <Toolbar
-          start={toolbarStart}
-          end={toolbarEnd}
-          className="header-toolbar"
-        />
+        <Toolbar start={toolbarStart} end={toolbarEnd} className="header-toolbar" />
       </header>
 
-      {/* Content row: sidebar + main */}
-      <div className="content-row">
-        {/* Sidebar Navigation */}
+      {/* LAYOUT ROW */}
+      <div className="content-row flex">
+        
+        {/* SIDEBAR */}
         {sidebarVisible && (
           <aside className="sidebar-wrapper">
-            <div className="sidebar-header">
+            <div className="sidebar-header flex items-center">
               <h3 className="m-0">ExaltAI</h3>
             </div>
             <NavigationMenu />
           </aside>
         )}
 
-        {/* Main Content Area */}
-        <main className="main-container">
-          <div className="page-content">
-            {children}
-          </div>
+        {/* MAIN CONTENT */}
+        <main className="main-container flex flex-col flex-1">
+          <div className="page-content flex-1">{children}</div>
 
-          {/* Footer inside main content */}
+          {/* FOOTER */}
           <footer className="page-footer">
-            <div className="footer-inner">© {new Date().getFullYear()} ExaltAI · All rights reserved</div>
+            <div className="footer-inner">
+              © {new Date().getFullYear()} ExaltAI · All rights reserved
+            </div>
           </footer>
         </main>
+
       </div>
     </div>
   );
