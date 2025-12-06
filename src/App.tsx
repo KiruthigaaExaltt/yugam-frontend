@@ -11,6 +11,7 @@ import BaseLayout from './layouts/BaseLayout';
 import ExampleNavbar from './components/ExampleNavBar';
 import ExampleTable from './components/ExampleTable';
 import ExampleMiniProfileNotificationCard from './components/ExampleMiniProfileNotificationCard';
+import { Routes, Route } from "react-router-dom";
 // import { useEffect } from 'react';
 
 function App() {
@@ -37,27 +38,57 @@ function App() {
   //     document.head.appendChild(link);
   //   }
   // }, []);
-  return (
-      <ThemeProvider>
-         <BaseLayout >
-        <div className="p-4 flex flex-column gap-4">
-          {/* <h1 className='testing'>checking the font</h1> */}
-          <ThemeButton />
-          {/* <ExamplePostApi /> */}
-          <ExampleMiniProfileNotificationCard />
-          <ExampleCard />
-          <h1>PrimeReact Theme Toggle with Context</h1>
+  // return (
+  //     <ThemeProvider>
+  //        <BaseLayout >
+  //       <div className="p-4 flex flex-column gap-4">
+  //         {/* <h1 className='testing'>checking the font</h1> */}
+  //         <ThemeButton />
+  //         {/* <ExamplePostApi /> */}
+  //         <ExampleMiniProfileNotificationCard />
+  //         <ExampleCard />
+  //         <h1>PrimeReact Theme Toggle with Context</h1>
 
-          <ExampleTheme />
-          <FormUI />
-          <ReactIcon />
-          <SmallCard />
-          <ExampleNavbar />
-          <ExampleTable />
+  //         <ExampleTheme />
+  //         <FormUI />
+  //         <ReactIcon />
+  //         <SmallCard />
+  //         <ExampleNavbar />
+  //         <ExampleTable />
           
-        </div>
-        </BaseLayout>
-      </ThemeProvider>
+  //       </div>
+  //       </BaseLayout>
+  //     </ThemeProvider>
+  // );
+
+   return (
+    <ThemeProvider>
+      <BaseLayout>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="p-4 flex flex-column gap-4">
+                <ThemeButton />
+                <ExampleMiniProfileNotificationCard />
+                <ExampleCard />
+                <h1>PrimeReact Theme Toggle with Context</h1>
+                <ExampleTheme />
+                <FormUI />
+                <ReactIcon />
+                <SmallCard />
+                <ExampleNavbar />
+                <ExampleTable />
+              </div>
+            }
+          />
+
+          <Route path="/table" element={<ExampleTable />} />
+          <Route path="/navbar" element={<ExampleNavbar />} />
+          <Route path="/card" element={<ExampleCard />} />
+        </Routes>
+      </BaseLayout>
+    </ThemeProvider>
   );
 }
 

@@ -1,8 +1,10 @@
 import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
 import { Table } from "./HOC/table/Table";
+import usePageTitle from "./customHooks/usePageTitle";
 
 export default function ExampleTable() {
+   usePageTitle("yugam | Table");
   const invoices = [
     {
       id: "INV-2024-001",
