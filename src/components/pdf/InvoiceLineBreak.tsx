@@ -109,7 +109,7 @@ Here is another line.
  
 Now testing a long paragraph that should automatically wrap based on the container width. This will verify if html2canvas and jsPDF correctly wrap long text when generating the final PDF.
  
-Line 1
+Line 1  wwwrfreg
 Line 2
 Line 3
 Here is a manual line break.

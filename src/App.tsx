@@ -17,6 +17,7 @@ import TailwindPDF from './components/pdf/TailwindPDF';
 import Invoice from './components/pdf/Invoice';
 import InvoiceLineBreak from './components/pdf/InvoiceLineBreak';
 import ExcelExportTable from './components/excel/ExcelExportTable';
+import SampleComponent from './components/pdf/SampleComponent';
 
 // import { useEffect } from 'react';
 
@@ -91,6 +92,7 @@ function App() {
           />
 
           <Route path="/InvoiceLineBreak" element={<InvoiceLineBreak />} />
+           <Route path="/samplecomponent" element={<SampleComponent />} />
             <Route path="/excelTable" element={<ExcelExportTable />} />
           <Route path="/pdfinvoive" element={<Invoice />} />
           <Route path="/pdf" element={<TailwindPDF />} />
