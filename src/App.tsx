@@ -13,6 +13,11 @@ import ExampleTable from './components/ExampleTable';
 import ExampleMiniProfileNotificationCard from './components/ExampleMiniProfileNotificationCard';
 import { Routes, Route } from "react-router-dom";
 import TailwindFlexCard from './components/TailwindFlexCard';
+import TailwindPDF from './components/pdf/TailwindPDF';
+import Invoice from './components/pdf/Invoice';
+import InvoiceLineBreak from './components/pdf/InvoiceLineBreak';
+import ExcelExportTable from './components/excel/ExcelExportTable';
+
 // import { useEffect } from 'react';
 
 function App() {
@@ -56,13 +61,13 @@ function App() {
   //         <SmallCard />
   //         <ExampleNavbar />
   //         <ExampleTable />
-          
+
   //       </div>
   //       </BaseLayout>
   //     </ThemeProvider>
   // );
 
-   return (
+  return (
     <ThemeProvider>
       <BaseLayout>
         <Routes>
@@ -80,12 +85,15 @@ function App() {
                 <ReactIcon />
                 <SmallCard />
                 <ExampleNavbar />
-                <ExampleTable /> 
+                <ExampleTable />
               </div>
             }
           />
 
-        
+          <Route path="/InvoiceLineBreak" element={<InvoiceLineBreak />} />
+            <Route path="/excelTable" element={<ExcelExportTable />} />
+          <Route path="/pdfinvoive" element={<Invoice />} />
+          <Route path="/pdf" element={<TailwindPDF />} />
           <Route path="/table" element={<ExampleTable />} />
           <Route path="/navbar" element={<ExampleNavbar />} />
           <Route path="/card" element={<ExampleCard />} />
