@@ -1,31 +1,20 @@
 import { useRef } from "react";
-import html2pdf from "html2pdf.js";
+import { downloadHtmlAsPdf } from "../../utils/html2pdfDownloader";
 
 export default function InvoiceDownload() {
     const contentRef = useRef<HTMLDivElement>(null);
 
     const downloadPDF = () => {
-        if (!contentRef.current) return;
-
-        const element = contentRef.current;
-
-        const options = {
-            filename: "invoice.pdf",
-            margin: 10,
-            html2canvas: {
+        if (contentRef.current) {
+            downloadHtmlAsPdf(contentRef.current, {
+                filename: "invoice.pdf",
+                margin: 10,
                 scale: 2,
-                useCORS: true,
-            },
-            jsPDF: {
-                unit: "mm",
                 format: "a4",
-                orientation: "portrait" as const,
-            },
-        };
-
-        html2pdf().from(element).set(options).save();
+                orientation: "portrait",
+            });
+        }
     };
-
     return (
         <div className="min-h-screen p-10 flex justify-center">
             {/* PDF SAFE PAGE BREAK CSS */}
