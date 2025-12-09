@@ -18,6 +18,11 @@ import Invoice from './components/pdf/Invoice';
 import InvoiceLineBreak from './components/pdf/InvoiceLineBreak';
 import ExcelExportTable from './components/excel/ExcelExportTable';
 import SampleComponent from './components/pdf/SampleComponent';
+// import Example from './components/intersectionObserver/Example';
+import LazyLoadSection from './components/intersectionObserver/LazyLoadSection';
+import NotificationPopup from './components/springWebAnimation/NotificationPopup';
+import ExampleCalendar from './components/ExampleCalender';
+
 
 // import { useEffect } from 'react';
 
@@ -91,9 +96,12 @@ function App() {
             }
           />
 
+          <Route path="/calender" element={<ExampleCalendar />} />
+          <Route path="/springWebAnimation" element={<NotificationPopup />} />
+          <Route path="/intersectionObserver" element={<LazyLoadSection />} />
           <Route path="/InvoiceLineBreak" element={<InvoiceLineBreak />} />
-           <Route path="/samplecomponent" element={<SampleComponent />} />
-            <Route path="/excelTable" element={<ExcelExportTable />} />
+          <Route path="/samplecomponent" element={<SampleComponent />} />
+          <Route path="/excelTable" element={<ExcelExportTable />} />
           <Route path="/pdfinvoive" element={<Invoice />} />
           <Route path="/pdf" element={<TailwindPDF />} />
           <Route path="/table" element={<ExampleTable />} />
