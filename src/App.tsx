@@ -22,6 +22,8 @@ import SampleComponent from './components/pdf/SampleComponent';
 import LazyLoadSection from './components/intersectionObserver/LazyLoadSection';
 import NotificationPopup from './components/springWebAnimation/NotificationPopup';
 import ExampleCalendar from './components/ExampleCalender';
+import ChartDashboard from './components/chart/ChartDashboard';
+import ExampleDebounce from './components/ExampleDebounce';
 
 
 // import { useEffect } from 'react';
@@ -94,8 +96,10 @@ function App() {
                 <ExampleTable />
               </div>
             }
-          />
+          />  
 
+          <Route path="/debounce" element={<ExampleDebounce />} />
+          <Route path="/chart" element={<ChartDashboard />} />
           <Route path="/calender" element={<ExampleCalendar />} />
           <Route path="/springWebAnimation" element={<NotificationPopup />} />
           <Route path="/intersectionObserver" element={<LazyLoadSection />} />
