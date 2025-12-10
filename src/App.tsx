@@ -25,6 +25,7 @@ import ExampleCalendar from './components/ExampleCalender';
 import ChartDashboard from './components/chart/ChartDashboard';
 import ExampleDebounce from './components/ExampleDebounce';
 import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
+import HtmlToImageCard from './components/htmlToImage/HtmlToImageCard';
 
 
 // import { useEffect } from 'react';
@@ -100,6 +101,7 @@ function App() {
             }
           />  
 
+          <Route path="/htmltoimage" element={<HtmlToImageCard />} />
           <Route path="/debounce" element={<ExampleDebounce />} />
           <Route path="/chart" element={<ChartDashboard />} />
           <Route path="/calender" element={<ExampleCalendar />} />

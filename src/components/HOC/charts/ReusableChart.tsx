@@ -1,6 +1,7 @@
  
 import { Chart } from "primereact/chart";
-import { useGetSalesChartQuery } from "./ChartSlice";
+// import { useGetSalesChartQuery } from "../../chart/chartApi";
+// import { useGetSalesChartQuery } from "./ChartSlice";
 
  
 interface Props {
@@ -10,11 +11,7 @@ interface Props {
 }
  
 export default function ReusableChart({ type, label }: Props) {
-    // console.log("className",className)
-  const { data, isLoading, isError } = useGetSalesChartQuery();
- 
-  if (isLoading) return <p>Loading chart...</p>;
-//   if (isError) return <p>Error loading chart</p>;
+// const { data, isLoading, isError } = useGetSalesChartQuery();
  
   const chartData = {
     // labels: data?.labels,
