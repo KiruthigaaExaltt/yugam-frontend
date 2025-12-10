@@ -1,8 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { RootState, AppDispatch } from '../store.ts';
 import { increment, decrement, incrementByAmount } from './exampleCounterSlice.ts';
-import { useGetPostsQuery, type Post } from './exampleSlice.ts';
+import { useGetListQuery } from '../../api/genericApi.ts';
 
 const ExamplePostApi: React.FC = () => {
   // Redux counter state
@@ -10,7 +9,8 @@ const ExamplePostApi: React.FC = () => {
   const dispatch = useDispatch<any>();
 
   // RTK Query hook to fetch posts
-  const { data: posts, isLoading, error } = useGetPostsQuery();
+
+   const { data: posts , isLoading, error} = useGetListQuery({ resource: "posts" });
 
   return (
     <div style={{ padding: '2rem' }}>
@@ -33,7 +33,7 @@ const ExamplePostApi: React.FC = () => {
       {isLoading && <p>Loading posts...</p>}
       {error && <p>Error loading posts</p>}
       <ul>
-        {posts?.map((post: Post) => (
+        {posts?.map((post) => (
           <li key={post.id} style={{ marginBottom: '1rem' }}>
             <strong>{post.title}</strong>
             <p>{post.body}</p>

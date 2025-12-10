@@ -24,6 +24,7 @@ import NotificationPopup from './components/springWebAnimation/NotificationPopup
 import ExampleCalendar from './components/ExampleCalender';
 import ChartDashboard from './components/chart/ChartDashboard';
 import ExampleDebounce from './components/ExampleDebounce';
+import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
 
 
 // import { useEffect } from 'react';
@@ -84,6 +85,7 @@ function App() {
             element={
               <div className="p-4 flex flex-col gap-4">
                 <ThemeButton />
+                <ExamplePostApi />
                 <TailwindFlexCard />
                 <ExampleMiniProfileNotificationCard />
                 <ExampleCard />

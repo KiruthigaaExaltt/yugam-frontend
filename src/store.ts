@@ -1,46 +1,42 @@
+// store.ts
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import counterReducer from './components/examplePostApi/exampleCounterSlice';
-import { apiSlice } from './components/examplePostApi/exampleSlice';
- 
+
+import { api } from './api'; // ONLY THIS api slice for all injected endpoints
+
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // localStorage
-import { chartApi } from './components/HOC/charts/ChartSlice';
-0
- 
- 
+import storage from 'redux-persist/lib/storage';
+
 // 1. Combine reducers
 const rootReducer = combineReducers({
- 
-  // RTK Query reducers
-  [apiSlice.reducerPath]: apiSlice.reducer,
-  [chartApi.reducerPath]: chartApi.reducer,
-})
- 
-// 2. Persist config (choose which reducers to persist)
+  counter: counterReducer,
+
+  // RTK Query main reducer (ONLY once)
+  [api.reducerPath]: api.reducer,
+});
+
+// 2. Persist config
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['counter'], // ONLY persist counter
+  whitelist: ['counter'], // only persist counter
 };
- 
+
 // 3. Create persisted reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
- 
+
 // 4. Configure store
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false, // required by redux-persist
-    }).concat(apiSlice.middleware)
-     .concat(chartApi.middleware),
+      serializableCheck: false, // required for redux-persist
+    }).concat(api.middleware), // ONLY once
 });
- 
-// 5. Create the persistor
+
+// 5. Persistor
 export const persistor = persistStore(store);
- 
+
 // Types
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
- 
- 
