@@ -24,8 +24,9 @@ import NotificationPopup from './components/springWebAnimation/NotificationPopup
 import ExampleCalendar from './components/ExampleCalender';
 import ChartDashboard from './components/chart/ChartDashboard';
 import ExampleDebounce from './components/ExampleDebounce';
-import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
+// import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
 import HtmlToImageCard from './components/htmlToImage/HtmlToImageCard';
+import ExampleRechart from './components/rechart/ExampleRechart';
 
 
 // import { useEffect } from 'react';
@@ -86,7 +87,7 @@ function App() {
             element={
               <div className="p-4 flex flex-col gap-4">
                 <ThemeButton />
-                <ExamplePostApi />
+                {/* <ExamplePostApi /> */}
                 <TailwindFlexCard />
                 <ExampleMiniProfileNotificationCard />
                 <ExampleCard />
@@ -103,6 +104,7 @@ function App() {
 
           <Route path="/htmltoimage" element={<HtmlToImageCard />} />
           <Route path="/debounce" element={<ExampleDebounce />} />
+           <Route path="/recharts" element={<ExampleRechart />} />
           <Route path="/chart" element={<ChartDashboard />} />
           <Route path="/calender" element={<ExampleCalendar />} />
           <Route path="/springWebAnimation" element={<NotificationPopup />} />

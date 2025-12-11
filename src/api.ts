@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://jsonplaceholder.typicode.com/", // GLOBAL BASE URL
+    baseUrl: "https://dummyjson.com/", // GLOBAL BASE URL
   }),
   endpoints: () => ({}), // Empty — endpoints will be injected
 });
