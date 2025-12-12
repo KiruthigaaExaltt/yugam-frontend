@@ -29,6 +29,7 @@ import HtmlToImageCard from './components/htmlToImage/HtmlToImageCard';
 import ExampleRechart from './components/rechart/ExampleRechart';
 import ExampleSonnerDemo from './components/ExampleSonnerDemo';
 import ExampleForm from './components/ExampleForm';
+import ExampleMarquee from './components/ExampleMarquee';
 
 
 // import { useEffect } from 'react';
@@ -103,7 +104,7 @@ function App() {
               </div>
             }
           />  
-
+<Route path="/marquee" element={<ExampleMarquee />} />
           <Route path="/exampleForm" element={<ExampleForm />} />
           <Route path="/sonner" element={<ExampleSonnerDemo />} />
           <Route path="/htmltoimage" element={<HtmlToImageCard />} />
