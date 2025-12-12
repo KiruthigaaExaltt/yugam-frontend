@@ -1,5 +1,6 @@
 // RHFFields.tsx
 import { Calendar } from "primereact/calendar";
+import { Editor } from "primereact/editor";
 import { useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { FiUpload } from "react-icons/fi";
@@ -307,3 +308,39 @@ export function RFileUpload({ name, label, ...props }: any) {
     </Row>
   );
 }
+
+// ===============================================================
+// ⭐ NEW — QUILL EDITOR (PrimeReact)
+// ===============================================================
+export function RQuillEditor({ name, label }: any) {
+  const { control } = useFormContext();
+ 
+  return (
+    <Row label={label}>
+      <Controller
+        name={name}
+        control={control}
+        defaultValue=""
+        render={({ field, fieldState }) => (
+          <>
+            <Editor
+              value={field.value}
+              onTextChange={(e) => field.onChange(e.htmlValue)}
+              style={{ height: "180px" }}
+              className={`border ${
+                fieldState.error ? "border-red-500" : "border-gray-300"
+              } rounded-lg`}
+            />
+ 
+            {fieldState.error && (
+              <small className="text-red-500">
+                {String(fieldState.error.message)}
+              </small>
+            )}
+          </>
+        )}
+      />
+    </Row>
+  );
+}
+ 

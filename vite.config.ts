@@ -12,4 +12,9 @@ export default defineConfig({
       },
     }),
   ],
+
+    // ⬇️ ADD THIS BLOCK
+  optimizeDeps: {
+    include: ["primereact/editor", "quill"],
+  },
 })
