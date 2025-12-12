@@ -30,6 +30,7 @@ import ExampleRechart from './components/rechart/ExampleRechart';
 import ExampleSonnerDemo from './components/ExampleSonnerDemo';
 import ExampleForm from './components/ExampleForm';
 import ExampleMarquee from './components/ExampleMarquee';
+import ExampleVideo from './components/video/ExampleVideo';
 
 
 // import { useEffect } from 'react';
@@ -104,6 +105,7 @@ function App() {
               </div>
             }
           />  
+          <Route path="/video" element={<ExampleVideo />} />
 <Route path="/marquee" element={<ExampleMarquee />} />
           <Route path="/exampleForm" element={<ExampleForm />} />
           <Route path="/sonner" element={<ExampleSonnerDemo />} />
