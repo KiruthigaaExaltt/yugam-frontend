@@ -28,6 +28,7 @@ import ExampleDebounce from './components/ExampleDebounce';
 import HtmlToImageCard from './components/htmlToImage/HtmlToImageCard';
 import ExampleRechart from './components/rechart/ExampleRechart';
 import ExampleSonnerDemo from './components/ExampleSonnerDemo';
+import ExampleForm from './components/ExampleForm';
 
 
 // import { useEffect } from 'react';
@@ -103,6 +104,7 @@ function App() {
             }
           />  
 
+          <Route path="/exampleForm" element={<ExampleForm />} />
           <Route path="/sonner" element={<ExampleSonnerDemo />} />
           <Route path="/htmltoimage" element={<HtmlToImageCard />} />
           <Route path="/debounce" element={<ExampleDebounce />} />
