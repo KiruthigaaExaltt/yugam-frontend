@@ -32,6 +32,12 @@ import ExampleForm from './components/ExampleForm';
 import ExampleMarquee from './components/ExampleMarquee';
 import ExampleVideo from './components/video/ExampleVideo';
 
+import { useEffect } from 'react';
+import { requestPermission } from './firebase/requestPermission';
+import { onMessage } from 'firebase/messaging';
+import { messaging } from './firebase/firebaseInit';
+import Footer from './components/footer/Footer';
+
 
 // import { useEffect } from 'react';
 
@@ -82,6 +88,20 @@ function App() {
   //     </ThemeProvider>
   // );
 
+   useEffect(() => {
+    requestPermission();
+  }, []);
+
+  useEffect(() => {
+  const unsubscribe = onMessage(messaging, (payload) => {
+    console.log("Foreground message received:", payload);
+
+    alert(payload.notification?.title);
+  });
+
+  return () => unsubscribe();
+}, []);
+
   return (
     <ThemeProvider>
       <BaseLayout>
@@ -124,6 +144,7 @@ function App() {
           <Route path="/table" element={<ExampleTable />} />
           <Route path="/navbar" element={<ExampleNavbar />} />
           <Route path="/card" element={<ExampleCard />} />
+          <Route path="/footer" element={<Footer />} />
         </Routes>
       </BaseLayout>
     </ThemeProvider>
