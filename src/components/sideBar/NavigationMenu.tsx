@@ -154,7 +154,6 @@
 import { useState, type JSX } from 'react';
 import './NavigationMenu.css';
 
-// React Icons
 import {
   PiHouseFill,
   PiUsersFill,
@@ -182,7 +181,11 @@ interface NavCategory {
   items: NavItem[];
 }
 
-const NavigationMenu = () => {
+interface NavigationMenuProps {
+  collapsed?: boolean;
+}
+
+const NavigationMenu = ({ collapsed = false }: NavigationMenuProps) => {
   const [activeItem, setActiveItem] = useState('pulse');
 
   const navigationData: NavCategory[] = [
@@ -200,116 +203,57 @@ const NavigationMenu = () => {
     {
       category: 'SALES & CRM',
       items: [
-        {
-          id: 'orbit',
-          label: 'Orbit',
-          description: 'Sales CRM with lead manager',
-          icon: <PiUsersFill />,
-        },
-        {
-          id: 'pulse',
-          label: 'Pulse',
-          description: 'Customer support system',
-          icon: <PiPhoneFill />,
-        },
-        {
-          id: 'estimo',
-          label: 'Estimo',
-          description: 'Quote Generator with BOM/BOQ',
-          icon: <PiFileTextFill />,
-        },
+        { id: 'orbit', label: 'Orbit', description: 'Sales CRM', icon: <PiUsersFill /> },
+        { id: 'pulse', label: 'Pulse', description: 'Customer support', icon: <PiPhoneFill /> },
+        { id: 'estimo', label: 'Estimo', description: 'Quote generator', icon: <PiFileTextFill /> },
       ],
     },
     {
       category: 'HR & WORKFORCE',
       items: [
-        {
-          id: 'crew',
-          label: 'Crew',
-          description: 'Human resource management',
-          icon: <PiUsersFill />,
-        },
-        {
-          id: 'hire',
-          label: 'Hire',
-          description: 'Recruitment management',
-          icon: <PiListFill />,
-        },
-        {
-          id: 'crewpay',
-          label: 'CrewPay',
-          description: 'Payroll system',
-          icon: <PiMoneyFill />,
-        },
+        { id: 'crew', label: 'Crew', description: 'HR management', icon: <PiUsersFill /> },
+        { id: 'hire', label: 'Hire', description: 'Recruitment', icon: <PiListFill /> },
+        { id: 'crewpay', label: 'CrewPay', description: 'Payroll', icon: <PiMoneyFill /> },
       ],
     },
     {
       category: 'ACCOUNTS & FINANCE',
       items: [
-        {
-          id: 'billr',
-          label: 'Billr',
-          description: 'Quick invoicing system',
-          icon: <PiReceiptFill />,
-        },
-        {
-          id: 'payin',
-          label: 'PayIn',
-          description: 'Payment processing & checkout',
-          icon: <PiCreditCardFill />,
-        },
-        {
-          id: 'cycle',
-          label: 'Cycle',
-          description: 'Subscription management',
-          icon: <PiCalendarFill />,
-        },
-        {
-          id: 'seal',
-          label: 'Seal',
-          description: 'Digital signatures & e-sign',
-          icon: <PiShieldFill />,
-        },
-        {
-          id: 'flex',
-          label: 'Flex',
-          description: 'Workforce management & pro',
-          icon: <PiLightningFill />,
-        },
-        {
-          id: 'trail',
-          label: 'Trail',
-          description: 'Expense management & receipt',
-          icon: <PiArrowCounterClockwiseFill />,
-        },
+        { id: 'billr', label: 'Billr', description: 'Invoicing', icon: <PiReceiptFill /> },
+        { id: 'payin', label: 'PayIn', description: 'Payments', icon: <PiCreditCardFill /> },
+        { id: 'cycle', label: 'Cycle', description: 'Subscriptions', icon: <PiCalendarFill /> },
+        { id: 'seal', label: 'Seal', description: 'E-sign', icon: <PiShieldFill /> },
+        { id: 'flex', label: 'Flex', description: 'Workforce', icon: <PiLightningFill /> },
+        { id: 'trail', label: 'Trail', description: 'Expenses', icon: <PiArrowCounterClockwiseFill /> },
       ],
     },
   ];
 
-  const handleItemClick = (itemId: string) => {
-    setActiveItem(itemId);
-    console.log(`Navigating to ${itemId}`);
-  };
-
   return (
-    <div className="navigation-menu">
+    <div className={`navigation-menu ${collapsed ? 'collapsed' : ''}`}>
       {navigationData.map((section) => (
         <div key={section.category} className="nav-section">
-          <div className="nav-category-title">{section.category}</div>
+          {!collapsed && (
+            <div className="nav-category-title">{section.category}</div>
+          )}
 
           <div className="nav-items">
             {section.items.map((item) => (
               <button
                 key={item.id}
                 className={`nav-item ${activeItem === item.id ? 'active' : ''}`}
-                onClick={() => handleItemClick(item.id)}
+                onClick={() => setActiveItem(item.id)}
               >
                 <div className="nav-item-icon">{item.icon}</div>
 
-                <div className="nav-item-content">
-                  <div className="nav-item-label">{item.label}</div>
-                  <div className="nav-item-description">{item.description}</div>
-                </div>
+                {!collapsed && (
+                  <div className="nav-item-content">
+                    <div className="nav-item-label">{item.label}</div>
+                    <div className="nav-item-description">
+                      {item.description}
+                    </div>
+                  </div>
+                )}
               </button>
             ))}
           </div>
@@ -320,3 +264,4 @@ const NavigationMenu = () => {
 };
 
 export default NavigationMenu;
+
