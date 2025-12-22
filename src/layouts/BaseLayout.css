@@ -1,38 +1,90 @@
-/* Layout container */
-
-.base-layout {
-  font-family: var(--font-family);
+/* ================================
+   GLOBAL SAFETY (IMPORTANT)
+================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
+/* ================================
+   LAYOUT CONTAINER
+================================ */
 .base-layout {
+  font-family: var(--font-family);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden; /* 🔑 prevents horizontal scroll */
 }
 
-/* Sidebar + Main content wrapper */
+/* ================================
+   SIDEBAR + MAIN WRAPPER
+================================ */
 .content-row {
   display: flex;
   flex: 1;
   width: 100%;
-}sidebar-wrapper
-
-/* Sidebar is fixed width */
-.sidebar-wrapper {
-  width: 23.75rem;
-  min-width: 17.5rem;
-  background: var(--sidebar-bg);
-  border-right: 1px solid var(--sidebar-border);
-  flex-shrink: 0;
-  position: relative;
-  z-index: 2;
+  min-width: 0; /* 🔑 allows flex children to shrink */
 }
 
-/* Prevent main content from going under sidebar */
+/* ================================
+   SIDEBAR (MOBILE FIRST)
+================================ */
+.sidebar-wrapper {
+  display: none; /* ❌ hidden on mobile */
+}
+
+/* ================================
+   DESKTOP SIDEBAR
+================================ */
+@media (min-width: 1024px) {
+  .sidebar-wrapper {
+    display: block;
+    width: 23.75rem;      /* 380px */
+    min-width: 17.5rem;   /* 280px */
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--sidebar-border);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+}
+
+/* ================================
+   MAIN CONTENT
+================================ */
 .main-container {
   flex: 1;
-  min-width: 0;
+  min-width: 0;        /* 🔑 critical for mobile */
+  width: 100%;
   background: var(--surface-ground);
   position: relative;
   z-index: 1;
+  overflow-x: hidden; /* 🔑 no horizontal scroll */
+}
+
+/* ================================
+   PAGE CONTENT
+================================ */
+.page-content {
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ================================
+   FOOTER
+================================ */
+.page-footer {
+  width: 100%;
+}
+
+.footer-inner {
+  text-align: center;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
 }

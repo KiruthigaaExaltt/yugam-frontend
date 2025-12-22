@@ -1,42 +1,48 @@
-
-import ThemeButton from './components/ThemeButton';
-import ExampleTheme from './components/ExampleTheme';
-import FormUI from './components/FormUI';
-import { ThemeProvider } from '../src/context/ThemeContext';
-import ReactIcon from './components/ReactIcon';
-import ExampleCard from './components/ExampleCard';
+import ThemeButton from "./components/ThemeButton";
+import ExampleTheme from "./components/ExampleTheme";
+import FormUI from "./components/FormUI";
+import { ThemeProvider } from "../src/context/ThemeContext";
+import ReactIcon from "./components/ReactIcon";
+import ExampleCard from "./components/ExampleCard";
 // import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
-import SmallCard from './components/SmallCard';
-import BaseLayout from './layouts/BaseLayout';
-import ExampleNavbar from './components/ExampleNavBar';
-import ExampleTable from './components/ExampleTable';
-import ExampleMiniProfileNotificationCard from './components/ExampleMiniProfileNotificationCard';
+import SmallCard from "./components/EampleSmallCard";
+import BaseLayout from "./layouts/BaseLayout";
+import ExampleNavbar from "./components/ExampleNavBar";
+import ExampleTable from "./components/ExampleTable";
+import ExampleMiniProfileNotificationCard from "./components/ExampleMiniProfileNotificationCard";
 import { Routes, Route } from "react-router-dom";
-import TailwindFlexCard from './components/TailwindFlexCard';
-import TailwindPDF from './components/pdf/TailwindPDF';
-import Invoice from './components/pdf/Invoice';
-import InvoiceLineBreak from './components/pdf/InvoiceLineBreak';
-import ExcelExportTable from './components/excel/ExcelExportTable';
-import SampleComponent from './components/pdf/SampleComponent';
+import TailwindFlexCard from "./components/TailwindFlexCard";
+import TailwindPDF from "./components/pdf/TailwindPDF";
+import Invoice from "./components/pdf/Invoice";
+import InvoiceLineBreak from "./components/pdf/InvoiceLineBreak";
+import ExcelExportTable from "./components/excel/ExcelExportTable";
+import SampleComponent from "./components/pdf/SampleComponent";
 // import Example from './components/intersectionObserver/Example';
-import LazyLoadSection from './components/intersectionObserver/LazyLoadSection';
-import NotificationPopup from './components/springWebAnimation/NotificationPopup';
-import ExampleCalendar from './components/ExampleCalender';
-import ChartDashboard from './components/chart/ChartDashboard';
-import ExampleDebounce from './components/ExampleDebounce';
+import LazyLoadSection from "./components/intersectionObserver/LazyLoadSection";
+import NotificationPopup from "./components/springWebAnimation/NotificationPopup";
+import ExampleCalendar from "./components/ExampleCalender";
+import ChartDashboard from "./components/chart/ChartDashboard";
+import ExampleDebounce from "./components/ExampleDebounce";
 // import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
-import HtmlToImageCard from './components/htmlToImage/HtmlToImageCard';
-import ExampleRechart from './components/rechart/ExampleRechart';
-import ExampleSonnerDemo from './components/ExampleSonnerDemo';
-import ExampleForm from './components/ExampleForm';
-import ExampleMarquee from './components/ExampleMarquee';
-import ExampleVideo from './components/video/ExampleVideo';
+import HtmlToImageCard from "./components/htmlToImage/HtmlToImageCard";
+import ExampleRechart from "./components/rechart/ExampleRechart";
+import ExampleSonnerDemo from "./components/ExampleSonnerDemo";
+import ExampleForm from "./components/ExampleForm";
+import ExampleMarquee from "./components/ExampleMarquee";
+import ExampleVideo from "./components/video/ExampleVideo";
 
-import { useEffect } from 'react';
-import { requestPermission } from './firebase/requestPermission';
-import { onMessage } from 'firebase/messaging';
-import { messaging } from './firebase/firebaseInit';
-import Footer from './components/footer/Footer';
+import { useEffect } from "react";
+import { requestPermission } from "./firebase/requestPermission";
+import { onMessage } from "firebase/messaging";
+import { messaging } from "./firebase/firebaseInit";
+import Footer from "./components/footer/Footer";
+import ExamplePageHeader from "./components/exaltfiles/ExamplePageHeader";
+import ExampleNewNavBar from "./components/exaltfiles/ExampleNewNavBar";
+import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
+
+// import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
+
+
 
 
 // import { useEffect } from 'react';
@@ -88,19 +94,19 @@ function App() {
   //     </ThemeProvider>
   // );
 
-   useEffect(() => {
+  useEffect(() => {
     requestPermission();
   }, []);
 
   useEffect(() => {
-  const unsubscribe = onMessage(messaging, (payload) => {
-    console.log("Foreground message received:", payload);
+    const unsubscribe = onMessage(messaging, (payload) => {
+      console.log("Foreground message received:", payload);
 
-    alert(payload.notification?.title);
-  });
+      alert(payload.notification?.title);
+    });
 
-  return () => unsubscribe();
-}, []);
+    return () => unsubscribe();
+  }, []);
 
   return (
     <ThemeProvider>
@@ -124,14 +130,27 @@ function App() {
                 <ExampleTable />
               </div>
             }
-          />  
+          />
+          {/* <Route path="/pageheader" element={<ExamplePageHeader />} />
+          <Route path="/newnavbar" element={<ExampleNewNavBar />} /> */}
+          <Route
+            path="/header-navbar"
+            element={
+              <div className="flex flex-col gap-4">
+                <ExamplePageHeader />
+                <ExampleNewNavBar />
+                <ExampleCard />
+                <ExalttSmallCard />
+              </div>
+            }
+          />
           <Route path="/video" element={<ExampleVideo />} />
-<Route path="/marquee" element={<ExampleMarquee />} />
+          <Route path="/marquee" element={<ExampleMarquee />} />
           <Route path="/exampleForm" element={<ExampleForm />} />
           <Route path="/sonner" element={<ExampleSonnerDemo />} />
           <Route path="/htmltoimage" element={<HtmlToImageCard />} />
           <Route path="/debounce" element={<ExampleDebounce />} />
-           <Route path="/recharts" element={<ExampleRechart />} />
+          <Route path="/recharts" element={<ExampleRechart />} />
           <Route path="/chart" element={<ChartDashboard />} />
           <Route path="/calender" element={<ExampleCalendar />} />
           <Route path="/springWebAnimation" element={<NotificationPopup />} />

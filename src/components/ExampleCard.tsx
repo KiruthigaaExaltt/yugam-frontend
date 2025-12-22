@@ -25,6 +25,36 @@ const ExampleCard = () => {
                 badge="New"
                 description="Automated approval processes for purchase requisitions with multi-level authorization"
             />
+            <MidCard
+                icon={<MdCheckCircle />}
+                title="Approval Workflows"
+                badge="New"
+                description="Automated approval processes for purchase requisitions with multi-level authorization"
+            />
+            <MidCard
+                icon={<MdCheckCircle />}
+                title="Approval Workflows"
+                badge="New"
+                description="Automated approval processes for purchase requisitions with multi-level authorization"
+            />
+            <MidCard
+                icon={<MdCheckCircle />}
+                title="Approval Workflows"
+                badge="New"
+                description="Automated approval processes for purchase requisitions with multi-level authorization"
+            />
+            <MidCard
+                icon={<MdCheckCircle />}
+                title="Approval Workflows"
+                badge="New"
+                description="Automated approval processes for purchase requisitions with multi-level authorization"
+            />
+            <MidCard
+                icon={<MdCheckCircle />}
+                title="Approval Workflows"
+                badge="New"
+                description="Automated approval processes for purchase requisitions with multi-level authorization"
+            />
         </div>
     );
 };

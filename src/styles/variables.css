@@ -2,6 +2,45 @@
 /*       THEME DESIGN TOKENS (GLOBAL)    */
 /* ===================================== */
 :root {
+  /* ===================================== */
+  /*           TYPOGRAPHY TOKENS           */
+  /* ===================================== */
+
+  /* Font families */
+  --font-primary: "Inter", sans-serif;
+  --font-secondary: "Inter", sans-serif;
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  /* =============================== */
+  /* Headings (responsive) */
+  /* =============================== */
+  --font-size-h1: clamp(20px, 2.5vw, 24px); /* Page title */
+  --font-size-h2: clamp(18px, 2.1vw, 20px); /* Section title */
+  --font-size-h3: clamp(14px, 1.8vw, 16px); /* Card title */
+  --font-size-h4: clamp(13px, 1.5vw, 14px);
+
+  /* =============================== */
+  /* Body text (responsive) */
+  /* =============================== */
+  --font-size-body-lg: clamp(13px, 1.6vw, 15px);
+  --font-size-body: clamp(12.5px, 1.4vw, 14px);
+  --font-size-body-sm: clamp(12px, 1.2vw, 13px);
+
+  /* =============================== */
+  /* UI elements (responsive) */
+  /* =============================== */
+  --font-size-table: clamp(12px, 1.2vw, 13px);
+  --font-size-button: clamp(12.5px, 1.4vw, 14px);
+  --font-size-badge: clamp(11px, 1.1vw, 12px);
+
+  /* Line heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.6;
   /* Fonts */
   --font-family: sans-serif;
 
@@ -50,7 +89,7 @@
   --light-navbar-active-bg: #ffffff;
   --light-navbar-item-color: #1f2937;
 
-  --light---itemcard-bg:rgb(0, 225, 255);
+  --light---itemcard-bg: rgb(0, 225, 255);
 
   /* ===================================== */
   /*           DARK THEME TOKENS           */
@@ -92,7 +131,7 @@
   --dark-navbar-bg: #27272a;
   --dark-navbar-active-bg: #323237;
   --dark-navbar-item-color: #e5e7eb;
-  --dark---itemcard-bg:rgb(189, 39, 64);
+  --dark---itemcard-bg: rgb(189, 39, 64);
 
   /* ===================================== */
   /*      ACTIVE (LIVE) SEMANTIC VARS      */
@@ -120,7 +159,7 @@
   --card-bg: var(--light-card-bg);
   --card-shadow: var(--light-card-shadow);
 
-  --itemcard-bg :var(--light---itemcard-bg);
+  --itemcard-bg: var(--light---itemcard-bg);
 
   --icon-bg: var(--light-icon-bg);
 
@@ -165,7 +204,7 @@ body.dark {
   --card-bg: var(--dark-card-bg);
   --card-shadow: var(--dark-card-shadow);
 
-  --itemcard-bg :var(--dark---itemcard-bg);
+  --itemcard-bg: var(--dark---itemcard-bg);
 
   --icon-bg: var(--dark-icon-bg);
 

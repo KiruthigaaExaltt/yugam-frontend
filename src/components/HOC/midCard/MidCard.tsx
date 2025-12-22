@@ -1,4 +1,3 @@
-
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import "./midCard.css";
@@ -6,38 +5,47 @@ import { FiArrowRight } from "react-icons/fi";
 import type { ReactNode } from "react";
 
 interface MidCardProps {
-    icon: ReactNode;
-    title: string;
-    badge?: string;
-    description: string;
+  icon: ReactNode;
+  title: string;
+  badge?: string;
+  description: string;
 }
 
-const MidCard: React.FC<MidCardProps> = ({ icon, title, badge, description }) => {
-    console.log("MidCard rendered", title, badge, description);
-    return (
-        <Card className="feature-card">
-            <div className="card-header">
-                <div className="left">
-                    <div className="icon">{icon}</div>
-                    <h3 className="title">{title}</h3>
+const MidCard: React.FC<MidCardProps> = ({
+  icon,
+  title,
+  badge,
+  description,
+}) => {
+  return (
+    
+    <Card className="feature-card">
+      {/* HEADER ROW */}
+      <div className="card-header">
+        <div className="header-left">
+          <div className="icon">{icon}</div>
+          <h3 className="title">{title}</h3>
+        </div>
 
-                    {badge ? (
-                    <span className={`badge ${badge.toLowerCase()}`}>{badge}</span>
-                ) : null}
+        {badge && (
+          <span className={`badge ${badge.toLowerCase()}`}>
+            {badge}
+          </span>
+        )}
+      </div>
 
-                </div>
+      {/* SPACING + DESCRIPTION */}
+      <p className="description">{description}</p>
 
-                    
-                
-            </div>
-            <p className="description">{description}</p>
-            <Button
-                label="Try Demo"
-                icon={<span className="p-button-icon p-button-icon-right"><FiArrowRight /></span>}
-                className="p-button-text demo-button"
-            />
-        </Card>
-    );
+      {/* CTA */}
+      <Button
+        label="Try Demo"
+        icon={<FiArrowRight />}
+        iconPos="right"
+        className="p-button-text demo-button"
+      />
+    </Card>
+  );
 };
 
 export default MidCard;
