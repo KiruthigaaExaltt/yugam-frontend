@@ -1,0 +1,46 @@
+/* ===================================== */
+/*         QUICK ACTION COMPONENT         */
+/* ===================================== */
+
+.quick-action-btn.p-button {
+  background: var(--surface-hover);
+  border: 1px solid var(--surface-border);
+  color: var(--text-color);
+  transition: all 0.2s ease;
+}
+
+/* Label */
+.quick-action-btn .p-button-label {
+  color: var(--text-color);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Icon */
+.quick-action-btn svg {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/* ===================================== */
+/*              HOVER STATE               */
+/* ===================================== */
+
+.quick-action-btn.p-button:hover {
+  background: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.quick-action-btn.p-button:hover .p-button-label,
+.quick-action-btn.p-button:hover svg {
+  color: #ffffff;
+}
+
+/* ===================================== */
+/*            ACTIVE / FOCUS              */
+/* ===================================== */
+
+.quick-action-btn.p-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--secondary-color) 40%, transparent);
+}

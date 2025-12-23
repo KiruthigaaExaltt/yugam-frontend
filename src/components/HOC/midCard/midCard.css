@@ -142,7 +142,7 @@
 
 /* Hover */
 .demo-button:hover {
-  background-color: var(--primary-color-light);
+  background-color: var(--secondary-color);
   color: var(--primary-color);
 }
 

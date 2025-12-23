@@ -39,6 +39,7 @@ import Footer from "./components/footer/Footer";
 import ExamplePageHeader from "./components/exaltfiles/ExamplePageHeader";
 import ExampleNewNavBar from "./components/exaltfiles/ExampleNewNavBar";
 import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
+import ExampleQuickAction from "./components/exampleQuickAction/ExampleQuickAction";
 
 // import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 
@@ -141,6 +142,7 @@ function App() {
                 <ExampleNewNavBar />
                 <ExampleCard />
                 <ExalttSmallCard />
+                <ExampleQuickAction />
               </div>
             }
           />
