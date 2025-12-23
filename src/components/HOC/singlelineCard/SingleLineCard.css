@@ -1,0 +1,15 @@
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-success {
+  color: var(--secondary-color);
+}
+
+.text-warning {
+  color: #f59e0b; /* can be tokenized later */
+}
+
+.text-danger {
+  color: #ef4444; /* can be tokenized later */
+}

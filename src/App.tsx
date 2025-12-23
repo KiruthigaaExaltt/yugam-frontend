@@ -40,6 +40,7 @@ import ExamplePageHeader from "./components/exaltfiles/ExamplePageHeader";
 import ExampleNewNavBar from "./components/exaltfiles/ExampleNewNavBar";
 import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 import ExampleQuickAction from "./components/exampleQuickAction/ExampleQuickAction";
+import ExampleSingleLineCard from "./components/singleLineCard/ExampleSingleLineCard";
 
 // import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 
@@ -143,6 +144,7 @@ function App() {
                 <ExampleCard />
                 <ExalttSmallCard />
                 <ExampleQuickAction />
+                <ExampleSingleLineCard />
               </div>
             }
           />

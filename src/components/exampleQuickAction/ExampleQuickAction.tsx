@@ -28,11 +28,49 @@ const rowActions = [
   { id: "workflow", label: "Setup Workflow", icon: <FaBolt /> },
 ];
 
+const ticketStats = [
+  {
+    id: "tech",
+    label: "Technical Issues",
+    value: "35%",
+    subLabel: "Avg: 4.2h resolution",
+    tone: "blue",
+     type: "stat",
+  },
+  {
+    id: "billing",
+    label: "Billing",
+    value: "28%",
+    subLabel: "Avg: 1.8h resolution",
+    tone: "green",
+     type: "stat",
+  },
+  {
+    id: "account",
+    label: "Account Issues",
+    value: "22%",
+    subLabel: "Avg: 2.5h resolution",
+    tone: "orange",
+     type: "stat",
+  },
+    {
+    id: "account",
+    label: "Account Issues",
+    value: "22%",
+    subLabel: "Avg: 2.5h resolution",
+    tone: "purple",
+    type: "stat",
+  },
+
+] as const;
+
+
 const ExampleQuickAction = () => {
   return (
     <>
       <QuickActions title="Quick Actions" actions={gridActions} layout="grid" />
       <QuickActions title="Quick Actions" actions={rowActions} layout="row" />
+      <QuickActions title="Ticket Category Analysis" actions={ticketStats} />
     </>
   );
 };

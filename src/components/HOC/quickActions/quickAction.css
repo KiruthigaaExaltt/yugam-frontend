@@ -26,6 +26,14 @@
 /*              HOVER STATE               */
 /* ===================================== */
 
+.quick-action-btn.p-button {
+  background: var(--surface-hover);
+  border: 1px solid var(--surface-border);
+  color: var(--text-color);
+  transition: all 0.2s ease;
+}
+
+/* hover = green (theme aware) */
 .quick-action-btn.p-button:hover {
   background: var(--secondary-color);
   border-color: var(--secondary-color);
@@ -43,4 +51,27 @@
 .quick-action-btn.p-button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--secondary-color) 40%, transparent);
+}
+.stat-blue {
+  color: var(--color-blue-700);
+  background-color: var(--color-blue-50);
+  border-left: 4px solid var(--color-blue-500);
+}
+
+.stat-green {
+  color: var(--color-green-700);
+  background-color: var(--color-green-50);
+  border-left: 4px solid var(--color-green-500);
+}
+
+.stat-orange {
+  color: var(--color-orange-700);
+  background-color: var(--color-orange-50);
+  border-left: 4px solid var(--color-orange-500);
+}
+
+.stat-purple {
+  color: var(--color-purple-700);
+  background-color: var(--color-purple-50);
+  border-left: 4px solid var(--color-purple-500);
 }
