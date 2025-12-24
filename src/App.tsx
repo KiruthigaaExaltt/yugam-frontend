@@ -9,7 +9,7 @@ import ExampleCard from './components/ExampleCard';
 import SmallCard from './components/SmallCard';
 import BaseLayout from './layouts/BaseLayout';
 import ExampleNavbar from './components/ExampleNavBar';
-import ExampleTable from './components/ExampleTable';
+
 import ExampleMiniProfileNotificationCard from './components/ExampleMiniProfileNotificationCard';
 import { Routes, Route } from "react-router-dom";
 import TailwindFlexCard from './components/TailwindFlexCard';
@@ -37,6 +37,10 @@ import { requestPermission } from './firebase/requestPermission';
 import { onMessage } from 'firebase/messaging';
 import { messaging } from './firebase/firebaseInit';
 import Footer from './components/footer/Footer';
+import Dashboard from './components/DashboardCard';
+import Examplefiltrbar from './components/HOC/filterbar/Examplefiltrbar';
+import Barcard from './components/Barcard';
+// import TicketManagementPage from './components/filter/TicketManagementPage';
 
 
 // import { useEffect } from 'react';
@@ -121,7 +125,7 @@ function App() {
                 <ReactIcon />
                 <SmallCard />
                 <ExampleNavbar />
-                <ExampleTable />
+              
               </div>
             }
           />  
@@ -141,10 +145,13 @@ function App() {
           <Route path="/excelTable" element={<ExcelExportTable />} />
           <Route path="/pdfinvoive" element={<Invoice />} />
           <Route path="/pdf" element={<TailwindPDF />} />
-          <Route path="/table" element={<ExampleTable />} />
+        
           <Route path="/navbar" element={<ExampleNavbar />} />
           <Route path="/card" element={<ExampleCard />} />
           <Route path="/footer" element={<Footer />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/filterbar" element={<Examplefiltrbar />} /> 
+          <Route path="/barcard" element={<Barcard/>} /> 
         </Routes>
       </BaseLayout>
     </ThemeProvider>
