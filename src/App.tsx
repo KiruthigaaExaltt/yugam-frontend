@@ -8,7 +8,7 @@ import ExampleCard from "./components/ExampleCard";
 import SmallCard from "./components/EampleSmallCard";
 import BaseLayout from "./layouts/BaseLayout";
 import ExampleNavbar from "./components/ExampleNavBar";
-import ExampleTable from "./components/ExampleTable";
+
 import ExampleMiniProfileNotificationCard from "./components/ExampleMiniProfileNotificationCard";
 import { Routes, Route } from "react-router-dom";
 import TailwindFlexCard from "./components/TailwindFlexCard";
@@ -42,6 +42,9 @@ import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 import ExampleQuickAction from "./components/exampleQuickAction/ExampleQuickAction";
 import ExampleSingleLineCard from "./components/singleLineCard/ExampleSingleLineCard";
 import UsersPage from "./components/UsersPage";
+import Dashboard from "./components/Barcard";
+import Barcard from "./components/Barcard";
+import Examplefiltrbar from "./components/HOC/filterbar/Examplefiltrbar";
 
 // import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 
@@ -130,7 +133,7 @@ function App() {
                 <ReactIcon />
                 <SmallCard />
                 <ExampleNavbar />
-                <ExampleTable />
+              
               </div>
             }
           />
@@ -166,10 +169,13 @@ function App() {
           <Route path="/excelTable" element={<ExcelExportTable />} />
           <Route path="/pdfinvoive" element={<Invoice />} />
           <Route path="/pdf" element={<TailwindPDF />} />
-          <Route path="/table" element={<ExampleTable />} />
+        
           <Route path="/navbar" element={<ExampleNavbar />} />
           <Route path="/card" element={<ExampleCard />} />
           <Route path="/footer" element={<Footer />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/filterbar" element={<Examplefiltrbar />} /> 
+          <Route path="/barcard" element={<Barcard/>} /> 
         </Routes>
       </BaseLayout>
     </ThemeProvider>

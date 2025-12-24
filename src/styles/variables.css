@@ -5,11 +5,11 @@
   /* ===================================== */
   /*           TYPOGRAPHY TOKENS           */
   /* ===================================== */
-
+ 
   /* Font families */
   --font-primary: "Inter", sans-serif;
   --font-secondary: "Inter", sans-serif;
-
+ 
   /* Font weights */
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -22,32 +22,32 @@
   --font-size-h2: clamp(18px, 2.1vw, 20px); /* Section title */
   --font-size-h3: clamp(14px, 1.8vw, 16px); /* Card title */
   --font-size-h4: clamp(13px, 1.5vw, 14px);
-
+ 
   /* =============================== */
   /* Body text (responsive) */
   /* =============================== */
   --font-size-body-lg: clamp(13px, 1.6vw, 15px);
   --font-size-body: clamp(12.5px, 1.4vw, 14px);
   --font-size-body-sm: clamp(12px, 1.2vw, 13px);
-
+ 
   /* =============================== */
   /* UI elements (responsive) */
   /* =============================== */
   --font-size-table: clamp(12px, 1.2vw, 13px);
   --font-size-button: clamp(12.5px, 1.4vw, 14px);
   --font-size-badge: clamp(11px, 1.1vw, 12px);
-
+ 
   /* Line heights */
   --line-height-tight: 1.2;
   --line-height-normal: 1.4;
   --line-height-relaxed: 1.6;
   /* Fonts */
   --font-family: sans-serif;
-
+ 
   /* Border + Shadow */
   --border-radius: 12px;
   --shadow-color: rgba(0, 0, 0, 0.08);
-
+ 
   /* ===================================== */
   /*           LIGHT THEME TOKENS          */
   /* ===================================== */
@@ -56,41 +56,41 @@
   --light-surface-card: #ffffff;
   --light-surface-border: #e5e7eb;
   --light-surface-hover: #f2f4f7;
-
+ 
   --light-text-color: #1f2937;
   --light-text-muted: #6b7280;
-
+ 
   --light-primary-color: #3b82f6;
   --light-primary-light: #e0efff;
   --light-secondary-color: #10b981;
-
+ 
   --light-sidebar-bg: #ffffff;
   --light-sidebar-border: #e5e7eb;
-
+ 
   --light-header-bg: #ffffff;
-
+ 
   --light-card-bg: #ffffff;
   --light-card-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
-
+ 
   --light-icon-bg: #f3f3ff;
-
+ 
   --light-badge-success-bg: #d6fbe5;
   --light-badge-success-text: #1fa055;
-
+ 
   --light-badge-info-bg: #e2e4ff;
   --light-badge-info-text: var(--light-primary-color);
-
+ 
   --light-btn-bg: #e0e0e0;
   --light-btn-border: #d1d1d1;
   --light-btn-text: var(--light-text-color);
   --light-btn-hover-text: #fff;
-
+ 
   --light-navbar-bg: #ffffff;
   --light-navbar-active-bg: #ffffff;
   --light-navbar-item-color: #1f2937;
-
+ 
   --light---itemcard-bg: rgb(0, 225, 255);
-
+ 
   /* ===================================== */
   /*           DARK THEME TOKENS           */
   /* ===================================== */
@@ -99,86 +99,86 @@
   --dark-surface-card: #2d2d31;
   --dark-surface-border: #3b3b3d;
   --dark-surface-hover: #323236;
-
+ 
   --dark-text-color: #e5e7eb;
   --dark-text-muted: #b0b3b8;
-
+ 
   --dark-primary-color: #60a5fa;
   --dark-primary-light: #a7c7ff;
   --dark-secondary-color: #34d399;
-
+ 
   --dark-sidebar-bg: #27272a;
   --dark-sidebar-border: #3b3b3d;
-
+ 
   --dark-header-bg: #27272a;
-
+ 
   --dark-card-bg: #0aa1dd;
   --dark-card-shadow: 0px 2px 6px rgba(255, 255, 255, 0.06);
-
+ 
   --dark-icon-bg: #2f2f35;
-
+ 
   --dark-badge-success-bg: #1d4d32;
   --dark-badge-success-text: #8fffc7;
-
+ 
   --dark-badge-info-bg: #3a3f67;
   --dark-badge-info-text: var(--dark-primary-light);
-
+ 
   --dark-btn-bg: #3a3a3d;
   --dark-btn-border: #555;
   --dark-btn-text: var(--dark-text-color);
   --dark-btn-hover-text: #fff;
-
+ 
   --dark-navbar-bg: #27272a;
   --dark-navbar-active-bg: #323237;
   --dark-navbar-item-color: #e5e7eb;
   --dark---itemcard-bg: rgb(189, 39, 64);
-
+ 
   /* ===================================== */
   /*      ACTIVE (LIVE) SEMANTIC VARS      */
   /* ===================================== */
   /* These are what your components use — switching theme only swaps these. */
-
+ 
   --background: var(--light-background);
   --surface-ground: var(--light-surface-ground);
   --surface-card: var(--light-surface-card);
   --surface-border: var(--light-surface-border);
   --surface-hover: var(--light-surface-hover);
-
+ 
   --text-color: var(--light-text-color);
   --text-muted: var(--light-text-muted);
-
+ 
   --primary-color: var(--light-primary-color);
   --primary-color-light: var(--light-primary-light);
   --secondary-color: var(--light-secondary-color);
-
+ 
   --sidebar-bg: var(--light-sidebar-bg);
   --sidebar-border: var(--light-sidebar-border);
-
+ 
   --header-bg: var(--light-header-bg);
-
+ 
   --card-bg: var(--light-card-bg);
   --card-shadow: var(--light-card-shadow);
-
+ 
   --itemcard-bg: var(--light---itemcard-bg);
-
+ 
   --icon-bg: var(--light-icon-bg);
-
+ 
   --badge-success-bg: var(--light-badge-success-bg);
   --badge-success-text: var(--light-badge-success-text);
-
+ 
   --badge-info-bg: var(--light-badge-info-bg);
   --badge-info-text: var(--light-badge-info-text);
-
+ 
   --btn-default-bg: var(--light-btn-bg);
   --btn-default-border: var(--light-btn-border);
   --btn-default-text: var(--light-btn-text);
   --btn-hover-text: var(--light-btn-hover-text);
-
+ 
   --navbar-bg: var(--light-navbar-bg);
   --navbar-active-bg: var(--light-navbar-active-bg);
   --navbar-item-color: var(--light-navbar-item-color);
 }
-
+ 
 /* ===================================== */
 /*             DARK MODE SWITCH           */
 /* ===================================== */
@@ -188,38 +188,39 @@ body.dark {
   --surface-card: var(--dark-surface-card);
   --surface-border: var(--dark-surface-border);
   --surface-hover: var(--dark-surface-hover);
-
+ 
   --text-color: var(--dark-text-color);
   --text-muted: var(--dark-text-muted);
-
+ 
   --primary-color: var(--dark-primary-color);
   --primary-color-light: var(--dark-primary-light);
   --secondary-color: var(--dark-secondary-color);
-
+ 
   --sidebar-bg: var(--dark-sidebar-bg);
   --sidebar-border: var(--dark-sidebar-border);
-
+ 
   --header-bg: var(--dark-header-bg);
-
+ 
   --card-bg: var(--dark-card-bg);
   --card-shadow: var(--dark-card-shadow);
-
+ 
   --itemcard-bg: var(--dark---itemcard-bg);
-
+ 
   --icon-bg: var(--dark-icon-bg);
-
+ 
   --badge-success-bg: var(--dark-badge-success-bg);
   --badge-success-text: var(--dark-badge-success-text);
-
+ 
   --badge-info-bg: var(--dark-badge-info-bg);
   --badge-info-text: var(--dark-badge-info-text);
-
+ 
   --btn-default-bg: var(--dark-btn-bg);
   --btn-default-border: var(--dark-btn-border);
   --btn-default-text: var(--dark-btn-text);
   --btn-hover-text: var(--dark-btn-hover-text);
-
+ 
   --navbar-bg: var(--dark-navbar-bg);
   --navbar-active-bg: var(--dark-navbar-active-bg);
   --navbar-item-color: var(--dark-navbar-item-color);
 }
+ 
