@@ -42,9 +42,10 @@ import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 import ExampleQuickAction from "./components/exampleQuickAction/ExampleQuickAction";
 import ExampleSingleLineCard from "./components/singleLineCard/ExampleSingleLineCard";
 import UsersPage from "./components/UsersPage";
-import Dashboard from "./components/Barcard";
+
 import Barcard from "./components/Barcard";
 import Examplefiltrbar from "./components/HOC/filterbar/Examplefiltrbar";
+import DashboardCard from "./components/DashboardCard";
 
 // import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 
@@ -173,7 +174,7 @@ function App() {
           <Route path="/navbar" element={<ExampleNavbar />} />
           <Route path="/card" element={<ExampleCard />} />
           <Route path="/footer" element={<Footer />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<DashboardCard />} />
           <Route path="/filterbar" element={<Examplefiltrbar />} /> 
           <Route path="/barcard" element={<Barcard/>} /> 
         </Routes>

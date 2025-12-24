@@ -1,5 +1,5 @@
 import FilterBar from "../../FilterBar";
-import ExampleTable from "../table/ExampleTable";
+
 
 export default function LeadsPage() {
   return (
@@ -17,10 +17,7 @@ export default function LeadsPage() {
         ]}
       />
 
-      {/* Table – FULL WIDTH */}
-      <div className="w-full">
-        <ExampleTable />
-      </div>
+    
     </div>
   );
 }

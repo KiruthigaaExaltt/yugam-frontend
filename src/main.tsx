@@ -14,7 +14,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
 import { BrowserRouter } from 'react-router-dom';
 import "primereact/resources/themes/lara-light-blue/theme.css";
-import "primeicons/primeicons.css"; // ✅ REQUIRED
+
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
