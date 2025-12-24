@@ -33,7 +33,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 84px;
+  height: 84px; /* ✅ SINGLE SOURCE OF TRUTH */
   z-index: 1000;
   background: var(--surface-card);
   border-bottom: 1px solid var(--surface-border);
@@ -44,29 +44,14 @@ body {
 ================================ */
 .content-row {
   display: flex;
-  flex: 1;
+  margin-top: 84px; /* ✅ SAME AS HEADER */
+  height: calc(100vh - 84px);
   width: 100%;
-  min-width: 0;
-  margin-top: 64px; /* header height */
-  height: calc(100vh - 64px);
   overflow: hidden;
 }
 
 /* ================================
-   SIDEBAR (BASE)
-================================ */
-.sidebar-wrapper {
-  display: none;
-  flex-direction: column;
-  background: var(--surface-card);
-  border-right: 1px solid var(--surface-border);
-  height: 100%;
-  flex-shrink: 0;
-  overflow: hidden;
-}
-
-/* ================================
-   SIDEBAR (BASE)
+   SIDEBAR
 ================================ */
 .sidebar-wrapper {
   display: none;
@@ -74,14 +59,8 @@ body {
   background: var(--surface-card);
   border-right: 1px solid var(--surface-border);
   flex-shrink: 0;
+  width: 280px;
   height: 100%;
-}
-
-@media (min-width: 768px) {
-  .sidebar-wrapper {
-    margin-top: 25px; /* same as header height */
-    height: calc(100vh - 64px);
-  }
 }
 
 /* ================================
@@ -92,29 +71,26 @@ body {
     display: flex;
   }
 
-  .sidebar-wrapper.expanded {
-    width: 280px;
-  }
-
   .sidebar-wrapper.collapsed {
     width: 72px;
   }
 }
 
 /* ================================
-   MOBILE FULLSCREEN SIDEBAR
+   MOBILE SIDEBAR
 ================================ */
 @media (max-width: 767px) {
   .sidebar-wrapper.mobile-open {
     display: flex;
     position: fixed;
-    top: 64px;
+    top: 84px;
     left: 0;
     width: 100vw;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 84px);
     z-index: 1200;
   }
 }
+
 /* ================================
    SIDEBAR HEADER
 ================================ */
@@ -122,58 +98,39 @@ body {
   position: sticky;
   top: 0;
   z-index: 10;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
   padding: 1rem;
   background: var(--surface-card);
   border-bottom: 1px solid var(--surface-border);
-}
-
-.sidebar-header h3 {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-color-secondary);
-}
-
-.sidebar-close {
-  font-size: 1.25rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* ================================
-   SIDEBAR CONTENT (SCROLLABLE)
+   SIDEBAR CONTENT (SCROLLS)
 ================================ */
 .sidebar-content {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 0.5rem 0;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ================================
-   MAIN (ONLY THIS SCROLLS)
+   MAIN CONTENT (SCROLLS)
 ================================ */
 .main-container {
   flex: 1;
-  width: 100%;
-  min-width: 0;
-  background: var(--surface-ground);
-  overflow-y: auto; /* 🔑 only main scrolls */
+  overflow-y: auto;
   overflow-x: hidden;
+  background: var(--surface-ground);
 }
 
 /* ================================
    PAGE CONTENT
 ================================ */
 .page-content {
-  width: 100%;
-  max-width: 100%;
   padding: 1.25rem;
   min-height: calc(100% - 56px);
 }
@@ -182,7 +139,6 @@ body {
    FOOTER
 ================================ */
 .page-footer {
-  width: 100%;
   background: var(--surface-card);
   border-top: 1px solid var(--surface-border);
 }
