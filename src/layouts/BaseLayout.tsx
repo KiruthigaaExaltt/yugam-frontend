@@ -20,12 +20,21 @@ export const BaseLayout = ({ children, title }: BaseLayoutProps) => {
   const menuRef = useRef<TieredMenu>(null);
   const { theme, toggleTheme } = useTheme();
 
+const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
+
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
+
+
   useEffect(() => {
-    if (mobileSidebarOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = mobileSidebarOpen ? "hidden" : "";
   }, [mobileSidebarOpen]);
 
   const profileMenuItems = [
@@ -41,7 +50,7 @@ export const BaseLayout = ({ children, title }: BaseLayoutProps) => {
         icon="pi pi-bars"
         className="p-button-rounded p-button-text"
         onClick={() => {
-          if (window.innerWidth < 768) {
+          if (isMobile) {
             setMobileSidebarOpen(true);
           } else {
             setSidebarExpanded((v) => !v);
@@ -86,31 +95,32 @@ export const BaseLayout = ({ children, title }: BaseLayoutProps) => {
 
       {/* BODY */}
       <div className="content-row">
-        {/* SIDEBAR (ALWAYS PRESENT) */}
+        {/* SIDEBAR */}
         <aside
-          className={`
-    sidebar-wrapper
-    ${sidebarExpanded ? "expanded" : "collapsed"}
-    ${mobileSidebarOpen ? "mobile-open" : ""}
-  `}
+          className={`sidebar-wrapper
+            ${mobileSidebarOpen ? "mobile-open" : ""}
+            ${!isMobile && sidebarExpanded ? "expanded" : ""}
+            ${!isMobile && !sidebarExpanded ? "collapsed" : ""}
+          `}
         >
-          {/* MOBILE CLOSE BUTTON */}
-            <div className="sidebar-header">
-              {window.innerWidth < 768 && (
-                <button
-                  className="sidebar-close"
-                  onClick={() => setMobileSidebarOpen(false)}
-                >
-                  ✕
-                </button>
-              )}
+          <div className="sidebar-header">
+            {isMobile && (
+              <button
+                className="sidebar-close"
+                onClick={() => setMobileSidebarOpen(false)}
+              >
+                ✕
+              </button>
+            )}
 
-              {sidebarExpanded && <h3>ExaltAI modules</h3>}
-            </div>
+            {(!isMobile && sidebarExpanded) || isMobile ? (
+              <h3>ExaltAI modules</h3>
+            ) : null}
+          </div>
 
-          <NavigationMenu
-            collapsed={!sidebarExpanded && window.innerWidth >= 768}
-          />
+          <div className="sidebar-content">
+            <NavigationMenu collapsed={!sidebarExpanded && !isMobile} />
+          </div>
         </aside>
 
         {/* MAIN */}
