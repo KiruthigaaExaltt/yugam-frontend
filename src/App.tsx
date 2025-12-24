@@ -41,6 +41,7 @@ import ExampleNewNavBar from "./components/exaltfiles/ExampleNewNavBar";
 import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 import ExampleQuickAction from "./components/exampleQuickAction/ExampleQuickAction";
 import ExampleSingleLineCard from "./components/singleLineCard/ExampleSingleLineCard";
+import UsersPage from "./components/UsersPage";
 
 // import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 
@@ -145,6 +146,7 @@ function App() {
                 <ExalttSmallCard />
                 <ExampleQuickAction />
                 <ExampleSingleLineCard />
+                <UsersPage />
               </div>
             }
           />

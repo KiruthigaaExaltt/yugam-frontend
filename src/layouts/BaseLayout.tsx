@@ -20,18 +20,16 @@ export const BaseLayout = ({ children, title }: BaseLayoutProps) => {
   const menuRef = useRef<TieredMenu>(null);
   const { theme, toggleTheme } = useTheme();
 
-const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-useEffect(() => {
-  const handleResize = () => {
-    setIsMobile(window.innerWidth < 768);
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
 
-  window.addEventListener("resize", handleResize);
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
-
-
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileSidebarOpen ? "hidden" : "";
@@ -51,7 +49,7 @@ useEffect(() => {
         className="p-button-rounded p-button-text"
         onClick={() => {
           if (isMobile) {
-            setMobileSidebarOpen(true);
+            setMobileSidebarOpen((prev) => !prev);
           } else {
             setSidebarExpanded((v) => !v);
           }
@@ -104,22 +102,20 @@ useEffect(() => {
           `}
         >
           <div className="sidebar-header">
-            {isMobile && (
-              <button
-                className="sidebar-close"
-                onClick={() => setMobileSidebarOpen(false)}
-              >
-                ✕
-              </button>
-            )}
-
             {(!isMobile && sidebarExpanded) || isMobile ? (
               <h3>ExaltAI modules</h3>
             ) : null}
           </div>
 
           <div className="sidebar-content">
-            <NavigationMenu collapsed={!sidebarExpanded && !isMobile} />
+            <NavigationMenu
+              collapsed={!sidebarExpanded && !isMobile}
+              onNavigate={() => {
+                if (isMobile) {
+                  setMobileSidebarOpen(false); // ✅ close sidebar
+                }
+              }}
+            />
           </div>
         </aside>
 
