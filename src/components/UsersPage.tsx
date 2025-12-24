@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Rating } from "primereact/rating";
 import { Tag } from "primereact/tag";
 import { Button } from "primereact/button";
+
 import type { CrudColumn } from "./HOC/ReusableDataTable/ReusableDataTable";
 import ReusableCrudTable from "./HOC/ReusableDataTable/ReusableDataTable";
 import { ProductService } from "./ProductService";
@@ -28,13 +29,18 @@ const ProductsPage = () => {
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
+  /* ================================
+     DATA LOAD
+  ================================ */
   useEffect(() => {
-    ProductService.getProducts().then(setProducts);
+    ProductService.getProducts().then((data) => setProducts(data));
   }, []);
 
+  /* ================================
+     COLUMNS
+  ================================ */
   const columns: CrudColumn<Product>[] = [
-    // { selectionMode: "multiple", exportable: false },
-
+    //  { selectionMode: "multiple", exportable: false },
     { field: "code", header: "Code", sortable: true },
     { field: "name", header: "Name", sortable: true },
 
@@ -87,14 +93,17 @@ const ProductsPage = () => {
       header: "Actions",
       exportable: false,
       body: () => (
-        <>
-          <Button icon="pi pi-pencil" rounded outlined className="mr-2" />
+        <div className="flex gap-2">
+          <Button icon="pi pi-pencil" rounded outlined />
           <Button icon="pi pi-trash" rounded outlined severity="danger" />
-        </>
+        </div>
       ),
     },
   ];
 
+  /* ================================
+     RENDER
+  ================================ */
   return (
     <ReusableCrudTable<Product>
       title="Manage Products"
@@ -105,10 +114,6 @@ const ProductsPage = () => {
       onSelectionChange={setSelectedProducts}
       globalFilter={globalFilter}
       onGlobalFilterChange={setGlobalFilter}
-    //   toolbar={true}
-    //   onAdd={() => console.log("Add Product")}
-    //   onDeleteSelected={() => console.log("Delete Selected")}
-    //   onExport={true}
     />
   );
 };
