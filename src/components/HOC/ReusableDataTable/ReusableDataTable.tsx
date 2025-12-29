@@ -111,7 +111,7 @@ const ReusableCrudTable = <T extends object>({
 
       <DataTable<T>
         ref={dt}
-        value={data}
+        value={Array.isArray(data) ? data : []}
         dataKey={String(dataKey)}
         paginator
         rows={rows}

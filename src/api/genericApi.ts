@@ -5,12 +5,12 @@ export const searchApi = api.injectEndpoints({
   endpoints: (builder) => ({
 
     // Generic list endpoint
-    getList: builder.query<any[], { resource: string }>({
+    getList: builder.query<unknown[], { resource: string }>({
       query: ({ resource }) => `${resource}`,
     }),
 
     // Generic search endpoint
-    searchList: builder.query<any[], { resource: string; keyword: string }>({
+    searchList: builder.query<unknown[], { resource: string; keyword: string }>({
       query: ({ resource, keyword }) =>
         `${resource}?search=${keyword}`,
     }),

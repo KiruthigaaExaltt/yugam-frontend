@@ -37,7 +37,7 @@ import ExampleNewNavBar from "./components/exaltfiles/ExampleNewNavBar";
 import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 import ExampleQuickAction from "./components/exampleQuickAction/ExampleQuickAction";
 import ExampleSingleLineCard from "./components/singleLineCard/ExampleSingleLineCard";
-import UsersPage from "./components/UsersPage";
+import UsersPage from "./components/table/UsersPage";
 
 import Barcard from "./components/Barcard";
 import Examplefiltrbar from "./components/HOC/filterbar/Examplefiltrbar";

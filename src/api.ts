@@ -5,5 +5,6 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://dummyjson.com/", // GLOBAL BASE URL
   }),
+   tagTypes: ["Product"],
   endpoints: () => ({}), // Empty — endpoints will be injected
 });
