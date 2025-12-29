@@ -2,13 +2,9 @@ import ThemeButton from "./components/ThemeButton";
 import ExampleTheme from "./components/ExampleTheme";
 import FormUI from "./components/FormUI";
 import { ThemeProvider } from "../src/context/ThemeContext";
-import ReactIcon from "./components/ReactIcon";
 import ExampleCard from "./components/ExampleCard";
 // import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
-import SmallCard from "./components/EampleSmallCard";
 import BaseLayout from "./layouts/BaseLayout";
-import ExampleNavbar from "./components/ExampleNavBar";
-
 import ExampleMiniProfileNotificationCard from "./components/ExampleMiniProfileNotificationCard";
 import { Routes, Route } from "react-router-dom";
 import TailwindFlexCard from "./components/TailwindFlexCard";
@@ -48,10 +44,6 @@ import Examplefiltrbar from "./components/HOC/filterbar/Examplefiltrbar";
 import DashboardCard from "./components/DashboardCard";
 
 // import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
-
-
-
-
 // import { useEffect } from 'react';
 
 function App() {
@@ -127,14 +119,9 @@ function App() {
                 {/* <ExamplePostApi /> */}
                 <TailwindFlexCard />
                 <ExampleMiniProfileNotificationCard />
-                <ExampleCard />
                 <h1>PrimeReact Theme Toggle with Context</h1>
                 <ExampleTheme />
-                <FormUI />
-                <ReactIcon />
-                <SmallCard />
-                <ExampleNavbar />
-              
+                <FormUI />             
               </div>
             }
           />
@@ -170,8 +157,6 @@ function App() {
           <Route path="/excelTable" element={<ExcelExportTable />} />
           <Route path="/pdfinvoive" element={<Invoice />} />
           <Route path="/pdf" element={<TailwindPDF />} />
-        
-          <Route path="/navbar" element={<ExampleNavbar />} />
           <Route path="/card" element={<ExampleCard />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/dashboard" element={<DashboardCard />} />
