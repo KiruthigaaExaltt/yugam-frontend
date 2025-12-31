@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
-import debounce from "lodash.debounce";
+import { useState } from "react";
 import { Tag } from "primereact/tag";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
@@ -14,6 +13,7 @@ import {
   useDeleteProductsMutation,
 } from "./ProductApi";
 import ProductForm from "./ProductForm";
+import { useDebouncedValue } from "../customHooks/useDebouncedValue";
 
 const ProductsPage = () => {
   const [page, setPage] = useState(0);
@@ -22,9 +22,8 @@ const ProductsPage = () => {
   const [globalFilter, setGlobalFilter] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
-  const [debouncedFilter, setDebouncedFilter] = useState("");
 
-
+  const debouncedFilter = useDebouncedValue(globalFilter, 500);
   const { data, isLoading, isError } = useGetProductsQuery({
     page: page + 1, // backend usually 1-based
     limit: rows,
@@ -35,25 +34,9 @@ const ProductsPage = () => {
 
   const loading = isLoading;
 
- 
-  const debouncedSearch = useMemo(
-    () =>
-      debounce((value: string) => {
-        setDebouncedFilter(value);
-      }, 500),
-    []
-  );
-
-  useEffect(() => {
-    return () => debouncedSearch.cancel();
-  }, [debouncedSearch]);
-
   const handleGlobalFilterChange = (value: string) => {
     setGlobalFilter(value);
-
-    if (value.trim()) {
-      debouncedSearch(value);
-    }
+    setPage(0);
   };
 
   const onPageChange = (event: any) => {
@@ -61,11 +44,7 @@ const ProductsPage = () => {
     setRows(event.rows);
   };
 
-
   const resolvedData = data?.products ?? [];
-
-  console.log("resolved data", resolvedData);
-
 
   const [addProduct] = useAddProductMutation();
   const [updateProduct] = useUpdateProductMutation();
