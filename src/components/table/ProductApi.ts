@@ -1,5 +1,5 @@
 import { api } from "../../api";
-import type { Product,  ProductsResponse  } from "./Product" // optional split
+import type { Product, ProductsResponse } from "./Product"; // optional split
 
 const RESOURCE = "products";
 
@@ -9,9 +9,22 @@ const RESOURCE = "products";
 export const productApi = api.injectEndpoints({
   endpoints: (builder) => ({
     // Typed wrapper around generic list
-    getProducts: builder.query<ProductsResponse, void>({
-      query: () => `/${RESOURCE}`,
-      providesTags: ["Product"],
+    // getProducts: builder.query<ProductsResponse, void>({
+    //   query: () => `/${RESOURCE}`,
+    //   providesTags: ["Product"],
+    // }),
+    getProducts: builder.query<
+      { products: Product[]; total: number },
+      { page: number; limit: number; search: string }
+    >({
+      query: ({ page, limit, search }) => ({
+        url: "/products",
+        params: {
+          page,
+          limit,
+          search: search || undefined,
+        },
+      }),
     }),
 
     searchProducts: builder.query<ProductsResponse, string>({
@@ -28,6 +41,17 @@ export const productApi = api.injectEndpoints({
       invalidatesTags: ["Product"],
     }),
 
+    updateProduct: builder.mutation<Product, Partial<Product> & { id: number }>(
+      {
+        query: ({ id, ...body }) => ({
+          url: `/${RESOURCE}/${id}`,
+          method: "PUT",
+          body,
+        }),
+        invalidatesTags: ["Product"],
+      }
+    ),
+
     deleteProducts: builder.mutation<void, number[]>({
       query: (ids) => ({
         url: `/${RESOURCE}/bulk-delete`,
@@ -41,7 +65,8 @@ export const productApi = api.injectEndpoints({
 
 export const {
   useGetProductsQuery,
-  useSearchProductsQuery,
+  useLazySearchProductsQuery,
   useAddProductMutation,
+  useUpdateProductMutation,
   useDeleteProductsMutation,
 } = productApi;

@@ -1,84 +1,103 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import debounce from "lodash.debounce";
 import { Tag } from "primereact/tag";
 import { Button } from "primereact/button";
+import { Dialog } from "primereact/dialog";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
 import type { CrudColumn } from "../HOC/ReusableDataTable/ReusableDataTable";
 import ReusableCrudTable from "../HOC/ReusableDataTable/ReusableDataTable";
 import type { Product } from "./Product";
 import {
-  useDeleteProductsMutation,
   useGetProductsQuery,
-  useSearchProductsQuery,
+  useAddProductMutation,
+  useUpdateProductMutation,
+  useDeleteProductsMutation,
 } from "./ProductApi";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
-import { Dialog } from "primereact/dialog";
-import { useAddProductMutation } from "./ProductApi";
 import ProductForm from "./ProductForm";
 
-/* ================================
-   PAGE
-================================ */
-
 const ProductsPage = () => {
+  const [page, setPage] = useState(0);
+  const [rows, setRows] = useState(10);
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const [globalFilter, setGlobalFilter] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [debouncedFilter, setDebouncedFilter] = useState("");
 
-  /* ================================
-     DATA
-  ================================ */
-  const { data, isLoading, isError } = useGetProductsQuery();
 
-  const products = data?.products ?? [];
-
-  console.log("Products123456:", products);
-
-  const [addProduct] = useAddProductMutation();
-
-  const { data: searchData } = useSearchProductsQuery(globalFilter, {
-    skip: !globalFilter,
+  const { data, isLoading, isError } = useGetProductsQuery({
+    page: page + 1, // backend usually 1-based
+    limit: rows,
+    search: debouncedFilter,
   });
 
-  const searchedProducts: Product[] = searchData?.products ?? [];
+  // const [triggerSearch, { data: searchData , isFetching}] = useLazySearchProductsQuery();
 
-  const tableData: Product[] = globalFilter ? searchedProducts : products;
+  const loading = isLoading;
 
-  const [deleteProducts] = useDeleteProductsMutation();
+ 
+  const debouncedSearch = useMemo(
+    () =>
+      debounce((value: string) => {
+        setDebouncedFilter(value);
+      }, 500),
+    []
+  );
 
-  const handleDeleteSelected = () => {
-    deleteProducts(selectedProducts.map((p) => p.id));
-  };
+  useEffect(() => {
+    return () => debouncedSearch.cancel();
+  }, [debouncedSearch]);
 
-  const handleAddProduct = () => {
-    setShowModal(true);
-  };
+  const handleGlobalFilterChange = (value: string) => {
+    setGlobalFilter(value);
 
-  const handleSubmitProduct = async (formData: any) => {
-    try {
-      await addProduct(formData).unwrap();
-      setShowModal(false);
-    } catch (error) {
-      console.error("Failed to add product", error);
+    if (value.trim()) {
+      debouncedSearch(value);
     }
   };
 
+  const onPageChange = (event: any) => {
+    setPage(event.page);
+    setRows(event.rows);
+  };
+
+
+  const resolvedData = data?.products ?? [];
+
+  console.log("resolved data", resolvedData);
+
+
+  const [addProduct] = useAddProductMutation();
+  const [updateProduct] = useUpdateProductMutation();
+  const [deleteProducts] = useDeleteProductsMutation();
+
+  const handleSubmitProduct = async (formData: any) => {
+    try {
+      if (editingProduct) {
+        await updateProduct({
+          id: editingProduct.id,
+          ...formData,
+        }).unwrap();
+      } else {
+        await addProduct(formData).unwrap();
+      }
+
+      setShowModal(false);
+      setEditingProduct(null);
+    } catch (err) {
+      console.error("Save failed", err);
+    }
+  };
+  const totalRecords = data?.total ?? 0;
+
+  /* =========================
+     TABLE COLUMNS
+  ========================== */
   const columns: CrudColumn<Product>[] = [
     { selectionMode: "multiple", exportable: false },
-
-    {
-      field: "title",
-      header: "Product Name",
-      sortable: true,
-    },
-    {
-      field: "brand",
-      header: "Brand",
-      sortable: true,
-    },
-    {
-      field: "category",
-      header: "Category",
-      sortable: true,
-    },
+    { field: "title", header: "Product Name", sortable: true },
+    { field: "brand", header: "Brand", sortable: true },
+    { field: "category", header: "Category", sortable: true },
     {
       field: "price",
       header: "Price",
@@ -98,8 +117,6 @@ const ProductsPage = () => {
         />
       ),
     },
-
-    // ✅ ACTION COLUMN (React Icons)
     {
       header: "Actions",
       exportable: false,
@@ -109,7 +126,10 @@ const ProductsPage = () => {
             rounded
             outlined
             severity="info"
-            onClick={() => console.log("Edit product:", row)}
+            onClick={() => {
+              setEditingProduct(row);
+              setShowModal(true);
+            }}
           >
             <FiEdit size={16} />
           </Button>
@@ -134,28 +154,40 @@ const ProductsPage = () => {
     <>
       <ReusableCrudTable<Product>
         title="Manage Products"
-        onAdd={handleAddProduct}
-        data={tableData}
+        data={resolvedData}
         columns={columns}
+        totalRecords={totalRecords}
         dataKey="id"
         selection={selectedProducts}
         onSelectionChange={setSelectedProducts}
-        onDeleteSelected={handleDeleteSelected}
+        onDeleteSelected={() =>
+          deleteProducts(selectedProducts.map((p) => p.id))
+        }
         globalFilter={globalFilter}
-        onGlobalFilterChange={setGlobalFilter}
+        onGlobalFilterChange={handleGlobalFilterChange}
+        onAdd={() => {
+          setEditingProduct(null);
+          setShowModal(true);
+        }}
+        page={page}
+        rows={rows}
+        onPageChange={onPageChange}
+        loading={loading}
+        lazy
       />
 
-      {/* ================================
-          MODAL FOR ADDING PRODUCT
-      ================================ */}
       <Dialog
-        header="Add New Product"
+        header={editingProduct ? "Edit Product" : "Add Product"}
         visible={showModal}
         style={{ width: "40vw" }}
-        onHide={() => setShowModal(false)}
         modal
+        onHide={() => {
+          setShowModal(false);
+          setEditingProduct(null);
+        }}
       >
         <ProductForm
+          initialValues={editingProduct}
           onSubmit={handleSubmitProduct}
           onCancel={() => setShowModal(false)}
         />
