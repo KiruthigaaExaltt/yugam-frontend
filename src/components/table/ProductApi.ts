@@ -1,38 +1,54 @@
 import { api } from "../../api";
-import type { Product, ProductsResponse } from "./Product"; // optional split
+import type { Product, ProductsResponse } from "./Product";
 
 const RESOURCE = "products";
+
+/* ================================
+   COMMON API RESPONSE
+================================ */
+export type ApiResponse<T> = {
+  message: string;
+  data: T;
+};
 
 /* ================================
    API
 ================================ */
 export const productApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    // Typed wrapper around generic list
-    // getProducts: builder.query<ProductsResponse, void>({
-    //   query: () => `/${RESOURCE}`,
-    //   providesTags: ["Product"],
-    // }),
+    /* =========================
+       GET PRODUCTS (PAGINATED)
+    ========================== */
     getProducts: builder.query<
       { products: Product[]; total: number },
       { page: number; limit: number; search: string }
     >({
       query: ({ page, limit, search }) => ({
-        url: "/products",
+        url: `/${RESOURCE}`,
         params: {
           page,
           limit,
           search: search || undefined,
         },
       }),
+      providesTags: ["Product"],
     }),
 
+    /* =========================
+       SEARCH PRODUCTS
+    ========================== */
     searchProducts: builder.query<ProductsResponse, string>({
       query: (keyword) => `/${RESOURCE}?search=${keyword}`,
       providesTags: ["Product"],
     }),
 
-    addProduct: builder.mutation<Product, Partial<Product>>({
+    /* =========================
+       ADD PRODUCT
+    ========================== */
+    addProduct: builder.mutation<
+      ApiResponse<Product>,
+      Partial<Product>
+    >({
       query: (body) => ({
         url: `/${RESOURCE}`,
         method: "POST",
@@ -41,18 +57,28 @@ export const productApi = api.injectEndpoints({
       invalidatesTags: ["Product"],
     }),
 
-    updateProduct: builder.mutation<Product, Partial<Product> & { id: number }>(
-      {
-        query: ({ id, ...body }) => ({
-          url: `/${RESOURCE}/${id}`,
-          method: "PUT",
-          body,
-        }),
-        invalidatesTags: ["Product"],
-      }
-    ),
+    /* =========================
+       UPDATE PRODUCT
+    ========================== */
+    updateProduct: builder.mutation<
+      ApiResponse<Product>,
+      Partial<Product> & { id: number }
+    >({
+      query: ({ id, ...body }) => ({
+        url: `/${RESOURCE}/${id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Product"],
+    }),
 
-    deleteProducts: builder.mutation<void, number[]>({
+    /* =========================
+       DELETE PRODUCTS (BULK)
+    ========================== */
+    deleteProducts: builder.mutation<
+      ApiResponse<null>,
+      number[]
+    >({
       query: (ids) => ({
         url: `/${RESOURCE}/bulk-delete`,
         method: "POST",
@@ -63,6 +89,9 @@ export const productApi = api.injectEndpoints({
   }),
 });
 
+/* ================================
+   EXPORT HOOKS
+================================ */
 export const {
   useGetProductsQuery,
   useLazySearchProductsQuery,
@@ -70,3 +99,4 @@ export const {
   useUpdateProductMutation,
   useDeleteProductsMutation,
 } = productApi;
+       

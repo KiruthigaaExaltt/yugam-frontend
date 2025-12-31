@@ -17,14 +17,14 @@ import {
 import type { MenuItem } from "primereact/menuitem";
 import "./BaseLayout.css";
 import NavigationMenu from "../components/sideBar/NavigationMenu";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 interface BaseLayoutProps {
-  children: ReactNode;
+  children?: ReactNode;
   title?: string;
 }
 
-const BaseLayout = ({ children, title }: BaseLayoutProps) => {
+const BaseLayout = ({ title }: BaseLayoutProps) => {
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -83,7 +83,7 @@ const BaseLayout = ({ children, title }: BaseLayoutProps) => {
           <FiLogOut /> Logout
         </div>
       ),
-      command: () => console.log("Logout clicked"),
+      command: () => navigate("/login"),
     },
   ];
 
@@ -209,7 +209,7 @@ const BaseLayout = ({ children, title }: BaseLayoutProps) => {
 
         {/* MAIN CONTENT */}
         <main className="main-container">
-          <div className="page-content">{children}</div>
+          <div className="page-content"><Outlet /></div>
 
           <footer className="page-footer">
             <div className="footer-inner text-xs text-gray-500">

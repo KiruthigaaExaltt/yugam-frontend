@@ -42,6 +42,7 @@ import UsersPage from "./components/table/UsersPage";
 import Barcard from "./components/Barcard";
 import Examplefiltrbar from "./components/HOC/filterbar/Examplefiltrbar";
 import DashboardCard from "./components/DashboardCard";
+import LoginPage from "./components/LoginPage";
 
 // import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 // import { useEffect } from 'react';
@@ -109,10 +110,13 @@ function App() {
 
   return (
     <ThemeProvider>
-      <BaseLayout>
-        <Routes>
+      {/* <BaseLayout> */}
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route element={<BaseLayout />}>
           <Route
-            path="/"
+            path="/toggle"
             element={
               <div className="p-4 flex flex-col gap-4">
                 <ThemeButton />
@@ -121,7 +125,7 @@ function App() {
                 <ExampleMiniProfileNotificationCard />
                 <h1>PrimeReact Theme Toggle with Context</h1>
                 <ExampleTheme />
-                <FormUI />             
+                <FormUI />
               </div>
             }
           />
@@ -141,6 +145,7 @@ function App() {
               </div>
             }
           />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/video" element={<ExampleVideo />} />
           <Route path="/marquee" element={<ExampleMarquee />} />
           <Route path="/exampleForm" element={<ExampleForm />} />
@@ -160,10 +165,11 @@ function App() {
           <Route path="/card" element={<ExampleCard />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/dashboard" element={<DashboardCard />} />
-          <Route path="/filterbar" element={<Examplefiltrbar />} /> 
-          <Route path="/barcard" element={<Barcard/>} /> 
-        </Routes>
-      </BaseLayout>
+          <Route path="/filterbar" element={<Examplefiltrbar />} />
+          <Route path="/barcard" element={<Barcard />} />
+        </Route>
+      </Routes>
+      {/* </BaseLayout> */}
     </ThemeProvider>
   );
 }

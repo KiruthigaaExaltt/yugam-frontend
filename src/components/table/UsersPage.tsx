@@ -14,6 +14,7 @@ import {
 } from "./ProductApi";
 import ProductForm from "./ProductForm";
 import { useDebouncedValue } from "../customHooks/useDebouncedValue";
+import { primeToast } from "../customHooks/usePrimeToast";
 
 const ProductsPage = () => {
   const [page, setPage] = useState(0);
@@ -50,23 +51,30 @@ const ProductsPage = () => {
   const [updateProduct] = useUpdateProductMutation();
   const [deleteProducts] = useDeleteProductsMutation();
 
-  const handleSubmitProduct = async (formData: any) => {
-    try {
-      if (editingProduct) {
-        await updateProduct({
-          id: editingProduct.id,
-          ...formData,
-        }).unwrap();
-      } else {
-        await addProduct(formData).unwrap();
-      }
+const handleSubmitProduct = async (formData: any) => {
+  try {
+    if (editingProduct) {
+      const response = await updateProduct({
+        id: editingProduct.id,
+        ...formData,
+      }).unwrap();
 
-      setShowModal(false);
-      setEditingProduct(null);
-    } catch (err) {
-      console.error("Save failed", err);
+      primeToast(response?.message || "Product updated successfully", "success");
+    } else {
+      const response = await addProduct(formData).unwrap();
+
+      primeToast(response?.message || "Product added successfully", "success");
     }
-  };
+
+    setShowModal(false);
+    setEditingProduct(null);
+  } catch (err: any) {
+    const errorMessage =
+      err?.data?.message || "Failed to save product";
+
+    primeToast(errorMessage, "error");
+  }
+};
   const totalRecords = data?.total ?? 0;
 
   /* =========================
