@@ -1,5 +1,5 @@
 import { useRef, type ReactNode } from "react";
-import { DataTable} from "primereact/datatable";
+import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Toolbar } from "primereact/toolbar";
 import { InputText } from "primereact/inputtext";
@@ -28,6 +28,7 @@ interface ReusableCrudTableProps<T extends object> {
   data: T[];
   columns: CrudColumn<T>[];
   dataKey: keyof T;
+  totalRecords: number;
 
   selection?: T[];
   onSelectionChange?: (value: T[]) => void;
@@ -40,8 +41,14 @@ interface ReusableCrudTableProps<T extends object> {
   onExport?: boolean;
 
   title?: string;
-  rows?: number;
+
   toolbar?: boolean;
+
+  page: number;
+  rows: number;
+  onPageChange: (e: any) => void;
+  lazy?: boolean;
+  loading: boolean;
 }
 
 /* ================================
@@ -49,10 +56,14 @@ interface ReusableCrudTableProps<T extends object> {
 ================================ */
 const ReusableCrudTable = <T extends object>({
   data,
+  page,
   columns,
   dataKey,
   selection,
+  totalRecords,
+  onPageChange,
   onSelectionChange,
+  loading,
   globalFilter,
   onGlobalFilterChange,
   onAdd,
@@ -68,7 +79,14 @@ const ReusableCrudTable = <T extends object>({
 
   const leftToolbarTemplate = () => (
     <div className="flex gap-2">
-      {onAdd && <Button label="New" icon="pi pi-plus" severity="success" onClick={onAdd} />}
+      {onAdd && (
+        <Button
+          label="New"
+          icon="pi pi-plus"
+          severity="success"
+          onClick={onAdd}
+        />
+      )}
       {onDeleteSelected && (
         <Button
           label="Delete"
@@ -83,7 +101,12 @@ const ReusableCrudTable = <T extends object>({
 
   const rightToolbarTemplate = () =>
     onExport ? (
-      <Button label="Export" icon="pi pi-upload" severity="help" onClick={() => dt.current?.exportCSV()} />
+      <Button
+        label="Export"
+        icon="pi pi-upload"
+        severity="help"
+        onClick={() => dt.current?.exportCSV()}
+      />
     ) : null;
 
   const header = (
@@ -107,23 +130,32 @@ const ReusableCrudTable = <T extends object>({
     <div className="card">
       <Toast ref={toast} />
 
-      {toolbar && hasToolbarContent && <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate} />}
+      {toolbar && hasToolbarContent && (
+        <Toolbar
+          className="mb-4"
+          left={leftToolbarTemplate}
+          right={rightToolbarTemplate}
+        />
+      )}
 
       <DataTable<T>
         ref={dt}
         value={data}
-        dataKey={String(dataKey)}
+        lazy
         paginator
+        first={page * rows}
         rows={rows}
         rowsPerPageOptions={[5, 10, 25]}
+        totalRecords={totalRecords}
+        onPage={onPageChange}
         selection={selection}
-        onSelectionChange={(e: { value: T[] }) => onSelectionChange?.(e.value)}
+        onSelectionChange={(e) => onSelectionChange?.(e.value)}
         selectionMode={selection ? "multiple" : undefined}
-        globalFilter={globalFilter}
-        header={toolbar ? header : undefined}
+        loading={loading}
+        dataKey={String(dataKey)}
+        header={header}
         responsiveLayout="scroll"
         showGridlines
-        stripedRows
       >
         {columns.map((col, index) => (
           <Column

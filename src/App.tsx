@@ -2,13 +2,9 @@ import ThemeButton from "./components/ThemeButton";
 import ExampleTheme from "./components/ExampleTheme";
 import FormUI from "./components/FormUI";
 import { ThemeProvider } from "../src/context/ThemeContext";
-import ReactIcon from "./components/ReactIcon";
 import ExampleCard from "./components/ExampleCard";
 // import ExamplePostApi from './components/examplePostApi/ExamplePostApi';
-import SmallCard from "./components/EampleSmallCard";
 import BaseLayout from "./layouts/BaseLayout";
-import ExampleNavbar from "./components/ExampleNavBar";
-
 import ExampleMiniProfileNotificationCard from "./components/ExampleMiniProfileNotificationCard";
 import { Routes, Route } from "react-router-dom";
 import TailwindFlexCard from "./components/TailwindFlexCard";
@@ -30,7 +26,7 @@ import ExampleSonnerDemo from "./components/ExampleSonnerDemo";
 import ExampleForm from "./components/ExampleForm";
 import ExampleMarquee from "./components/ExampleMarquee";
 import ExampleVideo from "./components/video/ExampleVideo";
-
+ 
 import { useEffect } from "react";
 import { requestPermission } from "./firebase/requestPermission";
 import { onMessage } from "firebase/messaging";
@@ -41,24 +37,17 @@ import ExampleNewNavBar from "./components/exaltfiles/ExampleNewNavBar";
 import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 import ExampleQuickAction from "./components/exampleQuickAction/ExampleQuickAction";
 import ExampleSingleLineCard from "./components/singleLineCard/ExampleSingleLineCard";
-import UsersPage from "./components/UsersPage";
-
-
+import UsersPage from "./components/table/UsersPage";
+ 
 import Examplefiltrbar from "./components/HOC/filterbar/Examplefiltrbar";
 import DashboardCard from "./components/DashboardCard";
+import LoginPage from "./components/login/LoginPage";
 import HireBarcard from "./components/HireBarcard";
 import ProgrssModuleUsage from "./components/ProgrssModuleUsage";
-
-
-
-
+ 
 // import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
-
-
-
-
 // import { useEffect } from 'react';
-
+ 
 function App() {
   // useEffect(() => {
   //   const themeName = 'lara-light-blue';
@@ -93,53 +82,51 @@ function App() {
   //         <ExampleMiniProfileNotificationCard />
   //         <ExampleCard />
   //         <h1>PrimeReact Theme Toggle with Context</h1>
-
+ 
   //         <ExampleTheme />
   //         <FormUI />
   //         <ReactIcon />
   //         <SmallCard />
   //         <ExampleNavbar />
   //         <ExampleTable />
-
+ 
   //       </div>
   //       </BaseLayout>
   //     </ThemeProvider>
   // );
-
+ 
   useEffect(() => {
     requestPermission();
   }, []);
-
+ 
   useEffect(() => {
     const unsubscribe = onMessage(messaging, (payload) => {
       console.log("Foreground message received:", payload);
-
+ 
       alert(payload.notification?.title);
     });
-
+ 
     return () => unsubscribe();
   }, []);
-
+ 
   return (
     <ThemeProvider>
-      <BaseLayout>
-        <Routes>
+      {/* <BaseLayout> */}
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route element={<BaseLayout />}>
           <Route
-            path="/"
+            path="/toggle"
             element={
               <div className="p-4 flex flex-col gap-4">
                 <ThemeButton />
                 {/* <ExamplePostApi /> */}
                 <TailwindFlexCard />
                 <ExampleMiniProfileNotificationCard />
-                <ExampleCard />
                 <h1>PrimeReact Theme Toggle with Context</h1>
                 <ExampleTheme />
                 <FormUI />
-                <ReactIcon />
-                <SmallCard />
-                <ExampleNavbar />
-              
               </div>
             }
           />
@@ -159,6 +146,7 @@ function App() {
               </div>
             }
           />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/video" element={<ExampleVideo />} />
           <Route path="/marquee" element={<ExampleMarquee />} />
           <Route path="/exampleForm" element={<ExampleForm />} />
@@ -175,18 +163,17 @@ function App() {
           <Route path="/excelTable" element={<ExcelExportTable />} />
           <Route path="/pdfinvoive" element={<Invoice />} />
           <Route path="/pdf" element={<TailwindPDF />} />
-        
-          <Route path="/navbar" element={<ExampleNavbar />} />
           <Route path="/card" element={<ExampleCard />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/dashboard" element={<DashboardCard />} />
-          <Route path="/filterbar" element={<Examplefiltrbar />} /> 
-          <Route path="/hirebarcard" element={<HireBarcard/>} /> 
-          <Route path="/progrssmoduleusage" element={<ProgrssModuleUsage/>} /> 
-        </Routes>
-      </BaseLayout>
+          <Route path="/filterbar" element={<Examplefiltrbar />} />
+          <Route path="/filterbar" element={<Examplefiltrbar />} />
+          <Route path="/hirebarcard" element={<HireBarcard />} />
+          <Route path="/progrssmoduleusage" element={<ProgrssModuleUsage />} />
+        </Route>
+      </Routes>
     </ThemeProvider>
   );
 }
-
+ 
 export default App;
