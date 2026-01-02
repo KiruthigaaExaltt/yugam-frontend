@@ -20,7 +20,7 @@ const Dashboard = () => {
       <div>
         <h2 className="text-lg font-semibold mb-4">Business Overview</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6">
           <KpiCard
             title="Monthly Revenue"
             value="₹7.2L"
@@ -73,7 +73,7 @@ const Dashboard = () => {
           Customer Support & Service
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6">
           <KpiCard
             title="Total Tickets"
             value="5"
@@ -152,7 +152,7 @@ const Dashboard = () => {
       <div>
         <h2 className="text-lg font-semibold mb-4">knowledge base</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6">
           <KpiCard
             title="Total Articles"
             value="5"
@@ -200,7 +200,7 @@ const Dashboard = () => {
       <div>
         <h2 className="text-lg font-semibold mb-4">Estimo</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           <KpiCard
             title="Draft"
             value="0"
@@ -255,7 +255,7 @@ const Dashboard = () => {
       <div>
         <h2 className="text-lg font-semibold mb-4">Reports & Analytics</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-1  lg:grid-cols-4 gap-4">
           <KpiCard
             title="Total Revenue"
             value="₹4.43Cr"
@@ -300,7 +300,7 @@ const Dashboard = () => {
       <div>
         <h2 className="text-lg font-semibold mb-4">Billr</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-1  lg:grid-cols-4 gap-4">
           <KpiCard
             title="Total Invoices"
             value="₹2.47Cr"
@@ -342,7 +342,7 @@ const Dashboard = () => {
       <div>
         <h2 className="text-lg font-semibold mb-4">Billr(E-way Bill)</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-4">
           <KpiCard
             title="Total E-Way Bills"
             value="156"
@@ -385,7 +385,7 @@ const Dashboard = () => {
       <div>
         <h2 className="text-lg font-semibold mb-4">flex dashboard</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6">
           <KpiCard
             title="Total Requests"
             value="156"
@@ -436,7 +436,7 @@ const Dashboard = () => {
       <div>
         <h2 className="text-lg font-semibold mb-4">Ledger dashboard</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6">
           <KpiCard
             title="Total Assets"
             value="₹2,140,000"
@@ -476,7 +476,7 @@ const Dashboard = () => {
       <div>
         <h2 className="text-lg font-semibold mb-4">forge dasbhboard</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6">
           <KpiCard
             title="WIP Orders"
             value="1"
@@ -518,7 +518,7 @@ const Dashboard = () => {
       <div>
         <h2 className="text-lg font-semibold mb-4">forge material</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-6">
           <KpiCard
             title="Materials Issued"
             value="1₹2.34L"
@@ -551,7 +551,7 @@ const Dashboard = () => {
       <div>
         <h2 className="text-lg font-semibold mb-4">forge quality</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6">
           <KpiCard
             title="Passed"
             value="1,247"
@@ -592,7 +592,7 @@ const Dashboard = () => {
       <div>
         <h2 className="text-lg font-semibold mb-4">forge Analytics</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6">
           <KpiCard
             title="Total Revenue"
             value="5₹30.06L"

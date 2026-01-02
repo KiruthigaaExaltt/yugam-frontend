@@ -43,9 +43,14 @@ import ExampleQuickAction from "./components/exampleQuickAction/ExampleQuickActi
 import ExampleSingleLineCard from "./components/singleLineCard/ExampleSingleLineCard";
 import UsersPage from "./components/UsersPage";
 
-import Barcard from "./components/Barcard";
+
 import Examplefiltrbar from "./components/HOC/filterbar/Examplefiltrbar";
 import DashboardCard from "./components/DashboardCard";
+import HireBarcard from "./components/HireBarcard";
+import ProgrssModuleUsage from "./components/ProgrssModuleUsage";
+
+
+
 
 // import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 
@@ -176,7 +181,8 @@ function App() {
           <Route path="/footer" element={<Footer />} />
           <Route path="/dashboard" element={<DashboardCard />} />
           <Route path="/filterbar" element={<Examplefiltrbar />} /> 
-          <Route path="/barcard" element={<Barcard/>} /> 
+          <Route path="/hirebarcard" element={<HireBarcard/>} /> 
+          <Route path="/progrssmoduleusage" element={<ProgrssModuleUsage/>} /> 
         </Routes>
       </BaseLayout>
     </ThemeProvider>
