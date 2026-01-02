@@ -83,7 +83,14 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
           <FiLogOut /> Logout
         </div>
       ),
-      command: () => navigate("/login"),
+      command: () => {
+        // 🔐 Clear auth data
+        localStorage.removeItem("token");
+        localStorage.removeItem("remember"); // optional
+
+        // 🚪 Redirect to login
+        navigate("/login");
+      },
     },
   ];
 
@@ -209,7 +216,9 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
 
         {/* MAIN CONTENT */}
         <main className="main-container">
-          <div className="page-content"><Outlet /></div>
+          <div className="page-content">
+            <Outlet />
+          </div>
 
           <footer className="page-footer">
             <div className="footer-inner text-xs text-gray-500">

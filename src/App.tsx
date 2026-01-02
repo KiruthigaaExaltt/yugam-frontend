@@ -42,7 +42,7 @@ import UsersPage from "./components/table/UsersPage";
 import Barcard from "./components/Barcard";
 import Examplefiltrbar from "./components/HOC/filterbar/Examplefiltrbar";
 import DashboardCard from "./components/DashboardCard";
-import LoginPage from "./components/LoginPage";
+import LoginPage from "./components/login/LoginPage";
 
 // import ExalttSmallCard from "./components/exaltfiles/ExalttSmallCard";
 // import { useEffect } from 'react';
