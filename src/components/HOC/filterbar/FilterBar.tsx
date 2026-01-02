@@ -1,12 +1,12 @@
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { useState } from "react";
-
+ 
 type Option = {
   label: string;
   value: string;
 };
-
+ 
 interface FilterBarProps {
   searchPlaceholder?: string;
   stageOptions?: Option[];
@@ -15,7 +15,7 @@ interface FilterBarProps {
   onStageChange?: (value: string) => void;
   onSourceChange?: (value: string) => void;
 }
-
+ 
 export default function FilterBar({
   searchPlaceholder = "Search...",
   stageOptions = [],
@@ -27,15 +27,12 @@ export default function FilterBar({
   const [search, setSearch] = useState("");
   const [stage, setStage] = useState<string | null>(null);
   const [source, setSource] = useState<string | null>(null);
-
+ 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-4">
+    <div >
       {/* Header */}
-      <div className="flex items-center gap-2 mb-3 text-gray-700 font-medium">
-        <i className="pi pi-filter text-sm" />
-        <span>Filters</span>
-      </div>
-
+      
+ 
       {/* Controls */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
         {/* Search */}
@@ -53,7 +50,7 @@ export default function FilterBar({
             />
           </span>
         </div>
-
+ 
         {/* Stage */}
         <div className="md:col-span-2">
           <Dropdown
@@ -67,7 +64,7 @@ export default function FilterBar({
             className="w-full"
           />
         </div>
-
+ 
         {/* Source */}
         <div className="md:col-span-2">
           <Dropdown

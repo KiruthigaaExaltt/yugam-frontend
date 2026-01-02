@@ -8,14 +8,12 @@ type CardAction = {
   icon?: React.ReactNode;
 };
 
-
 export type CardItem = {
   label: string;
   value: React.ReactNode;
   subValue?: string;
   valueTone?: "primary" | "success" | "warning" | "danger";
   dividerBefore?: boolean;
-  
 };
 
 type ReusableCardProps = {
@@ -23,6 +21,7 @@ type ReusableCardProps = {
   icon?: React.ReactNode;
   items: CardItem[];
   action?: CardAction;
+  footer?: React.ReactNode;
 };
 
 const toneClassMap: Record<NonNullable<CardItem["valueTone"]>, string> = {
@@ -37,6 +36,7 @@ const SingleLineCard: React.FC<ReusableCardProps> = ({
   icon,
   items,
   action,
+  footer,
 }) => {
   return (
     <Card
@@ -131,6 +131,7 @@ const SingleLineCard: React.FC<ReusableCardProps> = ({
           />
         </>
       )}
+      {footer && <div className="mt-4">{footer}</div>}
     </Card>
   );
 };

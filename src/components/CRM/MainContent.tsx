@@ -1,12 +1,13 @@
-import FilterBar from "../../FilterBar";
+import FilterBar from "../HOC/filterbar/FilterBar";
 
 
-export default function LeadsPage() {
+
+export default function MainContent() {
   return (
-    <div className="p-6 space-y-6">
+    <div className="pt-6">
       {/* Filters */}
       <FilterBar
-        searchPlaceholder="Search leads..."
+        searchPlaceholder="Search Clients..."
         stageOptions={[
           { label: "New", value: "new" },
           { label: "Qualified", value: "qualified" },
@@ -16,7 +17,6 @@ export default function LeadsPage() {
           { label: "Website", value: "website" },
         ]}
       />
-
     
     </div>
   );

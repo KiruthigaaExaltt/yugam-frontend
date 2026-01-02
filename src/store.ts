@@ -1,6 +1,6 @@
 // store.ts
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import counterReducer from './components/examplePostApi/exampleCounterSlice';
+// import counterReducer from './components/examplePostApi/exampleCounterSlice';
 
 import { api } from './api'; // ONLY THIS api slice for all injected endpoints
 
@@ -9,7 +9,7 @@ import storage from 'redux-persist/lib/storage';
 
 // 1. Combine reducers
 const rootReducer = combineReducers({
-  counter: counterReducer,
+  // counter: counterReducer,
 
   // RTK Query main reducer (ONLY once)
   [api.reducerPath]: api.reducer,

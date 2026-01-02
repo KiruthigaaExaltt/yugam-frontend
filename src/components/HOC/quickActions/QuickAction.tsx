@@ -19,6 +19,7 @@ type QuickActionsProps = {
   title?: string;
   actions: readonly QuickActionItem[];
   layout?: "grid" | "row";
+  children?: React.ReactNode;
 };
 
 const toneMap: Record<string, string> = {
@@ -32,6 +33,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({
   title = "Quick Actions",
   actions,
   layout = "grid",
+  children,
 }) => {
   const isStatsLayout = actions.every((a) => a.type === "stat");
 
@@ -63,7 +65,9 @@ const QuickActions: React.FC<QuickActionsProps> = ({
           {actions.map((action) => (
             <div
               key={action.id}
-              className={`rounded-xl border p-4 text-center ${toneMap[action.tone ?? "blue"]}`}
+              className={`rounded-xl border p-4 text-center ${
+                toneMap[action.tone ?? "blue"]
+              }`}
               style={{
                 borderColor: "var(--surface-border)",
                 backgroundColor: "var(--surface-hover)",
@@ -144,6 +148,8 @@ const QuickActions: React.FC<QuickActionsProps> = ({
           ))}
         </div>
       )}
+      {/* 👇 FOOTER GOES HERE */}
+      {children && <div>{children}</div>}
     </Card>
   );
 };

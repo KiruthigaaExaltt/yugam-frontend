@@ -4,22 +4,23 @@ import "./NavigationMenu.css";
 import {
   PiHouseFill,
   PiUsersFill,
-  PiPhoneFill,
   PiFileTextFill,
-  PiListFill,
-  PiMoneyFill,
   PiReceiptFill,
   PiCreditCardFill,
   PiCalendarFill,
-  PiShieldFill,
-  PiLightningFill,
-  PiArrowCounterClockwiseFill,
+  PiGearFill,
+  PiDatabaseFill,
+  PiChatCircleTextFill,
+  PiCubeFill,
+  PiShareNetworkFill,
+  PiFolderFill,
+  PiCheckSquareFill,
 } from "react-icons/pi";
 
 interface NavItem {
   id: string;
   label: string;
-  description: string;
+  description?: string;
   icon: JSX.Element;
   route: string;
 }
@@ -38,119 +39,141 @@ const NavigationMenu = ({ collapsed = false, onNavigate, }: NavigationMenuProps)
   const navigate = useNavigate();
   const location = useLocation();
 
-  const navigationData: NavCategory[] = [
-    {
-      category: "CORE",
-      items: [
-        {
-          id: "dashboard",
-          label: "Dashboard",
-          description: "Main overview dashboard",
-          icon: <PiHouseFill />,
-          route: "/dashboard",
-        },
-      ],
-    },
-    {
-      category: "SALES & CRM",
-      items: [
-        {
-          id: "orbit",
-          label: "Orbit",
-          description: "Sales CRM",
-          icon: <PiUsersFill />,
-          route: "/sales/orbit",
-        },
-        {
-          id: "pulse",
-          label: "Pulse",
-          description: "Customer support",
-          icon: <PiPhoneFill />,
-          route: "/support/pulse",
-        },
-        {
-          id: "estimo",
-          label: "Estimo",
-          description: "Quote generator",
-          icon: <PiFileTextFill />,
-          route: "/sales/estimo",
-        },
-      ],
-    },
-    {
-      category: "HR & WORKFORCE",
-      items: [
-        {
-          id: "crew",
-          label: "Crew",
-          description: "HR management",
-          icon: <PiUsersFill />,
-          route: "/hr/crew",
-        },
-        {
-          id: "hire",
-          label: "Hire",
-          description: "Recruitment",
-          icon: <PiListFill />,
-          route: "/hr/hire",
-        },
-        {
-          id: "crewpay",
-          label: "CrewPay",
-          description: "Payroll",
-          icon: <PiMoneyFill />,
-          route: "/hr/crewpay",
-        },
-      ],
-    },
-    {
-      category: "ACCOUNTS & FINANCE",
-      items: [
-        {
-          id: "billr",
-          label: "Billr",
-          description: "Invoicing",
-          icon: <PiReceiptFill />,
-          route: "/finance/billr",
-        },
-        {
-          id: "payin",
-          label: "PayIn",
-          description: "Payments",
-          icon: <PiCreditCardFill />,
-          route: "/finance/payin",
-        },
-        {
-          id: "cycle",
-          label: "Cycle",
-          description: "Subscriptions",
-          icon: <PiCalendarFill />,
-          route: "/finance/cycle",
-        },
-        {
-          id: "seal",
-          label: "Seal",
-          description: "E-sign",
-          icon: <PiShieldFill />,
-          route: "/finance/seal",
-        },
-        {
-          id: "flex",
-          label: "Flex",
-          description: "Workforce",
-          icon: <PiLightningFill />,
-          route: "/finance/flex",
-        },
-        {
-          id: "trail",
-          label: "Trail",
-          description: "Expenses",
-          icon: <PiArrowCounterClockwiseFill />,
-          route: "/finance/trail",
-        },
-      ],
-    },
-  ];
+ const navigationData: NavCategory[] = [
+  {
+    category: "CORE",
+    items: [
+      {
+        id: "dashboards",
+        label: "Dashboards",
+        icon: <PiHouseFill />,
+        route: "/dashboard",
+      },
+    ],
+  },
+
+  {
+    category: "WORK",
+    items: [
+      {
+        id: "crm",
+        label: "CRM",
+        icon: <PiUsersFill />,
+        route: "/crm",
+      },
+      {
+        id: "tasks-rbac",
+        label: "Tasks v2 (RBAC)",
+        icon: <PiCheckSquareFill />,
+        route: "/tasks-v2",
+      },
+      {
+        id: "tasks-legacy",
+        label: "Tasks (Legacy)",
+        icon: <PiCheckSquareFill />,
+        route: "/tasks",
+      },
+      {
+        id: "projects",
+        label: "Projects",
+        icon: <PiFolderFill />,
+        route: "/projects",
+      },
+      {
+        id: "social-media",
+        label: "Social Media",
+        icon: <PiShareNetworkFill />,
+        route: "/social",
+      },
+    ],
+  },
+
+  {
+    category: "ORGANIZATION",
+    items: [
+      {
+        id: "crew",
+        label: "Crew",
+        icon: <PiUsersFill />,
+        route: "/crew",
+      },
+      {
+        id: "inventory",
+        label: "Inventory",
+        icon: <PiCubeFill />,
+        route: "/inventory",
+      },
+      {
+        id: "accounts",
+        label: "Accounts",
+        icon: <PiReceiptFill />,
+        route: "/accounts",
+      },
+    ],
+  },
+
+  {
+    category: "COLLABORATION",
+    items: [
+      {
+        id: "messages",
+        label: "Messages",
+        icon: <PiChatCircleTextFill />,
+        route: "/collaboration/messages",
+        // badge: 8, // optional (for green badge)
+      },
+      {
+        id: "meetings",
+        label: "Meetings & Calls",
+        icon: <PiCalendarFill />,
+        route: "/collaboration/meetings",
+      },
+      {
+        id: "storage",
+        label: "Data Storage",
+        icon: <PiDatabaseFill />,
+        route: "/collaboration/storage",
+      },
+    ],
+  },
+
+  {
+    category: "PERFORMANCE",
+    items: [
+      {
+        id: "reports",
+        label: "Reports",
+        icon: <PiFileTextFill />,
+        route: "/reports",
+      },
+    ],
+  },
+
+  {
+    category: "OPERATIONS",
+    items: [
+      {
+        id: "subscriptions",
+        label: "Subscriptions",
+        icon: <PiCreditCardFill />,
+        route: "/subscriptions",
+      },
+    ],
+  },
+
+  {
+    category: "SETTINGS",
+    items: [
+      {
+        id: "settings",
+        label: "Settings",
+        icon: <PiGearFill />,
+        route: "/settings",
+      },
+    ],
+  },
+];
+
 
   const activeItemId =
     navigationData
