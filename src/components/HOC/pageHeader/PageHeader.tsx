@@ -24,7 +24,6 @@ const PageHeader: React.FC<PageHeaderProps> = ({
       className="w-full"
       style={{
         background: "var(--surface-ground)",
-        borderBottom: "1px solid var(--surface-border)",
         fontFamily: "var(--font-primary)",
         padding: "clamp(12px, 2vw, 16px)", // ✅ responsive padding
       }}

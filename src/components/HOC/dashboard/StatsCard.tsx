@@ -46,11 +46,12 @@ const StatsCard = ({
 
   return (
     <Card
-      className={`relative rounded-xl border shadow-sm ${bgClass} before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:rounded-l-xl ${accentColor}`}
+      className={`relative rounded-(--border-radius) border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden ${bgClass} before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:rounded-l-(--border-radius) ${accentColor} [&_.p-card-body]:py-2! [&_.p-card-body]:px-5! [&_.p-card-content]:py-2!`}
       style={{
         backgroundColor: "var(--card-bg)",
         borderColor: "var(--surface-border)",
         boxShadow: "var(--card-shadow)",
+        borderRadius: "var(--border-radius)",
         minHeight: "100px",
         width: "100%",
       }}

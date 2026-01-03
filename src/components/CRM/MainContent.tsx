@@ -1,7 +1,5 @@
 import FilterBar from "../HOC/filterbar/FilterBar";
 
-
-
 export default function MainContent() {
   return (
     <div className="pt-6">

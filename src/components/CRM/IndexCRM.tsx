@@ -7,8 +7,7 @@ const IndexCRM = () => {
     <>
     <Header />
     <HeaderCards />
-    <MainContent />
-    
+    <MainContent />    
     </>
   )
 }

@@ -40,10 +40,11 @@ const SingleLineCard: React.FC<ReusableCardProps> = ({
 }) => {
   return (
     <Card
-      className="rounded-2xl border"
+      className="rounded-(--border-radius) border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
       style={{
         backgroundColor: "var(--surface-card)",
         borderColor: "var(--surface-border)",
+        borderRadius: "var(--border-radius)",
       }}
     >
       {/* HEADER */}
