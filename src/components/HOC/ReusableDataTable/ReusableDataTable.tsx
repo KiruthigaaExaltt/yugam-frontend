@@ -136,7 +136,14 @@ const ReusableCrudTable = <T extends object>({
   const hasToolbarContent = !!onAdd || !!onDeleteSelected || !!onExport;
 
   return (
-    <div className="card">
+    <div
+      className="card border shadow-sm shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      style={{
+        borderRadius: "var(--border-radius)",
+        borderColor: "var(--surface-border)",
+        overflow: "hidden",
+      }}
+    >
       <Toast ref={toast} />
 
       {toolbar && hasToolbarContent && (
