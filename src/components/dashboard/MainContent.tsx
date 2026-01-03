@@ -1,7 +1,91 @@
 import QuickActions from "../HOC/quickActions/QuickAction";
 import { ProgressBar } from "primereact/progressbar";
 import SingleLineCard from "../HOC/singlelineCard/SingleLineCard";
-import { FaEye, FaArrowRight, FaChartBar } from "react-icons/fa";
+import { FaEye, FaArrowRight, FaChartBar, FaBullseye, FaComments, FaUserPlus, FaBriefcase, FaBox } from "react-icons/fa";
+import MeetingCard, { type MeetingItem } from "../HOC/meetingCard/MeetingCard";
+import {
+  FiCalendar,
+  FiDollarSign,
+  FiFile,
+  FiPhone,
+  FiPlus,
+  FiUsers,
+} from "react-icons/fi";
+
+const payments: MeetingItem[] = [
+  {
+    title: "Due Today",
+    description: "2 payments",
+    leftText: "15,400",
+    icon: FiDollarSign,
+  },
+  {
+    title: "Pending Approval",
+    description: "5 invoices",
+    leftText: "24,100",
+    icon: FiDollarSign,
+  },
+  {
+    title: "Overdue",
+    description: "3 invoices",
+    leftText: "8,750",
+    icon: FiDollarSign,
+  },
+];
+
+const recentCalls: MeetingItem[] = [
+  {
+    title: "TechStart Inc",
+    name: "Sarah Wilson",
+    description:
+      "Discussed brand strategy feedback and timeline adjustments. Client is happy with the initial proposal but wants to expedite the delivery timeline.",
+    date: "Dec 19",
+    icon: FiUsers,
+  },
+  {
+    title: "RetailCorp",
+    name: "Alex Rodriguez",
+    description:
+      "Quick check-in call about holiday campaign performance. Metrics are exceeding expectations. Client wants to discuss budget increase for January.",
+    date: "Dec 18",
+    icon: FiUsers,
+  },
+  {
+    title: "StartupXYZ",
+    name: "Emma Davis",
+    description:
+      "Onboarding call for new client. Discussed goals, target audience, and initial campaign strategy. Scheduled follow-up meeting for detailed brief.",
+    date: "Dec 17",
+    icon: FiUsers,
+  },
+];
+const upcomingMeetings: MeetingItem[] = [
+  {
+    title: "Client Review – TechStart Brand Strategy",
+    time: "10:00",
+    company: "TechStart Inc",
+    attendees: 3,
+    date: "Upcoming",
+    icon: FiUsers,
+  },
+  {
+    title: "Weekly Team Standup",
+    time: "16:30",
+    company: "Internal",
+    attendees: 3,
+    date: "Upcoming",
+    icon: FiUsers,
+  },
+];
+
+const gridActions = [
+  { id: "lead", label: "New Lead", icon: <FaBullseye /> },
+  { id: "ticket", label: "Create Ticket", icon: <FaComments /> },
+  { id: "employee", label: "Add Employee", icon: <FaUserPlus /> },
+  { id: "project", label: "New Project", icon: <FaBriefcase /> },
+  { id: "inventory", label: "Check Inventory", icon: <FaBox /> },
+  { id: "report", label: "Generate Report", icon: <FaChartBar /> },
+];
 
 const ticketStats = [
   {
@@ -41,8 +125,8 @@ const MainContent = () => {
         <div className="grid grid-cols-12 gap-6">
           {/* LEFT: 3/4 WIDTH */}
           <div className="col-span-12 lg:col-span-8 space-y-6">
-            <QuickActions 
-              title="Team Attendance Today" 
+            <QuickActions
+              title="Team Attendance Today"
               actions={ticketStats}
               headerAction={{
                 label: "View All",
@@ -50,7 +134,7 @@ const MainContent = () => {
                 onClick: () => console.log("View All clicked"),
               }}
             >
-              <div className="space-y-1">
+              <div className="space-y-1 pt-3">
                 <div className="flex justify-between items-center text-sm">
                   <span style={{ color: "var(--text-muted)" }}>
                     Attendance Rate
@@ -82,7 +166,7 @@ const MainContent = () => {
                 onClick: () => console.log("Manage Tasks clicked"),
               }}
             >
-              <div className="space-y-1">
+              <div className="space-y-1 pt-3">
                 <div className="flex justify-between items-center text-sm">
                   <span style={{ color: "var(--text-muted)" }}>
                     Daily Completion Rate
@@ -148,26 +232,37 @@ const MainContent = () => {
                 </div>
               }
             />
+            <QuickActions title="Quick Actions" actions={gridActions} layout="grid" />
           </div>
 
           {/* RIGHT: 1/4 WIDTH */}
           <div className="col-span-12 lg:col-span-4 space-y-6">
             {/* Upcoming Meetings / Any other card */}
-             <SingleLineCard
-              title="Client Performance"
-              items={[
-                { label: "Active Projects", value: "5", valueTone: "primary" },
-                {
-                  label: "New Clients This Month",
-                  value: "3",
-                  valueTone: "success",
-                },
-                {
-                  label: "Total Revenue",
-                  value: "$324,000",
-                  valueTone: "success",
-                },
-              ]}
+            <MeetingCard
+              title="Upcoming Meetings"
+              meetings={upcomingMeetings}
+              showAdd
+              addIcon={FiPlus}
+              footerLabel="View Full Calendar"
+              footerIcon={FiCalendar}
+            />
+
+            <MeetingCard
+              title="Recent Calls"
+              meetings={recentCalls}
+              isRecentCall
+              footerLabel="View All Calls"
+              footerIcon={FiPhone}
+              showAdd
+              addIcon={FiPhone}
+            />
+            <MeetingCard
+              title="Payment Schedule"
+              meetings={payments}
+              footerLabel="Manage Invoices"
+              footerIcon={FiFile}
+              showAdd
+              addIcon={FiDollarSign}
             />
           </div>
         </div>

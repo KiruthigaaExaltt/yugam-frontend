@@ -1,0 +1,36 @@
+.demo-button {
+  align-self: flex-start;
+  background-color: var(--primary-color);
+  color: var(--btn-hover-text);
+  border: none;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-medium);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Remove PrimeReact default shadow */
+.demo-button.p-button {
+  box-shadow: none;
+}
+
+/* Arrow icon size */
+.demo-button .p-button-icon {
+  font-size: 0.9em;
+}
+
+/* Hover */
+.demo-button:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+/* Focus */
+.demo-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-color-light);
+}
