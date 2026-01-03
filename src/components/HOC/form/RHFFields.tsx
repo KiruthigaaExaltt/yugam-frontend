@@ -1,5 +1,6 @@
 // RHFFields.tsx
 import { Calendar } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
 import { Editor } from "primereact/editor";
 import { useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
@@ -66,20 +67,19 @@ export function RDropdown({ name, label, options = [], ...props }: any) {
         defaultValue=""
         render={({ field, fieldState }) => (
           <>
-            <select
-              {...field}
-              {...props}
-              className={`w-full border rounded-lg px-3 py-2 ${
-                fieldState.error ? "border-red-500" : "border-gray-300"
+            <Dropdown
+              id={field.name}
+              value={field.value}
+              onChange={(e) => field.onChange(e.value)}
+              options={options}
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select"
+              className={`w-full ${
+                fieldState.error ? "p-invalid" : ""
               }`}
-            >
-              <option value="">Select</option>
-              {options.map((opt: any) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
+              {...props}
+            />
 
             {fieldState.error && (
               <small className="text-red-500">

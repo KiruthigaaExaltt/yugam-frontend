@@ -51,6 +51,7 @@ interface ReusableCrudTableProps<T extends object> {
   onPageChange: (e: any) => void;
   lazy?: boolean;
   loading: boolean;
+  paginator?: boolean;
 }
 
 /* ================================
@@ -75,9 +76,10 @@ const ReusableCrudTable = <T extends object>({
   rows = 10,
   toolbar = true,
   headerFilters,
+  paginator = true,
 }: ReusableCrudTableProps<T>) => {
   // NOTE: DataTable expects DataTableValueArray (array of T)
-  const dt = useRef<DataTable<T[]> | null>(null);
+  const dt = useRef<DataTable<any> | null>(null);
   const toast = useRef<Toast | null>(null);
 
   const leftToolbarTemplate = () => (
@@ -145,18 +147,19 @@ const ReusableCrudTable = <T extends object>({
         />
       )}
 
-      <DataTable<T>
+      {/* @ts-ignore */}
+      <DataTable<any>
         ref={dt}
-        value={data}
+        value={data as any}
         lazy
-        paginator
+        paginator={paginator}
         first={page * rows}
         rows={rows}
         rowsPerPageOptions={[5, 10, 25]}
         totalRecords={totalRecords}
         onPage={onPageChange}
-        selection={selection}
-        onSelectionChange={(e) => onSelectionChange?.(e.value)}
+        selection={selection as any}
+        onSelectionChange={(e: any) => onSelectionChange?.(e.value)}
         selectionMode={selection ? "multiple" : undefined}
         loading={loading}
         dataKey={String(dataKey)}

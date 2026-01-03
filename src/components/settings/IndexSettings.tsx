@@ -4,6 +4,7 @@ import NavButtons from './NavButtons'
 import OrganizationSettings from './SettingsTab/OrganizationSettings';
 import BrandingSettings from './SettingsTab/BrandingSettings';
 import UsersRolesSettings from './SettingsTab/UsersRolesSettings';
+import PermissionsSettings from './SettingsTab/PermissionsSettings';
 
 const IndexSettings = () => {
   const [activeTab, setActiveTab] = useState<string>("General");
@@ -15,7 +16,7 @@ const IndexSettings = () => {
         {activeTab === "General" && <OrganizationSettings />}
         {activeTab === "Branding" && <BrandingSettings />}
         {activeTab === "Users & Roles" && <UsersRolesSettings />}
-        {activeTab === "Permissions" && <div>Permissions Component</div>}
+        {activeTab === "Permissions" && <PermissionsSettings />}
         
       </div>
     </>
