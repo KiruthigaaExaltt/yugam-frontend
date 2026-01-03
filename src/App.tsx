@@ -5,6 +5,7 @@ import LoginPage from "./components/login/LoginPage";
 import Footer from "./components/footer/Footer";
 import IndexDasboard from "./components/dashboard/IndexDasboard";
 import IndexCRM from "./components/CRM/IndexCRM";
+import IndexSettings from "./components/settings/IndexSettings";
 
 function App() {
   const isAuthenticated = !!localStorage.getItem("token");
@@ -23,6 +24,7 @@ function App() {
         >
           <Route path="/dashboard" element={<IndexDasboard />} />
           <Route path="/crm" element={<IndexCRM />} />
+          <Route path="/settings" element={<IndexSettings />} />
           <Route path="/footer" element={<Footer />} />
         </Route>
 

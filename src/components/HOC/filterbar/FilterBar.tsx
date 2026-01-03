@@ -34,7 +34,7 @@ export default function FilterBar({
       
  
       {/* Controls */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 rounded-(--border-radius)  transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
         {/* Search */}
         <div className="md:col-span-8">
           <span className="p-input-icon-left w-full">

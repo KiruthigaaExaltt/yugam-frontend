@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
+import "./singlelinecard.css";
 
 type CardAction = {
   label: string;
@@ -16,12 +17,19 @@ export type CardItem = {
   dividerBefore?: boolean;
 };
 
+type HeaderAction = {
+  label: string;
+  onClick: () => void;
+  icon?: React.ReactNode;
+};
+
 type ReusableCardProps = {
   title: string;
   icon?: React.ReactNode;
   items: CardItem[];
   action?: CardAction;
   footer?: React.ReactNode;
+  headerAction?: HeaderAction;
 };
 
 const toneClassMap: Record<NonNullable<CardItem["valueTone"]>, string> = {
@@ -37,6 +45,7 @@ const SingleLineCard: React.FC<ReusableCardProps> = ({
   items,
   action,
   footer,
+  headerAction,
 }) => {
   return (
     <Card
@@ -48,17 +57,28 @@ const SingleLineCard: React.FC<ReusableCardProps> = ({
       }}
     >
       {/* HEADER */}
-      <div className="flex items-center gap-2 mb-4">
-        {icon && <span>{icon}</span>}
-        <h3
-          className="font-medium"
-          style={{
-            color: "var(--text-color)",
-            fontSize: "var(--font-size-body-lg)",
-          }}
-        >
-          {title}
-        </h3>
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex items-center gap-2">
+          {icon && <span>{icon}</span>}
+          <h3
+            className="font-medium"
+            style={{
+              color: "var(--text-color)",
+              fontSize: "var(--font-size-body-lg)",
+            }}
+          >
+            {title}
+          </h3>
+        </div>
+
+        {headerAction && (
+          <Button
+            label={headerAction.label}
+            icon={headerAction.icon}
+            onClick={headerAction.onClick}
+            className="p-button-text demo-button"
+          />
+        )}
       </div>
 
       {/* CONTENT */}

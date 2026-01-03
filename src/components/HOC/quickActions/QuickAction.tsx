@@ -15,11 +15,19 @@ export type QuickActionItem = {
   type?: "action" | "stat";
 };
 
+
+type HeaderAction = {
+  label: string;
+  onClick: () => void;
+  icon?: React.ReactNode;
+};
+
 type QuickActionsProps = {
   title?: string;
   actions: readonly QuickActionItem[];
   layout?: "grid" | "row";
   children?: React.ReactNode;
+  headerAction?: HeaderAction;
 };
 
 const toneMap: Record<string, string> = {
@@ -34,6 +42,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({
   actions,
   layout = "grid",
   children,
+  headerAction,
 }) => {
   const isStatsLayout = actions.every((a) => a.type === "stat");
 
@@ -47,15 +56,27 @@ const QuickActions: React.FC<QuickActionsProps> = ({
       }}
     >
       {/* TITLE */}
-      <div
-        className="mb-4 font-medium"
-        style={{
-          color: "var(--text-color)",
-          fontSize: "var(--font-size-body-lg)",
-          fontWeight: "var(--font-weight-medium)",
-        }}
-      >
-        {title}
+      <div className="flex justify-between items-start mb-4">
+        <div
+          className="font-medium"
+          style={{
+            color: "var(--text-color)",
+            fontSize: "var(--font-size-body-lg)",
+            fontWeight: "var(--font-weight-medium)",
+          }}
+        >
+          {title}
+        </div>
+        
+        {headerAction && (
+          <Button
+            label={headerAction.label}
+            icon={headerAction.icon}
+            onClick={headerAction.onClick}
+            // className="p-button-sm h-8 px-3 rounded-full border border-surface-200 dark:border-surface-700 bg-transparent text-color hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-400 transition-all shadow-sm"
+             className="p-button-text demo-button"
+          />
+        )}
       </div>
 
       {/* ===================== */}

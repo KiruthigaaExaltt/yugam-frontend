@@ -1,6 +1,14 @@
 // export default PageHeader;
 import React from "react";
 import { Button } from "primereact/button";
+import "./pageheader.css";
+
+interface HeaderAction {
+  label: string;
+  icon?: React.ReactNode;
+  onClick?: () => void;
+  variant?: "primary" | "secondary";
+}
 
 interface PageHeaderProps {
   icon?: React.ReactNode;
@@ -9,15 +17,14 @@ interface PageHeaderProps {
   buttonLabel?: string;
   onButtonClick?: () => void;
   buttonIcon?: string;
+  actions?: HeaderAction[];
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({
   icon,
   title,
   subtitle,
-  buttonLabel,
-  onButtonClick,
-  buttonIcon = "pi pi-plus",
+  actions,
 }) => {
   return (
     <div
@@ -29,7 +36,6 @@ const PageHeader: React.FC<PageHeaderProps> = ({
       }}
     >
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        
         {/* Left */}
         <div className="flex items-start gap-3">
           {icon && (
@@ -77,21 +83,19 @@ const PageHeader: React.FC<PageHeaderProps> = ({
         </div>
 
         {/* Right */}
-        {buttonLabel && (
-          <Button
-            label={buttonLabel}
-            icon={buttonIcon}
-            onClick={onButtonClick}
-            className="border-none!"
-            style={{
-              background: "var(--primary-color)",
-              color: "#fff",
-              fontSize: "var(--font-size-button)",
-              fontWeight: "var(--font-weight-medium)",
-              fontFamily: "var(--font-primary)",
-              padding: "clamp(8px, 1.6vw, 12px) clamp(14px, 2.4vw, 20px)",
-            }}
-          />
+        {actions && actions.length > 0 && (
+          <div className="flex items-center gap-2">
+            {actions.map((action, index) => (
+              <Button
+                key={index}
+                label={action.label}
+                icon={action.icon}
+                onClick={action.onClick}
+                className="p-button-text demo-button"
+                // style={getButtonStyle(action.variant)}
+              />
+            ))}
+          </div>
         )}
       </div>
     </div>

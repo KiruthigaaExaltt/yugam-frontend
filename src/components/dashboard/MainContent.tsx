@@ -1,6 +1,7 @@
 import QuickActions from "../HOC/quickActions/QuickAction";
 import { ProgressBar } from "primereact/progressbar";
 import SingleLineCard from "../HOC/singlelineCard/SingleLineCard";
+import { FaEye, FaArrowRight, FaChartBar } from "react-icons/fa";
 
 const ticketStats = [
   {
@@ -40,7 +41,15 @@ const MainContent = () => {
         <div className="grid grid-cols-12 gap-6">
           {/* LEFT: 3/4 WIDTH */}
           <div className="col-span-12 lg:col-span-8 space-y-6">
-            <QuickActions title="Team Attendance Today" actions={ticketStats}>
+            <QuickActions 
+              title="Team Attendance Today" 
+              actions={ticketStats}
+              headerAction={{
+                label: "View All",
+                icon: <FaEye className="mr-2" />,
+                onClick: () => console.log("View All clicked"),
+              }}
+            >
               <div className="space-y-1">
                 <div className="flex justify-between items-center text-sm">
                   <span style={{ color: "var(--text-muted)" }}>
@@ -67,6 +76,11 @@ const MainContent = () => {
             <QuickActions
               title="Task Management Overview"
               actions={ticketStats}
+              headerAction={{
+                label: "Manage Tasks",
+                icon: <FaArrowRight className="mr-2" />,
+                onClick: () => console.log("Manage Tasks clicked"),
+              }}
             >
               <div className="space-y-1">
                 <div className="flex justify-between items-center text-sm">
@@ -92,6 +106,11 @@ const MainContent = () => {
             </QuickActions>
             <SingleLineCard
               title="Client Performance"
+              headerAction={{
+                label: "View Analytics",
+                icon: <FaChartBar className="mr-2" />,
+                onClick: () => console.log("View Analytics clicked"),
+              }}
               items={[
                 { label: "Active Projects", value: "5", valueTone: "primary" },
                 {
