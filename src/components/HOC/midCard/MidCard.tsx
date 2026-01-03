@@ -1,7 +1,7 @@
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import "./midCard.css";
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowRight, FiEdit } from "react-icons/fi";
 import type { ReactNode } from "react";
 
 interface MidCardProps {
@@ -9,6 +9,16 @@ interface MidCardProps {
   title: string;
   badge?: string;
   description: string;
+
+  /** Optional CTA button (Try Demo style) */
+  ctaLabel?: string;
+  ctaIcon?: ReactNode;
+  onCtaClick?: () => void;
+
+  /** Optional footer section (Roles style) */
+  footer?: string;
+  actionLabel?: string;
+  onActionClick?: () => void;
 }
 
 const MidCard: React.FC<MidCardProps> = ({
@@ -16,11 +26,18 @@ const MidCard: React.FC<MidCardProps> = ({
   title,
   badge,
   description,
+
+  ctaLabel,
+  ctaIcon = <FiArrowRight />,
+  onCtaClick,
+
+  footer,
+  actionLabel,
+  onActionClick,
 }) => {
   return (
-    
     <Card className="feature-card">
-      {/* HEADER ROW */}
+      {/* HEADER */}
       <div className="card-header">
         <div className="header-left">
           <div className="icon">{icon}</div>
@@ -34,16 +51,27 @@ const MidCard: React.FC<MidCardProps> = ({
         )}
       </div>
 
-      {/* SPACING + DESCRIPTION */}
+      {/* DESCRIPTION */}
       <p className="description">{description}</p>
 
-      {/* CTA */}
-      <Button
-        label="Try Demo"
-        icon={<FiArrowRight />}
-        iconPos="right"
-        className="p-button-text demo-button"
-      />
+      {/* FOOTER / CTA */}
+      {(ctaLabel || footer) && (
+        <div className="card-footer">
+          {/* Footer text (eg: users count) */}
+          {footer && <span className="footer-text">{footer}</span>}
+
+          {/* Action button (Edit / Try Demo) */}
+          {(ctaLabel || actionLabel) && (
+            <Button
+              label={ctaLabel ?? actionLabel}
+              icon={ctaIcon ?? <FiEdit />}
+              iconPos="right"
+              onClick={onCtaClick ?? onActionClick}
+              className="p-button-text demo-button"
+            />
+          )}
+        </div>
+      )}
     </Card>
   );
 };

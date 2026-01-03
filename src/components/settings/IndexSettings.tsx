@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import Header from './Header'
 import NavButtons from './NavButtons'
-import OrganizationSettings from './OrganizationSettings/OrganizationSettings';
-import BrandingSettings from './OrganizationSettings/BrandingSettings';
-import UsersRolesSettings from './OrganizationSettings/UsersRolesSettings';
+import OrganizationSettings from './SettingsTab/OrganizationSettings';
+import BrandingSettings from './SettingsTab/BrandingSettings';
+import UsersRolesSettings from './SettingsTab/UsersRolesSettings';
 
 const IndexSettings = () => {
   const [activeTab, setActiveTab] = useState<string>("General");

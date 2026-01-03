@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import ReusableCrudTable, { type CrudColumn } from "../../HOC/ReusableDataTable/ReusableDataTable";
 import { Button } from "primereact/button";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { Dropdown } from "primereact/dropdown";
+import { Dialog } from "primereact/dialog";
+import { Menu } from "primereact/menu";
+import UserForm from "./UserForm";
+import ExampleCard from "./RoleCard";
 
 interface User {
   id: number;
@@ -123,6 +127,35 @@ const UsersRolesSettings = () => {
   const [selectedRole, setSelectedRole] = useState(null);
   const [page, setPage] = useState(0);
   const [rows, setRows] = useState(5);
+  
+  const [showModal, setShowModal] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  
+  const menu = useRef<Menu>(null);
+
+  const menuItems = [
+    { 
+        label: 'Edit User', 
+        icon: 'pi pi-user-edit', 
+        command: () => setShowModal(true)
+    },
+    { 
+        label: 'View Details', 
+        icon: 'pi pi-eye', 
+        command: () => console.log('View Details', editingUser) 
+    },
+    { 
+        label: 'Reset Password', 
+        icon: 'pi pi-key', 
+        command: () => console.log('Reset Password', editingUser) 
+    },
+    { 
+        label: 'Deactivate', 
+        icon: 'pi pi-ban', 
+        className: 'text-red-600',
+        command: () => console.log('Deactivate', editingUser) 
+    }
+  ];
 
   // Filter Logic
   const filteredData = USERS_DATA.filter((user) => {
@@ -135,6 +168,13 @@ const UsersRolesSettings = () => {
 
   // Mock Pagination logic
   const paginatedData = filteredData.slice(page * rows, (page + 1) * rows);
+
+  const handleSubmitUser = (formData: any) => {
+    console.log("Form Submitted:", formData);
+    // Here you would call API to add/update
+    setShowModal(false);
+    setEditingUser(null);
+  };
 
   const columns: CrudColumn<User>[] = [
     {
@@ -164,17 +204,25 @@ const UsersRolesSettings = () => {
     },
     {
       header: "Actions",
-      body: () => (
-        <Button
-          icon={<FiMoreHorizontal />}
-          className="p-button-text p-button-rounded p-button-sm text-gray-400"
-        />
+      body: (data: User) => (
+        <>
+            <Button
+                icon={<FiMoreHorizontal />}
+                className="p-button-text p-button-rounded p-button-sm text-gray-400 hover:bg-surface-100"
+                onClick={(e) => {
+                    setEditingUser(data);
+                    menu.current?.toggle(e);
+                }}
+            />
+        </>
       ),
     },
   ];
 
   return (
     <div className="space-y-6">
+      <Menu model={menuItems} popup ref={menu} />
+
       <ReusableCrudTable
         title="Users & Roles"
         data={paginatedData}
@@ -202,9 +250,33 @@ const UsersRolesSettings = () => {
           />
         }
         loading={false}
-        onAdd={() => console.log("Add User")}
+        onAdd={() => {
+          setEditingUser(null);
+          setShowModal(true);
+        }}
         // onDeleteSelected when we have selection logic
       />
+
+      <Dialog
+        header={editingUser ? "Edit User" : "Add New User"}
+        visible={showModal}
+        style={{ width: "700px" }}
+        modal
+        onHide={() => {
+          setShowModal(false);
+          setEditingUser(null);
+        }}
+        contentClassName="p-0"
+      >
+        <div className="p-4">
+            <UserForm
+            initialValues={editingUser}
+            onSubmit={handleSubmitUser}
+            onCancel={() => setShowModal(false)}
+            />
+        </div>
+      </Dialog>
+      <ExampleCard />
     </div>
   );
 };

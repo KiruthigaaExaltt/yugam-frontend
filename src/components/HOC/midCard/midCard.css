@@ -151,3 +151,9 @@
   outline: none;
   box-shadow: 0 0 0 2px var(--primary-color-light);
 }
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 🔥 THIS pushes Edit to right */
+  margin-top: 1rem;
+}
