@@ -42,6 +42,8 @@ interface ReusableCrudTableProps<T extends object> {
 
   title?: string;
 
+  headerFilters?: ReactNode;
+
   toolbar?: boolean;
 
   page: number;
@@ -72,6 +74,7 @@ const ReusableCrudTable = <T extends object>({
   title = "Manage Data",
   rows = 10,
   toolbar = true,
+  headerFilters,
 }: ReusableCrudTableProps<T>) => {
   // NOTE: DataTable expects DataTableValueArray (array of T)
   const dt = useRef<DataTable<T[]> | null>(null);
@@ -110,17 +113,21 @@ const ReusableCrudTable = <T extends object>({
     ) : null;
 
   const header = (
-    <div className="flex justify-between align-items-center">
-      <h4 className="m-0">{title}</h4>
-      <IconField iconPosition="left">
-        <InputIcon className="pi pi-search" />
-        <InputText
-          type="search"
-          placeholder="Search..."
-          value={globalFilter}
-          onChange={(e) => onGlobalFilterChange(e.target.value)}
-        />
-      </IconField>
+    <div className="flex flex-wrap justify-between items-center gap-2">
+      <h4 className="m-0 text-xl font-semibold">{title}</h4>
+      <div className="flex items-center gap-2">
+        {headerFilters && <div>{headerFilters}</div>}
+        <IconField iconPosition="left">
+          <InputIcon className="pi pi-search" />
+          <InputText
+            type="search"
+            placeholder="Search..."
+            value={globalFilter}
+            onChange={(e) => onGlobalFilterChange(e.target.value)}
+            className="p-inputtext-sm"
+          />
+        </IconField>
+      </div>
     </div>
   );
 
