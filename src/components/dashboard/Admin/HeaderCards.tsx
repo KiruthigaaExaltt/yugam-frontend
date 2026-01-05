@@ -5,7 +5,7 @@ import {
   FaCheckCircle,
   FaShieldAlt,
 } from "react-icons/fa";
-import StatsCard from "../HOC/dashboard/StatsCard";
+import StatsCard from "../../HOC/dashboard/StatsCard";
 
 const HeaderCards = () => {
   return (

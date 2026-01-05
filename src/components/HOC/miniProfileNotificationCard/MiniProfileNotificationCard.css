@@ -36,6 +36,13 @@
   background-color: var(--itemcard-bg);
   transition: all 0.2s ease-in-out;
 }
+
+.item-row:hover {
+  background-color: var(--surface-hover) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+}
  
 .item-row:hover {
   background-color: var(--surface-hover) !important;
@@ -74,6 +81,11 @@
   font-size: var(--font-size-body);
   color: var(--text-muted);
 }
+
+.text-block small {
+  font-size: var(--font-size-body-sm);
+  color: var(--text-muted);
+}
  
 .text-block small {
   font-size: var(--font-size-body-sm);
@@ -107,7 +119,6 @@
    MOBILE (rem only)
 ========================= */
 @media (max-width: 48rem) {
- 
   /* 768px */
   .custom-card {
     padding: 1.5rem !important;
@@ -117,7 +128,6 @@
     padding: 0.75rem 1rem;
   }
 }
- 
 /* Mobile Very Small Screens (max 400px / 25rem) */
 @media (max-width: 25rem) {
  
@@ -159,4 +169,3 @@
     /* prevents weird spacing issues */
   }
 }
- 

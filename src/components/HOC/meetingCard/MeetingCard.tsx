@@ -2,6 +2,7 @@ import React from "react";
 import { Card } from "primereact/card";
 import { Badge } from "primereact/badge";
 import { InputSwitch } from "primereact/inputswitch";
+import { Checkbox } from "primereact/checkbox";
 import type { IconType } from "react-icons";
 // import "./mettingCard.css"
 
@@ -25,6 +26,13 @@ export interface MeetingItem {
   toggleValue?: boolean;
   onToggleChange?: (value: boolean) => void; // optional controlled value
   
+  // Task specific props
+  isTask?: boolean;
+  isChecked?: boolean;
+  onCheck?: (checked: boolean) => void;
+  tags?: Array<{ label: string; color: string }>;
+  dueDate?: string;
+  
   // New props for reuse
   mainIcon?: React.ReactNode;
   children?: React.ReactNode;
@@ -39,6 +47,7 @@ interface MeetingSectionProps {
 
   showAdd?: boolean;
   addIcon?: IconType;
+  addButtonLabel?: string;
   onAddClick?: () => void;
 
   footerLabel?: string;
@@ -54,6 +63,7 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
   meetings,
   showAdd,
   addIcon: AddIcon,
+  addButtonLabel,
   onAddClick,
   footerLabel,
   footerIcon: FooterIcon,
@@ -77,16 +87,32 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
           </h3>
 
           {showAdd && (
-            <button
-              onClick={onAddClick}
-              className="w-7 h-7 flex items-center justify-center rounded-md cursor-pointer hover:bg-gray-50 transition"
-              style={{
-                background: "white",
-                border: "1px solid var(--surface-border)",
-              }}
-            >
-              {AddIcon ? <AddIcon size={14} /> : <span>+</span>}
-            </button>
+            addButtonLabel ? (
+              <button
+                onClick={onAddClick}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition hover:shadow-md"
+                style={{
+                  background: "white",
+                  border: "1px solid var(--surface-border)",
+                  color: "var(--text-color)"
+                }}
+              >
+                {AddIcon ? <AddIcon size={14} /> : <span>+</span>}
+                {addButtonLabel}
+              </button>
+            ) : (
+                <button
+                onClick={onAddClick}
+                className="w-7 h-7 flex items-center justify-center rounded-md cursor-pointer hover:bg-gray-50 transition"
+                style={{
+                  background: "white",
+                  border: "1px solid var(--surface-border)",
+                  color: "var(--text-color)"
+                }}
+              >
+                {AddIcon ? <AddIcon size={14} /> : <span>+</span>}
+              </button>
+            )
           )}
         </div>
       )}
@@ -102,22 +128,66 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
               className="cursor-pointer rounded-(--border-radius) border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg [&_.p-card-body]:p-3!"
               style={{
                 borderColor: "var(--surface-border)",
-                borderRadius: "var(--border-radius)",
+                 borderRadius: "var(--border-radius)",
               }}
             >
               {/* ===== Top Row ===== */}
               <div className="flex justify-between items-start">
                 {/* LEFT */}
                 <div className="flex gap-3 items-start">
+                   {/* Task Checkbox */}
+                   {m.isTask && (
+                     <div className="mt-0.5">
+                       <Checkbox 
+                        checked={m.isChecked ?? false} 
+                        onChange={(e) => m.onCheck?.(e.checked ?? false)}
+                        className={m.isChecked ? "p-checkbox-checked" : ""}
+                        icon={<i className="pi pi-check" style={{ fontSize: '10px' }} />}
+                       />
+                     </div>
+                   )}
+
                   {m.mainIcon && (
                      <div className="shrink-0">
                        {m.mainIcon}
                      </div>
                   )}
                   <div>
-                    <h4 className="text-sm font-medium text-(--text-color)">
+                    <h4 className={`text-sm font-medium text-(--text-color) ${m.isChecked ? 'line-through text-gray-400' : ''}`}>
                       {m.title}
                     </h4>
+
+                    {m.tags && m.tags.length > 0 && (
+                        <div className="flex gap-2 mt-1.5 flex-wrap items-center">
+                            {m.tags.map((tag, idx) => (
+                                <span 
+                                    key={idx}
+                                    className="px-2 py-0.5 rounded-md text-xs font-medium"
+                                    style={{
+                                        backgroundColor: tag.color.includes('red') ? '#FEE2E2' : 
+                                                         tag.color.includes('green') ? '#D1FAE5' : 
+                                                         tag.color.includes('yellow') ? '#FEF3C7' : 
+                                                         tag.color.includes('blue') ? '#DBEAFE' : '#F3F4F6',
+                                        color: tag.color.includes('red') ? '#DC2626' : 
+                                               tag.color.includes('green') ? '#059669' : 
+                                               tag.color.includes('yellow') ? '#D97706' : 
+                                               tag.color.includes('blue') ? '#2563EB' : '#4B5563'
+                                    }}
+                                >
+                                    {tag.label}
+                                </span>
+                            ))}
+                            
+                            {m.dueDate && (
+                                <span 
+                                    className="text-xs ml-2"
+                                    style={{ color: "var(--text-muted)" }}
+                                >
+                                    Due: {m.dueDate}
+                                </span>
+                            )}
+                        </div>
+                    )}
 
                     {m.description && (
                       <p className="text-xs text-(--text-muted) mt-1">
@@ -143,6 +213,8 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
                       onChange={(e) => m.onToggleChange?.(e.value)}
                     />
                   )}
+
+
 
                   {m.date && (
                     <Badge

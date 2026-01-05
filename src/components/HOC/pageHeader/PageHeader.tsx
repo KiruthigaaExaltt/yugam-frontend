@@ -20,11 +20,12 @@ interface PageHeaderProps {
   actions?: HeaderAction[];
 }
 
-const PageHeader: React.FC<PageHeaderProps> = ({
+const PageHeader: React.FC<PageHeaderProps & { children?: React.ReactNode }> = ({
   icon,
   title,
   subtitle,
   actions,
+  children
 }) => {
   return (
     <div
@@ -83,20 +84,23 @@ const PageHeader: React.FC<PageHeaderProps> = ({
         </div>
 
         {/* Right */}
-        {actions && actions.length > 0 && (
-          <div className="flex items-center gap-2">
-            {actions.map((action, index) => (
-              <Button
-                key={index}
-                label={action.label}
-                icon={action.icon}
-                onClick={action.onClick}
-                className="p-button-text demo-button"
-                // style={getButtonStyle(action.variant)}
-              />
-            ))}
-          </div>
-        )}
+        <div className="flex items-center gap-2">
+            {children}
+            {actions && actions.length > 0 && (
+                <>
+                {actions.map((action, index) => (
+                    <Button
+                    key={index}
+                    label={action.label}
+                    icon={action.icon}
+                    onClick={action.onClick}
+                    className="p-button-text demo-button"
+                    // style={getButtonStyle(action.variant)}
+                    />
+                ))}
+                </>
+            )}
+        </div>
       </div>
     </div>
   );

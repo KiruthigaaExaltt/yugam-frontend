@@ -1,4 +1,4 @@
-import PageHeader from "../HOC/pageHeader/PageHeader";
+import PageHeader from "../../HOC/pageHeader/PageHeader";
 
 export default function DashboardHeader() {
   return (
