@@ -116,7 +116,7 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
           <div
             className="w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold"
             style={{
-              background: "linear-gradient(to right, #3b82f6, #10b981)",
+              background: "linear-gradient(to right, var(--secondary-color), var(--primary-color))",
             }}
           >
             E

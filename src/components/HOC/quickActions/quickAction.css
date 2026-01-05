@@ -33,10 +33,10 @@
   transition: all 0.2s ease;
 }
 
-/* hover = green (theme aware) */
+/* hover = primary (theme aware) */
 .quick-action-btn.p-button:hover {
-  background: var(--secondary-color);
-  border-color: var(--secondary-color);
+  background: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .quick-action-btn.p-button:hover .p-button-label,
@@ -50,7 +50,7 @@
 
 .quick-action-btn.p-button:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--secondary-color) 40%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary-color) 40%, transparent);
 }
 .stat-blue {
   color: var(--color-blue-700);

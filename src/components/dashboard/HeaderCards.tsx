@@ -33,7 +33,7 @@ const HeaderCards = () => {
           <StatsCard
             title="Overdue"
             value="₹7"
-            icon={<FaCheckCircle className="text-[color:var(--primary-color)]" />}
+            icon={<FaCheckCircle className="text-(--primary-color)" />}
             trendLabel="₹12.8L overdue"
             iconPosition="right"
             bgClass="bg-[color:var(--primary-color-light)] hover:bg-[color:var(--primary-color-light)] transition"

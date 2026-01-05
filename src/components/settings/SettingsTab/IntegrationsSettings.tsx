@@ -122,8 +122,8 @@ const IntegrationsSettings: React.FC = () => {
                 severity={module.connected ? "success" : "secondary"}
                 className="font-normal"
                 style={{
-                    backgroundColor: module.connected ? 'var(--primary-color-light)' : 'var(--surface-hover)',
-                    color: module.connected ? 'var(--primary-color)' : 'var(--text-muted)',
+                    backgroundColor: module.connected ? 'var(--icon-bg-primary)' : 'var(--surface-hover)',
+                    color: module.connected ? 'var(--icon-color-primary)' : 'var(--text-muted)',
                     border: 'none'
                 }}
             />

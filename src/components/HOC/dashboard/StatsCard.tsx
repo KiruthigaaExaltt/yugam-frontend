@@ -108,7 +108,10 @@ const StatsCard = ({
             {hasIcon && (
               <div
                 className="w-12 h-12 rounded-lg flex items-center justify-center"
-                style={{ backgroundColor: "var(--icon-bg)" }}
+                style={{
+                  backgroundColor: "var(--icon-bg-primary)",
+                  color: "var(--icon-color-primary)",
+                }}
               >
                 {icon}
               </div>

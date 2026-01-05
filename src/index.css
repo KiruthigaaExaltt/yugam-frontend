@@ -89,9 +89,26 @@ body {
 /* InputSwitch: Checked State -> Primary Color */
 .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
   background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  box-shadow: none !important;
 }
 
-/* InputSwitch: Hover on Checked -> Light Green */
+/* InputSwitch: Hover on Checked -> Light Primary */
 .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
-  background: var(--primary-color-light) !important;
+  background: color-mix(in srgb, var(--primary-color) 80%, transparent) !important;
+  border-color: color-mix(in srgb, var(--primary-color) 80%, transparent) !important;
+}
+
+/* Unchecked appearance */
+.p-inputswitch .p-inputswitch-slider {
+  background: var(--primary-color);
+  border-color: var(--surface-border);
+}
+.p-inputswitch .p-inputswitch-slider::before {
+  background: #ffffff;
+}
+
+/* Focus ring for accessibility */
+.p-inputswitch:focus-visible .p-inputswitch-slider {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary-color) 20%, transparent);
 }

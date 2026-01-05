@@ -159,6 +159,10 @@
   --primary-color-light: var(--light-primary-light);
   --secondary-color: var(--light-secondary-color);
 
+  /* Icon colors (primary) */
+  --icon-bg-primary: color-mix(in srgb, var(--primary-color) 10%, transparent);
+  --icon-color-primary: var(--primary-color);
+
   --sidebar-bg: var(--light-sidebar-bg);
   --sidebar-border: var(--light-sidebar-border);
 

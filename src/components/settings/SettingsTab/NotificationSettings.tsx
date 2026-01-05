@@ -55,8 +55,8 @@ const NotificationSettings: React.FC = () => {
       <div
         className="w-10 h-10 rounded-full flex items-center justify-center text-lg"
         style={{
-          backgroundColor: "rgba(16, 185, 129, 0.1)",
-          color: "#10B981"
+          backgroundColor: "var(--icon-bg-primary)",
+          color: "var(--icon-color-primary)"
         }}
       >
         {module.icon}
