@@ -1,8 +1,8 @@
-import QuickActions from "../HOC/quickActions/QuickAction";
+import QuickActions from "../../HOC/quickActions/QuickAction";
 import { ProgressBar } from "primereact/progressbar";
-import SingleLineCard from "../HOC/singlelineCard/SingleLineCard";
+import SingleLineCard from "../../HOC/singlelineCard/SingleLineCard";
 import { FaEye, FaArrowRight, FaChartBar, FaBullseye, FaComments, FaUserPlus, FaBriefcase, FaBox } from "react-icons/fa";
-import MeetingCard, { type MeetingItem } from "../HOC/meetingCard/MeetingCard";
+import MeetingCard, { type MeetingItem } from "../../HOC/meetingCard/MeetingCard";
 import {
   FiCalendar,
   FiDollarSign,
@@ -11,7 +11,7 @@ import {
   FiPlus,
   FiUsers,
 } from "react-icons/fi";
-
+ 
 const payments: MeetingItem[] = [
   {
     title: "Due Today",
@@ -32,7 +32,7 @@ const payments: MeetingItem[] = [
     icon: FiDollarSign,
   },
 ];
-
+ 
 const recentCalls: MeetingItem[] = [
   {
     title: "TechStart Inc",
@@ -77,7 +77,7 @@ const upcomingMeetings: MeetingItem[] = [
     icon: FiUsers,
   },
 ];
-
+ 
 const gridActions = [
   { id: "lead", label: "New Lead", icon: <FaBullseye /> },
   { id: "ticket", label: "Create Ticket", icon: <FaComments /> },
@@ -86,7 +86,7 @@ const gridActions = [
   { id: "inventory", label: "Check Inventory", icon: <FaBox /> },
   { id: "report", label: "Generate Report", icon: <FaChartBar /> },
 ];
-
+ 
 const ticketStats = [
   {
     id: "tech",
@@ -117,7 +117,7 @@ const ticketStats = [
     type: "stat",
   },
 ] as const;
-
+ 
 const MainContent = () => {
   return (
     <>
@@ -156,7 +156,7 @@ const MainContent = () => {
                 />
               </div>
             </QuickActions>
-
+ 
             <QuickActions
               title="Task Management Overview"
               actions={ticketStats}
@@ -234,7 +234,7 @@ const MainContent = () => {
             />
             <QuickActions title="Quick Actions" actions={gridActions} layout="grid" />
           </div>
-
+ 
           {/* RIGHT: 1/4 WIDTH */}
           <div className="col-span-12 lg:col-span-4 space-y-6">
             {/* Upcoming Meetings / Any other card */}
@@ -246,7 +246,7 @@ const MainContent = () => {
               footerLabel="View Full Calendar"
               footerIcon={FiCalendar}
             />
-
+ 
             <MeetingCard
               title="Recent Calls"
               meetings={recentCalls}
@@ -270,5 +270,5 @@ const MainContent = () => {
     </>
   );
 };
-
+ 
 export default MainContent;

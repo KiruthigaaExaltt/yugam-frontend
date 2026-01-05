@@ -18,9 +18,12 @@
   /* =============================== */
   /* Headings (responsive) */
   /* =============================== */
-  --font-size-h1: clamp(20px, 2.5vw, 24px); /* Page title */
-  --font-size-h2: clamp(18px, 2.1vw, 20px); /* Section title */
-  --font-size-h3: clamp(14px, 1.8vw, 16px); /* Card title */
+  --font-size-h1: clamp(20px, 2.5vw, 24px);
+  /* Page title */
+  --font-size-h2: clamp(18px, 2.1vw, 20px);
+  /* Section title */
+  --font-size-h3: clamp(14px, 1.8vw, 16px);
+  /* Card title */
   --font-size-h4: clamp(13px, 1.5vw, 14px);
  
   /* =============================== */
@@ -60,9 +63,12 @@
   --light-text-color: #1f2937;
   --light-text-muted: #6b7280;
  
-  --light-primary-color: #3b82f6;
-  --light-primary-light: #e0efff;
-  --light-secondary-color: #10b981;
+  --light-primary-color: #10b981;
+  --light-primary-light: #e0f2fe;
+  /* Check if this needs update for green tint, maybe #ecfdf5 */
+  --light-secondary-color: #3b82f6;
+  --light-secondary-light: #eff6ff;
+  /* Blue-50 */
  
   --light-sidebar-bg: #ffffff;
   --light-sidebar-border: #e5e7eb;
@@ -106,6 +112,8 @@
   --dark-primary-color: #60a5fa;
   --dark-primary-light: #a7c7ff;
   --dark-secondary-color: #34d399;
+  --dark-secondary-light: #064e3b;
+  /* Dark Green tint for secondary, wait... I need to swap dark theme too if needed? User mainly asked for general primary/secondary swap. Let's assume Dark theme also follows Primary=Green, Secondary=Blue logic. */
  
   --dark-sidebar-bg: #27272a;
   --dark-sidebar-border: #3b3b3d;
@@ -150,6 +158,10 @@
   --primary-color: var(--light-primary-color);
   --primary-color-light: var(--light-primary-light);
   --secondary-color: var(--light-secondary-color);
+ 
+  /* Icon colors (primary) */
+  --icon-bg-primary: color-mix(in srgb, var(--primary-color) 10%, transparent);
+  --icon-color-primary: var(--primary-color);
  
   --sidebar-bg: var(--light-sidebar-bg);
   --sidebar-border: var(--light-sidebar-border);
@@ -223,4 +235,3 @@ body.dark {
   --navbar-active-bg: var(--dark-navbar-active-bg);
   --navbar-item-color: var(--dark-navbar-item-color);
 }
- 

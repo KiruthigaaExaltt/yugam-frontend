@@ -3,7 +3,7 @@ import { ThemeProvider } from "../src/context/ThemeContext";
 import BaseLayout from "./layouts/BaseLayout";
 import LoginPage from "./components/login/LoginPage";
 import Footer from "./components/footer/Footer";
-import IndexDasboard from "./components/dashboard/IndexDasboard";
+import IndexDashboard from "./components/dashboard/Admin/IndexDashboard";
 import IndexCRM from "./components/CRM/IndexCRM";
 import IndexSettings from "./components/settings/IndexSettings";
 
@@ -22,7 +22,7 @@ function App() {
             isAuthenticated ? <BaseLayout /> : <Navigate to="/login" replace />
           }
         >
-          <Route path="/dashboard" element={<IndexDasboard />} />
+          <Route path="/dashboard" element={<IndexDashboard />} />
           <Route path="/crm" element={<IndexCRM />} />
           <Route path="/settings" element={<IndexSettings />} />
           <Route path="/footer" element={<Footer />} />

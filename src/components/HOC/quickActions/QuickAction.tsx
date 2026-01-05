@@ -24,7 +24,7 @@ type HeaderAction = {
 
 type QuickActionsProps = {
   title?: string;
-  actions: readonly QuickActionItem[];
+  actions?: readonly QuickActionItem[];
   layout?: "grid" | "row";
   children?: React.ReactNode;
   headerAction?: HeaderAction;
@@ -39,7 +39,7 @@ const toneMap: Record<string, string> = {
 
 const QuickActions: React.FC<QuickActionsProps> = ({
   title = "Quick Actions",
-  actions,
+  actions = [],
   layout = "grid",
   children,
   headerAction,
