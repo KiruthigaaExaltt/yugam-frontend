@@ -199,11 +199,11 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
             ${!isMobile && !sidebarExpanded ? "collapsed" : ""}
           `}
         >
-          <div className="sidebar-header">
+          {/* <div className="sidebar-header">
             {((!isMobile && sidebarExpanded) || isMobile) && (
               <h3 className="text-sm m-0">ExaltAI Modules</h3>
             )}
-          </div>
+          </div> */}
           <div className="sidebar-content">
             <NavigationMenu
               collapsed={!sidebarExpanded && !isMobile}

@@ -5,8 +5,8 @@ export default function ExamplePageHeader() {
   return (
     <PageHeader
       icon={<FiSettings size={18} />}
-      title="Pulse"
-      subtitle="Complete Customer Support & Service Management"
+      title="Settings & RBAC"
+      subtitle="Centralized control for all modules and access"
       actions={[
         {
           label: "Preview",

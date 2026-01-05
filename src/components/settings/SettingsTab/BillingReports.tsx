@@ -21,21 +21,21 @@ const HeaderCards = () => {
       // description: "Monthly subscription",
       leftText: "99.00",
       // date: "Dec 1",
-      rightContent: <span className="text-xs px-2 py-1 rounded-full bg-[color:var(--primary-color-light)] text-[color:var(--primary-color)]">Paid</span>,
+      rightContent: <span className="text-xs px-2 py-1 rounded-full bg-(--primary-color-light) text-(--primary-color)">Paid</span>,
     },
     {
       title: "2024-11-01",
       // description: "Monthly subscription",
       leftText: "99.00",
       // date: "Nov 1",
-      rightContent: <span className="text-xs px-2 py-1 rounded-full bg-[color:var(--primary-color-light)] text-[color:var(--primary-color)]">Paid</span>,
+      rightContent: <span className="text-xs px-2 py-1 rounded-full bg-(--primary-color-light) text-(--primary-color)">Paid</span>,
     },
     {
       title: "2024-10-01",
       // description: "Monthly subscription",
       leftText: "99.00",
       // date: "Oct 1",
-      rightContent: <span className="text-xs px-2 py-1 rounded-full bg-[color:var(--primary-color-light)] text-[color:var(--primary-color)]">Paid</span>,
+      rightContent: <span className="text-xs px-2 py-1 rounded-full bg-(--primary-color-light) text-(--primary-color)">Paid</span>,
     },
   ];
 
@@ -64,7 +64,7 @@ const HeaderCards = () => {
           <StatsCard
             title="Overdue"
             value="₹7"
-            icon={<FaServer className="text-[color:var(--primary-color)]" />}
+            icon={<FaServer className="text-(--primary-color)" />}
             trendLabel="₹12.8L overdue"
             iconPosition="right"
             bgClass="bg-[color:var(--primary-color-light)] hover:bg-[color:var(--primary-color-light)] transition"
@@ -92,7 +92,15 @@ const HeaderCards = () => {
                 <div className="w-full pr-4">
                   <div className="text-xs text-(--text-muted)">Used Seats</div>
                   <div className="mt-2">
-                    <ProgressBar value={seatPercent} showValue={false} style={{ height: "10px" }} />
+                    <ProgressBar value={seatPercent} showValue={false} pt={{
+                      root: { style: { height: "6px", borderRadius: "999px" } },
+                      value: {
+                        style: {
+                          borderRadius: "999px",
+                          backgroundColor: "var(--primary-color)",
+                        },
+                      },
+                    }} />
                   </div>
                   <div className="mt-2 flex items-center justify-between">
                     <div className="text-sm font-medium">{usedSeats} / {totalSeats}</div>
