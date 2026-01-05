@@ -10,7 +10,7 @@ type CardAction = {
 };
 
 export type CardItem = {
-  label: string;
+  label: React.ReactNode;
   value: React.ReactNode;
   subValue?: string;
   valueTone?: "primary" | "success" | "warning" | "danger";
@@ -24,9 +24,9 @@ type HeaderAction = {
 };
 
 type ReusableCardProps = {
-  title: string;
+  title?: string;
   icon?: React.ReactNode;
-  items: CardItem[];
+  items?: CardItem[];
   action?: CardAction;
   footer?: React.ReactNode;
   headerAction?: HeaderAction;
@@ -83,7 +83,7 @@ const SingleLineCard: React.FC<ReusableCardProps> = ({
 
       {/* CONTENT */}
       <div className="space-y-3">
-        {items.map((item, index) => (
+        {items?.map((item, index) => (
           <React.Fragment key={index}>
             {/* OPTIONAL DIVIDER */}
             {item.dividerBefore && (

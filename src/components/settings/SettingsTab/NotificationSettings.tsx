@@ -34,7 +34,7 @@ const INITIAL_MODULES: PermissionModule[] = [
   }
 ];
 
-const ModulePermissions: React.FC = () => {
+const NotificationSettings: React.FC = () => {
   const [modules, setModules] = useState<PermissionModule[]>(INITIAL_MODULES);
 
   const toggleModule = (id: number) => {
@@ -71,4 +71,4 @@ const ModulePermissions: React.FC = () => {
   return <MeetingCard meetings={meetings} />;
 };
 
-export default ModulePermissions;
+export default NotificationSettings;
