@@ -21,21 +21,21 @@ const HeaderCards = () => {
       // description: "Monthly subscription",
       leftText: "99.00",
       // date: "Dec 1",
-      rightContent: <span className="text-xs px-2 py-1 rounded-full bg-green-50 text-green-600">Paid</span>,
+      rightContent: <span className="text-xs px-2 py-1 rounded-full bg-[color:var(--primary-color-light)] text-[color:var(--primary-color)]">Paid</span>,
     },
     {
       title: "2024-11-01",
       // description: "Monthly subscription",
       leftText: "99.00",
       // date: "Nov 1",
-      rightContent: <span className="text-xs px-2 py-1 rounded-full bg-green-50 text-green-600">Paid</span>,
+      rightContent: <span className="text-xs px-2 py-1 rounded-full bg-[color:var(--primary-color-light)] text-[color:var(--primary-color)]">Paid</span>,
     },
     {
       title: "2024-10-01",
       // description: "Monthly subscription",
       leftText: "99.00",
       // date: "Oct 1",
-      rightContent: <span className="text-xs px-2 py-1 rounded-full bg-green-50 text-green-600">Paid</span>,
+      rightContent: <span className="text-xs px-2 py-1 rounded-full bg-[color:var(--primary-color-light)] text-[color:var(--primary-color)]">Paid</span>,
     },
   ];
 
@@ -64,10 +64,10 @@ const HeaderCards = () => {
           <StatsCard
             title="Overdue"
             value="₹7"
-            icon={<FaServer className="text-green-600" />}
+            icon={<FaServer className="text-[color:var(--primary-color)]" />}
             trendLabel="₹12.8L overdue"
             iconPosition="right"
-            bgClass="bg-green-50 hover:bg-green-100 transition"
+            bgClass="bg-[color:var(--primary-color-light)] hover:bg-[color:var(--primary-color-light)] transition"
           />
          
         </div>

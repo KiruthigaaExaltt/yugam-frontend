@@ -73,11 +73,9 @@
 
 /* ACTIVE ITEM */
 .nav-item.active {
-  background-color: color-mix(
-    in srgb,
-    var(--primary-color) 12%,
-    transparent
-  );
+  background-color: color-mix(in srgb,
+      var(--primary-color) 12%,
+      transparent);
   border-left: 3px solid var(--primary-color);
   transform: translateX(0);
 }
@@ -101,11 +99,9 @@
 }
 
 .nav-item.active .nav-item-icon {
-  background-color: color-mix(
-    in srgb,
-    var(--primary-color) 15%,
-    transparent
-  );
+  background-color: color-mix(in srgb,
+      var(--primary-color) 15%,
+      transparent);
 }
 
 /* ============================
@@ -141,11 +137,9 @@
 =============================== */
 
 body.dark .nav-item.active {
-  background-color: color-mix(
-    in srgb,
-    var(--primary-color) 18%,
-    transparent
-  );
+  background-color: color-mix(in srgb,
+      var(--primary-color) 18%,
+      transparent);
 }
 
 /* ============================
@@ -175,6 +169,7 @@ body.dark .nav-item.active {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
+
 .navigation-menu {
   padding: 0.5rem;
 }
@@ -201,12 +196,15 @@ body.dark .nav-item.active {
 }
 
 .nav-item.active {
-  background: #eef2ff;
+  background: var(--primary-color-light);
+  /* was #eef2ff */
 }
 
 .nav-item.active .nav-item-icon {
-  color: #2563eb;
+  color: var(--primary-color);
+  /* was #2563eb */
 }
+
 /* ============================
    COLLAPSED SIDEBAR MODE
 =============================== */

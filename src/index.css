@@ -67,7 +67,8 @@ button:focus-visible {
   }
 } */
 
- @import "tailwindcss";
+@import "tailwindcss";
+
 body {
   font-family: var(--font-family);
   font-size: var(--font-size-md);
@@ -77,6 +78,20 @@ body {
   background: var(--background);
 }
 
- .testing {
+.testing {
   font-family: var(--font-family) !important;
- }
+}
+
+/* =========================================
+   GLOBAL OVERRIDES (PrimeReact)
+   ========================================= */
+
+/* InputSwitch: Checked State -> Primary Color */
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: var(--primary-color) !important;
+}
+
+/* InputSwitch: Hover on Checked -> Light Green */
+.p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
+  background: var(--primary-color-light) !important;
+}

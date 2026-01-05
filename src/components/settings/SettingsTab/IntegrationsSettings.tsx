@@ -36,8 +36,8 @@ const INITIAL_INTEGRATIONS: IntegrationModule[] = [
     name: "Meta Business", 
     description: "Facebook and Instagram business accounts", 
     icon: <FiFacebook />,
-    iconBg: "rgba(16, 185, 129, 0.1)", // Light green tint
-    iconColor: "#10B981", 
+    iconBg: "var(--primary-color-light)", // Light primary (now Green)
+    iconColor: "var(--primary-color)",  // Primary (Green) 
     connected: true,
     scopes: ["pages_read_engagement", "pages_manage_posts", "instagram_basic"],
     lastSync: "about 1 year ago",
@@ -48,8 +48,8 @@ const INITIAL_INTEGRATIONS: IntegrationModule[] = [
     name: "Google Ads", 
     description: "Google Ads campaign management", 
     icon: <FiGlobe />, 
-    iconBg: "rgba(16, 185, 129, 0.1)",
-    iconColor: "#10B981",
+    iconBg: "var(--primary-color-light)",
+    iconColor: "var(--primary-color)",
     connected: true,
     scopes: ["adwords", "analytics.readonly"],
     lastSync: "about 1 year ago",
@@ -72,8 +72,8 @@ const INITIAL_INTEGRATIONS: IntegrationModule[] = [
     name: "Zoom", 
     description: "Video conferencing integration", 
     icon: <FiVideo />, 
-    iconBg: "rgba(16, 185, 129, 0.1)",
-    iconColor: "#10B981",
+    iconBg: "var(--primary-color-light)",
+    iconColor: "var(--primary-color)",
     connected: true,
     scopes: ["meeting:read", "meeting:write"],
     lastSync: "about 1 year ago",
@@ -122,8 +122,8 @@ const IntegrationsSettings: React.FC = () => {
                 severity={module.connected ? "success" : "secondary"}
                 className="font-normal"
                 style={{
-                    backgroundColor: module.connected ? 'rgba(16, 185, 129, 0.1)' : 'rgba(244, 244, 245, 1)',
-                    color: module.connected ? '#10B981' : '#71717a',
+                    backgroundColor: module.connected ? 'var(--primary-color-light)' : 'var(--surface-hover)',
+                    color: module.connected ? 'var(--primary-color)' : 'var(--text-muted)',
                     border: 'none'
                 }}
             />
@@ -132,7 +132,7 @@ const IntegrationsSettings: React.FC = () => {
                     Configure
                  </button>
             ) : (
-                <button className="px-3 py-1 text-sm rounded-md hover:bg-green-600 transition bg-green-500 text-white font-medium">
+                <button className="px-3 py-1 text-sm rounded-md hover:bg-[color:var(--primary-color)] transition bg-[color:var(--primary-color)] text-white font-medium">
                     Connect
                  </button>
             )}
@@ -236,7 +236,7 @@ const IntegrationsSettings: React.FC = () => {
                     </div>
 
                     <div className="mt-4">
-                        <button className="flex items-center gap-2 px-3 py-1.5 rounded-md border text-sm font-medium text-green-600 bg-green-50 border-green-200 hover:bg-green-100 transition">
+                        <button className="flex items-center gap-2 px-3 py-1.5 rounded-md border text-sm font-medium text-[color:var(--primary-color)] bg-[color:var(--primary-color-light)] border-[color:var(--primary-color-light)] hover:bg-[color:var(--primary-color-light)] transition">
                             <FiPlus />
                             Add API Key
                         </button>

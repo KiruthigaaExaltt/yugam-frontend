@@ -190,8 +190,8 @@ const ModulePermissions: React.FC = () => {
           <div 
             className="w-10 h-10 rounded-full flex items-center justify-center text-lg mix-blend-multiply"
             style={{
-                backgroundColor: "rgba(16, 185, 129, 0.1)", // Light green tint
-                color: "#10B981" // Green-500
+                backgroundColor: "var(--primary-color-light)", // Light green tint
+                color: "var(--primary-color)" // Green-500
             }}
           >
             {module.icon}

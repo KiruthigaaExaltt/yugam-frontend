@@ -232,7 +232,7 @@ interface ReusableStatCardProps {
 ======================= */
 const CommonProgressBar = ({
   value,
-  color = "#1E5BB8",
+  color = "var(--primary-color)",
 }: {
   value: number;
   color?: string;
@@ -289,7 +289,7 @@ const ReusableStatCard: React.FC<ReusableStatCardProps> = ({
       {averagePercent !== undefined && (
         <div className="flex justify-between text-sm mb-4">
           <span>{averageText || "Average"}</span>
-          <span className="font-semibold text-blue-600">
+          <span className="font-semibold text-[color:var(--secondary-color)]">
             {averagePercent}%
           </span>
         </div>
@@ -352,7 +352,7 @@ const ReusableStatCard: React.FC<ReusableStatCardProps> = ({
               <span
                 className={`w-6 h-6 flex items-center justify-center rounded-full border ${
                   item.completed
-                    ? "border-green-400 bg-green-50 text-green-600"
+                    ? "border-[color:var(--primary-color)] bg-[color:var(--primary-color-light)] text-[color:var(--primary-color)]"
                     : "border-red-400 bg-red-50 text-red-500"
                 }`}
               >
@@ -378,7 +378,7 @@ const ReusableStatCard: React.FC<ReusableStatCardProps> = ({
                 <span className="text-gray-500">
                   {scoreLabel || "Compliance Score"}
                 </span>
-                <span className="font-semibold text-green-600">
+                <span className="font-semibold text-[color:var(--primary-color)]">
                   {scorePercent}%
                 </span>
               </div>

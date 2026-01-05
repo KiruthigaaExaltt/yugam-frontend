@@ -150,8 +150,8 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
                       className="rounded-full px-2 py-1"
                       style={{
                         fontSize: "11px",
-                        background: "#E8F1FF",
-                        color: "#2563EB",
+                        background: "var(--light-secondary-light)",
+                        color: "var(--secondary-color)",
                       }}
                     />
                   )}
