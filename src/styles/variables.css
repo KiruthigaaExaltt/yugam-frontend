@@ -95,7 +95,7 @@
   --light-navbar-active-bg: #ffffff;
   --light-navbar-item-color: #1f2937;
 
-  --light---itemcard-bg: rgb(0, 225, 255);
+  --light---itemcard-bg: var(--light-surface-card);
 
   /* ===================================== */
   /*           DARK THEME TOKENS           */
@@ -139,7 +139,7 @@
   --dark-navbar-bg: #27272a;
   --dark-navbar-active-bg: #323237;
   --dark-navbar-item-color: #e5e7eb;
-  --dark---itemcard-bg: rgb(189, 39, 64);
+  --dark---itemcard-bg: var(--dark-surface-card);
 
   /* ===================================== */
   /*      ACTIVE (LIVE) SEMANTIC VARS      */

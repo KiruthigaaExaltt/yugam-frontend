@@ -9,6 +9,8 @@ import ModulePermissions from './SettingsTab/ModulePermissions';
 import IntegrationsSettings from './SettingsTab/IntegrationsSettings';
 import NotificationSettingsPage from './SettingsTab/NotificationSettingsPage';
 import BillingPage from './SettingsTab/BillingPage';
+import SecurityPage from './SettingsTab/SecurityPage';
+import DataAndAuditPage from './SettingsTab/DataAndAuditPage';
 
 const IndexSettings = () => {
   const [activeTab, setActiveTab] = useState<string>("General");
@@ -25,6 +27,8 @@ const IndexSettings = () => {
         {activeTab === "Integrations" && <IntegrationsSettings/>}
         {activeTab === "Notifications" && <NotificationSettingsPage/>}
         {activeTab === "Billing" && <BillingPage/>}
+        {activeTab === "Security" && <SecurityPage/>}
+        {activeTab === "Data & Audit" && <DataAndAuditPage/>}
       </div>
     </>
   )

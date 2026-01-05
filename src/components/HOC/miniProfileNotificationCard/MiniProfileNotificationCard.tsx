@@ -2,6 +2,7 @@
 import type { FC, ReactNode } from "react";
 import { FaRegEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import "./MiniProfileNotificationCard.css";
  
 export interface NotificationCardProps {
   initials?: string;
@@ -19,6 +20,8 @@ export interface NotificationCardProps {
   showEye?: boolean;
   showDelete?: boolean;
   avatar?: boolean; // controls avatar/logo rendering
+  avatarPosition?: "left" | "right";
+  backgroundColor?: string;
 }
  
 const MiniProfileNotificationCard: FC<NotificationCardProps> = ({
@@ -37,31 +40,37 @@ const MiniProfileNotificationCard: FC<NotificationCardProps> = ({
   showEye = true,
   showDelete = true,
   avatar,
+  avatarPosition = "left",
+  backgroundColor,
 }) => {
+  const AvatarContent = () => (
+    avatar && (
+      logo ? (
+        <div
+          className="logo-icon"
+          style={{
+            width: avatarWidth,
+            height: avatarHeight,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "50%",
+          }}
+        >
+          {logo}
+        </div>
+      ) : (
+        <div className="avatar" style={{ width: avatarWidth, height: avatarHeight }}>
+          {initials}
+        </div>
+      )
+    )
+  );
+ 
   return (
     <>
-    <div className="item-row" style={{ width, height }}>
-      {avatar && (
-        logo ? (
-          <div
-            className="logo-icon"
-            style={{
-              width: avatarWidth,
-              height: avatarHeight,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "50%",
-            }}
-          >
-            {logo}
-          </div>
-        ) : (
-          <div className="avatar" style={{ width: avatarWidth, height: avatarHeight }}>
-            {initials}
-          </div>
-        )
-      )}
+    <div className="item-row" style={{ width, height, backgroundColor }}>
+      {avatarPosition === "left" && <AvatarContent />}
  
       <div className="text-block">
         <h4>{name}</h4>
@@ -70,6 +79,8 @@ const MiniProfileNotificationCard: FC<NotificationCardProps> = ({
       </div>
  
       <div className="spacer" />
+ 
+      {avatarPosition === "right" && <AvatarContent />}
  
       {status && (
          <span className="status-chip" >
@@ -85,5 +96,3 @@ const MiniProfileNotificationCard: FC<NotificationCardProps> = ({
 };
  
 export default MiniProfileNotificationCard;
- 
- 
