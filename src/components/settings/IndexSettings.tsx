@@ -5,6 +5,9 @@ import OrganizationSettings from './SettingsTab/OrganizationSettings';
 import BrandingSettings from './SettingsTab/BrandingSettings';
 import UsersRolesSettings from './SettingsTab/UsersRolesSettings';
 import PermissionsSettings from './SettingsTab/PermissionsSettings';
+import ModulePermissions from './SettingsTab/ModulePermissions';
+import IntegrationsSettings from './SettingsTab/IntegrationsSettings';
+import NotificationSettings from './SettingsTab/NotificationSettings';
 
 const IndexSettings = () => {
   const [activeTab, setActiveTab] = useState<string>("General");
@@ -17,7 +20,9 @@ const IndexSettings = () => {
         {activeTab === "Branding" && <BrandingSettings />}
         {activeTab === "Users & Roles" && <UsersRolesSettings />}
         {activeTab === "Permissions" && <PermissionsSettings />}
-        
+        {activeTab === "Modules" && <ModulePermissions/>}
+        {activeTab === "Integrations" && <IntegrationsSettings/>}
+        {activeTab === "Notifications" && <NotificationSettings/>}
       </div>
     </>
   )

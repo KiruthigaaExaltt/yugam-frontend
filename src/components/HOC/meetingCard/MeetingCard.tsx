@@ -24,6 +24,11 @@ export interface MeetingItem {
 
   toggleValue?: boolean;
   onToggleChange?: (value: boolean) => void; // optional controlled value
+  
+  // New props for reuse
+  mainIcon?: React.ReactNode;
+  children?: React.ReactNode;
+  rightContent?: React.ReactNode;
 }
 
 /* ================= PROPS ================= */
@@ -55,14 +60,15 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
   isRecentCall,
 }) => {
   return (
-    <Card
-      className="rounded-(--border-radius) border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg [&_.p-card-body]:p-3!"
-      style={{
-        borderColor: "var(--surface-border)",
-        backgroundColor: "var(--surface-card)",
-        borderRadius: "var(--border-radius)",
-      }}
-    >
+    // <Card
+    //   className="rounded-(--border-radius) border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg [&_.p-card-body]:p-3!"
+    //   style={{
+    //     borderColor: "var(--surface-border)",
+    //     backgroundColor: "var(--surface-card)",
+    //     borderRadius: "var(--border-radius)",
+    //   }}
+    // >
+     <div className="flex flex-col gap-3">
       {/* ===== Header ===== */}
       {title && (
         <div className="flex justify-between items-center mb-3">
@@ -102,20 +108,29 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
               {/* ===== Top Row ===== */}
               <div className="flex justify-between items-start">
                 {/* LEFT */}
-                <div>
-                  <h4 className="text-sm font-medium text-(--text-color)">
-                    {m.title}
-                  </h4>
-
-                  {m.description && (
-                    <p className="text-xs text-(--text-muted) mt-1">
-                      {m.description}
-                    </p>
+                <div className="flex gap-3 items-start">
+                  {m.mainIcon && (
+                     <div className="shrink-0">
+                       {m.mainIcon}
+                     </div>
                   )}
+                  <div>
+                    <h4 className="text-sm font-medium text-(--text-color)">
+                      {m.title}
+                    </h4>
+
+                    {m.description && (
+                      <p className="text-xs text-(--text-muted) mt-1">
+                        {m.description}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 {/* RIGHT */}
                 <div className="flex items-center gap-3">
+                  {m.rightContent && m.rightContent}
+                  
                   {m.leftText && (
                     <span className="font-semibold text-(--text-color)">
                       ${m.leftText}
@@ -142,6 +157,13 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
                   )}
                 </div>
               </div>
+
+              {/* ===== Custom Children (e.g. Permissions) ===== */}
+              {m.children && (
+                <div className="mt-3">
+                   {m.children}
+                </div>
+              )}
 
               {/* ===== Extra Info ===== */}
               <div className="mt-2 text-xs text-(--text-muted) space-y-1">
@@ -177,7 +199,7 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
           {footerLabel}
         </button>
       )}
-    </Card>
+    </div>
   );
 };
 
