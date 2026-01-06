@@ -122,7 +122,7 @@ const INITIAL_MODULES: PermissionModule[] = [
     name: "Accounts", 
     description: "Financial management", 
     icon: <FiDollarSign />, 
-    enabled: true, 
+    enabled: false, 
     roleVisibility: ["Administrator", "Manager", "Staff", "Client"] 
   },
   { 
@@ -138,7 +138,7 @@ const INITIAL_MODULES: PermissionModule[] = [
     name: "Settings", 
     description: "System configuration", 
     icon: <FiSettings />, 
-    enabled: true, 
+    enabled: false, 
     roleVisibility: ["Administrator", "Manager", "Staff", "Client"] 
   },
 ];
@@ -254,7 +254,9 @@ const ModulePermissions: React.FC = () => {
   }));
 
   return (
+    <>
     <MeetingCard meetings={meetings} />
+    </>
   );
 };
 
