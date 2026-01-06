@@ -28,8 +28,14 @@ type ReusableCardProps = {
   icon?: React.ReactNode;
   items?: CardItem[];
   action?: CardAction;
+  extraButtons?: CardAction[];
   footer?: React.ReactNode;
   headerAction?: HeaderAction;
+  
+  // New props for Time Tracking
+  bigValue?: string;
+  bigValueLabel?: string;
+  statusBadge?: { label: string; color?: string };
 };
 
 const toneClassMap: Record<NonNullable<CardItem["valueTone"]>, string> = {
@@ -46,6 +52,10 @@ const SingleLineCard: React.FC<ReusableCardProps> = ({
   action,
   footer,
   headerAction,
+  extraButtons,
+  bigValue,
+  bigValueLabel,
+  statusBadge,
 }) => {
   return (
     <Card
@@ -61,25 +71,47 @@ const SingleLineCard: React.FC<ReusableCardProps> = ({
         <div className="flex items-center gap-2">
           {icon && <span>{icon}</span>}
           <h3
-            className="font-medium"
             style={{
               color: "var(--text-color)",
-              fontSize: "var(--font-size-body-lg)",
+              fontSize: "var(--card-title-size)",
+              fontWeight: "var(--card-title-weight)"
             }}
           >
             {title}
           </h3>
         </div>
 
-        {headerAction && (
-          <Button
-            label={headerAction.label}
-            icon={headerAction.icon}
-            onClick={headerAction.onClick}
-            className="p-button-text demo-button"
-          />
-        )}
+        <div className="flex items-center gap-2">
+            {statusBadge && (
+               <span className="px-2 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1" style={{ background: '#ecfdf5', color: '#059669' }}>
+                 <span className="w-1 h-1 rounded-full bg-emerald-500"></span>
+                 {statusBadge.label}
+               </span>
+            )}
+            {headerAction && (
+              <Button
+                label={headerAction.label}
+                icon={headerAction.icon}
+                onClick={headerAction.onClick}
+                className="p-button-text demo-button"
+              />
+            )}
+        </div>
       </div>
+
+      {/* BIG VALUE SECTION */}
+      {bigValue && (
+        <div className="flex flex-col items-center justify-center py-4">
+           <div className="text-4xl font-bold text-emerald-500 leading-none">
+             {bigValue}
+           </div>
+           {bigValueLabel && (
+             <div className="text-xs text-gray-400 mt-1">
+               {bigValueLabel}
+             </div>
+           )}
+        </div>
+      )}
 
       {/* CONTENT */}
       <div className="space-y-3">
@@ -129,28 +161,42 @@ const SingleLineCard: React.FC<ReusableCardProps> = ({
           </React.Fragment>
         ))}
       </div>
-      {/* FOOTER ACTION (OPTIONAL) */}
-      {action && (
-        <>
-          <div
-            className="my-4"
-            style={{ height: "1px", backgroundColor: "var(--surface-border)" }}
-          />
-
-          <Button
-            label={action.label}
-            icon={action.icon}
-            onClick={action.onClick}
-            className="w-full"
-            style={{
-              backgroundColor: "var(--surface-hover)",
-              borderColor: "var(--surface-border)",
-              color: "var(--text-color)",
-              fontSize: "var(--font-size-button)",
-              fontWeight: "var(--font-weight-medium)",
-            }}
-          />
-        </>
+      {/* FOOTER ACTIONS */}
+      {(action || extraButtons) && (
+        <div className="mt-4 flex flex-col gap-2">
+           {action && (
+              <Button
+                onClick={action.onClick}
+                className="w-full p-button-outlined rounded-full flex justify-center items-center gap-2 hover:!bg-emerald-50 hover:!text-emerald-600 hover:!border-emerald-200 transition-all font-medium"
+                style={{
+                  borderColor: "var(--surface-border)",
+                  color: "var(--text-color)",
+                  fontSize: "12px",
+                  height: '36px',
+                }}
+              >
+                {action.icon}
+                <span>{action.label}</span>
+              </Button>
+           )}
+           {extraButtons?.map((btn, idx) => (
+              <Button
+                key={idx}
+                onClick={btn.onClick}
+                className="w-full p-button-outlined rounded-full flex justify-center items-center gap-2 hover:!bg-emerald-50 hover:!text-emerald-600 hover:!border-emerald-200 transition-all"
+                style={{
+                  borderColor: "var(--surface-border)",
+                  color: "var(--text-color)",
+                  fontSize: "12px",
+                  height: '36px',
+                  fontWeight: '500'
+                }}
+              >
+                {btn.icon}
+                <span>{btn.label}</span>
+              </Button>
+           ))}
+        </div>
       )}
       {footer && <div className="mt-4">{footer}</div>}
     </Card>
