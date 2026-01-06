@@ -167,7 +167,9 @@ const SingleLineCard: React.FC<ReusableCardProps> = ({
            {action && (
               <Button
                 onClick={action.onClick}
-                className="w-full p-button-outlined rounded-full flex justify-center items-center gap-2 hover:!bg-emerald-50 hover:!text-emerald-600 hover:!border-emerald-200 transition-all font-medium"
+            // className="p-button-text demo-button"
+
+                className="w-full p-button-outlined rounded-full flex justify-center items-center gap-2 p-button-text demo-button"
                 style={{
                   borderColor: "var(--surface-border)",
                   color: "var(--text-color)",
@@ -183,7 +185,7 @@ const SingleLineCard: React.FC<ReusableCardProps> = ({
               <Button
                 key={idx}
                 onClick={btn.onClick}
-                className="w-full p-button-outlined rounded-full flex justify-center items-center gap-2 hover:!bg-emerald-50 hover:!text-emerald-600 hover:!border-emerald-200 transition-all"
+                className="w-full p-button-outlined rounded-full flex justify-center items-center gap-2 p-button-text demo-button"
                 style={{
                   borderColor: "var(--surface-border)",
                   color: "var(--text-color)",

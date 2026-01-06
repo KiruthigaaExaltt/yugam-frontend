@@ -153,10 +153,10 @@ const Usermaincontent = () => {
           >
             {/* Header */}
             <div className="flex items-center justify-between mb-4">
-              <h3 
-                style={{ 
-                  fontSize: "var(--card-title-size)", 
-                  fontWeight: "var(--card-title-weight)" 
+              <h3
+                style={{
+                  fontSize: "var(--card-title-size)",
+                  fontWeight: "var(--card-title-weight)",
                 }}
               >
                 My Project Progress
@@ -164,15 +164,16 @@ const Usermaincontent = () => {
               <Button
                 label="View Projects"
                 icon="pi pi-briefcase"
-                className="p-button-outlined p-button-sm !rounded-full !px-3 font-medium hover:!bg-emerald-50 hover:!text-emerald-600 hover:!border-emerald-200 transition-all"
+                className="p-button-text demo-button"
+                // className="p-button-outlined p-button-sm !rounded-full !px-3 font-medium hover:!bg-emerald-50 hover:!text-emerald-600 hover:!border-emerald-200 transition-all"
                 pt={{
                   root: {
                     style: {
                       color: "var(--text-color)",
                       borderColor: "var(--surface-border)",
-                      background: 'white'
-                    }
-                  }
+                      background: "white",
+                    },
+                  },
                 }}
               />
             </div>
@@ -221,7 +222,7 @@ const Usermaincontent = () => {
             headerAction={{
               label: "",
               onClick: () => console.log("Calendar clicked"),
-              icon: FiCalendar
+              icon: FiCalendar,
             }}
             isRecentCall
           />
@@ -247,13 +248,13 @@ const Usermaincontent = () => {
             action={{
               label: "Take Break",
               onClick: () => console.log("Take break clicked"),
-              icon: <MdOutlineWatchLater size={16} />
+              icon: <MdOutlineWatchLater size={16} />,
             }}
             extraButtons={[
               {
                 label: "View Timesheet",
-                onClick: () => console.log("View timesheet clicked")
-              }
+                onClick: () => console.log("View timesheet clicked"),
+              },
             ]}
           />
           <Card
@@ -263,16 +264,16 @@ const Usermaincontent = () => {
               borderRadius: "var(--border-radius)",
             }}
           >
-             <h3 
-               className="mb-4"
-               style={{ 
-                 fontSize: "var(--card-title-size)", 
-                 fontWeight: "var(--card-title-weight)" 
-               }}
-             >
-               Quick Contacts
-             </h3>
-             <div className="space-y-4">
+            <h3
+              className="mb-4"
+              style={{
+                fontSize: "var(--card-title-size)",
+                fontWeight: "var(--card-title-weight)",
+              }}
+            >
+              Quick Contacts
+            </h3>
+            <div className="space-y-4">
               {applications.map((item, index) => {
                 const { avatar, logo, initials } = getCardVisuals(item);
 

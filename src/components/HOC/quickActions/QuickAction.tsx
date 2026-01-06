@@ -85,7 +85,8 @@ const QuickActions: React.FC<QuickActionsProps> = ({
             label={headerAction.label}
             icon={headerAction.icon}
             onClick={headerAction.onClick}
-            className="p-button-outlined p-button-sm !rounded-full !px-3 font-medium transition-all hover:!bg-emerald-50 hover:!text-emerald-600 hover:!border-emerald-200"
+            className="p-button-text demo-button"
+            // className="p-button-outlined p-button-sm !rounded-full !px-3 font-medium transition-all hover:!bg-emerald-50 hover:!text-emerald-600 hover:!border-emerald-200"
             style={{
               borderColor: "var(--surface-border)",
               color: "var(--text-color)",
