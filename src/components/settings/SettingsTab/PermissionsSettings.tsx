@@ -4,6 +4,7 @@ import { Dropdown } from "primereact/dropdown";
 import { InputSwitch } from "primereact/inputswitch";
 import { FiLayout, FiUsers, FiCheckSquare, FiFolder, FiShare2, FiMessageSquare, FiCalendar, FiDatabase, FiFileText, FiDollarSign, FiBox, FiSettings } from "react-icons/fi";
 
+
 const ROLES = [
   { label: "Administrator", value: "Administrator" },
   { label: "Manager", value: "Manager" },
@@ -11,6 +12,7 @@ const ROLES = [
   { label: "Client", value: "Client" },
 ];
 
+// ... (PermissionModule interface)
 interface PermissionModule {
   id: number;
   name: string;
@@ -51,7 +53,7 @@ const ModuleCell = ({ name, description, icon }: { name: string; description: st
 
 const ToggleCell = ({ checked, onChange }: { checked: boolean; onChange: (val: boolean) => void }) => (
   <div className="flex justify-center">
-    <InputSwitch checked={checked} onChange={(e) => onChange(e.value)} className="scale-75" />
+    <InputSwitch checked={checked} onChange={(e) => onChange(e.value)} className="custom-permission-switch scale-75" />
   </div>
 );
 
@@ -73,6 +75,10 @@ const PermissionsSettings = () => {
 
   const paginatedData = modules.slice(page * rows, (page + 1) * rows);
 
+  /* Helper for centered header styles */
+  const centeredHeader = { textAlign: 'center' as const };
+  const centeredBody = { textAlign: 'center' as const };
+
   const columns: CrudColumn<PermissionModule>[] = [
     {
         field: "name",
@@ -84,49 +90,62 @@ const PermissionsSettings = () => {
         field: "canView",
         header: "View",
         body: (d) => <ToggleCell checked={d.canView} onChange={() => handleToggle(d.id, 'canView')} />,
+        headerStyle: centeredHeader,
+        bodyStyle: centeredBody
     },
     {
         field: "canCreate",
         header: "Create",
         body: (d) => <ToggleCell checked={d.canCreate} onChange={() => handleToggle(d.id, 'canCreate')} />,
+        headerStyle: centeredHeader,
+        bodyStyle: centeredBody
     },
     {
         field: "canEdit",
         header: "Edit",
         body: (d) => <ToggleCell checked={d.canEdit} onChange={() => handleToggle(d.id, 'canEdit')} />,
+        headerStyle: centeredHeader,
+        bodyStyle: centeredBody
     },
     {
         field: "canDelete",
         header: "Delete",
         body: (d) => <ToggleCell checked={d.canDelete} onChange={() => handleToggle(d.id, 'canDelete')} />,
+        headerStyle: centeredHeader,
+        bodyStyle: centeredBody
     },
     {
         field: "canExport",
         header: "Export",
         body: (d) => <ToggleCell checked={d.canExport} onChange={() => handleToggle(d.id, 'canExport')} />,
+        headerStyle: centeredHeader,
+        bodyStyle: centeredBody
     },
     {
         field: "canApprove",
         header: "Approve",
         body: (d) => <ToggleCell checked={d.canApprove} onChange={() => handleToggle(d.id, 'canApprove')} />,
+        headerStyle: centeredHeader,
+        bodyStyle: centeredBody
     }
   ];
 
   return (
     <div>
-      <div className="flex items-center gap-4 mb-4">
-          <label className="font-medium">Configure permissions for:</label>
-          <Dropdown
-            value={selectedRole}
-            options={ROLES}
-            onChange={(e) => setSelectedRole(e.value)}
-            className="w-full sm:w-64"
-            placeholder="Select a Role"
-          />
-      </div>
-
       <ReusableCrudTable
-        title=""
+        title={
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium hidden sm:inline">Configure permissions for:</span>
+            <Dropdown
+              value={selectedRole}
+              options={ROLES}
+              onChange={(e) => setSelectedRole(e.value)}
+              className="w-full sm:w-48 rounded-xl"
+              style={{ borderRadius: '0.75rem' }}
+              placeholder="Select a Role"
+            />
+          </div>
+        }
         data={paginatedData}
         columns={columns}
         dataKey="id"
@@ -141,6 +160,8 @@ const PermissionsSettings = () => {
         globalFilter={globalFilter}
         onGlobalFilterChange={setGlobalFilter}
         paginator={modules.length > rows}
+        showSearch={false}
+        showGridlines={false}
       />
     </div>
   );

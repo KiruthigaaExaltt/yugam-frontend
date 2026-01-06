@@ -223,6 +223,18 @@ const UsersRolesSettings = () => {
     <div className="space-y-6">
       <Menu model={menuItems} popup ref={menu} />
 
+      <div className="flex justify-start">
+        <Button 
+            label="New" 
+            className="p-button-success" 
+            style={{ backgroundColor: 'var(--primary-color)', borderColor: 'var(--primary-color)' }}
+            onClick={() => {
+                setEditingUser(null);
+                setShowModal(true);
+            }} 
+        />
+      </div>
+
       <ReusableCrudTable
         title="Users & Roles"
         data={paginatedData}
@@ -250,10 +262,7 @@ const UsersRolesSettings = () => {
           />
         }
         loading={false}
-        onAdd={() => {
-          setEditingUser(null);
-          setShowModal(true);
-        }}
+        // onAdd removed to hide default toolbar button
         // onDeleteSelected when we have selection logic
       />
 

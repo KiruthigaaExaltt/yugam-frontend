@@ -17,6 +17,8 @@ export interface CrudColumn<T> {
   sortable?: boolean;
   body?: (rowData: T) => ReactNode;
   style?: React.CSSProperties;
+  headerStyle?: React.CSSProperties; // New
+  bodyStyle?: React.CSSProperties; // New
   selectionMode?: "multiple";
   exportable?: boolean;
 }
@@ -40,7 +42,7 @@ interface ReusableCrudTableProps<T extends object> {
   onDeleteSelected?: () => void;
   onExport?: boolean;
 
-  title?: string;
+  title?: ReactNode; // Changed to ReactNode
 
   headerFilters?: ReactNode;
 
@@ -52,6 +54,8 @@ interface ReusableCrudTableProps<T extends object> {
   lazy?: boolean;
   loading: boolean;
   paginator?: boolean;
+  showSearch?: boolean; // New
+  showGridlines?: boolean; // New
 }
 
 /* ================================
@@ -77,6 +81,8 @@ const ReusableCrudTable = <T extends object>({
   toolbar = true,
   headerFilters,
   paginator = true,
+  showSearch = true,
+  showGridlines = true,
 }: ReusableCrudTableProps<T>) => {
   // NOTE: DataTable expects DataTableValueArray (array of T)
   const dt = useRef<DataTable<any> | null>(null);
@@ -116,9 +122,10 @@ const ReusableCrudTable = <T extends object>({
 
   const header = (
     <div className="flex flex-wrap justify-between items-center gap-2">
-      <h4 className="m-0 text-xl font-semibold">{title}</h4>
+      <div className="m-0 text-xl font-semibold">{title}</div>
       <div className="flex items-center gap-2">
         {headerFilters && <div>{headerFilters}</div>}
+        {showSearch && (
         <IconField iconPosition="left">
           <InputIcon className="pi pi-search" />
           <InputText
@@ -129,6 +136,7 @@ const ReusableCrudTable = <T extends object>({
             className="p-inputtext-sm"
           />
         </IconField>
+        )}
       </div>
     </div>
   );
@@ -172,7 +180,7 @@ const ReusableCrudTable = <T extends object>({
         dataKey={String(dataKey)}
         header={header}
         responsiveLayout="scroll"
-        showGridlines
+        showGridlines={showGridlines}
       >
         {columns.map((col, index) => (
           <Column
@@ -182,6 +190,8 @@ const ReusableCrudTable = <T extends object>({
             sortable={col.sortable}
             body={col.body}
             style={col.style}
+            headerStyle={col.headerStyle}
+            bodyStyle={col.bodyStyle}
             selectionMode={col.selectionMode}
             exportable={col.exportable}
           />

@@ -36,7 +36,7 @@ export function RHFInput({ name, label, type = "text", ...props }: any) {
               {...field}
               type={type}
               {...props}
-              className={`w-full border rounded-lg px-3 py-2 focus:ring-2 ${
+              className={`w-full border rounded-xl px-3 py-2 focus:ring-2 ${
                 fieldState.error ? "border-red-500" : "border-gray-300"
               }`}
             />
@@ -75,9 +75,10 @@ export function RDropdown({ name, label, options = [], ...props }: any) {
               optionLabel="label"
               optionValue="value"
               placeholder="Select"
-              className={`w-full ${
+              className={`w-full rounded-xl ${
                 fieldState.error ? "p-invalid" : ""
               }`}
+              style={{ borderRadius: '0.75rem' }}
               {...props}
             />
 
@@ -111,9 +112,10 @@ export function RCalendar({ name, label, ...props }: any) {
               value={field.value}
               onChange={(e) => field.onChange(e.value)}
               showIcon
-              className={`w-full ${
+              className={`w-full rounded-xl ${
                 fieldState.error ? "border border-red-500" : ""
               }`}
+              style={{ borderRadius: '0.75rem' }}
               {...props}
             />
 
@@ -273,7 +275,7 @@ export function RFileUpload({ name, label, ...props }: any) {
               className="
                 flex items-center gap-3 
                 border border-gray-300 
-                rounded-lg p-3 
+                rounded-xl p-3 
                 cursor-pointer 
                 hover:border-blue-500 hover:bg-blue-50 
                 transition
@@ -326,10 +328,10 @@ export function RQuillEditor({ name, label }: any) {
             <Editor
               value={field.value}
               onTextChange={(e) => field.onChange(e.htmlValue)}
-              style={{ height: "180px" }}
+              style={{ height: "180px", borderRadius: '0.75rem' }}
               className={`border ${
                 fieldState.error ? "border-red-500" : "border-gray-300"
-              } rounded-lg`}
+              } rounded-xl`}
             />
  
             {fieldState.error && (
@@ -343,4 +345,3 @@ export function RQuillEditor({ name, label }: any) {
     </Row>
   );
 }
- 
