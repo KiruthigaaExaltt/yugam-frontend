@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import {
@@ -78,6 +78,16 @@ function RBigFileUpload({ name, label, subLabel }: any) {
   );
 }
 
+// Helper to convert File to Base64
+const fileToBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
+};
+
 // Color Swatch Component
 const ColorSwatch = ({
   color,
@@ -132,10 +142,66 @@ const BrandingSettings = () => {
     },
   ];
 
+  const onSubmit = async (data: any) => {
+    const root = document.documentElement;
+
+    // 1. Update active semantic tokens (immediate effect)
+    root.style.setProperty("--primary-color", data.primaryColor);
+    root.style.setProperty("--secondary-color", data.secondaryColor);
+
+    // 2. Update specific theme tokens to ensure consistency
+    root.style.setProperty("--light-primary-color", data.primaryColor);
+    root.style.setProperty("--light-secondary-color", data.secondaryColor);
+
+    // 3. Handle Logo Upload
+    let logoBase64 = null;
+    if (data.logo instanceof File) {
+      try {
+        logoBase64 = await fileToBase64(data.logo);
+        // Dispatch event for BaseLayout to pick up the new logo
+        window.dispatchEvent(
+          new CustomEvent("branding-update", { detail: { logo: logoBase64 } })
+        );
+      } catch (error) {
+        console.error("Error converting logo to base64:", error);
+      }
+    }
+
+    // 4. Handle Favicon Upload
+    if (data.favicon instanceof File) {
+      try {
+        const faviconBase64 = await fileToBase64(data.favicon);
+        // Directly update the favicon link tag
+        let link: HTMLLinkElement | null = document.querySelector("link[rel~='icon']");
+        if (!link) {
+          link = document.createElement("link");
+          link.rel = "icon";
+          document.head.appendChild(link);
+        }
+        link.href = faviconBase64;
+      } catch (error) {
+        console.error("Error converting favicon to base64:", error);
+      }
+    }
+
+    console.log("Theme & Branding Updated:", { ...data, logo: logoBase64 ? "Updated" : "Unchanged" });
+  };
+
+  // Listen for global save event from Header
+  useEffect(() => {
+    const handleGlobalSave = () => {
+      methods.handleSubmit(onSubmit)();
+    };
+    window.addEventListener("settings-save-trigger", handleGlobalSave);
+    return () => {
+      window.removeEventListener("settings-save-trigger", handleGlobalSave);
+    };
+  }, [methods, onSubmit]);
+
   return (
     <div className="space-y-6">
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
           <Card
             className="rounded-(--border-radius) border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             style={{

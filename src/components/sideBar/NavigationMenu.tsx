@@ -188,10 +188,9 @@ const NavigationMenu = ({
       )
     )?.category ?? "CORE";
 
-  /** Expanded category state (only one at a time) */
+  /* Expanded category state (only one at a time) */
   const [expandedCategories, setExpandedCategories] = useState<string[]>([
     activeCategory,
-    "COLLABORATION" // Ensure collaboration is open by default if needed, or stick to auto logic
   ]);
 
   const toggleCategory = (category: string) => {

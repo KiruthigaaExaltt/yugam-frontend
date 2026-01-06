@@ -28,6 +28,19 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [customLogo, setCustomLogo] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleBrandingUpdate = (e: any) => {
+      if (e.detail && e.detail.logo) {
+        setCustomLogo(e.detail.logo);
+      }
+    };
+    window.addEventListener("branding-update", handleBrandingUpdate);
+    return () => {
+      window.removeEventListener("branding-update", handleBrandingUpdate);
+    };
+  }, []);
 
   const menuRef = useRef<TieredMenu>(null);
   const { theme, toggleTheme } = useTheme();
@@ -113,14 +126,23 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
         </Button>
 
         <div className="flex items-center gap-2 ml-2">
-          <div
-            className="w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold"
-            style={{
-              background: "linear-gradient(to right, var(--secondary-color), var(--primary-color))",
-            }}
-          >
-            E
-          </div>
+          {customLogo ? (
+            <img
+              src={customLogo}
+              alt="Logo"
+              className="w-7 h-7 rounded-sm object-contain"
+            />
+          ) : (
+            <div
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold"
+              style={{
+                background:
+                  "linear-gradient(to right, var(--secondary-color), var(--primary-color))",
+              }}
+            >
+              E
+            </div>
+          )}
           <>
             <span className="font-semibold text-sm">Exaltt.ai</span>
             <span

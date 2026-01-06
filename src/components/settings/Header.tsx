@@ -18,7 +18,10 @@ export default function ExamplePageHeader() {
           label: "Save Changes",
           icon: <FiSave size={16} />,
           variant: "primary",
-          onClick: () => console.log("Save clicked"),
+          onClick: () => {
+            console.log("Save clicked");
+            window.dispatchEvent(new Event("settings-save-trigger"));
+          },
         },
       ]}
     />
