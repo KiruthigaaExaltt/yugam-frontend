@@ -7,11 +7,13 @@
 }
 
 .text-warning {
-  color: #f59e0b; /* can be tokenized later */
+  color: #f59e0b;
+  /* can be tokenized later */
 }
 
 .text-danger {
-  color: #ef4444; /* can be tokenized later */
+  color: #ef4444;
+  /* can be tokenized later */
 }
 
 .demo-button {
@@ -51,3 +53,30 @@
   box-shadow: 0 0 0 2px var(--primary-color-light);
 }
 
+.header-action-btn {
+  width: 31px !important;
+  height: 31px !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+  background: white !important;
+  border: 1px solid var(--surface-border) !important;
+  color: var(--text-color) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.header-action-btn:hover {
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
+  background: var(--primary-color-light) !important;
+  transform: translateY(-1px);
+}
+
+.header-action-btn svg {
+  font-size: var(--header-action-icon-size) !important;
+  width: var(--header-action-icon-size) !important;
+  height: var(--header-action-icon-size) !important;
+}

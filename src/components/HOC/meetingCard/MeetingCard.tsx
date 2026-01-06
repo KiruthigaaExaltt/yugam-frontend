@@ -307,8 +307,8 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
             {headerAction && (
               <Button
                 onClick={headerAction.onClick}
-                icon={headerAction.icon ? <headerAction.icon size={16} /> : undefined}
-            className="p-button-text demo-button"
+                icon={headerAction.icon ? <headerAction.icon size="var(--header-action-icon-size)" /> : undefined}
+                className={!headerAction.label ? "header-action-btn" : "p-button-text demo-button"}
                 
                 // className="p-button-outlined p-button-sm !rounded-md !border-gray-100 font-medium hover:!border-emerald-500 hover:!text-emerald-500 hover:!bg-emerald-50 transition-all text-gray-400 bg-white shadow-sm w-8 h-8 p-0"
               />
@@ -318,16 +318,18 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
               <Button
                 onClick={onAddClick}
                 label={addButtonLabel}
-                icon={AddIcon ? <AddIcon size={14} /> : <span>+</span>}
-                // className={`p-button-outlined p-button-sm !rounded-full transition hover:shadow-md hover:!bg-emerald-50 hover:!text-emerald-600 hover:!border-emerald-200 ${
-                //   addButtonLabel ? "!px-3 font-medium" : "w-8 h-8 !p-0"
-                // }`}
-            className="p-button-text demo-button"
-
-                style={{
+                icon={AddIcon ? <AddIcon size="var(--header-action-icon-size)" /> : <span>+</span>}
+                className={!addButtonLabel ? "header-action-btn" : "p-button-text demo-button"}
+                style={!addButtonLabel ? {
                   background: "white",
                   border: "1px solid var(--surface-border)",
                   color: "var(--text-color)",
+                } : {
+                  background: "white",
+                  border: "1px solid var(--surface-border)",
+                  color: "var(--text-color)",
+                  borderRadius: "var(--border-radius)",
+                  padding: "0.25rem 0.75rem",
                 }}
               />
             )}

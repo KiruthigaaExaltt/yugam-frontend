@@ -90,10 +90,9 @@ const SingleLineCard: React.FC<ReusableCardProps> = ({
             )}
             {headerAction && (
               <Button
-                label={headerAction.label}
                 icon={headerAction.icon}
                 onClick={headerAction.onClick}
-                className="p-button-text demo-button"
+                className="header-action-btn"
               />
             )}
         </div>

@@ -41,6 +41,7 @@
   --font-size-table: clamp(12px, 1.2vw, 13px);
   --font-size-button: clamp(12.5px, 1.4vw, 14px);
   --font-size-badge: clamp(11px, 1.1vw, 12px);
+  --header-action-icon-size: 18px;
 
   /* Line heights */
   --line-height-tight: 1.2;

@@ -16,18 +16,12 @@ const SecuritySection: React.FC = () => {
     {
       label: "Minimum Length",
       value: (
-        <Dropdown
+       <Dropdown
           value={minLength}
           options={[6, 8, 10, 12]}
           onChange={(e) => setMinLength(e.value)}
-          className="w-20"
-          pt={{
-            root: { style: { borderRadius: '8px' } },
-            item: ({ context }: any) => ({
-              className: context.selected ? 'bg-primary-500 text-white' : '',
-              style: context.selected ? { backgroundColor: 'var(--primary-color)' } : {}
-            })
-          }}
+          className="w-20 p-inputtext-sm"
+          style={{ borderRadius: "var(--card-radius)", borderColor: "var(--surface-border)" }}
         />
       ),
     },
@@ -51,18 +45,12 @@ const SecuritySection: React.FC = () => {
     {
       label: "Password Expiry (days)",
       value: (
-        <Dropdown
+         <Dropdown
           value={expiryDays}
           options={[30, 60, 90, 180]}
           onChange={(e) => setExpiryDays(e.value)}
-          className="w-20"
-          pt={{
-            root: { style: { borderRadius: '8px' } },
-            item: ({ context }: any) => ({
-              className: context.selected ? 'bg-primary-500 text-white' : '',
-              style: context.selected ? { backgroundColor: 'var(--primary-color)' } : {}
-            })
-          }}
+          className="w-20 p-inputtext-sm"
+          style={{ borderRadius: "var(--card-radius)", borderColor: "var(--surface-border)" }}
         />
       ),
     },
@@ -76,14 +64,8 @@ const SecuritySection: React.FC = () => {
           value={sessionTimeout}
           options={[15, 30, 60, 120]}
           onChange={(e) => setSessionTimeout(e.value)}
-          className="w-20"
-          pt={{
-            root: { style: { borderRadius: '8px' } },
-            item: ({ context }: any) => ({
-              className: context.selected ? 'bg-primary-500 text-white' : '',
-              style: context.selected ? { backgroundColor: 'var(--primary-color)' } : {}
-            })
-          }}
+          className="w-20 p-inputtext-sm"
+          style={{ borderRadius: "var(--card-radius)", borderColor: "var(--surface-border)" }}
         />
       ),
     },

@@ -23,17 +23,7 @@ const integrations: MeetingItem[] = [
         </span>
         <Button
           label="Configure"
-          className="p-button-outlined p-button-sm"
-          pt={{
-            root: {
-              style: {
-                borderColor: 'var(--surface-border)',
-                color: 'var(--text-color)',
-                borderRadius: '8px'
-              },
-              className: 'hover:!border-[color:var(--primary-color)] hover:!text-[color:var(--primary-color)]'
-            }
-          }}
+          className="p-button-text demo-button"
         />
       </div>
     ),
@@ -51,19 +41,9 @@ const integrations: MeetingItem[] = [
         <span className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-500 font-medium">
           disconnected
         </span>
-        <Button
+       <Button
           label="Setup"
-          className="p-button-outlined p-button-sm"
-          pt={{
-            root: {
-              style: {
-                borderColor: 'var(--surface-border)',
-                color: 'var(--text-color)',
-                borderRadius: '8px'
-              },
-              className: 'hover:!border-[color:var(--primary-color)] hover:!text-[color:var(--primary-color)]'
-            }
-          }}
+          className="p-button-text demo-button"
         />
       </div>
     ),
