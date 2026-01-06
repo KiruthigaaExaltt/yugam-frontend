@@ -3,6 +3,7 @@ import ReusableCrudTable, { type CrudColumn } from "../../HOC/ReusableDataTable/
 import { Dropdown } from "primereact/dropdown";
 import { InputSwitch } from "primereact/inputswitch";
 import { FiLayout, FiUsers, FiCheckSquare, FiFolder, FiShare2, FiMessageSquare, FiCalendar, FiDatabase, FiFileText, FiDollarSign, FiBox, FiSettings } from "react-icons/fi";
+import PermissionWorkspaceScoping from "./PermissionWorkspaceScoping";
 
 
 const ROLES = [
@@ -52,8 +53,20 @@ const ModuleCell = ({ name, description, icon }: { name: string; description: st
 );
 
 const ToggleCell = ({ checked, onChange }: { checked: boolean; onChange: (val: boolean) => void }) => (
-  <div className="flex justify-center">
-    <InputSwitch checked={checked} onChange={(e) => onChange(e.value)} className="custom-permission-switch scale-75" />
+  <div className="flex justify-start pl-1">
+    <InputSwitch 
+      checked={checked} 
+      onChange={(e) => onChange(e.value)} 
+      className="scale-75"
+      pt={{
+        slider: {
+          style: {
+            backgroundColor: checked ? 'var(--primary-color)' : '',
+            borderColor: checked ? 'var(--primary-color)' : ''
+          }
+        }
+      }}
+    />
   </div>
 );
 
@@ -75,58 +88,59 @@ const PermissionsSettings = () => {
 
   const paginatedData = modules.slice(page * rows, (page + 1) * rows);
 
-  /* Helper for centered header styles */
-  const centeredHeader = { textAlign: 'center' as const };
-  const centeredBody = { textAlign: 'center' as const };
+  /* Helper for alignment */
+  const leftAlign = { textAlign: 'left' as const };
 
   const columns: CrudColumn<PermissionModule>[] = [
     {
         field: "name",
         header: "Module",
         body: (d) => <ModuleCell name={d.name} description={d.description} icon={d.icon} />,
-        sortable: true
+        sortable: true,
+        style: { width: '250px' },
+        headerStyle: { width: '250px', ...leftAlign }
     },
     {
         field: "canView",
         header: "View",
         body: (d) => <ToggleCell checked={d.canView} onChange={() => handleToggle(d.id, 'canView')} />,
-        headerStyle: centeredHeader,
-        bodyStyle: centeredBody
+        headerStyle: { ...leftAlign, width: '100px' },
+        bodyStyle: { ...leftAlign, width: '100px' }
     },
     {
         field: "canCreate",
         header: "Create",
         body: (d) => <ToggleCell checked={d.canCreate} onChange={() => handleToggle(d.id, 'canCreate')} />,
-        headerStyle: centeredHeader,
-        bodyStyle: centeredBody
+        headerStyle: { ...leftAlign, width: '100px' },
+        bodyStyle: { ...leftAlign, width: '100px' }
     },
     {
         field: "canEdit",
         header: "Edit",
         body: (d) => <ToggleCell checked={d.canEdit} onChange={() => handleToggle(d.id, 'canEdit')} />,
-        headerStyle: centeredHeader,
-        bodyStyle: centeredBody
+        headerStyle: { ...leftAlign, width: '100px' },
+        bodyStyle: { ...leftAlign, width: '100px' }
     },
     {
         field: "canDelete",
         header: "Delete",
         body: (d) => <ToggleCell checked={d.canDelete} onChange={() => handleToggle(d.id, 'canDelete')} />,
-        headerStyle: centeredHeader,
-        bodyStyle: centeredBody
+        headerStyle: { ...leftAlign, width: '100px' },
+        bodyStyle: { ...leftAlign, width: '100px' }
     },
     {
         field: "canExport",
         header: "Export",
         body: (d) => <ToggleCell checked={d.canExport} onChange={() => handleToggle(d.id, 'canExport')} />,
-        headerStyle: centeredHeader,
-        bodyStyle: centeredBody
+        headerStyle: { ...leftAlign, width: '100px' },
+        bodyStyle: { ...leftAlign, width: '100px' }
     },
     {
         field: "canApprove",
         header: "Approve",
         body: (d) => <ToggleCell checked={d.canApprove} onChange={() => handleToggle(d.id, 'canApprove')} />,
-        headerStyle: centeredHeader,
-        bodyStyle: centeredBody
+        headerStyle: { ...leftAlign, width: '100px' },
+        bodyStyle: { ...leftAlign, width: '100px' }
     }
   ];
 
@@ -143,6 +157,19 @@ const PermissionsSettings = () => {
               className="w-full sm:w-48 rounded-xl"
               style={{ borderRadius: '0.75rem' }}
               placeholder="Select a Role"
+              pt={{
+                root: {
+                  style: {
+                    borderColor: 'var(--surface-border)',
+                  }
+                },
+                item: ({ context }: any) => ({
+                  style: {
+                    backgroundColor: context.selected ? 'rgba(16, 185, 129, 0.1)' : '',
+                    color: context.selected ? 'var(--primary-color)' : ''
+                  }
+                })
+              }}
             />
           </div>
         }
@@ -163,6 +190,10 @@ const PermissionsSettings = () => {
         showSearch={false}
         showGridlines={false}
       />
+
+      <div className="mt-6">
+        <PermissionWorkspaceScoping />
+      </div>
     </div>
   );
 };

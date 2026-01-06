@@ -15,12 +15,25 @@ const integrations: MeetingItem[] = [
     ),
     rightContent: (
       <div className="flex items-center gap-3">
-        <span className="px-2 py-1 text-xs rounded-full bg-green-100 text-green-600 font-medium">
+        <span 
+          className="px-2 py-1 text-xs rounded-full font-medium"
+          style={{ backgroundColor: 'var(--primary-color-light)', color: 'var(--primary-color)' }}
+        >
           connected
         </span>
         <Button
           label="Configure"
-          className="p-button-text demo-button"
+          className="p-button-outlined p-button-sm"
+          pt={{
+            root: {
+              style: {
+                borderColor: 'var(--surface-border)',
+                color: 'var(--text-color)',
+                borderRadius: '8px'
+              },
+              className: 'hover:!border-[color:var(--primary-color)] hover:!text-[color:var(--primary-color)]'
+            }
+          }}
         />
       </div>
     ),
@@ -40,7 +53,17 @@ const integrations: MeetingItem[] = [
         </span>
         <Button
           label="Setup"
-          className="p-button-text demo-button"
+          className="p-button-outlined p-button-sm"
+          pt={{
+            root: {
+              style: {
+                borderColor: 'var(--surface-border)',
+                color: 'var(--text-color)',
+                borderRadius: '8px'
+              },
+              className: 'hover:!border-[color:var(--primary-color)] hover:!text-[color:var(--primary-color)]'
+            }
+          }}
         />
       </div>
     ),

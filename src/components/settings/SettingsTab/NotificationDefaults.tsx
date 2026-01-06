@@ -27,6 +27,14 @@ const NotificationDefaults: React.FC = () => {
           <InputSwitch
             checked={!!state[key]}
             onChange={() => toggle(key)}
+            pt={{
+              slider: {
+                style: {
+                  backgroundColor: !!state[key] ? 'var(--primary-color)' : '',
+                  border: !!state[key] ? '1px solid var(--primary-color)' : ''
+                }
+              }
+            }}
           />
         ),
       };

@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card } from "primereact/card";
-import { Button } from "primereact/button";
 import {
   useForm,
   FormProvider,
   useFormContext,
   Controller,
 } from "react-hook-form";
-import { FiUpload, FiEye, FiEyeOff } from "react-icons/fi";
+import { FiUpload, FiTrash2 } from "react-icons/fi";
 import { RHFInput } from "../../HOC/form/RHFFields";
 import MeetingCard, {
   type MeetingItem,
@@ -16,12 +15,11 @@ import MeetingCard, {
 // Custom RHF Component for Large Drag & Drop Upload
 function RBigFileUpload({ name, label, subLabel }: any) {
   const { control } = useFormContext();
-  const [fileName, setFileName] = useState("");
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       {label && (
-        <label className="font-medium" style={{ color: "var(--text-color)" }}>
+        <label className="text-[11px] font-bold uppercase tracking-widest pl-1" style={{ color: "var(--text-muted)" }}>
           {label}
         </label>
       )}
@@ -29,52 +27,114 @@ function RBigFileUpload({ name, label, subLabel }: any) {
         name={name}
         control={control}
         defaultValue={null}
-        render={({ field, fieldState }) => (
-          <div className="w-full">
-            <label
-              className={`
-                flex flex-col items-center justify-center gap-2 
-                border-2 border-dashed ${
-                  fieldState.error ? "border-red-500" : "border-surface-border"
-                }
-                rounded-xl p-8 
-                cursor-pointer 
-                hover:border-primary-500 hover:bg-surface-hover 
-                transition-all
-                text-center
-              `}
-              style={{ minHeight: "160px" }}
-            >
-              <FiUpload className="text-3xl text-gray-400" />
+        render={({ field, fieldState }) => {
+          const hasFile = !!field.value;
+          const inputRef = useRef<HTMLInputElement>(null);
+          
+          return (
+            <div className="w-full relative group">
+              <label
+                className={`
+                  flex flex-col items-center justify-center gap-3
+                  border-2 border-dashed ${
+                    fieldState.error ? "border-red-500" : "border-surface-border"
+                  }
+                  rounded-2xl p-6
+                  cursor-pointer 
+                  hover:border-[color:var(--primary-color)] hover:bg-[color:var(--primary-color-light)] 
+                  transition-all duration-300
+                  text-center overflow-hidden
+                `}
+                style={{ minHeight: "180px", backgroundColor: 'var(--surface-50)' }}
+              >
+                <FileUploadInner value={field.value} subLabel={subLabel} />
 
-              <div className="space-y-1">
-                <span className="font-medium text-primary-600 block">
-                  {fileName ? fileName : "Drag & drop or click to upload"}
-                </span>
-                {subLabel && (
-                  <span className="text-xs text-gray-400">{subLabel}</span>
-                )}
-              </div>
+                <input
+                  ref={inputRef}
+                  type="file"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={(e: any) => {
+                    const file = e.target.files?.[0];
+                    field.onChange(file);
+                  }}
+                />
+              </label>
 
-              <input
-                type="file"
-                className="hidden"
-                onChange={(e: any) => {
-                  const file = e.target.files?.[0];
-                  setFileName(file ? file.name : "");
-                  field.onChange(file);
-                }}
-              />
-            </label>
-            {fieldState.error && (
-              <small className="text-red-500 block mt-1">
-                {String(fieldState.error.message)}
-              </small>
-            )}
-          </div>
-        )}
+              {/* Premium Remove Button */}
+              {hasFile && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    field.onChange(null);
+                    if (inputRef.current) inputRef.current.value = "";
+                  }}
+                  className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white shadow-xl border border-red-100 flex items-center justify-center text-red-500 hover:bg-red-50 transition-all opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 z-10"
+                  title="Remove"
+                >
+                  <FiTrash2 size={16} />
+                </button>
+              )}
+
+              {fieldState.error && (
+                <small className="text-red-500 block mt-2 ml-2">
+                  {String(fieldState.error.message)}
+                </small>
+              )}
+            </div>
+          );
+        }}
       />
     </div>
+  );
+}
+
+// Sub-component to handle preview logic safely
+function FileUploadInner({ value, subLabel }: { value: any; subLabel: string }) {
+  const [preview, setPreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (value instanceof File) {
+      const url = URL.createObjectURL(value);
+      setPreview(url);
+      return () => URL.revokeObjectURL(url);
+    } else if (typeof value === 'string') {
+      setPreview(value);
+    } else {
+      setPreview(null);
+    }
+  }, [value]);
+
+  if (preview) {
+    return (
+      <div className="relative w-full h-full flex items-center justify-center py-2 animate-in fade-in zoom-in duration-300">
+        <img 
+          src={preview} 
+          alt="Preview" 
+          className="max-h-[120px] max-w-[80%] object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-105" 
+        />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center border border-surface-border mb-1">
+        <FiUpload className="text-2xl text-gray-400 group-hover:text-[color:var(--primary-color)] transition-colors" />
+      </div>
+
+      <div className="space-y-1">
+        <p className="text-sm font-semibold truncate max-w-[200px]" style={{ color: 'var(--text-color)' }}>
+          <span className="text-gray-400">Drag & drop or </span>
+          <span style={{ color: 'var(--primary-color)' }}>click to upload</span>
+        </p>
+        {subLabel && (
+          <p className="text-[10px] font-medium uppercase tracking-tight" style={{ color: 'var(--text-muted)', opacity: 0.7 }}>
+            {subLabel}
+          </p>
+        )}
+      </div>
+    </>
   );
 }
 
@@ -116,7 +176,6 @@ const BrandingSettings = () => {
     },
   });
 
-  const [showPreview, setShowPreview] = useState(false);
 
   // Watch colors for live preview
   const primaryColor = methods.watch("primaryColor");
@@ -263,52 +322,32 @@ const BrandingSettings = () => {
                   >
                     Color Palette Preview
                   </h4>
-                  <Button
-                    type="button"
-                    label={showPreview ? "Hide Preview" : "Show Preview"}
-                    icon={
-                      showPreview ? (
-                        <FiEyeOff className="mr-2" />
-                      ) : (
-                        <FiEye className="mr-2" />
-                      )
-                    }
-                    className="p-button-text p-button-sm"
-                    onClick={() => setShowPreview(!showPreview)}
-                  />
                 </div>
 
-                {showPreview && (
-                  <div className="p-6 bg-surface-50 dark:bg-surface-900 rounded-xl border border-dashed border-surface-border">
-                    <div className="flex justify-between gap-2 overflow-x-auto pb-2">
-                      <ColorSwatch color={primaryColor} label="Primary" />
-                      {/* Approximating Light/Dark variants for demo */}
-                      <ColorSwatch color={`${primaryColor}50`} label="Light" />
-                      <ColorSwatch color={primaryColor} label="Dark" />
-                      <ColorSwatch color={secondaryColor} label="Secondary" />
-                      <ColorSwatch color="#ef4444" label="Error" />
-                    </div>
+                <div className="pt-2">
+                  <div className="flex justify-between gap-2 overflow-x-auto pb-2">
+                    <ColorSwatch color={primaryColor} label="Primary" />
+                    {/* Approximating Light/Dark variants for demo */}
+                    <ColorSwatch color={`${primaryColor}50`} label="Light" />
+                    <ColorSwatch color={primaryColor} label="Dark" />
+                    <ColorSwatch color={secondaryColor} label="Secondary" />
+                    <ColorSwatch color="#ef4444" label="Error" />
                   </div>
-                )}
-                {!showPreview && (
-                  <div className="h-32 flex items-center justify-center border rounded-xl bg-gray-50 text-gray-400 text-sm italic">
-                    Preview hidden
-                  </div>
-                )}
+                </div>
               </div>
             </div>
           </Card>
 
           {/* UPLOAD SECTION */}
           <Card
-            className="rounded-(--border-radius) border shadow-sm mt-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            className="rounded-(--border-radius) border shadow-none mt-6 transition-all duration-300 [&_.p-card-body]:p-6!"
             style={{
               backgroundColor: "var(--surface-card)",
               borderColor: "var(--surface-border)",
               borderRadius: "var(--border-radius)",
             }}
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <RBigFileUpload
                 name="logo"
                 label="Main Logo"

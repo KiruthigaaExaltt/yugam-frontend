@@ -169,6 +169,14 @@ const IntegrationsSettings: React.FC = () => {
                             checked={module.autoSync} 
                             onChange={() => toggleAutoSync(module.id)}
                             className="scale-75"
+                            pt={{
+                              slider: {
+                                style: {
+                                  backgroundColor: module.autoSync ? 'var(--primary-color)' : '',
+                                  border: module.autoSync ? '1px solid var(--primary-color)' : ''
+                                }
+                              }
+                            }}
                          />
                          <span className="text-sm font-medium text-gray-700">Auto Sync</span>
                     </div>

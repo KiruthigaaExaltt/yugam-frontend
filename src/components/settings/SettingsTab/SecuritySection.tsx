@@ -20,8 +20,14 @@ const SecuritySection: React.FC = () => {
           value={minLength}
           options={[6, 8, 10, 12]}
           onChange={(e) => setMinLength(e.value)}
-          className="w-20 p-inputtext-sm"
-          style={{ borderRadius: "var(--card-radius)", borderColor: "var(--surface-border)" }}
+          className="w-20"
+          pt={{
+            root: { style: { borderRadius: '8px' } },
+            item: ({ context }: any) => ({
+              className: context.selected ? 'bg-primary-500 text-white' : '',
+              style: context.selected ? { backgroundColor: 'var(--primary-color)' } : {}
+            })
+          }}
         />
       ),
     },
@@ -31,6 +37,14 @@ const SecuritySection: React.FC = () => {
         <InputSwitch
           checked={requireSpecial}
           onChange={(e) => setRequireSpecial(e.value)}
+          pt={{
+            slider: {
+              style: {
+                backgroundColor: requireSpecial ? "var(--primary-color)" : "",
+                border: requireSpecial ? "1px solid var(--primary-color)" : "",
+              },
+            },
+          }}
         />
       ),
     },
@@ -41,8 +55,14 @@ const SecuritySection: React.FC = () => {
           value={expiryDays}
           options={[30, 60, 90, 180]}
           onChange={(e) => setExpiryDays(e.value)}
-          className="w-20 p-inputtext-sm"
-          style={{ borderRadius: "var(--card-radius)", borderColor: "var(--surface-border)" }}
+          className="w-20"
+          pt={{
+            root: { style: { borderRadius: '8px' } },
+            item: ({ context }: any) => ({
+              className: context.selected ? 'bg-primary-500 text-white' : '',
+              style: context.selected ? { backgroundColor: 'var(--primary-color)' } : {}
+            })
+          }}
         />
       ),
     },
@@ -56,8 +76,14 @@ const SecuritySection: React.FC = () => {
           value={sessionTimeout}
           options={[15, 30, 60, 120]}
           onChange={(e) => setSessionTimeout(e.value)}
-          className="w-20 p-inputtext-sm"
-          style={{ borderRadius: "var(--card-radius)", borderColor: "var(--surface-border)" }}
+          className="w-20"
+          pt={{
+            root: { style: { borderRadius: '8px' } },
+            item: ({ context }: any) => ({
+              className: context.selected ? 'bg-primary-500 text-white' : '',
+              style: context.selected ? { backgroundColor: 'var(--primary-color)' } : {}
+            })
+          }}
         />
       ),
     },
@@ -67,6 +93,14 @@ const SecuritySection: React.FC = () => {
         <InputSwitch
           checked={force2FA}
           onChange={(e) => setForce2FA(e.value)}
+          pt={{
+            slider: {
+              style: {
+                backgroundColor: force2FA ? "var(--primary-color)" : "",
+                border: force2FA ? "1px solid var(--primary-color)" : "",
+              },
+            },
+          }}
         />
       ),
     },
@@ -76,6 +110,14 @@ const SecuritySection: React.FC = () => {
         <InputSwitch
           checked={ipAllowlist}
           onChange={(e) => setIpAllowlist(e.value)}
+          pt={{
+            slider: {
+              style: {
+                backgroundColor: ipAllowlist ? "var(--primary-color)" : "",
+                border: ipAllowlist ? "1px solid var(--primary-color)" : "",
+              },
+            },
+          }}
         />
       ),
     },

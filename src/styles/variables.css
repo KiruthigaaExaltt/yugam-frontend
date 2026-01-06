@@ -85,10 +85,11 @@
   --light-text-muted: #6b7280;
 
   --light-primary-color: #10b981;
-  --light-primary-light: #e0f2fe;
+  --light-primary-light: #ecfdf5;
   /* Check if this needs update for green tint, maybe #ecfdf5 */
-  --light-secondary-color: #3b82f6;
-  --light-secondary-light: #eff6ff;
+  /* Green-branded secondary colors */
+  --light-secondary-color: #059669;
+  --light-secondary-light: #ecfdf5;
   /* Blue-50 */
 
   --light-sidebar-bg: #ffffff;
@@ -115,9 +116,9 @@
   --light-navbar-bg: #ffffff;
   --light-navbar-active-bg: #ffffff;
   --light-navbar-item-color: #1f2937;
- 
+
   --light---itemcard-bg: white;
- 
+
 
   --light---itemcard-bg: white;
 
@@ -154,7 +155,7 @@
 
   --dark-badge-info-bg: #3a3f67;
   --dark-badge-info-text: var(--dark-primary-light);
- 
+
 
   --dark-btn-bg: #3a3a3d;
   --dark-btn-border: #555;

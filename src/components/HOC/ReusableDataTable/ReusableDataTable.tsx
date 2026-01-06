@@ -192,6 +192,7 @@ const ReusableCrudTable = <T extends object>({
         dataKey={String(dataKey)}
         header={header}
         responsiveLayout="scroll"
+        tableStyle={{ minWidth: "50rem", tableLayout: "fixed" }}
         showGridlines={showGridlines}
       >
         {columns.map((col, index) => (
