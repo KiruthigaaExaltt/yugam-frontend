@@ -11,7 +11,7 @@ export type QuickActionItem = {
 
   value?: string;
   subLabel?: string;
-  tone?: "blue" | "green" | "orange" | "purple";
+  tone?: "blue" | "green" | "orange" | "purple" | "red";
   type?: "action" | "stat";
 };
 
@@ -28,6 +28,8 @@ type QuickActionsProps = {
   layout?: "grid" | "row";
   children?: React.ReactNode;
   headerAction?: HeaderAction;
+  isTinted?: boolean;
+  variant?: "default" | "minimal";
 };
 
 const toneMap: Record<string, string> = {
@@ -35,6 +37,15 @@ const toneMap: Record<string, string> = {
   green: "stat-green",
   orange: "stat-orange",
   purple: "stat-purple",
+  red: "stat-red",
+};
+
+const tintToneMap: Record<string, string> = {
+  blue: "stat-blue-tint",
+  green: "stat-green-tint",
+  orange: "stat-orange-tint",
+  purple: "stat-red-tint", // Purple sometimes maps to red in these designs
+  red: "stat-red-tint",
 };
 
 const QuickActions: React.FC<QuickActionsProps> = ({
@@ -43,6 +54,8 @@ const QuickActions: React.FC<QuickActionsProps> = ({
   layout = "grid",
   children,
   headerAction,
+  isTinted,
+  variant = "default",
 }) => {
   const isStatsLayout = actions.every((a) => a.type === "stat");
 
@@ -58,11 +71,10 @@ const QuickActions: React.FC<QuickActionsProps> = ({
       {/* TITLE */}
       <div className="flex justify-between items-start mb-4">
         <div
-          className="font-medium"
           style={{
             color: "var(--text-color)",
-            fontSize: "var(--font-size-body-lg)",
-            fontWeight: "var(--font-weight-medium)",
+            fontSize: "var(--card-title-size)",
+            fontWeight: "var(--card-title-weight)",
           }}
         >
           {title}
@@ -73,8 +85,14 @@ const QuickActions: React.FC<QuickActionsProps> = ({
             label={headerAction.label}
             icon={headerAction.icon}
             onClick={headerAction.onClick}
-            // className="p-button-sm h-8 px-3 rounded-full border border-surface-200 dark:border-surface-700 bg-transparent text-color hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-400 transition-all shadow-sm"
-             className="p-button-text demo-button"
+            className="p-button-outlined p-button-sm !rounded-full !px-3 font-medium transition-all hover:!bg-emerald-50 hover:!text-emerald-600 hover:!border-emerald-200"
+            style={{
+              borderColor: "var(--surface-border)",
+              color: "var(--text-color)",
+              background: 'white',
+              fontSize: '12px',
+              height: '32px'
+            }}
           />
         )}
       </div>
@@ -84,48 +102,58 @@ const QuickActions: React.FC<QuickActionsProps> = ({
       {/* ===================== */}
       {isStatsLayout && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {actions.map((action) => (
-            <div
-              key={action.id}
-              className={`rounded-xl border p-4 text-center ${
-                toneMap[action.tone ?? "blue"]
-              }`}
-              style={{
-                borderColor: "var(--surface-border)",
-                backgroundColor: "var(--surface-hover)",
-              }}
-            >
+          {actions.map((action) => {
+            const isMinimal = variant === "minimal";
+            const colorTone = action.tone === "green" ? "#10B981" : 
+                             action.tone === "blue" ? "#3B82F6" : 
+                             action.tone === "orange" ? "#F59E0B" : 
+                             action.tone === "red" ? "#EF4444" : "inherit";
+
+            return (
               <div
+                key={action.id}
+                className={`rounded-xl text-center transition-all ${
+                  isMinimal ? "" : (isTinted ? tintToneMap[action.tone ?? "blue"] : toneMap[action.tone ?? "blue"])
+                } ${isMinimal ? "border-none" : "border"}`}
                 style={{
-                  fontSize: "var(--font-size-h2)",
-                  fontWeight: "var(--font-weight-semibold)",
-                  color: "inherit",
+                  borderColor: isMinimal || isTinted ? "transparent" : "var(--surface-border)",
+                  backgroundColor: isMinimal ? "transparent" : (isTinted ? undefined : "var(--surface-hover)"),
+                  padding: isMinimal ? "0.5rem" : "1rem"
                 }}
               >
-                {action.value}
-              </div>
-              <div
-                style={{
-                  fontSize: "var(--font-size-body)",
-                  color: "var(--text-color)",
-                  marginTop: "0.25rem",
-                }}
-              >
-                {action.label}
-              </div>
-              {action.subLabel && (
                 <div
                   style={{
-                    fontSize: "var(--font-size-body-sm)",
-                    color: "var(--text-muted)",
-                    marginTop: "0.25rem",
+                    fontSize: "var(--font-size-h2)",
+                    fontWeight: "var(--font-weight-semibold)",
+                    color: isMinimal ? colorTone : "inherit",
                   }}
                 >
-                  {action.subLabel}
+                  {action.value}
                 </div>
-              )}
-            </div>
-          ))}
+                <div
+                  style={{
+                    fontSize: "11px",
+                    color: isMinimal ? "var(--text-muted)" : "var(--text-color)",
+                    marginTop: "0.25rem",
+                    fontWeight: isMinimal ? "500" : "inherit"
+                  }}
+                >
+                  {action.label}
+                </div>
+                {!isMinimal && action.subLabel && (
+                  <div
+                    style={{
+                      fontSize: "var(--font-size-body-sm)",
+                      color: "var(--text-muted)",
+                      marginTop: "0.25rem",
+                    }}
+                  >
+                    {action.subLabel}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
 

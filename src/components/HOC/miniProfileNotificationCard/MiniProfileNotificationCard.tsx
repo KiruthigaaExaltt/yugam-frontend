@@ -29,6 +29,8 @@ export interface NotificationCardProps {
   avatar?: boolean;
   avatarPosition?: "left" | "right";
   backgroundColor?: string;
+  avatarBgColor?: string;
+  isCompact?: boolean;
 }
 
 const MiniProfileNotificationCard: FC<NotificationCardProps> = ({
@@ -52,6 +54,8 @@ const MiniProfileNotificationCard: FC<NotificationCardProps> = ({
   avatar,
   avatarPosition = "left",
   backgroundColor,
+  avatarBgColor,
+  isCompact = false,
 }) => {
   const avatarContent = avatar ? (
     logo ? (
@@ -71,7 +75,7 @@ const MiniProfileNotificationCard: FC<NotificationCardProps> = ({
     ) : (
       <div
         className="avatar"
-        style={{ width: avatarWidth, height: avatarHeight }}
+        style={{ width: avatarWidth, height: avatarHeight, backgroundColor: avatarBgColor }}
       >
         {initials}
       </div>
@@ -79,12 +83,15 @@ const MiniProfileNotificationCard: FC<NotificationCardProps> = ({
   ) : null;
 
   return (
-    <div className="item-row" style={{ width, height, backgroundColor }}>
+    <div 
+      className={`item-row ${isCompact ? 'compact-row' : ''}`} 
+      style={{ width, height, backgroundColor: isCompact ? 'transparent' : backgroundColor }}
+    >
       {avatarPosition === "left" && avatarContent}
 
       <div className="text-block">
-        <h4>{name}</h4>
-        <p>{role}</p>
+        <h4 style={{ fontSize: isCompact ? '13px' : 'inherit' }}>{name}</h4>
+        <p style={{ fontSize: isCompact ? '11px' : 'inherit' }}>{role}</p>
         {about && <small>{about}</small>}
       </div>
 
@@ -94,16 +101,16 @@ const MiniProfileNotificationCard: FC<NotificationCardProps> = ({
 
       {status && <span className="status-chip">{status}</span>}
 
-      <div className="flex items-center gap-3">
-        {showEye && <FaRegEye className="cursor-pointer" />}
-        {showDelete && (
-          <MdDelete className="cursor-pointer" onClick={onDelete} />
+      <div className="flex items-center gap-3 ml-2">
+        {showPhone && (
+          <FiPhone className="cursor-pointer text-gray-400 hover:text-emerald-500" size={16} onClick={onPhoneClick} />
         )}
         {showMail && (
-          <FiMail className="cursor-pointer" onClick={onMailClick} />
+          <FiMail className="cursor-pointer text-gray-400 hover:text-emerald-500" size={16} onClick={onMailClick} />
         )}
-        {showPhone && (
-          <FiPhone className="cursor-pointer" onClick={onPhoneClick} />
+        {showEye && <FaRegEye className="cursor-pointer text-gray-400" />}
+        {showDelete && (
+          <MdDelete className="cursor-pointer text-gray-400" onClick={onDelete} />
         )}
       </div>
     </div>
