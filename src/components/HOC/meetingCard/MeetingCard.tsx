@@ -4,7 +4,7 @@ import { Badge } from "primereact/badge";
 import { InputSwitch } from "primereact/inputswitch";
 import { Checkbox } from "primereact/checkbox";
 import type { IconType } from "react-icons";
-// import "./mettingCard.css"
+import "./mettingCard.css"
 
 /* ================= TYPES ================= */
 
@@ -258,15 +258,7 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
 
       {/* ===== Footer ===== */}
       {footerLabel && (
-        <button
-          className="w-full mt-4 py-2 flex items-center justify-center gap-2 text-sm transition hover:bg-green-50! hover:text-green-600! hover:border-green-200!"
-          style={{
-            background: "white",
-            border: "1px solid var(--surface-border)",
-            color: "var(--text-color)",
-            borderRadius: "var(--border-radius)",
-          }}
-        >
+        <button className="meeting-footer-btn">
           {FooterIcon && <FooterIcon size={14} />}
           {footerLabel}
         </button>

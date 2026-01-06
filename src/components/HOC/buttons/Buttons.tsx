@@ -1,4 +1,5 @@
 import React from "react";
+import "./buttons.css";
 
 export interface ButtonAction {
   label: string;
@@ -18,7 +19,7 @@ const Buttons: React.FC<ButtonsProps> = ({ actions }) => {
         <button
           key={idx}
           onClick={action.onClick}
-          className="p-button-text demo-button"
+          className={`p-button-text demo-button ${action.variant === 'primary' ? 'active' : ''}`}
         >
           {action.icon && <span className="flex">{action.icon}</span>}
           {action.label}

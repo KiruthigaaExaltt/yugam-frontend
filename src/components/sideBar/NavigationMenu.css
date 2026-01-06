@@ -25,8 +25,9 @@
 }
 
 .nav-section:not(:last-child) {
-  border-bottom: 1px solid var(--surface-border);
-  padding-bottom: 1rem;
+  /* border-bottom: 1px solid var(--surface-border); */
+  /* User requested removal of lines */
+  padding-bottom: 0.5rem;
 }
 
 /* CATEGORY TITLE */
@@ -111,7 +112,9 @@
   border-radius: 0.5rem;
   color: var(--primary-color);
   font-size: var(--font-size-button);
-  background: var(--icon-bg-primary);
+  /* background: var(--icon-bg-primary); */
+  background: transparent;
+  /* Updated to match cleaner look if desired, or keep logic. User image shows simple icons. */
   flex-shrink: 0;
 }
 
@@ -124,6 +127,19 @@
 /* ============================
    Content (Label + Description)
 =============================== */
+
+.nav-item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
 
 .nav-item-label {
   font-size: var(--font-size-body);
@@ -148,6 +164,23 @@
   color: var(--primary-color);
   opacity: 0.8;
 }
+
+/* ============================
+   BADGE
+=============================== */
+.nav-item-badge {
+  background-color: #10b981;
+  /* Default green, use var if available */
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  min-width: 1.25rem;
+  text-align: center;
+  line-height: 1.2;
+}
+
 
 /* ============================
    Dark Mode (automatic via vars)

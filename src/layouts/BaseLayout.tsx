@@ -17,7 +17,7 @@ import {
 import type { MenuItem } from "primereact/menuitem";
 import "./BaseLayout.css";
 import NavigationMenu from "../components/sideBar/NavigationMenu";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 interface BaseLayoutProps {
   children?: ReactNode;
@@ -33,18 +33,18 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
   const { theme, toggleTheme } = useTheme();
 
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
 
-  const topNavItems = [
-    { label: "Orbit", route: "/sales/orbit" },
-    { label: "Ledger", route: "/finance/ledger" },
-    { label: "Vault", route: "/vault" },
-    { label: "Crew", route: "/hr/crew" },
-    { label: "Flow", route: "/flow" },
-    { label: "Field", route: "/field" },
-    { label: "Vision", route: "/vision" },
-    { label: "Shield", route: "/shield" },
-  ];
+  // const topNavItems = [
+  //   { label: "Orbit", route: "/sales/orbit" },
+  //   { label: "Ledger", route: "/finance/ledger" },
+  //   { label: "Vault", route: "/vault" },
+  //   { label: "Crew", route: "/hr/crew" },
+  //   { label: "Flow", route: "/flow" },
+  //   { label: "Field", route: "/field" },
+  //   { label: "Vision", route: "/vision" },
+  //   { label: "Shield", route: "/shield" },
+  // ];
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);
@@ -138,7 +138,7 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
 
       {title && <h2 className="m-0 ml-3 text-sm">{title}</h2>}
 
-      <div className="flex-1 justify-center gap-2 hidden lg:flex">
+      {/* <div className="flex-1 justify-center gap-2 hidden lg:flex">
         {topNavItems.map((item) => (
           <button
             key={item.label}
@@ -155,7 +155,7 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
             {item.label}
           </button>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 

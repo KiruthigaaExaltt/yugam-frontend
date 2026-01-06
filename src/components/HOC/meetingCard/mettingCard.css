@@ -34,3 +34,27 @@
   outline: none;
   box-shadow: 0 0 0 2px var(--primary-color-light);
 }
+
+.meeting-footer-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  /* text-sm */
+  transition: all 0.2s ease;
+
+  background: white;
+  border: 1px solid var(--surface-border);
+  color: var(--text-color);
+  border-radius: var(--border-radius);
+}
+
+.meeting-footer-btn:hover {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border-color: var(--primary-color) !important;
+}
