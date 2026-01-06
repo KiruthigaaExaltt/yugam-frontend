@@ -1,12 +1,14 @@
 import DataPrivacySettings from "./DataPrivacySettings";
 import RetentionPoliciesCard from "./RetentionPoliciesCard";
-
+import AuditLogsTable from "./AuditLogsTable";
 
 const DataAndAuditPage: React.FC = () => {
   return (
     <div className="space-y-6">
-    <RetentionPoliciesCard />
-    <DataPrivacySettings />
+      <RetentionPoliciesCard />
+      <AuditLogsTable />
+      <DataPrivacySettings />
+      
     </div>
   );
 };
