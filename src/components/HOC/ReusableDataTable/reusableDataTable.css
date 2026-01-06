@@ -1,0 +1,28 @@
+/* Table Header Styles */
+.table-header-filters .p-dropdown {
+    border-radius: var(--border-radius) !important;
+    height: 2.5rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    border-color: var(--surface-border) !important;
+    background: white !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.table-header-filters .p-dropdown:hover {
+    border-color: var(--primary-color) !important;
+}
+
+.table-header-filters .p-dropdown .p-dropdown-label {
+    font-size: var(--font-size-body-sm) !important;
+    padding: 0 0.75rem !important;
+}
+
+.table-header-filters .p-dropdown .p-dropdown-trigger {
+    width: 2rem !important;
+}
+
+/* Ensure search field also follows the same height if needed (though it already has p-inputtext-sm) */
+.reusable-table-header .p-icon-field .p-inputtext {
+    height: 2.5rem !important;
+}

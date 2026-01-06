@@ -150,12 +150,7 @@ const AuditLogsTable = () => {
       options={actionOptions}
       onChange={(e) => setSelectedAction(e.value)}
       placeholder="All Actions"
-      className="p-inputtext-sm w-40"
-      style={{
-           borderRadius: "var(--border-radius)", 
-           height: "2.5rem", 
-           alignItems: 'center' 
-      }}
+      className="w-40"
     />
   );
 

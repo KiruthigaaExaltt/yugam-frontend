@@ -223,18 +223,6 @@ const UsersRolesSettings = () => {
     <div className="space-y-6">
       <Menu model={menuItems} popup ref={menu} />
 
-      <div className="flex justify-start">
-        <Button 
-            label="New" 
-            className="p-button-success" 
-            style={{ backgroundColor: 'var(--primary-color)', borderColor: 'var(--primary-color)' }}
-            onClick={() => {
-                setEditingUser(null);
-                setShowModal(true);
-            }} 
-        />
-      </div>
-
       <ReusableCrudTable
         title="Users & Roles"
         data={paginatedData}
@@ -247,6 +235,11 @@ const UsersRolesSettings = () => {
             setPage(e.page);
             setRows(e.rows);
         }}
+        onAdd={() => {
+            setEditingUser(null);
+            setShowModal(true);
+        }}
+        addLabel=" + Add new user"
         globalFilter={globalFilter}
         onGlobalFilterChange={setGlobalFilter}
         headerFilters={
@@ -258,7 +251,7 @@ const UsersRolesSettings = () => {
             }}
             options={ROLES}
             placeholder="Filter by Role"
-            className="w-full sm:w-48 p-inputtext-sm rounded-lg border-surface-border"
+            className="w-full sm:w-48"
           />
         }
         loading={false}

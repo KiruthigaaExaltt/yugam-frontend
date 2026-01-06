@@ -80,9 +80,26 @@ const UserForm = ({ initialValues, onSubmit, onCancel }: UserFormProps) => {
         options={WORKSPACE_OPTIONS}
       />
 
-      <div className="flex justify-end gap-3 pt-4">
-        <Button type="button" label="Cancel" outlined onClick={onCancel} className="p-button-secondary" />
-        <Button type="submit" label={initialValues ? "Update User" : "Add User"} />
+      <div className="flex justify-end gap-3 pt-6">
+        <Button 
+          type="button" 
+          label="Cancel" 
+          outlined 
+          onClick={onCancel} 
+          className="p-button-secondary font-medium" 
+          style={{ borderRadius: 'var(--border-radius)', padding: '0.5rem 1.5rem', borderColor: 'var(--surface-border)', color: 'var(--text-color)' }}
+        />
+        <Button 
+          type="submit" 
+          label={initialValues ? "Update User" : "Add User"} 
+          className="font-medium"
+          style={{ 
+            borderRadius: 'var(--border-radius)', 
+            padding: '0.5rem 2rem', 
+            background: 'var(--primary-color)', 
+            border: '1px solid var(--primary-color)' 
+          }}
+        />
       </div>
     </FormWrapper>
   );

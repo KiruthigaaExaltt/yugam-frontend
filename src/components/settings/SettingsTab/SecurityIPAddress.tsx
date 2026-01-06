@@ -28,7 +28,7 @@ const SecurityIPAddress: React.FC = () => {
         <Button
           icon="pi pi-plus"
           label="Add IP Range"
-          className="p-button-outlined p-button-sm"
+          className="p-button-text demo-button"
         />
       </div>
 

@@ -7,6 +7,9 @@ import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
+import "./reusableDataTable.css";
+
+import { FiDownload } from "react-icons/fi";
 
 /* ================================
    COLUMN CONFIG
@@ -39,6 +42,7 @@ interface ReusableCrudTableProps<T extends object> {
   onGlobalFilterChange: (value: string) => void;
 
   onAdd?: () => void;
+  addLabel?: string; // New
   onDeleteSelected?: () => void;
   onExport?: boolean;
 
@@ -74,6 +78,7 @@ const ReusableCrudTable = <T extends object>({
   globalFilter,
   onGlobalFilterChange,
   onAdd,
+  addLabel = "New", // New
   onDeleteSelected,
   onExport,
   title = "Manage Data",
@@ -90,19 +95,12 @@ const ReusableCrudTable = <T extends object>({
 
   const leftToolbarTemplate = () => (
     <div className="flex gap-2">
-      {onAdd && (
-        <Button
-          label="New"
-          icon="pi pi-plus"
-          severity="success"
-          onClick={onAdd}
-        />
-      )}
       {onDeleteSelected && (
         <Button
           label="Delete"
           icon="pi pi-trash"
-          severity="danger"
+          className="p-button-danger"
+          style={{ borderRadius: 'var(--border-radius)' }}
           onClick={onDeleteSelected}
           disabled={!selection?.length}
         />
@@ -110,21 +108,34 @@ const ReusableCrudTable = <T extends object>({
     </div>
   );
 
-  const rightToolbarTemplate = () =>
-    onExport ? (
-      <Button
-        label="Export"
-        icon="pi pi-upload"
-        severity="help"
-        onClick={() => dt.current?.exportCSV()}
-      />
-    ) : null;
+  const rightToolbarTemplate = () => (
+    <div className="flex gap-2">
+      {onAdd && (
+        <Button
+          label={addLabel}
+          icon="pi pi-plus"
+          className="p-button-text demo-button"
+          style={{ borderRadius: 'var(--border-radius)' }}
+          onClick={onAdd}
+        />
+      )}
+      {onExport && (
+        <Button
+          label="Export"
+          icon={<FiDownload size={16} />}
+          className="p-button-text demo-button"
+          style={{ borderRadius: 'var(--border-radius)' }}
+          onClick={() => dt.current?.exportCSV()}
+        />
+      )}
+    </div>
+  );
 
   const header = (
-    <div className="flex flex-wrap justify-between items-center gap-2">
+    <div className="flex flex-wrap justify-between items-center gap-2 reusable-table-header">
       <div className="m-0 text-xl font-semibold">{title}</div>
       <div className="flex items-center gap-2">
-        {headerFilters && <div>{headerFilters}</div>}
+        {headerFilters && <div className="table-header-filters">{headerFilters}</div>}
         {showSearch && (
         <IconField iconPosition="left">
           <InputIcon className="pi pi-search" />
@@ -134,6 +145,7 @@ const ReusableCrudTable = <T extends object>({
             value={globalFilter}
             onChange={(e) => onGlobalFilterChange(e.target.value)}
             className="p-inputtext-sm"
+            style={{ borderRadius: 'var(--border-radius)' }}
           />
         </IconField>
         )}

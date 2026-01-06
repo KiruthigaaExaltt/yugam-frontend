@@ -20,7 +20,7 @@ const integrations: MeetingItem[] = [
         </span>
         <Button
           label="Configure"
-          className="p-button-outlined p-button-sm"
+          className="p-button-text demo-button"
         />
       </div>
     ),
@@ -40,7 +40,7 @@ const integrations: MeetingItem[] = [
         </span>
         <Button
           label="Setup"
-          className="p-button-outlined p-button-sm"
+          className="p-button-text demo-button"
         />
       </div>
     ),

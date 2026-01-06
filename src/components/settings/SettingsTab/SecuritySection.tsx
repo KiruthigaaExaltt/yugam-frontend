@@ -20,7 +20,8 @@ const SecuritySection: React.FC = () => {
           value={minLength}
           options={[6, 8, 10, 12]}
           onChange={(e) => setMinLength(e.value)}
-          className="w-20"
+          className="w-20 p-inputtext-sm"
+          style={{ borderRadius: "var(--card-radius)", borderColor: "var(--surface-border)" }}
         />
       ),
     },
@@ -40,7 +41,8 @@ const SecuritySection: React.FC = () => {
           value={expiryDays}
           options={[30, 60, 90, 180]}
           onChange={(e) => setExpiryDays(e.value)}
-          className="w-20"
+          className="w-20 p-inputtext-sm"
+          style={{ borderRadius: "var(--card-radius)", borderColor: "var(--surface-border)" }}
         />
       ),
     },
@@ -54,7 +56,8 @@ const SecuritySection: React.FC = () => {
           value={sessionTimeout}
           options={[15, 30, 60, 120]}
           onChange={(e) => setSessionTimeout(e.value)}
-          className="w-20"
+          className="w-20 p-inputtext-sm"
+          style={{ borderRadius: "var(--card-radius)", borderColor: "var(--surface-border)" }}
         />
       ),
     },
