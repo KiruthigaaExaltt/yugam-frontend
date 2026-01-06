@@ -216,6 +216,14 @@ const ModulePermissions: React.FC = () => {
                         checked={module.roleVisibility.includes(role)} 
                         onChange={() => toggleRole(module.id, role)}
                         className="scale-90"
+                        pt={{
+                          box: ({ props }: any) => ({
+                            style: {
+                              backgroundColor: props.checked ? 'var(--primary-color)' : '',
+                              borderColor: props.checked ? 'var(--primary-color)' : ''
+                            }
+                          })
+                        }}
                     />
                     <label 
                         htmlFor={`${module.id}-${role}`} 
@@ -243,6 +251,14 @@ const ModulePermissions: React.FC = () => {
                                 checked={flag.enabled}
                                 onChange={() => toggleFeatureFlag(module.id, flag.id)}
                                 className="scale-75"
+                                pt={{
+                                  slider: {
+                                    style: {
+                                      backgroundColor: flag.enabled ? 'var(--primary-color)' : '',
+                                      border: flag.enabled ? '1px solid var(--primary-color)' : ''
+                                    }
+                                  }
+                                }}
                             />
                         </div>
                     ))}

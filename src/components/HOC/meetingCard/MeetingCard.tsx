@@ -257,6 +257,14 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
                 checked={m.toggleValue ?? false}
                 onChange={(e) => m.onToggleChange?.(e.value)}
                 className="scale-75"
+                pt={{
+                  slider: {
+                    style: {
+                      backgroundColor: m.toggleValue ? 'var(--primary-color)' : '',
+                      border: m.toggleValue ? '1px solid var(--primary-color)' : ''
+                    }
+                  }
+                }}
               />
             )}
 

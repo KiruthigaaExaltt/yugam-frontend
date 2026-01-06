@@ -26,6 +26,13 @@ const RetentionPoliciesCard: React.FC = () => {
           options={retentionOptions}
           onChange={(e) => setMessageRetention(e.value)}
           className="w-32"
+          pt={{
+            root: { style: { borderRadius: '8px' } },
+            item: ({ context }: any) => ({
+              className: context.selected ? 'bg-primary-500 text-white' : '',
+              style: context.selected ? { backgroundColor: 'var(--primary-color)' } : {}
+            })
+          }}
         />
       ),
     },
@@ -37,6 +44,13 @@ const RetentionPoliciesCard: React.FC = () => {
           options={retentionOptions}
           onChange={(e) => setFileRetention(e.value)}
           className="w-32"
+          pt={{
+            root: { style: { borderRadius: '8px' } },
+            item: ({ context }: any) => ({
+              className: context.selected ? 'bg-primary-500 text-white' : '',
+              style: context.selected ? { backgroundColor: 'var(--primary-color)' } : {}
+            })
+          }}
         />
       ),
     },
@@ -48,6 +62,13 @@ const RetentionPoliciesCard: React.FC = () => {
           options={retentionOptions}
           onChange={(e) => setAuditRetention(e.value)}
           className="w-32"
+          pt={{
+            root: { style: { borderRadius: '8px' } },
+            item: ({ context }: any) => ({
+              className: context.selected ? 'bg-primary-500 text-white' : '',
+              style: context.selected ? { backgroundColor: 'var(--primary-color)' } : {}
+            })
+          }}
         />
       ),
     },
@@ -63,6 +84,13 @@ const RetentionPoliciesCard: React.FC = () => {
           onChange={(e) => setAnalyticsRetention(e.value)}
           className="w-32"
           placeholder="Select"
+          pt={{
+            root: { style: { borderRadius: '8px' } },
+            item: ({ context }: any) => ({
+              className: context.selected ? 'bg-primary-500 text-white' : '',
+              style: context.selected ? { backgroundColor: 'var(--primary-color)' } : {}
+            })
+          }}
         />
       ),
     },

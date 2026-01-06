@@ -103,10 +103,22 @@ const MiniProfileNotificationCard: FC<NotificationCardProps> = ({
 
       <div className="flex items-center gap-3 ml-2">
         {showPhone && (
-          <FiPhone className="cursor-pointer text-gray-400 hover:text-emerald-500" size={16} onClick={onPhoneClick} />
+          <FiPhone 
+            className="cursor-pointer text-gray-400" 
+            size={16} 
+            onClick={onPhoneClick} 
+            onMouseOver={(e) => (e.currentTarget.style.color = "var(--primary-color)")}
+            onMouseOut={(e) => (e.currentTarget.style.color = "")}
+          />
         )}
         {showMail && (
-          <FiMail className="cursor-pointer text-gray-400 hover:text-emerald-500" size={16} onClick={onMailClick} />
+          <FiMail 
+            className="cursor-pointer text-gray-400" 
+            size={16} 
+            onClick={onMailClick} 
+            onMouseOver={(e) => (e.currentTarget.style.color = "var(--primary-color)")}
+            onMouseOut={(e) => (e.currentTarget.style.color = "")}
+          />
         )}
         {showEye && <FaRegEye className="cursor-pointer text-gray-400" />}
         {showDelete && (

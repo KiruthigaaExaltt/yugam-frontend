@@ -29,6 +29,16 @@ const SecurityIPAddress: React.FC = () => {
           icon="pi pi-plus"
           label="Add IP Range"
           className="p-button-outlined p-button-sm"
+          pt={{
+            root: {
+              style: {
+                borderColor: 'var(--surface-border)',
+                color: 'var(--text-color)',
+                borderRadius: '8px'
+              },
+              className: 'hover:!border-[color:var(--primary-color)] hover:!text-[color:var(--primary-color)]'
+            }
+          }}
         />
       </div>
 
