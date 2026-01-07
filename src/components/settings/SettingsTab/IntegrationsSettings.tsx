@@ -11,6 +11,7 @@ import {
   FiRefreshCw, 
   FiSettings,
   FiEye,
+  FiEyeOff,
   FiCopy,
   FiPlus
 } from "react-icons/fi";
@@ -84,12 +85,19 @@ const INITIAL_INTEGRATIONS: IntegrationModule[] = [
 const IntegrationsSettings: React.FC = () => {
   const [integrations, setIntegrations] = useState<IntegrationModule[]>(INITIAL_INTEGRATIONS);
   
+  const [showApiKey, setShowApiKey] = useState(false);
+  
   const methods = useForm({
     defaultValues: {
       openaiKey: "",
       webhookUrl: "https://agency.com/api/webhooks"
     }
   });
+
+  const copyWebhookUrl = () => {
+    const url = methods.getValues("webhookUrl");
+    navigator.clipboard.writeText(url);
+  };
 
   const toggleAutoSync = (id: string) => {
     setIntegrations(prev => prev.map(m => 
@@ -211,41 +219,59 @@ const IntegrationsSettings: React.FC = () => {
                 }}
             >
                 <FormProvider {...methods}>
-                    <div className="flex flex-col md:flex-row gap-6">
+                    <div className="flex flex-col md:flex-row gap-8 items-start">
                          {/* OpenAI Key */}
-                         <div className="flex-1 relative">
-                             <div className="flex items-center justify-between mb-1">
-                                <label className="text-xs font-semibold">OpenAI API Key</label>
+                         <div className="flex-1 w-full relative">
+                             <div className="flex items-center justify-between mb-1.5 ml-1">
+                                <label className="text-[10px] uppercase tracking-wider font-extrabold text-gray-400">OpenAI API Key</label>
                              </div>
-                             <div className="relative">
-                                <div className="[&>div>label]:hidden [&>div>div]:w-0 [&>div>div]:hidden [&>div]:block [&_input]:pr-10">
-                                    <RHFInput name="openaiKey" type="password" placeholder="sk-..." />
+                             <div className="relative flex items-center gap-2">
+                                {/* Use HOC with specific overrides to maintain the design's vertical layout */}
+                                <div className="flex-1 [&>div]:flex-none [&>div]:block [&>div>div:first-child]:hidden [&>div>div:last-child]:space-y-0">
+                                    <RHFInput 
+                                        name="openaiKey" 
+                                        type={showApiKey ? "text" : "password"} 
+                                        placeholder="......" 
+                                        className="w-full !rounded-[20px] !bg-gray-50/40 !border-gray-100 !px-5 !py-3 !text-sm !shadow-none focus:!border-gray-200 transition-all font-medium"
+                                    />
                                 </div>
-                                <button type="button" className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600">
-                                    <FiEye />
+                                <button 
+                                    type="button" 
+                                    onClick={() => setShowApiKey(!showApiKey)}
+                                    className="flex items-center justify-center min-w-[42px] h-[42px] rounded-full border border-gray-100 bg-white text-gray-400 hover:text-gray-600 shadow-sm transition-all hover:shadow-md"
+                                >
+                                    {showApiKey ? <FiEyeOff size={18} /> : <FiEye size={18} />}
                                 </button>
                              </div>
                          </div>
 
                          {/* Webhook URL */}
-                         <div className="flex-1 relative">
-                             <div className="flex items-center justify-between mb-1">
-                                <label className="text-xs font-semibold">Webhook URL</label>
+                         <div className="flex-1 w-full relative">
+                             <div className="flex items-center justify-between mb-1.5 ml-1">
+                                <label className="text-[10px] uppercase tracking-wider font-extrabold text-gray-400">Webhook URL</label>
                              </div>
-                             <div className="relative">
-                                <div className="[&>div>label]:hidden [&>div>div]:w-0 [&>div>div]:hidden [&>div]:block [&_input]:pr-10">
-                                    <RHFInput name="webhookUrl" placeholder="https://..." />
+                             <div className="relative flex items-center gap-2">
+                                <div className="flex-1 [&>div]:flex-none [&>div]:block [&>div>div:first-child]:hidden [&>div>div:last-child]:space-y-0">
+                                    <RHFInput 
+                                        name="webhookUrl" 
+                                        placeholder="https://..." 
+                                        className="w-full !rounded-[20px] !bg-white !border-[color:#10b981] !border-2 !px-5 !py-3 !text-sm !shadow-none transition-all font-medium"
+                                    />
                                 </div>
-                                <button type="button" className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600">
-                                    <FiCopy />
+                                <button 
+                                    type="button" 
+                                    onClick={copyWebhookUrl}
+                                    className="flex items-center justify-center min-w-[42px] h-[42px] rounded-full border border-gray-100 bg-white text-gray-400 hover:text-gray-600 shadow-sm transition-all hover:shadow-md"
+                                >
+                                    <FiCopy size={18} />
                                 </button>
                              </div>
                          </div>
                     </div>
 
-                    <div className="mt-4">
-                        <button className="flex items-center gap-2 px-3 py-1.5 rounded-md border text-sm font-medium text-[color:var(--primary-color)] bg-[color:var(--primary-color-light)] border-[color:var(--primary-color-light)] hover:bg-[color:var(--primary-color-light)] transition">
-                            <FiPlus />
+                    <div className="mt-6">
+                        <button className="flex items-center gap-2 px-4 py-2 rounded-xl border text-[11px] font-bold text-gray-700 bg-gray-50/50 border-gray-100 hover:bg-gray-100 transition shadow-sm hover:shadow-md">
+                            <FiPlus size={14} className="text-gray-400" />
                             Add API Key
                         </button>
                     </div>
