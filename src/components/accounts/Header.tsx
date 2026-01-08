@@ -1,21 +1,21 @@
 import PageHeader from "../HOC/pageHeader/PageHeader";
-import { FiEye,  FiSave, FiSettings } from "react-icons/fi";
+import { FiDownload,  FiSave, FiSettings } from "react-icons/fi";
 
 export default function Header() {
   return (
     <PageHeader
       icon={<FiSettings size={18} />}
-      title="Settings & RBAC"
-      subtitle="Centralized control for all modules and access"
+      title="Financial Management"
+      subtitle="Quotes, invoices, payments, and financial tracking"
       actions={[
         {
-          label: "Preview",
-          icon: <FiEye size={16} />,
+          label: "Export",
+          icon: <FiDownload size={16} />,
           variant: "secondary",
           onClick: () => console.log("Preview clicked"),
         },
         {
-          label: "Save Changes",
+          label: "+ New Quote",
           icon: <FiSave size={16} />,
           variant: "primary",
           onClick: () => {
