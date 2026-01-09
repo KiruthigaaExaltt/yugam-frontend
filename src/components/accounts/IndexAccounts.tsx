@@ -4,6 +4,7 @@ import HeaderCards from "./HeaderCards";
 import NavBar from "./NavBar";
 import Quotes from "./Quotes/Quotes";
 import ContractStats from "./Quotes/ContractStats";
+import RecuringInvoice from "./Quotes/RecuringInvoice";
 
 const IndexAccounts = () => {
   const [activeTab, setActiveTab] = useState<string>("quotes");
@@ -16,6 +17,7 @@ const IndexAccounts = () => {
 
   const showQuotes = normalizedTab === "quotes" || normalizedTab === "qoutes";
   const showContracts = normalizedTab === "contracts";
+   const showInvoices = normalizedTab === "recurring-invoice";
 
   return (
     <>
@@ -27,6 +29,7 @@ const IndexAccounts = () => {
           <Quotes activeTab={activeTab} onTabClick={setActiveTab} />
         )}
         {showContracts && <ContractStats />}
+        {showInvoices && <RecuringInvoice />}
       </div>
     </>
   );

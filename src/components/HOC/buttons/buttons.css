@@ -11,7 +11,7 @@
   color: var(--text-color) !important;
   border: 1px solid var(--surface-border) !important;
   padding: 0.45rem 1rem;
-  border-radius: 999px;
+  border-radius: var(--btn-border-radius);
   font-size: var(--font-size-button);
   font-weight: var(--font-weight-medium);
   display: inline-flex;

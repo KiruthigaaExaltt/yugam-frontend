@@ -16,11 +16,13 @@
 /* Card actions */
 .management-card-actions .p-button {
   transition: all 0.2s ease-in-out;
+  border-radius: var(--btn-border-radius) !important;
 }
 
 .management-card-actions .p-button:hover {
-  background-color: var(--surface-hover) !important;
-  border-color: var(--surface-border) !important;
+  background-color: var(--badge-success-bg) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
 }
 
 /* ============================= */
@@ -114,8 +116,12 @@
   color: var(--text-color) !important;
   border-color: var(--surface-border) !important;
   background: var(--surface-card) !important;
+  border-radius: var(--btn-border-radius) !important;
+  transition: all 0.2s;
 }
 
 .management-header-actions .p-button-outlined:hover {
-  background: var(--surface-hover) !important;
+  background: var(--badge-success-bg) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
 }

@@ -32,6 +32,7 @@ export type ManagementLayoutProps<T> = {
     descriptionKey?: keyof T;
     valueKey?: keyof T;
     valueLabelKey?: keyof T;
+    secondaryValueLabelKey?: keyof T;
     statusKey?: keyof T; // For badges
     secondaryStatusKey?: keyof T; // For second badge (e.g. "Onboarding")
     metaKey?: keyof T; // e.g. "Started: 2/1/2024"
@@ -65,7 +66,7 @@ const ManagementLayout = <T extends Record<string, any>>({
                 label={action.label}
                 icon={action.icon}
                 onClick={action.onClick}
-                className={`p-button-outlined p-button-sm rounded-full ${action.className || ""}`}
+                className={`p-button-outlined p-button-sm ${action.className || ""}`}
                 style={{ fontSize: '13px', paddingTop: '6px', paddingBottom: '6px' }}
               />
             ))}
@@ -122,6 +123,7 @@ const statusColorMap: Record<string, { bg: string; text: string; border: string 
   onboarding: { bg: "bg-indigo-50", text: "text-indigo-600", border: "border-indigo-100" },
   revision: { bg: "bg-orange-50", text: "text-orange-600", border: "border-orange-100" },
   paused: { bg: "bg-amber-50", text: "text-amber-600", border: "border-amber-100" },
+  recurring: { bg: "bg-gray-50", text: "text-gray-600", border: "border-gray-200" },
 };
 
 export const ManagementItemCard = <T extends Record<string, any>>({
@@ -136,6 +138,7 @@ export const ManagementItemCard = <T extends Record<string, any>>({
     descriptionKey,
     valueKey,
     valueLabelKey,
+    secondaryValueLabelKey,
     statusKey,
     secondaryStatusKey,
     metaKey,
@@ -213,8 +216,13 @@ export const ManagementItemCard = <T extends Record<string, any>>({
             {valueKey ? item[valueKey] : ""}
           </div>
           {valueLabelKey && (
-            <div className="text-gray-400 text-xs">
+            <div className={`text-xs ${item[statusKey]?.toLowerCase() === 'overdue' ? 'text-red-500 font-semibold' : 'text-gray-400'}`}>
               {item[valueLabelKey]}
+            </div>
+          )}
+          {secondaryValueLabelKey && item[secondaryValueLabelKey] && (
+            <div className="text-gray-400 text-xs">
+              {item[secondaryValueLabelKey]}
             </div>
           )}
           {item.alertInfo && (
@@ -240,7 +248,7 @@ export const ManagementItemCard = <T extends Record<string, any>>({
               label={action.label}
               icon={action.icon}
               onClick={() => action.onClick(item)}
-              className={`p-button-outlined p-button-sm rounded-lg text-gray-700 font-medium ${action.className || ""}`}
+              className={`p-button-outlined p-button-sm text-gray-700 font-medium ${action.className || ""}`}
               style={{ padding: '6px 12px', fontSize: '12px', borderColor: '#e5e7eb', background: 'white' }}
               severity={action.severity}
               text={action.text}
