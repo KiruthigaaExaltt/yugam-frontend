@@ -30,6 +30,9 @@ type QuickActionsProps = {
   headerAction?: HeaderAction;
   isTinted?: boolean;
   variant?: "default" | "minimal";
+  noWrapper?: boolean;
+  columns?: number;
+  cardBg?: string;
 };
 
 const toneMap: Record<string, string> = {
@@ -49,60 +52,61 @@ const tintToneMap: Record<string, string> = {
 };
 
 const QuickActions: React.FC<QuickActionsProps> = ({
-  title = "Quick Actions",
+  title ,
   actions = [],
   layout = "grid",
   children,
   headerAction,
   isTinted,
   variant = "default",
+  noWrapper = false,
+  columns,
+  cardBg,
 }) => {
   const isStatsLayout = actions.every((a) => a.type === "stat");
 
-  return (
-    <Card
-      className="rounded-(--border-radius) border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-      style={{
-        borderColor: "var(--surface-border)",
-        backgroundColor: "var(--surface-card)",
-        borderRadius: "var(--border-radius)",
-      }}
-    >
+  const content = (
+    <>
       {/* TITLE */}
-      <div className="flex justify-between items-start mb-4">
-        <div
-          style={{
-            color: "var(--text-color)",
-            fontSize: "var(--card-title-size)",
-            fontWeight: "var(--card-title-weight)",
-          }}
-        >
-          {title}
-        </div>
-        
-        {headerAction && (
-          <Button
-            label={headerAction.label}
-            icon={headerAction.icon}
-            onClick={headerAction.onClick}
-            className="p-button-text demo-button"
-            // className="p-button-outlined p-button-sm !rounded-full !px-3 font-medium transition-all hover:!bg-emerald-50 hover:!text-emerald-600 hover:!border-emerald-200"
+      {(title || headerAction) && (
+        <div className="flex justify-between items-start mb-4">
+          <div
             style={{
-              borderColor: "var(--surface-border)",
               color: "var(--text-color)",
-              background: 'white',
-              fontSize: '12px',
-              height: '32px'
+              fontSize: "var(--card-title-size)",
+              fontWeight: "var(--card-title-weight)",
             }}
-          />
-        )}
-      </div>
+          >
+            {title}
+          </div>
+          
+          {headerAction && (
+            <Button
+              label={headerAction.label}
+              icon={headerAction.icon}
+              onClick={headerAction.onClick}
+              className="p-button-text demo-button"
+              style={{
+                borderColor: "var(--surface-border)",
+                color: "var(--text-color)",
+                background: 'white',
+                fontSize: '12px',
+                height: '32px'
+              }}
+            />
+          )}
+        </div>
+      )}
 
       {/* ===================== */}
       {/*  STATS CARD LAYOUT    */}
       {/* ===================== */}
       {isStatsLayout && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div 
+          className={`grid gap-4 ${
+            columns ? `grid-cols-1 sm:grid-cols-2 lg:grid-cols-${columns}` : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+          }`}
+        >
           {actions.map((action) => {
             const isMinimal = variant === "minimal";
             const colorTone = action.tone === "green" ? "#10B981" : 
@@ -113,15 +117,20 @@ const QuickActions: React.FC<QuickActionsProps> = ({
             return (
               <div
                 key={action.id}
-                className={`rounded-xl text-center transition-all ${
+                className={`rounded-xl text-center flex flex-col items-center justify-center transition-all ${
                   isMinimal ? "" : (isTinted ? tintToneMap[action.tone ?? "blue"] : toneMap[action.tone ?? "blue"])
                 } ${isMinimal ? "border-none" : "border"}`}
                 style={{
                   borderColor: isMinimal || isTinted ? "transparent" : "var(--surface-border)",
-                  backgroundColor: isMinimal ? "transparent" : (isTinted ? undefined : "var(--surface-hover)"),
-                  padding: isMinimal ? "0.5rem" : "1rem"
+                  backgroundColor: cardBg || (isMinimal ? "transparent" : (isTinted ? undefined : "var(--surface-hover)")),
+                  padding: isMinimal ? "0.5rem" : "1.5rem"
                 }}
               >
+                {action.icon && (
+                  <div className="mb-2" style={{ color: colorTone, fontSize: '1.5rem' }}>
+                    {action.icon}
+                  </div>
+                )}
                 <div
                   style={{
                     fontSize: "var(--font-size-h2)",
@@ -141,12 +150,13 @@ const QuickActions: React.FC<QuickActionsProps> = ({
                 >
                   {action.label}
                 </div>
-                {!isMinimal && action.subLabel && (
+                {action.subLabel && (
                   <div
                     style={{
                       fontSize: "var(--font-size-body-sm)",
-                      color: "var(--text-muted)",
+                      color: "var(--text-color)",
                       marginTop: "0.25rem",
+                      fontWeight: "600"
                     }}
                   >
                     {action.subLabel}
@@ -183,7 +193,11 @@ const QuickActions: React.FC<QuickActionsProps> = ({
       {/*  ROW BUTTON LAYOUT    */}
       {/* ===================== */}
       {!isStatsLayout && layout === "row" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div 
+          className={`grid gap-4 ${
+            columns ? `grid-cols-1 sm:grid-cols-2 lg:grid-cols-${columns}` : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+          }`}
+        >
           {actions.map((action) => (
             <Button
               key={action.id}
@@ -201,6 +215,23 @@ const QuickActions: React.FC<QuickActionsProps> = ({
       )}
       {/* 👇 FOOTER GOES HERE */}
       {children && <div>{children}</div>}
+    </>
+  );
+
+  if (noWrapper) {
+    return <div className="quick-actions-no-wrapper">{content}</div>;
+  }
+
+  return (
+    <Card
+      className="rounded-(--border-radius) border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      style={{
+        borderColor: "var(--surface-border)",
+        backgroundColor: "var(--surface-card)",
+        borderRadius: "var(--border-radius)",
+      }}
+    >
+      {content}
     </Card>
   );
 };

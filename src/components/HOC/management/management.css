@@ -1,0 +1,121 @@
+.management-layout {
+  width: 100%;
+}
+
+.management-title {
+  color: var(--text-color);
+}
+
+/* Card container */
+.management-card {
+  border-color: var(--surface-border) !important;
+  background-color: var(--surface-card) !important;
+  box-shadow: var(--card-shadow);
+}
+
+/* Card actions */
+.management-card-actions .p-button {
+  transition: all 0.2s ease-in-out;
+}
+
+.management-card-actions .p-button:hover {
+  background-color: var(--surface-hover) !important;
+  border-color: var(--surface-border) !important;
+}
+
+/* ============================= */
+/*        STATUS / TAG COLORS    */
+/* ============================= */
+
+/* SUCCESS (Emerald / Green) */
+.text-emerald-500,
+.text-emerald-600 {
+  color: var(--badge-success-text) !important;
+}
+
+.bg-emerald-50 {
+  background-color: var(--badge-success-bg) !important;
+}
+
+.border-emerald-100 {
+  border-color: var(--badge-success-bg) !important;
+}
+
+/* INFO (Blue / Primary) */
+.text-blue-600 {
+  color: var(--primary-color) !important;
+}
+
+.bg-blue-50 {
+  background-color: var(--primary-color-light) !important;
+}
+
+.border-blue-100 {
+  border-color: var(--primary-color-light) !important;
+}
+
+/* WARNING (Amber / Medium priority) */
+.text-amber-600 {
+  color: var(--priority-medium-text) !important;
+}
+
+.bg-amber-50 {
+  background-color: var(--priority-medium-bg) !important;
+}
+
+.border-amber-100 {
+  border-color: var(--priority-medium-bg) !important;
+}
+
+/* ERROR (Red / High priority) */
+.text-red-600 {
+  color: var(--priority-high-text) !important;
+}
+
+.bg-red-50 {
+  background-color: var(--priority-high-bg) !important;
+}
+
+.border-red-100 {
+  border-color: var(--priority-high-bg) !important;
+}
+
+/* INFO SECONDARY (Indigo-like) */
+.text-indigo-600 {
+  color: var(--badge-info-text) !important;
+}
+
+.bg-indigo-50 {
+  background-color: var(--badge-info-bg) !important;
+}
+
+.border-indigo-100 {
+  border-color: var(--badge-info-bg) !important;
+}
+
+/* ORANGE (Low / Custom status) */
+.text-orange-600 {
+  color: var(--secondary-color) !important;
+}
+
+.bg-orange-50 {
+  background-color: var(--primary-color-light) !important;
+}
+
+.border-orange-100 {
+  border-color: var(--primary-color-light) !important;
+}
+
+/* ============================= */
+/*     HEADER ACTION BUTTONS     */
+/* ============================= */
+
+.management-header-actions .p-button-outlined {
+  color: var(--text-color) !important;
+  border-color: var(--surface-border) !important;
+  background: var(--surface-card) !important;
+}
+
+.management-header-actions .p-button-outlined:hover {
+  background: var(--surface-hover) !important;
+}
