@@ -8,41 +8,42 @@ import {
 import StatsCard from "../HOC/dashboard/StatsCard";
 
 const HeaderCards = () => {
+
   return (
     <div className="space-y-10">   
       <div>
         <div className="grid grid-cols-1 sm:grid-cols-1  lg:grid-cols-2 2xl:grid-cols-4 gap-4">
           <StatsCard
-            title="Total Invoices"
-            value="₹2.47Cr"
+            title="Total Clients"
+            value="3"
             icon={<FaTicketAlt className="text-blue-600" />}
-            trendLabel="+12.5% from last month"
+            trendLabel="+0 this month"
             iconPosition="right"
             bgClass="bg-blue-50 hover:bg-blue-100 transition"
           />
 
           <StatsCard
-            title="Pending Invoices"
-            value="23"
+            title="Active Projects"
+            value="6"
             icon={<FaClock className="text-orange-600" />}
-            trendLabel="₹45.2L outstanding"
+            trendLabel="+5 this week"
             iconPosition="right"
             bgClass="bg-orange-50 hover:bg-orange-100 transition"
           />
 
           <StatsCard
-            title="Overdue"
-            value="₹7"
-            icon={<FaCheckCircle className="text-[color:var(--primary-color)]" />}
-            trendLabel="₹12.8L overdue"
+            title="Completion Rate"
+            value="61%"
+            icon={<FaCheckCircle className="text-(--primary-color)" />}
+            trendLabel="+3% this week"
             iconPosition="right"
             bgClass="bg-[color:var(--primary-color-light)] hover:bg-[color:var(--primary-color-light)] transition"
           />
           <StatsCard
-            title="E-Way Bill"
-            value="156"
+            title="Total Revenue"
+            value="$56K"
             icon={<FaShieldAlt className="text-purple-600" />}
-            trendLabel="3 pending approval"
+            trendLabel="+18% this month"
             iconPosition="right"
             bgClass="bg-purple-50 hover:bg-purple-100 transition"
           />

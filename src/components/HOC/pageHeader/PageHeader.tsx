@@ -12,7 +12,7 @@ interface HeaderAction {
 
 interface PageHeaderProps {
   icon?: React.ReactNode;
-  title: string;
+  title?: string;
   subtitle?: string;
   buttonLabel?: string;
   onButtonClick?: () => void;
