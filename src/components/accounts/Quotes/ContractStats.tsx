@@ -1,6 +1,15 @@
 import React, { useState } from "react";
-import { PiBell, PiPauseCircle, PiPlayCircle, PiEye, PiFileText, PiFunnel } from "react-icons/pi";
-import ManagementLayout, { ManagementItemCard } from "../../HOC/management/ManagementLayout";
+import {
+  PiBell,
+  PiPauseCircle,
+  PiPlayCircle,
+  PiEye,
+  PiFileText,
+  PiFunnel,
+} from "react-icons/pi";
+import ManagementLayout, {
+  ManagementItemCard,
+} from "../../HOC/management/ManagementLayout";
 import QuickActions from "../../HOC/quickActions/QuickAction";
 
 const ContractStats: React.FC = () => {
@@ -14,7 +23,7 @@ const ContractStats: React.FC = () => {
       startDate: "Started: 2/1/2024",
       amount: "$3,500/mo",
       nextBill: "Next bill: 3/1/2024",
-      alertInfo: "Alerts enabled"
+      alertInfo: "Alerts enabled",
     },
     {
       id: "CON-2024-002",
@@ -25,20 +34,24 @@ const ContractStats: React.FC = () => {
       startDate: "Started: 1/20/2024",
       amount: "$2,200/mo",
       nextBill: "Next bill: 2/20/2024",
-      alertInfo: "Alerts enabled"
-    }
+      alertInfo: "Alerts enabled",
+    },
   ]);
 
-  const activeCount = contracts.filter(c => c.status === 'active').length;
-  const pausedCount = contracts.filter(c => c.status === 'paused').length;
+  const activeCount = contracts.filter((c) => c.status === "active").length;
+  const pausedCount = contracts.filter((c) => c.status === "paused").length;
   const activeAmount = contracts
-    .filter(c => c.status === 'active')
-    .reduce((sum, c) => sum + parseFloat(c.amount.replace(/[^0-9.]/g, '')), 0);
+    .filter((c) => c.status === "active")
+    .reduce((sum, c) => sum + parseFloat(c.amount.replace(/[^0-9.]/g, "")), 0);
 
   const togglePause = (id: string) => {
-    setContracts(prev => prev.map(c => 
-      c.id === id ? { ...c, status: c.status === 'active' ? 'paused' : 'active' } : c
-    ));
+    setContracts((prev) =>
+      prev.map((c) =>
+        c.id === id
+          ? { ...c, status: c.status === "active" ? "paused" : "active" }
+          : c
+      )
+    );
   };
 
   const ticketStats = [
@@ -71,44 +84,70 @@ const ContractStats: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <QuickActions actions={ticketStats} noWrapper={true} columns={3} cardBg="white" />
-
-      <ManagementLayout 
-        title="Contract Management"
-        isCard={true}
-        headerActions={[
-          { label: "Filter", icon: <PiFunnel />, onClick: () => {} }
-        ]}
-        items={contracts}
-        itemConfig={{ idKey: "id" }}
-        renderItem={(item) => (
-          <ManagementItemCard 
-            item={item} 
-            config={{
-              titleKey: "id",
-              statusKey: "status",
-              subtitleKey: "customer",
-              tagsKey: "tags",
-              metaKey: "startDate",
-              valueKey: "amount",
-              valueLabelKey: "nextBill",
-              actions: item.status === 'paused' ? [
-                { label: "View Details", icon: <PiEye />, onClick: () => {} },
-                { 
-                  label: "Resume", 
-                  icon: <PiPlayCircle />, 
-                  onClick: () => togglePause(item.id),
-                  className: "!bg-emerald-500 !text-white !border-emerald-500 hover:!bg-emerald-600" 
-                }
-              ] : [
-                { label: "View Details", icon: <PiEye />, onClick: () => {} },
-                { label: "Pause", icon: <PiPauseCircle />, onClick: () => togglePause(item.id) },
-                { label: "Create Revision", icon: <PiFileText />, onClick: () => {} }
-              ]
-            }} 
-          />
-        )}
+      <QuickActions
+        actions={ticketStats}
+        noWrapper={true}
+        columns={3}
+        cardBg="white"
       />
+      <div className="transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+        <ManagementLayout
+          title="Contract Management"
+          isCard={true}
+          headerActions={[
+            { label: "Filter", icon: <PiFunnel />, onClick: () => {} },
+          ]}
+          items={contracts}
+          itemConfig={{ idKey: "id" }}
+          renderItem={(item) => (
+            <ManagementItemCard
+              item={item}
+              config={{
+                titleKey: "id",
+                statusKey: "status",
+                subtitleKey: "customer",
+                tagsKey: "tags",
+                metaKey: "startDate",
+                valueKey: "amount",
+                valueLabelKey: "nextBill",
+                actions:
+                  item.status === "paused"
+                    ? [
+                        {
+                          label: "View Details",
+                          icon: <PiEye />,
+                          onClick: () => {},
+                        },
+                        {
+                          label: "Resume",
+                          icon: <PiPlayCircle />,
+                          onClick: () => togglePause(item.id),
+                          className:
+                            "!bg-emerald-500 !text-white !border-emerald-500 hover:!bg-emerald-600",
+                        },
+                      ]
+                    : [
+                        {
+                          label: "View Details",
+                          icon: <PiEye />,
+                          onClick: () => {},
+                        },
+                        {
+                          label: "Pause",
+                          icon: <PiPauseCircle />,
+                          onClick: () => togglePause(item.id),
+                        },
+                        {
+                          label: "Create Revision",
+                          icon: <PiFileText />,
+                          onClick: () => {},
+                        },
+                      ],
+              }}
+            />
+          )}
+        />
+      </div>
     </div>
   );
 };

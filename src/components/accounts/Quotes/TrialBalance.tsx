@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { PiWarning } from "react-icons/pi";
-import ReusableCrudTable, { type CrudColumn } from "../../HOC/ReusableDataTable/ReusableDataTable";
+import ReusableCrudTable, {
+  type CrudColumn,
+} from "../../HOC/ReusableDataTable/ReusableDataTable";
+import SingleLineCard from "../../HOC/singlelineCard/SingleLineCard";
 
 interface TrialBalanceItem {
   account: string;
@@ -16,59 +19,94 @@ const TrialBalance: React.FC = () => {
 
   const data: TrialBalanceItem[] = [
     { account: "Cash", type: "Asset", debit: "$32,500", credit: "-" },
-    { account: "Accounts Receivable", type: "Asset", debit: "$5,700", credit: "-" },
+    {
+      account: "Accounts Receivable",
+      type: "Asset",
+      debit: "$5,700",
+      credit: "-",
+    },
     { account: "Equipment", type: "Asset", debit: "$35,000", credit: "-" },
-    { account: "Deferred Revenue", type: "Liability", debit: "-", credit: "$8,500" },
-    { account: "Accounts Payable", type: "Liability", debit: "-", credit: "$4,050" },
-    { account: "Owner's Equity", type: "Equity", debit: "-", credit: "$65,000" },
-    { account: "Recurring Revenue", type: "Revenue", debit: "-", credit: "$11,400" },
+    {
+      account: "Deferred Revenue",
+      type: "Liability",
+      debit: "-",
+      credit: "$8,500",
+    },
+    {
+      account: "Accounts Payable",
+      type: "Liability",
+      debit: "-",
+      credit: "$4,050",
+    },
+    {
+      account: "Owner's Equity",
+      type: "Equity",
+      debit: "-",
+      credit: "$65,000",
+    },
+    {
+      account: "Recurring Revenue",
+      type: "Revenue",
+      debit: "-",
+      credit: "$11,400",
+    },
     { account: "Setup Revenue", type: "Revenue", debit: "-", credit: "$2,500" },
     { account: "Rent Expense", type: "Expense", debit: "$3,200", credit: "-" },
-    { account: "Marketing Tools Expense", type: "Expense", debit: "$850", credit: "-" },
-    { account: "Contract Fulfillment Costs", type: "Expense", debit: "$2,200", credit: "-" },
+    {
+      account: "Marketing Tools Expense",
+      type: "Expense",
+      debit: "$850",
+      credit: "-",
+    },
+    {
+      account: "Contract Fulfillment Costs",
+      type: "Expense",
+      debit: "$2,200",
+      credit: "-",
+    },
   ];
 
   const columns: CrudColumn<TrialBalanceItem>[] = [
     { field: "account", header: "Account", sortable: true },
-    { 
-      field: "type", 
-      header: "Type", 
+    {
+      field: "type",
+      header: "Type",
       sortable: true,
       body: (rowData) => (
         <span className="px-2 py-1 bg-gray-50 border border-gray-100 rounded-md text-[10px] text-gray-600">
           {rowData.type}
         </span>
-      )
+      ),
     },
-    { 
-      field: "debit", 
-      header: "Debit", 
+    {
+      field: "debit",
+      header: "Debit",
       sortable: true,
-      style: { textAlign: 'right' },
-      headerStyle: { textAlign: 'right' }
+      style: { textAlign: "right" },
+      headerStyle: { textAlign: "right" },
     },
-    { 
-      field: "credit", 
-      header: "Credit", 
+    {
+      field: "credit",
+      header: "Credit",
       sortable: true,
-      style: { textAlign: 'right' },
-      headerStyle: { textAlign: 'right' }
+      style: { textAlign: "right" },
+      headerStyle: { textAlign: "right" },
     },
   ];
 
   const totals = {
     debit: "$79,450",
-    credit: "$91,450"
+    credit: "$91,450",
   };
 
   const balanceCheck = {
     difference: "$12,000",
-    status: "Unbalanced"
+    status: "Unbalanced",
   };
 
   return (
     <div className="space-y-6">
-      <div className="bg-white border border-(--surface-border) rounded-(--border-radius) shadow-sm overflow-hidden  hover:-translate-y-1 hover:shadow-lg">
+      <div className="bg-white border border-(--surface-border) rounded-(--border-radius) shadow-sm overflow-hidden  transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
         <div className="p-2">
           <ReusableCrudTable
             data={data}
@@ -84,8 +122,12 @@ const TrialBalance: React.FC = () => {
             toolbar={true}
             title={
               <div className="px-4">
-                <h2 className="text-xl font-bold text-gray-800">Trial Balance</h2>
-                <p className="text-sm text-gray-400 mt-1">As of {new Date().toLocaleDateString()}</p>
+                <h2 className="text-xl font-bold text-gray-800">
+                  Trial Balance
+                </h2>
+                <p className="text-sm text-gray-400 mt-1">
+                  As of {new Date().toLocaleDateString()}
+                </p>
               </div>
             }
             onExport={true}
@@ -109,8 +151,12 @@ const TrialBalance: React.FC = () => {
         <div className="p-6 bg-red-50/30 border-t border-(--surface-border)">
           <div className="flex justify-between items-end">
             <div className="space-y-1">
-              <span className="text-sm font-bold text-gray-800">Balance Check:</span>
-              <p className="text-sm text-red-500 font-medium">Difference: {balanceCheck.difference}</p>
+              <span className="text-sm font-bold text-gray-800">
+                Balance Check:
+              </span>
+              <p className="text-sm text-red-500 font-medium">
+                Difference: {balanceCheck.difference}
+              </p>
             </div>
             <div className="flex items-center gap-2 text-red-600 font-bold bg-white px-3 py-1.5 rounded-lg border border-red-100 shadow-sm">
               <PiWarning size={16} />
@@ -118,6 +164,81 @@ const TrialBalance: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <SingleLineCard
+          title="Assets"
+          items={[
+            {
+              label: "Current Assets",
+              value: "$38,200",
+              // valueTone: "primary",
+            },
+            {
+              label: "Fixed Assets",
+              value: "$35,000",
+              // valueTone: "primary",
+            },
+            {
+              label: "Total Assets",
+              value: "$73,200",
+              // valueTone: "primary",
+              dividerBefore: true,
+            },
+          ]}
+        />
+        <SingleLineCard
+          title="Liabilities & Equity"
+          items={[
+            {
+              label: "Deferred Revenue",
+              value: "$8,500",
+              // valueTone: "warning",
+            },
+            {
+              label: "Current Liabilities",
+              value: "$4,050",
+              // valueTone: "warning",
+            },
+            {
+              label: "Owner's Equity",
+              value: "$65,000",
+              // valueTone: "primary",
+            },
+            {
+              label: "Total L&E",
+              value: "$77,550",
+              // valueTone: "primary",
+              dividerBefore: true,
+            },
+          ]}
+        />
+        <SingleLineCard
+          title="Revenue & Expenses"
+          items={[
+            {
+              label: "Recurring Revenue",
+              value: "$11,400",
+              valueTone: "success",
+            },
+            {
+              label: "Setup Revenue",
+              value: "$2,500",
+              valueTone: "success",
+            },
+            {
+              label: "Total Expenses",
+              value: "$6,250",
+              valueTone: "danger",
+            },
+            {
+              label: "Net Income",
+              value: "$7,650",
+              valueTone: "success",
+              dividerBefore: true,
+            },
+          ]}
+        />
       </div>
     </div>
   );

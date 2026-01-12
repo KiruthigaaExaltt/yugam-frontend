@@ -65,7 +65,7 @@ const Quotes: React.FC<NavButtonsProps> = ({ activeTab, onTabClick }) => {
       <div className="flex items-center">
         <Buttons actions={tabs} />
       </div>
-
+      <div className="transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       <ManagementLayout 
         title="Quote Management"
         isCard={true}
@@ -126,6 +126,7 @@ const Quotes: React.FC<NavButtonsProps> = ({ activeTab, onTabClick }) => {
            />
         )}
       />
+      </div>
     </div>
   );
 };
