@@ -36,6 +36,7 @@ type ReusableCardProps = {
   bigValue?: string;
   bigValueLabel?: string;
   statusBadge?: { label: string; color?: string };
+  isHoverable?: boolean; // New
 };
 
 const toneClassMap: Record<NonNullable<CardItem["valueTone"]>, string> = {
@@ -56,10 +57,13 @@ const SingleLineCard: React.FC<ReusableCardProps> = ({
   bigValue,
   bigValueLabel,
   statusBadge,
+  isHoverable = true, // Default to true for existing cards
 }) => {
   return (
     <Card
-      className="rounded-(--border-radius) border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      className={`rounded-(--border-radius) border shadow-sm ${
+        isHoverable ? "transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" : ""
+      }`}
       style={{
         backgroundColor: "var(--surface-card)",
         borderColor: "var(--surface-border)",

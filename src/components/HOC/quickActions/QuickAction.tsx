@@ -33,6 +33,7 @@ type QuickActionsProps = {
   noWrapper?: boolean;
   columns?: number;
   cardBg?: string;
+  isHoverable?: boolean;
 };
 
 const toneMap: Record<string, string> = {
@@ -62,6 +63,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({
   noWrapper = false,
   columns,
   cardBg,
+  isHoverable = true,
 }) => {
   const isStatsLayout = actions.every((a) => a.type === "stat");
 
@@ -119,7 +121,9 @@ const QuickActions: React.FC<QuickActionsProps> = ({
                 key={action.id}
                 className={`rounded-xl text-center flex flex-col items-center justify-center transition-all ${
                   isMinimal ? "" : (isTinted ? tintToneMap[action.tone ?? "blue"] : toneMap[action.tone ?? "blue"])
-                } ${isMinimal ? "border-none" : "border"}`}
+                } ${isMinimal ? "border-none" : "border"} ${
+                  isHoverable ? "duration-300 hover:-translate-y-1 hover:shadow-lg" : ""
+                }`}
                 style={{
                   borderColor: isMinimal || isTinted ? "transparent" : "var(--surface-border)",
                   backgroundColor: cardBg || (isMinimal ? "transparent" : (isTinted ? undefined : "var(--surface-hover)")),
@@ -178,7 +182,9 @@ const QuickActions: React.FC<QuickActionsProps> = ({
               key={action.id}
               label={action.label}
               onClick={action.onClick}
-              className="quick-action-btn h-24 w-full rounded-xl flex flex-col items-center justify-center gap-2"
+              className={`quick-action-btn h-24 w-full rounded-xl flex flex-col items-center justify-center gap-2 ${
+                isHoverable ? "transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" : ""
+              }`}
               icon={() => (action.icon ? <span>{action.icon}</span> : null)}
               style={{
                 fontSize: "var(--font-size-button)",
@@ -203,7 +209,9 @@ const QuickActions: React.FC<QuickActionsProps> = ({
               key={action.id}
               label={action.label}
               onClick={action.onClick}
-              className="quick-action-btn h-20 w-full rounded-xl flex flex-col items-center justify-center gap-2"
+              className={`quick-action-btn h-20 w-full rounded-xl flex flex-col items-center justify-center gap-2 ${
+                isHoverable ? "transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" : ""
+              }`}
               icon={() => (action.icon ? <span>{action.icon}</span> : null)}
               style={{
                 fontSize: "var(--font-size-button)",
@@ -224,7 +232,9 @@ const QuickActions: React.FC<QuickActionsProps> = ({
 
   return (
     <Card
-      className="rounded-(--border-radius) border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      className={`rounded-(--border-radius) border shadow-sm ${
+        isHoverable ? "transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" : ""
+      }`}
       style={{
         borderColor: "var(--surface-border)",
         backgroundColor: "var(--surface-card)",

@@ -104,14 +104,12 @@ const Transactions: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <div className="transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-        <QuickActions
-          actions={invoiceStats}
-          noWrapper={true}
-          columns={4}
-          cardBg="white"
-        />
-      </div>
+      <QuickActions
+        actions={invoiceStats}
+        noWrapper={true}
+        columns={4}
+        cardBg="white"
+      />
 
       <div className="bg-white border border-(--surface-border) rounded-(--border-radius) shadow-sm p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
         {/* CUSTOM HEADER FOR MEETINGCARD */}
