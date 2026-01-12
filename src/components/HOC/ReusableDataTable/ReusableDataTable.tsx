@@ -60,6 +60,7 @@ interface ReusableCrudTableProps<T extends object> {
   paginator?: boolean;
   showSearch?: boolean; // New
   showGridlines?: boolean; // New
+  isCard?: boolean; // New
 }
 
 /* ================================
@@ -88,6 +89,7 @@ const ReusableCrudTable = <T extends object>({
   paginator = true,
   showSearch = true,
   showGridlines = true,
+  isCard = true,
 }: ReusableCrudTableProps<T>) => {
   // NOTE: DataTable expects DataTableValueArray (array of T)
   const dt = useRef<DataTable<any> | null>(null);
@@ -155,15 +157,8 @@ const ReusableCrudTable = <T extends object>({
 
   const hasToolbarContent = !!onAdd || !!onDeleteSelected || !!onExport;
 
-  return (
-    <div
-      className="card border shadow-sm  transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-      style={{
-        borderRadius: "var(--border-radius)",
-        borderColor: "var(--surface-border)",
-        overflow: "hidden",
-      }}
-    >
+  const tableContent = (
+    <>
       <Toast ref={toast} />
 
       {toolbar && hasToolbarContent && (
@@ -210,6 +205,23 @@ const ReusableCrudTable = <T extends object>({
           />
         ))}
       </DataTable>
+    </>
+  );
+
+  if (!isCard) {
+    return tableContent;
+  }
+
+  return (
+    <div
+      className="card border shadow-sm  transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      style={{
+        borderRadius: "var(--border-radius)",
+        borderColor: "var(--surface-border)",
+        overflow: "hidden",
+      }}
+    >
+      {tableContent}
     </div>
   );
 };

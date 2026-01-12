@@ -5,7 +5,7 @@ import "./quickaction.css";
 
 export type QuickActionItem = {
   id: string;
-  label: string;
+  label?: string;
   icon?: React.ReactNode;
   onClick?: () => void;
 
