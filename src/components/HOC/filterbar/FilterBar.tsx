@@ -1,6 +1,7 @@
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { useState } from "react";
+import { FiSearch , FiX } from "react-icons/fi";
  
 type Option = {
   label: string;
@@ -17,7 +18,7 @@ interface FilterBarProps {
 }
  
 export default function FilterBar({
-  searchPlaceholder = "Search...",
+  // placeholder = "Search...",
   stageOptions = [],
   sourceOptions = [],
   onSearch,
@@ -34,50 +35,73 @@ export default function FilterBar({
       
  
       {/* Controls */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 rounded-(--border-radius)  transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 var-(--card-radius)  transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
         {/* Search */}
-        <div className="md:col-span-8">
-          <span className="p-input-icon-left w-full">
-            <i className="pi pi-search" />
-            <InputText
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                onSearch?.(e.target.value);
-              }}
-              placeholder={searchPlaceholder}
-              className="w-full"
-            />
-          </span>
-        </div>
+      <div className="md:col-span-8">
+  <div className="relative w-full">
+    {/* Search Icon */}
+    <FiSearch
+      className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+      size={14}
+    />
+
+    {/* Clear Icon */}
+    {search && (
+      <FiX
+        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-gray-600"
+        size={14}
+        onClick={() => {
+          setSearch("");
+          onSearch?.("");
+        }}
+      />
+    )}
+
+    <InputText
+      value={search}
+      onChange={(e) => {
+        setSearch(e.target.value);
+        onSearch?.(e.target.value);
+      }}
+      placeholder="Search clients..."
+      style={{ paddingLeft: "3rem", paddingRight: "2.5rem" }}
+      className="w-full h-11 rounded-full bg-gray-50 border border-gray-200
+                 focus:bg-white focus:border-blue-400"
+    />
+  </div>
+</div>
+
+
  
-        {/* Stage */}
+    {/* Stage */}
         <div className="md:col-span-2">
-          <Dropdown
-            value={stage}
-            options={stageOptions}
-            onChange={(e) => {
-              setStage(e.value);
-              onStageChange?.(e.value);
-            }}
-            placeholder="All Stages"
-            className="w-full"
-          />
-        </div>
- 
-        {/* Source */}
-        <div className="md:col-span-2">
-          <Dropdown
-            value={source}
-            options={sourceOptions}
-            onChange={(e) => {
-              setSource(e.value);
-              onSourceChange?.(e.value);
-            }}
-            placeholder="All Sources"
-            className="w-full"
-          />
-        </div>
+  <Dropdown
+    value={stage}
+    options={stageOptions}
+    showClear
+    onChange={(e) => {
+      setStage(e.value ?? null);
+      onStageChange?.(e.value ?? null);
+    }}
+    placeholder="All Stages"
+    className="w-full"
+  />
+</div>
+
+{/* Priority */}
+<div className="md:col-span-2">
+  <Dropdown
+    value={source}
+    options={sourceOptions}
+    showClear
+    onChange={(e) => {
+      setSource(e.value ?? null);
+      onSourceChange?.(e.value ?? null);
+    }}
+    placeholder="All Priority"
+    className="w-full"
+  />
+</div>
       </div>
     </div>
   );
