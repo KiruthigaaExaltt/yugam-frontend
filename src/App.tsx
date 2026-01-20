@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "../src/context/ThemeContext";
 import BaseLayout from "./layouts/BaseLayout";
 import LoginPage from "./components/login/LoginPage";
+import OrbitIndex from "./components/orbit/OrbitIndex";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             isAuthenticated ? <BaseLayout /> : <Navigate to="/login" replace />
           }
         >
+           <Route path="/orbit" element={<OrbitIndex />} />
         </Route>
 
         {/* Default redirect */}
