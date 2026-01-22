@@ -1,0 +1,99 @@
+.template-card {
+    border: 1px solid var(--surface-border);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.template-card .p-card-body {
+    padding: 0 !important;
+}
+
+.template-card .p-card-content {
+    padding: 0 !important;
+}
+
+.template-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.template-card-category {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.template-category-badge {
+    background: white;
+    border: 1px solid var(--surface-border);
+    color: var(--text-color);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.template-delete-btn {
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.template-delete-btn:hover {
+    color: #ef4444;
+}
+
+.template-card-description {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 1rem 0;
+    line-height: 1.5;
+}
+
+.template-card-created,
+.template-card-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.template-preview-btn {
+    background: #f3f4f6 !important;
+    border: 1px solid var(--surface-border) !important;
+    color: var(--text-color) !important;
+    border-radius: 8px !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    padding: 0.5rem !important;
+}
+
+.template-preview-btn:hover {
+    background: #e5e7eb !important;
+}
+
+.template-use-btn {
+    background: var(--primary-color) !important;
+    border: none !important;
+    color: white !important;
+    border-radius: 8px !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    padding: 0.5rem !important;
+}
+
+.template-use-btn:hover {
+    opacity: 0.9;
+}
+
+.template-card .p-button .p-button-icon {
+    margin-right: 0.5rem;
+}
