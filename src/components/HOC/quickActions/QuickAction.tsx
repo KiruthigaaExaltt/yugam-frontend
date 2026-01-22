@@ -5,12 +5,12 @@ import "./quickaction.css";
 
 export type QuickActionItem = {
   id: string;
-  label?: string;
+  label?: React.ReactNode;
   icon?: React.ReactNode;
   onClick?: () => void;
 
-  value?: string;
-  subLabel?: string;
+  value?: React.ReactNode;
+  subLabel?: React.ReactNode;
   tone?: "blue" | "green" | "orange" | "purple" | "red";
   type?: "action" | "stat";
 };
@@ -53,7 +53,7 @@ const tintToneMap: Record<string, string> = {
 };
 
 const QuickActions: React.FC<QuickActionsProps> = ({
-  title ,
+  title,
   actions = [],
   layout = "grid",
   children,
@@ -81,7 +81,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({
           >
             {title}
           </div>
-          
+
           {headerAction && (
             <Button
               label={headerAction.label}
@@ -104,26 +104,28 @@ const QuickActions: React.FC<QuickActionsProps> = ({
       {/*  STATS CARD LAYOUT    */}
       {/* ===================== */}
       {isStatsLayout && (
-        <div 
-          className={`grid gap-4 ${
-            columns ? `grid-cols-1 sm:grid-cols-2 lg:grid-cols-${columns}` : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-          }`}
+        <div
+          className={`grid gap-4 grid-cols-1 sm:grid-cols-2 ${columns === 1 ? "lg:grid-cols-1" :
+            columns === 2 ? "lg:grid-cols-2" :
+              columns === 3 ? "lg:grid-cols-3" :
+                columns === 5 ? "lg:grid-cols-5" :
+                  columns === 6 ? "lg:grid-cols-6" :
+                    "lg:grid-cols-4"
+            }`}
         >
           {actions.map((action) => {
             const isMinimal = variant === "minimal";
-            const colorTone = action.tone === "green" ? "#10B981" : 
-                             action.tone === "blue" ? "#3B82F6" : 
-                             action.tone === "orange" ? "#F59E0B" : 
-                             action.tone === "red" ? "#EF4444" : "inherit";
+            const colorTone = action.tone === "green" ? "#10B981" :
+              action.tone === "blue" ? "#3B82F6" :
+                action.tone === "orange" ? "#F59E0B" :
+                  action.tone === "red" ? "#EF4444" : "inherit";
 
             return (
               <div
                 key={action.id}
-                className={`rounded-xl text-center flex flex-col items-center justify-center transition-all ${
-                  isMinimal ? "" : (isTinted ? tintToneMap[action.tone ?? "blue"] : toneMap[action.tone ?? "blue"])
-                } ${isMinimal ? "border-none" : "border"} ${
-                  isHoverable ? "duration-300 hover:-translate-y-1 hover:shadow-lg" : ""
-                }`}
+                className={`rounded-xl text-center flex flex-col items-center justify-center transition-all ${isMinimal ? "" : (isTinted ? tintToneMap[action.tone ?? "blue"] : toneMap[action.tone ?? "blue"])
+                  } ${isMinimal ? "border-none" : "border"} ${isHoverable ? "duration-300 hover:-translate-y-1 hover:shadow-lg" : ""
+                  }`}
                 style={{
                   borderColor: isMinimal || isTinted ? "transparent" : "var(--surface-border)",
                   backgroundColor: cardBg || (isMinimal ? "transparent" : (isTinted ? undefined : "var(--surface-hover)")),
@@ -180,17 +182,18 @@ const QuickActions: React.FC<QuickActionsProps> = ({
           {actions.map((action) => (
             <Button
               key={action.id}
-              label={action.label}
+              label={typeof action.label === "string" ? action.label : undefined}
               onClick={action.onClick}
-              className={`quick-action-btn h-24 w-full rounded-xl flex flex-col items-center justify-center gap-2 ${
-                isHoverable ? "transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" : ""
-              }`}
+              className={`quick-action-btn h-24 w-full rounded-xl flex flex-col items-center justify-center gap-2 ${isHoverable ? "transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" : ""
+                }`}
               icon={() => (action.icon ? <span>{action.icon}</span> : null)}
               style={{
                 fontSize: "var(--font-size-button)",
                 fontWeight: "var(--font-weight-medium)",
               }}
-            />
+            >
+              {typeof action.label !== "string" && action.label}
+            </Button>
           ))}
         </div>
       )}
@@ -199,25 +202,25 @@ const QuickActions: React.FC<QuickActionsProps> = ({
       {/*  ROW BUTTON LAYOUT    */}
       {/* ===================== */}
       {!isStatsLayout && layout === "row" && (
-        <div 
-          className={`grid gap-4 ${
-            columns ? `grid-cols-1 sm:grid-cols-2 lg:grid-cols-${columns}` : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-          }`}
+        <div
+          className={`grid gap-4 ${columns ? `grid-cols-1 sm:grid-cols-2 lg:grid-cols-${columns}` : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+            }`}
         >
           {actions.map((action) => (
             <Button
               key={action.id}
-              label={action.label}
+              label={typeof action.label === "string" ? action.label : undefined}
               onClick={action.onClick}
-              className={`quick-action-btn h-20 w-full rounded-xl flex flex-col items-center justify-center gap-2 ${
-                isHoverable ? "transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" : ""
-              }`}
+              className={`quick-action-btn h-20 w-full rounded-xl flex flex-col items-center justify-center gap-2 ${isHoverable ? "transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" : ""
+                }`}
               icon={() => (action.icon ? <span>{action.icon}</span> : null)}
               style={{
                 fontSize: "var(--font-size-button)",
                 fontWeight: "var(--font-weight-medium)",
               }}
-            />
+            >
+              {typeof action.label !== "string" && action.label}
+            </Button>
           ))}
         </div>
       )}
@@ -232,9 +235,8 @@ const QuickActions: React.FC<QuickActionsProps> = ({
 
   return (
     <Card
-      className={`rounded-(--border-radius) border shadow-sm ${
-        isHoverable ? "transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" : ""
-      }`}
+      className={`rounded-(--border-radius) border shadow-sm ${isHoverable ? "transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" : ""
+        }`}
       style={{
         borderColor: "var(--surface-border)",
         backgroundColor: "var(--surface-card)",

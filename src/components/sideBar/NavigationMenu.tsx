@@ -82,7 +82,7 @@ const NavigationMenu = ({
           label: "Estimo",
           description: "Quote Generator with BOM/BO",
           icon: <PiFileText />,
-          route: "/quotes",
+          route: "/estimo",
         },
       ],
     },
