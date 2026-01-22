@@ -1,9 +1,11 @@
 import { FiGrid, FiBarChart2, FiLayers } from "react-icons/fi";
 import { MdCheckCircle } from "react-icons/md";
 import MidCard from "../../HOC/midCard/MidCard";
+// import ImplementationHighlightsCard from "../ImplementationHighlightsCard";
 
 export const CoreFeatures = () => {
     return (
+        <>
         <div className="animate-fadeIn">
             <div className="text-center mb-10">
                 <h1 className="text-2xl font-bold text-gray-800">Platform-Wide Capabilities</h1>
@@ -42,5 +44,7 @@ export const CoreFeatures = () => {
                 />
             </div>
         </div>
+        {/* <ImplementationHighlightsCard /> */}
+        </>
     );
 };

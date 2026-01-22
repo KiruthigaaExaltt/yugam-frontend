@@ -1,7 +1,10 @@
 import { FiRefreshCw, FiDatabase, FiZap, FiShield, FiActivity, FiClock } from "react-icons/fi";
+import SecondSession from "../secondSession/SecondSession";
+import ImplementationHighlightsCard from "../ImplementationHighlightsCard";
 
 export const SystemStatus = () => {
     return (
+        <>
         <div className="flex flex-col gap-8 my-4">
             <div className="flex items-center justify-between px-2">
                 <div>
@@ -49,5 +52,8 @@ export const SystemStatus = () => {
                 ))}
             </div>
         </div>
+        <SecondSession />
+        <ImplementationHighlightsCard />
+        </>
     );
 };

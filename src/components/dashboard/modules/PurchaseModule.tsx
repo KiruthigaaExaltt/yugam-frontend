@@ -1,9 +1,11 @@
 import { MdShoppingCart, MdGroups, MdCheckCircle } from "react-icons/md";
 import { FiBarChart2, FiZap } from "react-icons/fi";
 import MidCard from "../../HOC/midCard/MidCard";
+// import ImplementationHighlightsCard from "../ImplementationHighlightsCard";
 
 export const PurchaseModule = () => {
     return (
+        <>
         <div className="animate-fadeIn w-full px-2">
             <div className="text-center mb-10">
                 <h1 className="text-3xl font-bold text-gray-800 tracking-tight">Purchase Management Excellence</h1>
@@ -55,5 +57,7 @@ export const PurchaseModule = () => {
                 />
             </div>
         </div>
+        {/* <ImplementationHighlightsCard /> */}
+        </>
     );
 };

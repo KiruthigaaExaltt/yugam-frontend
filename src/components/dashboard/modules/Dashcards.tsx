@@ -12,8 +12,6 @@ const Dashboard = () => {
     <div className="space-y-10">
       {/* ===== Business Overview ===== */}
       <div>
-        <h2 className="text-lg font-semibold mb-4">Business Overview</h2>
-
         <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6">
           <KpiCard
             title="Monthly Revenue"

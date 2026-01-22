@@ -2,7 +2,7 @@
 // import Dashcards from "./Dashcards"
 // import Dashheader from "./Dashheader"
 // import Dashmain from "./Dashmain"
-// import DashNavBar from "./DashNavBar"
+// import DashNavBar from "./Dash"
 
 
 // const Dashindex = () => {
@@ -33,9 +33,9 @@
 import { useState } from "react";
 
 import Dashheader from "./Dashheader";
-import Dashmain from "./Dashmain";
+
 import DashNavBar from "./DashNavBar";
-import Dashcards from "./modules/Dashcards";
+
 
 const Dashindex = () => {
   // Active tab is ONLY for UI highlight & scroll
@@ -52,13 +52,13 @@ const Dashindex = () => {
       />
 
       {/* KPI cards always visible */}
-      <Dashcards />
+     
 
       {/* All dashboard modules always visible */}
-      <Dashmain
+      {/* <Dashmain
         activeTab={activeTab}
         onModuleClick={setActiveTab}
-      />
+      /> */}
     </>
   );
 };

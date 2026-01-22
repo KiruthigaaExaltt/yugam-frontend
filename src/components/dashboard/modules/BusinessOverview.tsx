@@ -4,6 +4,9 @@ import QuickActions from "../../HOC/quickActions/QuickAction";
 import MeetingSection, { type MeetingItem } from "../../HOC/meetingCard/MeetingCard";
 import { FiActivity, FiDollarSign, FiTarget, FiCheckCircle, FiShield, FiUserPlus } from "react-icons/fi";
 import { FaBullseye, FaComments, FaUserPlus, FaBriefcase, FaBox, FaChartBar } from "react-icons/fa";
+import Dashcards from "./Dashcards";
+import SecondSession from "../secondSession/SecondSession";
+import ImplementationHighlightsCard from "../ImplementationHighlightsCard";
 
 const moduleUsageData: StatItem[] = [
     { label: "Orbit CRM", users: 45, percent: 95, dotColor: "#1E5BB8", barColor: "#1E5BB8" },
@@ -33,7 +36,9 @@ const recentActivities: MeetingItem[] = [
 
 export const BusinessOverview = () => {
     return (
+        <>
         <div className="flex flex-col gap-6">
+             <Dashcards />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-4">
                 <ReusableChart type="line" label="Monthly Comparison" />
                 <ReusableProgressListCard
@@ -60,5 +65,8 @@ export const BusinessOverview = () => {
                 </div>
             </div>
         </div>
+        <SecondSession />
+        <ImplementationHighlightsCard />
+        </>
     );
 };

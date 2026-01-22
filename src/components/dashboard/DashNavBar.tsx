@@ -1,7 +1,11 @@
 import NavBarNew, { type NavItem } from "../HOC/navbarNew/NavBarNew";
+import { AdvancedAnalytics } from "./modules/AdvancedAnalytics";
+import { BusinessOverview } from "./modules/BusinessOverview";
+import { SystemStatus } from "./modules/SystemStatus";
+
 
 type NavBarProps = {
-  activeTab?: string;
+  activeTab?: string; 
   onTabClick?: (value: string) => void;
 };
 
@@ -12,7 +16,7 @@ const navItems: NavItem[] = [
 
 ];
 
-export default function NavBar({ activeTab = "Business Overview", onTabClick }: NavBarProps) {
+export default function DashNavBar({ activeTab = "Business Overview", onTabClick }: NavBarProps) {
   return (
     <div className="mt-3">
       <NavBarNew
@@ -20,6 +24,18 @@ export default function NavBar({ activeTab = "Business Overview", onTabClick }: 
         active={activeTab}
         onChange={onTabClick ?? (() => {})}
       />
+
+      {activeTab === "Business Overview" && (
+        <BusinessOverview />
+      )}
+
+      {activeTab === "Advanced Analytics" && (
+        <AdvancedAnalytics />
+      )}
+
+      {activeTab === "System Status" && (
+        <SystemStatus />
+      )}
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import { Card } from "primereact/card";
 import { FiCheckCircle } from "react-icons/fi";
+import QuickActions from "../HOC/quickActions/QuickAction";
+import { FaBolt, FaChartLine, FaFileAlt, FaPlus } from "react-icons/fa";
 
 const ImplementationHighlightsCard = () => {
     const stats = [
@@ -17,7 +19,15 @@ const ImplementationHighlightsCard = () => {
         "Responsive design with dark mode support",
     ];
 
+    const rowActions = [
+      { id: "po", label: "Create PO", icon: <FaPlus /> },
+      { id: "quote", label: "New Quote", icon: <FaFileAlt /> },
+      { id: "analytics", label: "View Analytics", icon: <FaChartLine /> },
+      { id: "workflow", label: "Setup Workflow", icon: <FaBolt /> },
+    ];
+
     return (
+        <>
         <Card className="rounded-(--border-radius) border-none shadow-sm mt-6">
             {/* Header */}
             <div className="flex items-center gap-2 mb-8">
@@ -50,6 +60,10 @@ const ImplementationHighlightsCard = () => {
                 </div>
             </div>
         </Card>
+         <div>
+          <QuickActions title="Quick Actions" actions={rowActions} layout="row" />
+        </div>
+        </>
     );
 };
 

@@ -3,9 +3,11 @@ import { FiFileText } from "react-icons/fi";
 import { MdTimeline, MdNotificationsActive } from "react-icons/md";
 import { FaChartBar } from "react-icons/fa";
 import MidCard from "../../HOC/midCard/MidCard";
+// import ImplementationHighlightsCard from "../ImplementationHighlightsCard";
 
 export const SalesModule = () => {
     return (
+        <>
         <div className="animate-fadeIn">
             <div className="text-center mb-10">
                 <h1 className="text-2xl font-bold text-gray-800">Sales Performance Optimization</h1>
@@ -44,5 +46,7 @@ export const SalesModule = () => {
                 />
             </div>
         </div>
+        {/* <ImplementationHighlightsCard /> */}
+        </>
     );
 };

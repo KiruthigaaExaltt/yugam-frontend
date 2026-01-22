@@ -1,7 +1,10 @@
 import { FiBarChart2 } from "react-icons/fi";
+import SecondSession from "../secondSession/SecondSession";
+import ImplementationHighlightsCard from "../ImplementationHighlightsCard";
 
 export const AdvancedAnalytics = () => {
     return (
+        <>
         <div className="w-full flex flex-col items-center justify-center p-12 bg-white rounded-2xl shadow-sm border border-gray-100 my-4 text-center">
             <div className="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
                 <FiBarChart2 className="text-blue-600 text-4xl" />
@@ -14,5 +17,8 @@ export const AdvancedAnalytics = () => {
                 Open Vision Analytics
             </button>
         </div>
+        <SecondSession />
+        <ImplementationHighlightsCard />
+        </>
     );
 };
