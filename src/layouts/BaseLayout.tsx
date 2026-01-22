@@ -108,7 +108,7 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
   ];
 
   const toolbarStart = (
-    <div className="flex items-center w-full">
+    <div className="flex items-center gap-2 min-w-0">
       {/* Left: Sidebar toggle + Brand */}
       <div className="flex items-center gap-2">
         <Button
@@ -182,14 +182,14 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
   );
 
   const toolbarEnd = (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1 sm:gap-2">
       <Button
         className="p-button-rounded p-button-text p-button-sm"
         icon={theme === "dark" ? <FiSun size={22} /> : <FiMoon size={22} />}
         onClick={toggleTheme}
       />
       <Button
-        className="p-button-rounded p-button-text p-button-sm p-badge"
+        className="p-button-rounded p-button-text p-button-sm hidden sm:inline-flex"
         icon={<FiBell size={25} />}
         badge="3"
         badgeClassName="p-badge-danger"

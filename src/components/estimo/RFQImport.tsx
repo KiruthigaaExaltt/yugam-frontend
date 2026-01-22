@@ -85,7 +85,7 @@ const RFQImport = () => {
 
   const actionsBodyTemplate = (rowData: VendorComparisonData) => {
     return (
-      <div className="flex gap-2">
+      <div className="flex gap-2 ">
         <button
           className="p-2 hover:bg-emerald-50 rounded-lg transition-colors text-emerald-500"
           onClick={() => console.log("Approve", rowData)}
@@ -128,7 +128,7 @@ const RFQImport = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 mt-6">
       <PageHeader
         title="RFQ Import & Comparison"
         subtitle="Import vendor quotes and compare prices side-by-side"
@@ -151,7 +151,7 @@ const RFQImport = () => {
         ]}
       />
 
-      <div className="px-6 pb-6 flex flex-col gap-6">
+      <div className="pb-6 flex flex-col gap-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <MeetingCard title="Best Price Analysis" meetings={bestPriceData} />
           <MeetingCard

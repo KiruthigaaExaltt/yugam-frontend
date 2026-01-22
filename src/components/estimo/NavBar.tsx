@@ -149,7 +149,6 @@ export default function NavBar({ activeTab = "dashboard", onTabClick }: NavBarPr
               title="Industry-wise Quote Volume"
               variant="default"
               columns={5}
-              isHoverable={false}
               actions={[
                 {
                   id: "civil",

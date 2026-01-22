@@ -15,7 +15,7 @@ const NewQuote = () => {
                 label="Start New Quote"
                 icon="pi pi-plus"
                 className="p-button-rounded border-none px-6 py-3 font-semibold text-white"
-                style={{ backgroundColor: "#009688" }}
+                style={{ backgroundColor: "var(--primary-color)"}}
             />
         </div>
     );

@@ -33,18 +33,21 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 84px; /* ✅ SINGLE SOURCE OF TRUTH */
+  height: 84px;
+  /* ✅ SINGLE SOURCE OF TRUTH */
   z-index: 1000;
   background: var(--surface-card);
   border-bottom: 1px solid var(--surface-border);
 }
+
 
 /* ================================
    CONTENT ROW
 ================================ */
 .content-row {
   display: flex;
-  margin-top: 84px; /* ✅ SAME AS HEADER */
+  margin-top: 84px;
+  /* ✅ SAME AS HEADER */
   height: calc(100vh - 84px);
   width: 100%;
   overflow: hidden;
@@ -148,4 +151,14 @@ body {
   padding: 0.75rem;
   font-size: 0.875rem;
   color: var(--text-muted);
+}
+.top-header .p-toolbar {
+  min-height: 56px;
+}
+
+@media (max-width: 640px) {
+  .top-header .p-toolbar {
+    min-height: 48px;
+    padding: 0 0.5rem;
+  }
 }

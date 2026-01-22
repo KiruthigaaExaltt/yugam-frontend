@@ -25,7 +25,7 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
     onUseTemplate
 }) => {
     return (
-        <Card className="template-card hover:shadow-lg transition-all duration-300">
+        <Card className="template-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
             <div className="flex justify-between items-start mb-2">
                 <div>
                     {title && <h3 className="template-card-title">{title}</h3>}

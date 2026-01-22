@@ -43,7 +43,7 @@ const QuoteLibrary = () => {
         : sampleTemplates;
 
     return (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 mt-6">
             <PageHeader
                 title="Quote Library & Templates"
                 subtitle="Manage reusable quote templates for different industries"
@@ -57,7 +57,7 @@ const QuoteLibrary = () => {
                 ]}
             />
 
-            <div className="px-6 pb-6 flex flex-col gap-6">
+            <div className="pb-6 flex flex-col gap-6">
                 <FilterBar
                     filters={[
                         {

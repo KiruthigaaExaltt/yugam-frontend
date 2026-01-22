@@ -17,7 +17,7 @@ const Header = () => {
     ];
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 mt-6">
             <PageHeader
                 title="Settings"
                 subtitle="Configure quote generation parameters and templates"

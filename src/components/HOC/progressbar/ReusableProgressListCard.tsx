@@ -84,7 +84,7 @@ const ReusableStatCard: React.FC<ReusableStatCardProps> = ({
   footerStats,
 }) => {
   return (
-    <Card className="rounded-(--border-radius) border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <Card className="rounded-(--border-radius) shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       {/* HEADER */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-sm">{title}</h3>
