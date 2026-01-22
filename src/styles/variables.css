@@ -45,13 +45,13 @@
 
   /* Line heights */
   --line-height-tight: 1.2;
-  --line-height-normal: 1.4;
+  --line-height-normal: 0;
   --line-height-relaxed: 1.6;
   /* Fonts */
   --font-family: sans-serif;
 
   /* Aggressive Layout Tokens */
-  --border-radius: 25px;
+  --border-radius: 10px;
   --btn-border-radius: 999px;
   --card-radius: 15px;
   --card-padding: 0.75rem;
@@ -173,6 +173,20 @@
   /*      ACTIVE (LIVE) SEMANTIC VARS      */
   /* ===================================== */
   /* These are what your components use — switching theme only swaps these. */
+
+  /* Activity Tints */
+  --tint-blue: #EEF2FF;
+  --tint-purple: #F5F3FF;
+  --tint-green: #ECFDF5;
+  --tint-orange: #FFFBEB;
+  --tint-red: #FEF2F2;
+
+  /* Activity Tints */
+  --tint-blue: #EEF2FF;
+  --tint-purple: #F5F3FF;
+  --tint-green: #ECFDF5;
+  --tint-orange: #FFFBEB;
+  --tint-red: #FEF2F2;
 
   --background: var(--light-background);
   --surface-ground: var(--light-surface-ground);

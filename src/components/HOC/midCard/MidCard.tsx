@@ -1,7 +1,7 @@
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import "./midCard.css";
-import { FiArrowRight, FiEdit } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
 import type { ReactNode } from "react";
 
 interface MidCardProps {
@@ -9,10 +9,12 @@ interface MidCardProps {
   title: string;
   badge?: string;
   description: string;
+  iconBg?: string; // 🔥 Added for specific icon background colors
 
   /** Optional CTA button (Try Demo style) */
   ctaLabel?: string;
   ctaIcon?: ReactNode;
+  isPrimary?: boolean; // 🔥 Added for filled blue button style
   onCtaClick?: () => void;
 
   /** Optional footer section (Roles style) */
@@ -26,9 +28,11 @@ const MidCard: React.FC<MidCardProps> = ({
   title,
   badge,
   description,
+  iconBg = "var(--icon-bg)",
 
   ctaLabel,
   ctaIcon = <FiArrowRight />,
+  isPrimary = false,
   onCtaClick,
 
   footer,
@@ -40,7 +44,7 @@ const MidCard: React.FC<MidCardProps> = ({
       {/* HEADER */}
       <div className="card-header">
         <div className="header-left">
-          <div className="icon">{icon}</div>
+          <div className="icon" style={{ backgroundColor: iconBg }}>{icon}</div>
           <h3 className="title">{title}</h3>
         </div>
 
@@ -64,10 +68,10 @@ const MidCard: React.FC<MidCardProps> = ({
           {(ctaLabel || actionLabel) && (
             <Button
               label={ctaLabel ?? actionLabel}
-              icon={ctaIcon ?? <FiEdit />}
+              icon={ctaIcon}
               iconPos="right"
               onClick={onCtaClick ?? onActionClick}
-              className="p-button-text demo-button"
+              className={`p-button-text demo-button ${isPrimary ? 'primary-btn' : 'secondary-btn'}`}
             />
           )}
         </div>

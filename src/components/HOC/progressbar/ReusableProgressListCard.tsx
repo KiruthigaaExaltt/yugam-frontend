@@ -14,7 +14,7 @@ export interface StatItem {
   barColor?: string;
   completed?: boolean;
   rightText?: string;
-   subText?: string;
+  subText?: string;
 }
 
 interface ReusableStatCardProps {
@@ -27,12 +27,12 @@ interface ReusableStatCardProps {
   scorePercent?: number;
   scoreLabel?: string;
   footerStats?: {
-  leftLabel: string;
-  leftValue: number | string;   // <-- allow string
-  rightLabel: string;
-  rightValue: number | string; 
-   // <-- allow string
-};
+    leftLabel: string;
+    leftValue: number | string;   // <-- allow string
+    rightLabel: string;
+    rightValue: number | string;
+    // <-- allow string
+  };
   children?: React.ReactNode;
 }
 
@@ -84,7 +84,7 @@ const ReusableStatCard: React.FC<ReusableStatCardProps> = ({
   footerStats,
 }) => {
   return (
-    <Card className="rounded-(--border-radius) border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <Card className="rounded-(--border-radius) border-none shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       {/* HEADER */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-sm">{title}</h3>
@@ -132,19 +132,19 @@ const ReusableStatCard: React.FC<ReusableStatCardProps> = ({
 
               {/* PROGRESS BAR */}
               {item.percent !== undefined && (
-              <CommonProgressBar
-                value={item.percent}
-                color={item.barColor}
-                
-              />
+                <CommonProgressBar
+                  value={item.percent}
+                  color={item.barColor}
+
+                />
               )}
               {/* SUBTEXT BELOW BAR */}
               {item.subText && (
                 <p className="text-xs text-gray-400 mt-1">{item.subText}</p>
               )}
-              
+
             </div>
-            
+
           ))}
         </div>
       )}
@@ -160,11 +160,10 @@ const ReusableStatCard: React.FC<ReusableStatCardProps> = ({
               className="flex items-center gap-3 text-sm px-3 py-2 rounded hover:bg-gray-100 cursor-pointer transition-colors"
             >
               <span
-                className={`w-6 h-6 flex items-center justify-center rounded-full border ${
-                  item.completed
+                className={`w-6 h-6 flex items-center justify-center rounded-full border ${item.completed
                     ? "border-(--primary-color) bg-(--primary-color-light) text-(--primary-color)"
                     : "border-red-400 bg-red-50 text-red-500"
-                }`}
+                  }`}
               >
                 {item.completed ? "✔" : "✖"}
               </span>
@@ -212,7 +211,7 @@ const ReusableStatCard: React.FC<ReusableStatCardProps> = ({
           </div>
         </div>
       )}
-     
+
     </Card>
   );
 };

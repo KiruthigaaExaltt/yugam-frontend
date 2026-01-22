@@ -85,21 +85,21 @@ const PageHeader: React.FC<PageHeaderProps & { children?: React.ReactNode }> = (
 
         {/* Right */}
         <div className="flex items-center gap-2">
-            {children}
-            {actions && actions.length > 0 && (
-                <>
-                {actions.map((action, index) => (
-                    <Button
-                    key={index}
-                    label={action.label}
-                    icon={action.icon}
-                    onClick={action.onClick}
-                    className="p-button-text demo-button"
-                    // style={getButtonStyle(action.variant)}
-                    />
-                ))}
-                </>
-            )}
+          {children}
+          {actions && actions.length > 0 && (
+            <>
+              {actions.map((action, index) => (
+                <Button
+                  key={index}
+                  label={action.label}
+                  icon={action.icon}
+                  onClick={action.onClick}
+                  className="p-button-text demo-button"
+                // style={getButtonStyle(action.variant)}
+                />
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>

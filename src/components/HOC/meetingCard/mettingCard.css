@@ -86,3 +86,18 @@
   width: var(--header-action-icon-size) !important;
   height: var(--header-action-icon-size) !important;
 }
+.recent-activity-wrapper * {
+      border: none !important;
+      border-bottom: none !important;
+      border-top: none !important;
+      border-radius: 2 !important;
+    }
+
+    /* 2. Add back ONLY the outer border to the wrapper itself */
+    .recent-activity-wrapper {
+      border: 1px solid #e5e7eb !important; /* This is the outer gray border */
+    }
+    .recent-activity-wrapper h2, 
+    .recent-activity-wrapper .card-header {
+      background-color: transparent !important;
+    }

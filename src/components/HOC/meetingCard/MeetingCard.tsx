@@ -5,7 +5,7 @@ import { InputSwitch } from "primereact/inputswitch";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import type { IconType } from "react-icons";
-import { FiBriefcase, FiClock, FiUsers } from "react-icons/fi";
+import { FiBriefcase, FiChevronRight, FiClock, FiUsers } from "react-icons/fi";
 import "./mettingCard.css";
 
 /* ================= TYPES ================= */
@@ -20,12 +20,15 @@ export interface MeetingItem {
   date?: string;
   leftText?: string;
   icon?: IconType;
+  highlight?: boolean;
+  badgeText?: string;
+  timestamp: string;
 
-  // New & Extended Props
+
   showToggle?: boolean;
   toggleValue?: boolean;
   onToggleChange?: (value: boolean) => void;
-  
+
   isTask?: boolean;
   isChecked?: boolean;
   onCheck?: (checked: boolean) => void;
@@ -54,6 +57,8 @@ interface MeetingSectionProps {
   meetings: MeetingItem[];
 
   variant?: "list" | "cards";
+  titleIcon?: IconType;
+  titleIconColor?: string;
 
   showAdd?: boolean;
   addIcon?: IconType;
@@ -62,12 +67,13 @@ interface MeetingSectionProps {
 
   footerLabel?: string;
   footerIcon?: IconType;
-
   isRecentCall?: boolean;
   isDetailed?: boolean;
   isCallHistory?: boolean;
   isPayment?: boolean;
   headerAction?: HeaderAction;
+  badgeText?: string;
+  showArrowOnly?: boolean;
 }
 
 /* ================= COMPONENT ================= */
@@ -86,10 +92,17 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
   isDetailed,
   isPayment,
   headerAction,
+  badgeText,
+
+  showArrowOnly,
+  titleIcon: TitleIcon,
+  titleIconColor,
 }) => {
   const getTintClass = (m: MeetingItem) => {
-    if (m.tone === "blue" || m.statusColor?.includes("3b82f6")) return "bg-[#EEF2FF]";
-    if (m.tone === "purple" || m.statusColor?.includes("a855f7")) return "bg-[#F5F3FF]";
+    if (m.tone === "blue" || m.statusColor?.includes("3b82f6"))
+      return "bg-[#EEF2FF]";
+    if (m.tone === "purple" || m.statusColor?.includes("a855f7"))
+      return "bg-[#F5F3FF]";
     if (m.tone === "green") return "bg-[#ECFDF5]";
     if (m.tone === "orange") return "bg-[#FFFBEB]";
     if (m.tone === "red") return "bg-[#FEF2F2]";
@@ -113,10 +126,19 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
         <div className="flex justify-between items-start w-full">
           {/* LEFT SECTION */}
           <div className="flex gap-3 items-start flex-1 min-w-0">
-            {/* Payment Style Logo/Icon */}
-            {isPayment && m.icon && (
-              <div className="w-8 h-8 rounded-full flex items-center justify-center bg-white shadow-sm shrink-0">
-                <m.icon size={16} />
+            {/* Payment or Activity Style Logo/Icon */}
+            {(isPayment || m.tone) && m.icon && (
+              <div
+                className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-200`}
+                style={{
+                  backgroundColor: m.tone ? `var(--tint-${m.tone})` : 'white',
+                  boxShadow: !m.tone ? '0 1px 2px 0 rgba(0, 0, 0, 0.05)' : 'none'
+                }}
+              >
+                <m.icon
+                  size={18}
+                  style={{ color: m.tone ? getToneColor(m.tone) : 'inherit' }}
+                />
               </div>
             )}
 
@@ -127,10 +149,16 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
                   checked={m.isChecked ?? false}
                   onChange={(e) => m.onCheck?.(e.checked ?? false)}
                   className={m.isChecked ? "p-checkbox-checked" : ""}
-                  icon={<i className="pi pi-check" style={{ fontSize: "10px" }} />}
+                  icon={
+                    <i className="pi pi-check" style={{ fontSize: "10px" }} />
+                  }
                 />
               </div>
             )}
+
+            {/* Optional timestamp */}
+
+
 
             {/* General MainIcon */}
             {m.mainIcon && <div className="shrink-0">{m.mainIcon}</div>}
@@ -138,7 +166,10 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
             {/* Recent Call Icon (Time-based Avatar-style circle) */}
             {isRecentCall && m.time && (
               <div className="flex flex-col items-center justify-center min-w-[55px] leading-tight shrink-0">
-                <span className="font-bold text-sm" style={{ color: m.statusColor || "var(--text-color)" }}>
+                <span
+                  className="font-bold text-sm"
+                  style={{ color: m.statusColor || "var(--text-color)" }}
+                >
                   {m.time.split(" ")[0]}
                 </span>
                 <span className="text-[10px] uppercase font-semibold text-gray-400">
@@ -149,7 +180,9 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
 
             {/* TITLE & INFO */}
             <div className="flex-1 min-w-0">
-              <h4 className={`text-sm font-bold text-gray-800 truncate ${m.isChecked ? "line-through text-gray-400 font-medium" : ""}`}>
+              <h4
+                className={`text-sm font-bold text-gray-800 truncate ${m.isChecked ? "line-through text-gray-400 font-medium" : ""}`}
+              >
                 {m.title}
               </h4>
 
@@ -161,14 +194,36 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
                       key={idx}
                       className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase"
                       style={{
-                        backgroundColor: tag.color === "red" ? "#FEE2E2" : tag.color === "yellow" ? "#FEF3C7" : tag.color === "green" ? "#D1FAE5" : tag.color === "blue" ? "#DBEAFE" : "#F3F4F6",
-                        color: tag.color === "red" ? "#EF4444" : tag.color === "yellow" ? "#D97706" : tag.color === "green" ? "#10B981" : tag.color === "blue" ? "#3B82F6" : "#4B5563",
+                        backgroundColor:
+                          tag.color === "red"
+                            ? "#FEE2E2"
+                            : tag.color === "yellow"
+                              ? "#FEF3C7"
+                              : tag.color === "green"
+                                ? "#D1FAE5"
+                                : tag.color === "blue"
+                                  ? "#DBEAFE"
+                                  : "#F3F4F6",
+                        color:
+                          tag.color === "red"
+                            ? "#EF4444"
+                            : tag.color === "yellow"
+                              ? "#D97706"
+                              : tag.color === "green"
+                                ? "#10B981"
+                                : tag.color === "blue"
+                                  ? "#3B82F6"
+                                  : "#4B5563",
                       }}
                     >
                       {tag.label}
                     </span>
                   ))}
-                  {m.dueDate && <span className="text-[10px] text-gray-400 font-medium">Due: {m.dueDate}</span>}
+                  {m.dueDate && (
+                    <span className="text-[10px] text-gray-400 font-medium">
+                      Due: {m.dueDate}
+                    </span>
+                  )}
                 </div>
               )}
 
@@ -184,26 +239,33 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
                           m.priority === "high"
                             ? "var(--priority-high-bg)"
                             : m.priority === "medium"
-                            ? "var(--priority-medium-bg)"
-                            : "var(--priority-low-bg)",
+                              ? "var(--priority-medium-bg)"
+                              : "var(--priority-low-bg)",
                         color:
                           m.priority === "high"
                             ? "var(--priority-high-text)"
                             : m.priority === "medium"
-                            ? "var(--priority-medium-text)"
-                            : "var(--priority-low-text)",
+                              ? "var(--priority-medium-text)"
+                              : "var(--priority-low-text)",
                       }}
                     >
                       {m.priority} priority
                     </span>
                   )}
-                  {m.role && <span className="text-[10px] text-gray-400 font-medium">{m.role}</span>}
+                  {m.role && (
+                    <span className="text-[10px] text-gray-400 font-medium">
+                      {m.role}
+                    </span>
+                  )}
                 </div>
               )}
 
               {/* Name (Call style) */}
               {m.name && (
-                <div className="flex items-center gap-1.5 text-gray-500 mt-1" style={{ fontSize: "11px" }}>
+                <div
+                  className="flex items-center gap-1.5 text-gray-500 mt-1"
+                  style={{ fontSize: "11px" }}
+                >
                   {Icon && <Icon size={12} className="text-gray-400" />}
                   <span className="font-medium">{m.name}</span>
                 </div>
@@ -211,9 +273,17 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
 
               {/* Description */}
               {m.description && (
-                <p className="text-gray-400 mt-0.5 leading-relaxed" style={{ fontSize: "11px" }}>
+                <p
+                  className="text-gray-400 mt-0.5 leading-relaxed"
+                  style={{ fontSize: "11px" }}
+                >
                   {m.description}
                 </p>
+              )}
+              {m.timestamp && (
+                <span className="text-xs text-gray-400 shrink-0 mt-1">
+                  {m.timestamp}
+                </span>
               )}
 
               {/* Detailed schedule info */}
@@ -247,7 +317,10 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
             {m.rightContent}
 
             {m.leftText && (
-              <div className="font-bold text-base" style={{ color: getToneColor(m.tone) }}>
+              <div
+                className="font-bold text-base"
+                style={{ color: getToneColor(m.tone) }}
+              >
                 ${m.leftText}
               </div>
             )}
@@ -260,10 +333,14 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
                 pt={{
                   slider: {
                     style: {
-                      backgroundColor: m.toggleValue ? 'var(--primary-color)' : '',
-                      border: m.toggleValue ? '1px solid var(--primary-color)' : ''
-                    }
-                  }
+                      backgroundColor: m.toggleValue
+                        ? "var(--primary-color)"
+                        : "",
+                      border: m.toggleValue
+                        ? "1px solid var(--primary-color)"
+                        : "",
+                    },
+                  },
                 }}
               />
             )}
@@ -278,6 +355,10 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
                   color: "var(--secondary-color)",
                 }}
               />
+            )}
+
+            {showArrowOnly && (
+              <FiChevronRight size={18} className="text-gray-400" />
             )}
           </div>
         </div>
@@ -300,17 +381,33 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
               fontWeight: "var(--card-title-weight)",
             }}
           >
-            {title}
+            <div className="flex items-center gap-2">
+              {TitleIcon && (
+                <TitleIcon
+                  size={18}
+                  style={{ color: titleIconColor || "var(--primary-color)" }}
+                />
+              )}
+              {title}
+            </div>
           </h3>
 
           <div className="flex items-center gap-2">
             {headerAction && (
               <Button
                 onClick={headerAction.onClick}
-                icon={headerAction.icon ? <headerAction.icon size="var(--header-action-icon-size)" /> : undefined}
-                className={!headerAction.label ? "header-action-btn" : "p-button-text demo-button"}
-                
-                // className="p-button-outlined p-button-sm !rounded-md !border-gray-100 font-medium hover:!border-emerald-500 hover:!text-emerald-500 hover:!bg-emerald-50 transition-all text-gray-400 bg-white shadow-sm w-8 h-8 p-0"
+                icon={
+                  headerAction.icon ? (
+                    <headerAction.icon size="var(--header-action-icon-size)" />
+                  ) : undefined
+                }
+                className={
+                  !headerAction.label
+                    ? "header-action-btn"
+                    : "p-button-text demo-button"
+                }
+
+              // className="p-button-outlined p-button-sm !rounded-md !border-gray-100 font-medium hover:!border-emerald-500 hover:!text-emerald-500 hover:!bg-emerald-50 transition-all text-gray-400 bg-white shadow-sm w-8 h-8 p-0"
               />
             )}
 
@@ -318,20 +415,39 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
               <Button
                 onClick={onAddClick}
                 label={addButtonLabel}
-                icon={AddIcon ? <AddIcon size="var(--header-action-icon-size)" /> : <span>+</span>}
-                className={!addButtonLabel ? "header-action-btn" : "p-button-text demo-button"}
-                style={!addButtonLabel ? {
-                  background: "white",
-                  border: "1px solid var(--surface-border)",
-                  color: "var(--text-color)",
-                } : {
-                  background: "white",
-                  border: "1px solid var(--surface-border)",
-                  color: "var(--text-color)",
-                  borderRadius: "var(--border-radius)",
-                  padding: "0.25rem 0.75rem",
-                }}
+                icon={
+                  AddIcon ? (
+                    <AddIcon size="var(--header-action-icon-size)" />
+                  ) : (
+                    <span>+</span>
+                  )
+                }
+                className={
+                  !addButtonLabel
+                    ? "header-action-btn"
+                    : "p-button-text demo-button"
+                }
+                style={
+                  !addButtonLabel
+                    ? {
+                      background: "white",
+                      border: "1px solid var(--surface-border)",
+                      color: "var(--text-color)",
+                    }
+                    : {
+                      background: "white",
+                      border: "1px solid var(--surface-border)",
+                      color: "var(--text-color)",
+                      borderRadius: "var(--border-radius)",
+                      padding: "0.25rem 0.75rem",
+                    }
+                }
               />
+            )}
+            {badgeText && (
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
+                {badgeText}
+              </span>
             )}
           </div>
         </div>
@@ -354,16 +470,17 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
           ) : (
             <div
               key={i}
-              className={`cursor-pointer transition-all duration-300 hover:brightness-95 p-3 ${
-                isRecentCall || isPayment ? getTintClass(m) : "bg-white border border-(--surface-border)"
-              }`}
+              className={`cursor-pointer transition-all duration-300 hover:brightness-95 p-3 ${isRecentCall || isPayment
+                ? getTintClass(m)
+                : "bg-white border border-(--surface-border)"
+                }`}
               style={{
                 borderRadius: "12px",
               }}
             >
               <ItemLayout m={m} />
             </div>
-          )
+          ),
         )}
       </div>
 
