@@ -88,7 +88,7 @@ const ReusableCrudTable = <T extends object>({
   headerFilters,
   paginator = true,
   showSearch = true,
-  showGridlines = true,
+  showGridlines = false,
   isCard = true,
 }: ReusableCrudTableProps<T>) => {
   // NOTE: DataTable expects DataTableValueArray (array of T)
