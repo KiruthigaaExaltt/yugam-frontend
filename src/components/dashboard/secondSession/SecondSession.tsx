@@ -16,7 +16,7 @@ export default function SecondSession() {
   const [activeTab, setActiveTab] = useState<string>("Purchase Module");
 
   return (
-    <div className="mt-3">
+    <div className="mt-5">
       {/* Tabs */}
       <NavBarNew
         items={navItems}

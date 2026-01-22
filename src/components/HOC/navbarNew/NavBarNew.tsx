@@ -49,7 +49,7 @@ const NavBarNew: React.FC<TopNavBarProps> = ({
                 /* ✅ TYPOGRAPHY (responsive via clamp) */
                 fontSize: "var(--font-size-button)",
                 fontWeight: "var(--font-weight-medium)",
-                lineHeight: "var(--line-height-normal)",
+                lineHeight: "var(--line-height-no)",
 
                 /* ✅ Responsive padding */
                 padding: "clamp(8px, 1.6vw, 12px) clamp(12px, 2vw, 16px)",

@@ -12,7 +12,7 @@ const Dashboard = () => {
     <div className="space-y-10">
       {/* ===== Business Overview ===== */}
       <div>
-        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6 mt-5">
           <KpiCard
             title="Monthly Revenue"
             value="₹7.2L"

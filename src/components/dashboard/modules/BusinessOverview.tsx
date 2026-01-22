@@ -2,7 +2,7 @@ import ReusableChart from "../../HOC/charts/ReusableChart";
 import ReusableProgressListCard, { type StatItem } from "../../HOC/progressbar/ReusableProgressListCard";
 import QuickActions from "../../HOC/quickActions/QuickAction";
 import MeetingSection, { type MeetingItem } from "../../HOC/meetingCard/MeetingCard";
-import { FiActivity, FiDollarSign, FiTarget, FiCheckCircle, FiShield, FiUserPlus } from "react-icons/fi";
+import { FiActivity, FiDollarSign, FiTarget, FiCheckCircle, FiShield, FiUserPlus, FiZap } from "react-icons/fi";
 import { FaBullseye, FaComments, FaUserPlus, FaBriefcase, FaBox, FaChartBar } from "react-icons/fa";
 import Dashcards from "./Dashcards";
 import SecondSession from "../secondSession/SecondSession";
@@ -33,6 +33,19 @@ const recentActivities: MeetingItem[] = [
     { title: "Critical ticket resolved", description: "High priority support ticket #789 resolved", timestamp: "2 hours ago", icon: FiShield, tone: "green" },
     { title: "New employee onboarded", description: "Sarah Johnson joined as Senior Developer", timestamp: "3 hours ago", icon: FiUserPlus, tone: "green" },
 ];
+ const FeatureShowcaseBanner = () => (
+  <div className="w-full mt-10 mb-6 text-center">
+    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-100 mb-4 cursor-default">
+      <FiZap className="text-amber-500 animate-pulse text-lg" />
+      <span className="text-amber-800 font-bold tracking-tight text-xl bg-linear-to-r from-amber-600 to-amber-900 bg-clip-text">Exaltt.ai Feature Showcase</span>
+      <FiZap className="text-amber-500 animate-pulse text-lg" />
+    </div>
+    <p className="text-gray-500 text-sm max-w-2xl mx-auto leading-relaxed">
+      Explore our comprehensive suite of business automation tools designed to streamline your operations, boost productivity, and drive growth with intelligent workflows and advanced analytics.
+    </p>
+  </div>
+ );
+
 
 export const BusinessOverview = () => {
     return (
@@ -65,6 +78,7 @@ export const BusinessOverview = () => {
                 </div>
             </div>
         </div>
+        <FeatureShowcaseBanner />
         <SecondSession />
         <ImplementationHighlightsCard />
         </>
