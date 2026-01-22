@@ -62,7 +62,7 @@ const LoginPage = () => {
       }
 
       // ✅ Navigate after login
-      navigate("/orbit");
+      navigate("/dashboard");
     } else {
       setErrors({
         auth: "Invalid email or password",

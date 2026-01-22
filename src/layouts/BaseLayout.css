@@ -34,7 +34,6 @@ body {
   left: 0;
   right: 0;
   height: 84px;
-  /* ✅ SINGLE SOURCE OF TRUTH */
   z-index: 1000;
   background: var(--surface-card);
   border-bottom: 1px solid var(--surface-border);
@@ -134,8 +133,10 @@ body {
    PAGE CONTENT
 ================================ */
 .page-content {
-  padding: 1.25rem;
+  padding: 1.25rem 0.5rem;
+  /* Reduced horizontal padding for full-width feel */
   min-height: calc(100% - 56px);
+  width: 100%;
 }
 
 /* ================================

@@ -4,6 +4,10 @@ import BaseLayout from "./layouts/BaseLayout";
 import LoginPage from "./components/login/LoginPage";
 import OrbitIndex from "./components/orbit/OrbitIndex";
 import EstimoIndex from "./components/estimo/EstimoIndex";
+import Userimport from "./components/dashboard/Dashindex";
+
+
+
 
 
 function App() {
@@ -23,10 +27,13 @@ function App() {
         >
            <Route path="/orbit" element={<OrbitIndex />} />
            <Route path="/estimo" element={<EstimoIndex />} />
+          <Route path="/dashboard" element={<Userimport />} />
         </Route>
 
         {/* Default redirect */}
         <Route path="*" element={<Navigate to="/login" />} />
+      
+       
       </Routes>
     </ThemeProvider>
   );
