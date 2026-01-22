@@ -139,17 +139,17 @@ const ReusableCrudTable = <T extends object>({
       <div className="flex items-center gap-2">
         {headerFilters && <div className="table-header-filters">{headerFilters}</div>}
         {showSearch && (
-        <IconField iconPosition="left">
-          <InputIcon className="pi pi-search" />
-          <InputText
-            type="search"
-            placeholder="Search..."
-            value={globalFilter}
-            onChange={(e) => onGlobalFilterChange(e.target.value)}
-            className="p-inputtext-sm"
-            style={{ borderRadius: 'var(--border-radius)' }}
-          />
-        </IconField>
+          <IconField iconPosition="left">
+            <InputIcon className="pi pi-search" />
+            <InputText
+              type="search"
+              placeholder="Search..."
+              value={globalFilter}
+              onChange={(e) => onGlobalFilterChange(e.target.value)}
+              className="p-inputtext-sm"
+              style={{ borderRadius: 'var(--border-radius)' }}
+            />
+          </IconField>
         )}
       </div>
     </div>
@@ -187,7 +187,7 @@ const ReusableCrudTable = <T extends object>({
         dataKey={String(dataKey)}
         header={header}
         responsiveLayout="scroll"
-        tableStyle={{ minWidth: "50rem", tableLayout: "fixed" }}
+        tableStyle={{ minWidth: "100%", tableLayout: "auto" }}
         showGridlines={showGridlines}
       >
         {columns.map((col, index) => (

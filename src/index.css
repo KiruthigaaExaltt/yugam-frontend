@@ -12,6 +12,7 @@ body {
 .testing {
   font-family: var(--font-family) !important;
 }
+
 /* ONLY affect contract value input */
 .contract-input.p-inputnumber {
   position: relative;
@@ -29,11 +30,20 @@ body {
 .p-inputtextarea {
   background-image: none !important;
 }
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
+.p-button:focus,
+.p-button.p-focus,
+.p-button:active {
+  box-shadow: none !important;
+  outline: none !important;
+  border-color: transparent !important;
+}

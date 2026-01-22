@@ -2,30 +2,33 @@
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { Editor } from "primereact/editor";
+import { InputSwitch } from "primereact/inputswitch";
 import { useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { FiUpload } from "react-icons/fi";
 
 // Common wrapper
-const Row = ({ label, children }: any) => (
-  <div className="flex items-start gap-3">
+const Row = ({ label, children, vertical = false }: any) => (
+  <div className={vertical ? "flex flex-col gap-2" : "flex items-start gap-3"}>
     {label ? (
-      <label className="w-32 pt-2 font-medium">{label}</label>
+      <label className={vertical ? "text-sm font-medium text-gray-700" : "w-32 pt-2 font-medium"}>
+        {label}
+      </label>
     ) : (
-      <div className="w-32" />
+      !vertical && <div className="w-32" />
     )}
-    <div className="flex-1 space-y-1">{children}</div>
+    <div className={`flex-1 ${vertical ? "" : "space-y-1"}`}>{children}</div>
   </div>
 );
 
 // ===============================================================
 // INPUT  (Controller Version)
 // ===============================================================
-export function RHFInput({ name, label, type = "text", ...props }: any) {
+export function RHFInput({ name, label, type = "text", vertical = false, ...props }: any) {
   const { control } = useFormContext();
 
   return (
-    <Row label={label}>
+    <Row label={label} vertical={vertical}>
       <Controller
         name={name}
         control={control}
@@ -36,9 +39,8 @@ export function RHFInput({ name, label, type = "text", ...props }: any) {
               {...field}
               type={type}
               {...props}
-              className={`w-full border rounded-xl px-3 py-2 focus:ring-2 ${
-                fieldState.error ? "border-red-500" : "border-gray-300"
-              }`}
+              className={`w-full border rounded-xl px-3 py-2 focus:ring-2 ${fieldState.error ? "border-red-500" : "border-gray-300"
+                } ${props.className || ""}`}
             />
 
             {fieldState.error && (
@@ -53,14 +55,15 @@ export function RHFInput({ name, label, type = "text", ...props }: any) {
   );
 }
 
+
 // ===============================================================
 // DROPDOWN (Controller Version)
 // ===============================================================
-export function RDropdown({ name, label, options = [], ...props }: any) {
+export function RDropdown({ name, label, options = [], vertical = false, ...props }: any) {
   const { control } = useFormContext();
 
   return (
-    <Row label={label}>
+    <Row label={label} vertical={vertical}>
       <Controller
         name={name}
         control={control}
@@ -75,9 +78,8 @@ export function RDropdown({ name, label, options = [], ...props }: any) {
               optionLabel="label"
               optionValue="value"
               placeholder="Select"
-              className={`w-full rounded-xl ${
-                fieldState.error ? "p-invalid" : ""
-              }`}
+              className={`w-full rounded-xl ${fieldState.error ? "p-invalid" : ""
+                }`}
               style={{ borderRadius: '0.75rem' }}
               {...props}
             />
@@ -112,9 +114,8 @@ export function RCalendar({ name, label, ...props }: any) {
               value={field.value}
               onChange={(e) => field.onChange(e.value)}
               showIcon
-              className={`w-full rounded-xl ${
-                fieldState.error ? "border border-red-500" : ""
-              }`}
+              className={`w-full rounded-xl ${fieldState.error ? "border border-red-500" : ""
+                }`}
               style={{ borderRadius: '0.75rem' }}
               {...props}
             />
@@ -222,27 +223,60 @@ export function RMultiSelect({ name, label, options = [] }: any) {
 }
 
 // ===============================================================
-// CHECKBOX (boolean)
+// CHECKBOX (boolean) / SWITCH
 // ===============================================================
-export function RCheckbox({ name, label }: any) {
+export function RCheckbox({ name, label, vertical = false }: any) {
   const { control } = useFormContext();
 
   return (
-    <Row label="">
+    <Row label="" vertical={vertical}>
       <Controller
         name={name}
         control={control}
         defaultValue={false}
         render={({ field, fieldState }) => (
           <>
-            <label className="flex items-center gap-2">
+            <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
                 checked={field.value}
                 onChange={(e) => field.onChange(e.target.checked)}
+                className="w-4 h-4 rounded text-(--primary-color) focus:ring-(--primary-color)"
               />
-              {label}
+              <span className="text-sm text-gray-700">{label}</span>
             </label>
+
+            {fieldState.error && (
+              <small className="text-red-500">
+                {String(fieldState.error.message)}
+              </small>
+            )}
+          </>
+        )}
+      />
+    </Row>
+  );
+}
+
+export function RSwitch({ name, label, vertical = false }: any) {
+  const { control } = useFormContext();
+
+  return (
+    <Row label="" vertical={vertical}>
+      <Controller
+        name={name}
+        control={control}
+        defaultValue={false}
+        render={({ field, fieldState }) => (
+          <>
+            <div className="flex items-center gap-3">
+              <InputSwitch
+                checked={field.value}
+                onChange={(e) => field.onChange(e.value)}
+                className={fieldState.error ? "p-invalid" : ""}
+              />
+              {label && <span className="text-sm text-gray-700 cursor-pointer" onClick={() => field.onChange(!field.value)}>{label}</span>}
+            </div>
 
             {fieldState.error && (
               <small className="text-red-500">
@@ -316,7 +350,7 @@ export function RFileUpload({ name, label, ...props }: any) {
 // ===============================================================
 export function RQuillEditor({ name, label }: any) {
   const { control } = useFormContext();
- 
+
   return (
     <Row label={label}>
       <Controller
@@ -329,11 +363,10 @@ export function RQuillEditor({ name, label }: any) {
               value={field.value}
               onTextChange={(e) => field.onChange(e.htmlValue)}
               style={{ height: "180px", borderRadius: '0.75rem' }}
-              className={`border ${
-                fieldState.error ? "border-red-500" : "border-gray-300"
-              } rounded-xl`}
+              className={`border ${fieldState.error ? "border-red-500" : "border-gray-300"
+                } rounded-xl`}
             />
- 
+
             {fieldState.error && (
               <small className="text-red-500">
                 {String(fieldState.error.message)}

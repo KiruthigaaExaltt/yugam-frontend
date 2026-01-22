@@ -6,7 +6,10 @@ import ReusableProgressListCard, { type StatItem } from "../HOC/progressbar/Reus
 import QuickActions from "../HOC/quickActions/QuickAction";
 import NewQuote from "./NewQuote";
 import QuoteLibrary from "./QuoteLibrary";
+import RFQImport from "./RFQImport";
+import Header from "./estimoSettings/Header";
 import Reports from "./Reports";
+
 
 type NavBarProps = {
   activeTab?: string;
@@ -205,8 +208,14 @@ export default function NavBar({ activeTab = "dashboard", onTabClick }: NavBarPr
       {activeTab === 'quote-library' && (
         <QuoteLibrary  />
       )}
+       {activeTab === 'rfq-import' && (
+        <RFQImport  />
+      )}
       {activeTab === 'reports' && (
         <Reports  />
+      )}
+      {activeTab === 'settings' && (
+        <Header  />
       )}
     </div>
   );

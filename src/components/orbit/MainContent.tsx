@@ -15,6 +15,8 @@ import {
   IndianRupee,
   TrendingUp,
   Trash2,
+  Filter,
+  Search,
 } from "lucide-react";
 
 interface Lead {
@@ -108,7 +110,9 @@ const sampleLeads: Lead[] = [
 const MainContent = () => {
   const [globalFilter, setGlobalFilter] = useState("");
   const [selectedLeads, setSelectedLeads] = useState<Lead[]>([]);
-  const [page, setPage] = useState(0);
+  // const [page, setPage] = useState(0);
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
   const [selectedSource, setSelectedSource] = useState<string | null>(null);
   const [activeLead, setActiveLead] = useState<Lead | null>(null);
@@ -358,35 +362,35 @@ const MainContent = () => {
 
   const columns: CrudColumn<Lead>[] = [
     { selectionMode: "multiple", style: { width: "3.5rem" } },
-    { header: "Lead Name", body: nameBodyTemplate, style: { width: "16%" } },
-    { header: "Email", body: emailBodyTemplate, style: { width: "18%" } },
-    { header: "Phone", body: phoneBodyTemplate, style: { width: "14%" } },
-    { header: "Stage", body: stageBodyTemplate, style: { width: "8%" } },
-    { header: "Status", body: statusBodyTemplate, style: { width: "8%" } },
-    { header: "Source", field: "source", style: { width: "8%" } },
-    { header: "Value", field: "value", style: { width: "8%" } },
-    { header: "Date", field: "date", style: { width: "8%" } },
+    { header: "Lead Name", body: nameBodyTemplate, style: { minWidth: "200px" } },
+    { header: "Email", body: emailBodyTemplate, style: { minWidth: "250px" } },
+    { header: "Phone", body: phoneBodyTemplate, style: { minWidth: "180px" } },
+    { header: "Stage", body: stageBodyTemplate, style: { minWidth: "120px" } },
+    { header: "Status", body: statusBodyTemplate, style: { minWidth: "120px" } },
+    { header: "Source", field: "source", style: { minWidth: "120px" } },
+    { header: "Value", field: "value", style: { minWidth: "120px" } },
+    { header: "Date", field: "date", style: { minWidth: "120px" } },
     {
       header: "Actions",
       body: actionsBodyTemplate,
-      style: { width: "4rem", textAlign: "center" },
+      style: { minWidth: "80px", textAlign: "center" },
     },
   ];
 
   const filterHeader = (
     <div
-      className="flex flex-col gap-4 px-2 py-4 
+      className="flex flex-col gap-4 px-2 mb-4
                   sm:flex-col 
                   md:flex-col 
-                  lg:flex-row lg:items-center lg:gap-4"
+                  lg:flex-row lg:items-center lg:gap-4 lg:flex-wrap"
     >
       <div className="relative w-full lg:flex-1 lg:max-w-2lg">
-        <i className="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
         <InputText
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
           placeholder="Search leads..."
-          className="w-full pl-10 pr-4 py-2 bg-gray-50 border-none rounded-lg text-sm focus:ring-1 focus:ring-green-500"
+          className="w-full !pl-12 pr-4 !h-9 bg-gray-50 border-none rounded-lg text-sm focus:ring-1 focus:ring-green-500"
         />
       </div>
       <Dropdown
@@ -394,14 +398,14 @@ const MainContent = () => {
         options={stageOptions}
         onChange={(e) => setSelectedStage(e.value)}
         placeholder="All Stages"
-        className="text-sm bg-gray-50 border-none rounded-lg min-w-[140px]"
+        className="text-sm bg-gray-50 border-none rounded-lg min-w-[140px] h-9 flex items-center"
       />
       <Dropdown
         value={selectedSource}
         options={sourceOptions}
         onChange={(e) => setSelectedSource(e.value)}
         placeholder="All Sources"
-        className="text-sm bg-gray-50 border-none rounded-lg min-w-[140px]"
+        className="text-sm bg-gray-50 border-none rounded-lg min-w-[140px] h-9 flex items-center"
       />
     </div>
   );
@@ -409,32 +413,37 @@ const MainContent = () => {
   return (
     <div className="flex flex-col gap-6 p-6">
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-2">
-        <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-50 mb-2">
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-50">
           <span className="flex items-center gap-2 text-gray-600 font-medium">
-            <i className="pi pi-filter text-sm" /> Filters
+            <Filter className="text-gray-600" size={16} /> Filters
           </span>
         </div>
         {filterHeader}
       </div>
 
-      <ReusableCrudTable<Lead>
-        data={sampleLeads}
-        columns={columns}
-        dataKey="id"
-        totalRecords={sampleLeads.length}
-        selection={selectedLeads}
-        onSelectionChange={setSelectedLeads}
-        globalFilter={globalFilter}
-        onGlobalFilterChange={setGlobalFilter}
-        page={page}
-        rows={10}
-        onPageChange={(e) => setPage(e.page)}
-        loading={false}
-        title={`Leads (${sampleLeads.length})`}
-        toolbar={false}
-        showSearch={false}
-        isCard={true}
-      />
+      <div className="overflow-x-auto">
+        <ReusableCrudTable<Lead>
+          data={sampleLeads}
+          columns={columns}
+          dataKey="id"
+          totalRecords={sampleLeads.length}
+          selection={selectedLeads}
+          onSelectionChange={setSelectedLeads}
+          globalFilter={globalFilter}
+          onGlobalFilterChange={setGlobalFilter}
+          page={first / rows}
+          rows={rows}
+          onPageChange={(e: any) => {
+            setFirst(e.first);
+            setRows(e.rows);
+          }}
+          loading={false}
+          title={`Leads (${sampleLeads.length})`}
+          toolbar={false}
+          showSearch={false}
+          isCard={true}
+        />
+      </div>
       <Menu
         model={actionMenuItems}
         popup

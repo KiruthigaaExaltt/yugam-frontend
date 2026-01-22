@@ -1,21 +1,21 @@
-import { 
-  UserPlus, 
-  Phone, 
-  Target, 
-  FileText, 
-  TrendingUp 
+import {
+  UserPlus,
+  Phone,
+  Target,
+  FileText,
+  TrendingUp
 } from "lucide-react";
 import SmallCard from "../HOC/SmallCard/SmallCard";
 
 const HeaderCard = () => {
   return (
-    <div className="card-wrapper-5">
-      <SmallCard 
-        icon={<UserPlus size={20} />} 
-        title="New Leads" 
-        value="1" 
-        iconBg="#EFF6FF" 
-        valueColor="#3B82F6" 
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 gap-4 px-6">
+      <SmallCard
+        icon={<UserPlus size={20} />}
+        title="New Leads"
+        value="1"
+        iconBg="#EFF6FF"
+        valueColor="#3B82F6"
       />
 
       <SmallCard
@@ -41,7 +41,7 @@ const HeaderCard = () => {
         iconBg="#FFEDD5"
         valueColor="#F97316"
       />
-      
+
       <SmallCard
         icon={<TrendingUp size={20} />}
         title="Converted"
