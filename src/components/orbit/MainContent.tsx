@@ -18,94 +18,9 @@ import {
   Filter,
   Search,
 } from "lucide-react";
+import type { Lead } from "./Lead";
+import { useGetLeadsQuery } from "./leadApi";
 
-interface Lead {
-  id: string;
-  name: string;
-  company: string;
-  email: string;
-  phone: string;
-  stage: "Qualified" | "New" | "Proposal" | "Converted" | "Contacted";
-  status: "Active" | "Follow-up";
-  source: string;
-  value: string;
-  date: string;
-  initials: string;
-  avatarBg: string;
-}
-
-const sampleLeads: Lead[] = [
-  {
-    id: "1",
-    name: "Sarah Johnson",
-    company: "TechCorp Inc.",
-    email: "sarah.johnson@techcorp.com",
-    phone: "+1 (555) 123-4567",
-    stage: "Qualified",
-    status: "Active",
-    source: "Website",
-    value: "₹25,000",
-    date: "1/15/2024",
-    initials: "SJ",
-    avatarBg: "#F3F4F6",
-  },
-  {
-    id: "2",
-    name: "Michael Chen",
-    company: "Global Solutions",
-    email: "m.chen@globalsolutions.com",
-    phone: "+1 (555) 234-5678",
-    stage: "New",
-    status: "Active",
-    source: "LinkedIn",
-    value: "₹45,000",
-    date: "1/18/2024",
-    initials: "MC",
-    avatarBg: "#F3F4F6",
-  },
-  {
-    id: "3",
-    name: "Emily Rodriguez",
-    company: "StartupXYZ",
-    email: "emily.r@startupxyz.com",
-    phone: "+1 (555) 345-6789",
-    stage: "Proposal",
-    status: "Follow-up",
-    source: "Referral",
-    value: "₹18,500",
-    date: "1/12/2024",
-    initials: "ER",
-    avatarBg: "#F3F4F6",
-  },
-  {
-    id: "4",
-    name: "David Wilson",
-    company: "Enterprise Corp",
-    email: "d.wilson@enterprise.com",
-    phone: "+1 (555) 456-7890",
-    stage: "Converted",
-    status: "Active",
-    source: "Cold Call",
-    value: "₹75,000",
-    date: "1/10/2024",
-    initials: "DW",
-    avatarBg: "#F3F4F6",
-  },
-  {
-    id: "5",
-    name: "Lisa Thompson",
-    company: "Consulting Firm LLC",
-    email: "lisa.t@consultingfirm.com",
-    phone: "+1 (555) 567-8901",
-    stage: "Contacted",
-    status: "Active",
-    source: "Trade Show",
-    value: "₹32,000",
-    date: "1/20/2024",
-    initials: "LT",
-    avatarBg: "#F3F4F6",
-  },
-];
 
 const MainContent = () => {
   const [globalFilter, setGlobalFilter] = useState("");
@@ -116,6 +31,17 @@ const MainContent = () => {
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
   const [selectedSource, setSelectedSource] = useState<string | null>(null);
   const [activeLead, setActiveLead] = useState<Lead | null>(null);
+
+  const { data, isLoading, isError, error } = useGetLeadsQuery(
+    {
+      page: (first / rows) + 1,
+      limit: rows,
+      search: globalFilter,
+    }
+  );
+
+  const leads = data?.leads || [];
+  const totalLeads = data?.total || 0;
 
   const menuLeft = useRef<Menu>(null);
 
@@ -390,7 +316,7 @@ const MainContent = () => {
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
           placeholder="Search leads..."
-          className="w-full !pl-12 pr-4 !h-9 bg-gray-50 border-none rounded-lg text-sm focus:ring-1 focus:ring-green-500"
+          className="w-full pl-12 pr-4 h-9 bg-gray-50 border-none rounded-lg text-sm focus:ring-1 focus:ring-green-500"
         />
       </div>
       <Dropdown
@@ -410,6 +336,26 @@ const MainContent = () => {
     </div>
   );
 
+  if (isError) {
+    return (
+      <div className="flex flex-col items-center justify-center p-20 bg-white rounded-xl border border-red-100 shadow-sm mx-6 my-10">
+        <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-4 text-red-500 text-3xl">
+          ⚠️
+        </div>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">Unable to load data</h3>
+        <p className="text-gray-500 text-center max-w-sm mb-6">
+          {(error as any)?.data?.message || "There was a problem connecting to the server. Please check your internet connection."}
+        </p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all font-medium shadow-sm active:scale-95"
+        >
+          Retry Connection
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-6 p-6">
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-2">
@@ -423,10 +369,10 @@ const MainContent = () => {
 
       <div className="overflow-x-auto">
         <ReusableCrudTable<Lead>
-          data={sampleLeads}
+          data={leads}
           columns={columns}
           dataKey="id"
-          totalRecords={sampleLeads.length}
+          totalRecords={totalLeads}
           selection={selectedLeads}
           onSelectionChange={setSelectedLeads}
           globalFilter={globalFilter}
@@ -437,8 +383,8 @@ const MainContent = () => {
             setFirst(e.first);
             setRows(e.rows);
           }}
-          loading={false}
-          title={`Leads (${sampleLeads.length})`}
+          loading={isLoading}
+          title={`Leads (${totalLeads})`}
           toolbar={false}
           showSearch={false}
           isCard={true}
