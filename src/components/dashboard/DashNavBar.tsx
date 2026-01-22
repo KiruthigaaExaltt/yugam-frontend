@@ -1,5 +1,5 @@
 import NavBarNew, { type NavItem } from "../HOC/navbarNew/NavBarNew";
-import { AdvancedAnalytics } from "./modules/AdvancedAnalytics";
+import { AdvancedAnalytics } from "./modules/Advancedanalytics";
 import { BusinessOverview } from "./modules/BusinessOverview";
 import { SystemStatus } from "./modules/SystemStatus";
 

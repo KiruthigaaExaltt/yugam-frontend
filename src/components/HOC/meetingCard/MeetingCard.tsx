@@ -22,7 +22,7 @@ export interface MeetingItem {
   icon?: IconType;
   highlight?: boolean;
   badgeText?: string;
-  timestamp: string;
+  timestamp?: string;
 
 
   showToggle?: boolean;
