@@ -204,6 +204,7 @@ interface SmallCardProps {
   /** Layout control */
   minWidth?: number;
   height?: number;
+  Active?: boolean | string;
 }
 
 const SmallCard: React.FC<SmallCardProps> = ({
@@ -213,11 +214,10 @@ const SmallCard: React.FC<SmallCardProps> = ({
   subText,
   iconBg = "var(--icon-bg)",
   valueColor = "var(--text-color)",
-  minWidth = 220,
-  height = 90,
+
 }) => {
   return (
-    <Card className="stat-card" style={{ minWidth, height }}>
+    <Card >
       <div className="stat-card-content">
         {/* ICON */}
         <div className="stat-icon" style={{ backgroundColor: iconBg }}>

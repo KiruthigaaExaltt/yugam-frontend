@@ -205,16 +205,16 @@ export default function NavBar({ activeTab = "dashboard", onTabClick }: NavBarPr
         <NewQuote />
       )}
       {activeTab === 'quote-library' && (
-        <QuoteLibrary  />
+        <QuoteLibrary />
       )}
-       {activeTab === 'rfq-import' && (
-        <RFQImport  />
+      {activeTab === 'rfq-import' && (
+        <RFQImport />
       )}
       {activeTab === 'reports' && (
-        <Reports  />
+        <Reports />
       )}
       {activeTab === 'settings' && (
-        <Header  />
+        <Header />
       )}
     </div>
   );

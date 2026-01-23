@@ -5,6 +5,7 @@ import LoginPage from "./components/login/LoginPage";
 import OrbitIndex from "./components/orbit/OrbitIndex";
 import EstimoIndex from "./components/estimo/EstimoIndex";
 import Userimport from "./components/dashboard/Dashindex";
+import Crewindex from "./components/crew/Crewindex";
 
 
 
@@ -28,6 +29,7 @@ function App() {
            <Route path="/orbit" element={<OrbitIndex />} />
            <Route path="/estimo" element={<EstimoIndex />} />
           <Route path="/dashboard" element={<Userimport />} />
+          <Route path="/crew" element={<Crewindex />} />
         </Route>
 
         {/* Default redirect */}
