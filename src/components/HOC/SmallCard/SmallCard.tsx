@@ -217,8 +217,8 @@ const SmallCard: React.FC<SmallCardProps> = ({
 
 }) => {
   return (
-    <Card >
-      <div className="stat-card-content">
+    <Card className="stat-card">
+      <div className="stat-card-content ">
         {/* ICON */}
         <div className="stat-icon" style={{ backgroundColor: iconBg }}>
           {icon}

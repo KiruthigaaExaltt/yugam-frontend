@@ -1,4 +1,4 @@
-import { FileText, Phone, Target, TrendingUp, UserPlus } from "lucide-react"
+import { FileText, Phone, Target,  UserPlus } from "lucide-react"
 import SmallCard from "../../HOC/SmallCard/SmallCard"
 import QuickActions from "../../HOC/quickActions/QuickAction"
 import { FaBolt, FaChartLine, FaFileAlt, FaPlus } from "react-icons/fa";
@@ -19,13 +19,8 @@ const Crewdashboard = () => {
                     grid-cols-1
                     sm:grid-cols-2
                     lg:grid-cols-4
-                    gap-4
-                    w-full
-                    mt-6
-                    auto-rows-[var(--stat-card-height)]
-                    place-items-stretch
-                "
-            >
+                    gap-3
+                    mt-5">
                 <SmallCard
                     icon={<UserPlus size={20} />}
                     title="Total Employees"

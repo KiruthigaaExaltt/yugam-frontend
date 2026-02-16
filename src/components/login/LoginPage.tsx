@@ -176,7 +176,7 @@ const LoginPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className={`w-full ${errors.email ? "p-invalid" : ""}`}
               />
-              <label htmlFor="email">Email Address</label> 
+              <label htmlFor="email">Email Address</label>
               {/* <InputText
                 id="username"
                 value={username}
@@ -191,9 +191,14 @@ const LoginPage = () => {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                toggleMask
                 feedback={false}
                 className={`w-full ${errors.password ? "p-invalid" : ""}`}
                 inputClassName="w-full"
+                pt={{
+                  root: { className: "w-full" },
+                  input: { className: "w-full" }
+                }}
               />
               <label htmlFor="password">Password</label>
             </span>
@@ -211,9 +216,13 @@ const LoginPage = () => {
                 <label htmlFor="remember">Remember me</label>
               </div>
 
-              <a href="#" className="text-blue-500 hover:underline">
+              <button
+                type="button"
+                onClick={() => navigate("/forgot-password")}
+                className="text-blue-500 hover:underline"
+              >
                 Forgot password?
-              </a>
+              </button>
             </div>
 
             <Button
