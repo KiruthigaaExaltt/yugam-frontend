@@ -47,3 +47,17 @@ body {
   outline: none !important;
   border-color: transparent !important;
 }
+
+/* Fix password field width to match email field */
+.p-password {
+  width: 100% !important;
+  display: block !important;
+}
+
+.p-password .p-inputtext {
+  width: 100% !important;
+}
+
+.p-password-input {
+  width: 100% !important;
+}

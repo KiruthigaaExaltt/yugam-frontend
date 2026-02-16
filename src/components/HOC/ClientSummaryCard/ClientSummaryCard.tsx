@@ -41,7 +41,14 @@ export interface ClientSummaryCardProps {
   isRenewalOverdue?: boolean;
   autoRenew?: boolean;
   showCancel?: boolean;
-
+  role?:string | number;
+  attendance?:number;
+  performance?: number;  
+   profileImage?: string;
+    onView?: () => void;
+  onMark?: () => void;
+  onLeave?: () => void;
+  onPay?: () => void;
   // Actions
   onEdit?: () => void;
   onCancel?: () => void;
