@@ -4,10 +4,11 @@ import { ProgressBar } from "primereact/progressbar";
 import { FiMail, FiPhone, FiClock , FiEdit, FiX , FiMoreHorizontal} from "react-icons/fi";
 import { useState } from "react";
 export interface ClientSummaryCardProps {
-  fullName: any;
+  fullName?: string;
   // Common
-  name: string;
-  company: string;
+  name?: string;
+
+  company?: string;
   initials?: string;
   status?: "active" | "pending" | "trial" | "cancelled";
   priority?: "low" | "medium" | "high";
@@ -81,6 +82,15 @@ const ClientSummaryCard: React.FC<ClientSummaryCardProps> = (props) => {
     props.onCancel?.();
   };
 
+ const avatarStyles: React.CSSProperties = {
+    width: "44px",
+    height: "44px",
+    borderRadius: "50%",
+    objectFit: "cover",
+    border: "1px solid #E5E7EB",
+  };
+
+
   return (
   <Card
   className="w-full transition-all duration-300 hover:-translate-y-1 hover:shadow-(--card-shadow-hover) border border-(--surface-border)"
@@ -104,6 +114,33 @@ const ClientSummaryCard: React.FC<ClientSummaryCardProps> = (props) => {
               {props.initials}
             </div>
           )}
+
+          {isClientCard && (
+  <>
+    {props.profileImage ? (
+      <img
+        src={props.profileImage}
+        alt={props.fullName || props.name}
+        style={avatarStyles}
+        onError={(e) => {
+          e.currentTarget.src = "/avatar.png";
+        }}
+      />
+    ) : (
+      props.initials && (
+        <div
+          className="h-11 w-11 rounded-full flex items-center justify-center font-bold text-sm shrink-0"
+          style={{
+            backgroundColor: "var(--icon-bg-primary)",
+            color: "var(--icon-color-primary)",
+          }}
+        >
+          {props.initials}
+        </div>
+      )
+    )}
+  </>
+)}
           <div className="flex flex-col justify-center">
             <div className="flex items-center gap-2">
               {props.isVerified && (
