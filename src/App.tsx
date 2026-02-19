@@ -4,14 +4,11 @@ import BaseLayout from "./layouts/BaseLayout";
 import LoginPage from "./components/login/LoginPage";
 import ForgotPassword from "./components/login/ForgotPassword";
 import ResetPassword from "./components/login/ResetPassword";
+import VerifyOtp from "./components/login/VerifyOtp"; // Import VerifyOtp
 import OrbitIndex from "./components/orbit/OrbitIndex";
 import EstimoIndex from "./components/estimo/EstimoIndex";
 import Userimport from "./components/dashboard/Dashindex";
 import Crewindex from "./components/crew/Crewindex";
-
-
-
-
 
 function App() {
   const isAuthenticated = !!localStorage.getItem("token");
@@ -23,6 +20,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/verify-otp" element={<VerifyOtp />} />
 
         {/* 🔒 Protected routes */}
         <Route

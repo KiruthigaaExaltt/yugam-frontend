@@ -2,22 +2,21 @@
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
 import { Checkbox } from "primereact/checkbox";
-import { Message } from "primereact/message";
 import { useState } from "react";
 import { FiLogIn } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
-// import { useLoginMutation } from "./authapi";
+import { useLoginMutation } from "./authApi";
+import { toast } from "sonner";
 
 const LoginPage = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
-  // const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
 
-  // const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
   const [errors, setErrors] = useState<{
     email?: string;
@@ -25,17 +24,11 @@ const LoginPage = () => {
     auth?: string;
   }>({});
 
-  // 🔹 TEMP VALID CREDENTIALS (Mock)
-  const VALID_EMAIL = "kiruthigaa@gmail.com";
-  const VALID_PASSWORD = "Password@123";
-
   const validate = () => {
     const newErrors: typeof errors = {};
 
     if (!email) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = "Enter a valid email address";
+      newErrors.email = "Username/Email is required";
     }
 
     if (!password) {
@@ -46,80 +39,39 @@ const LoginPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!validate()) return;
 
-    if (email === VALID_EMAIL && password === VALID_PASSWORD) {
-      // ✅ MOCK TOKEN (Later this will come from backend)
-      const mockToken = "mock-jwt-token-123456";
+    try {
+      const result = await login({
+        email,
+        password,
+      }).unwrap();
 
-      // ✅ Store token
-      localStorage.setItem("token", mockToken);
+      // ✅ Check success from backend
+      if (result.success) {
+        toast.success("Login successful!");
+        // Store token
+        localStorage.setItem("token", result.data.token);
 
-      // ✅ Optional remember me flag
-      if (remember) {
-        localStorage.setItem("remember", "true");
+        // Store full user data
+        localStorage.setItem("user", JSON.stringify(result.data));
+
+        if (remember) {
+          localStorage.setItem("remember", "true");
+        }
+
+        // ✅ Navigate only if success
+        navigate("/dashboard");
+      } else {
+        toast.error(result.message || "Login failed");
       }
-
-      // ✅ Navigate after login
-      navigate("/dashboard");
-    } else {
-      setErrors({
-        auth: "Invalid email or password",
-      });
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Invalid email or password");
     }
   };
 
-  //   const validate = () => {
-  //   const newErrors: typeof errors = {};
 
-  //   if (!username) {
-  //     newErrors.email = "Email is required";
-  //   }
-
-  //   if (!password) {
-  //     newErrors.password = "Password is required";
-  //   }
-
-  //   setErrors(newErrors);
-  //   return Object.keys(newErrors).length === 0;
-  // };
-  // const handleLogin = async () => {
-  //   if (!validate()) return;
-
-  //   try {
-  //     const res = await login({
-  //       username,
-  //       password,
-  //     }).unwrap();
-
-  //     // ✅ Store token
-  //     localStorage.setItem("token", res.token);
-
-  //     if (remember) {
-  //       localStorage.setItem("remember", "true");
-  //     }
-
-  //     navigate("/dashboard");
-  //   } catch (err) {
-  //     console.log(err);
-  //     setErrors({
-  //       auth: "Invalid username or password",
-  //     });
-  //   }
-  // };
-
-  // fetch("https://dummyjson.com/auth/login", {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify({
-  //     username: "kminchelle",
-  //     password: "0lelplR",
-  //   }),
-  // })
-  //   .then((res) => res.json())
-  //   .then(console.log)
-  //   .catch(console.error);
   return (
     <div className="min-h-screen w-full flex bg-linear-to-br from-blue-600 via-sky-400 to-teal-400">
       {/* LEFT SECTION */}
@@ -159,13 +111,6 @@ const LoginPage = () => {
             Enter your credentials to access your dashboard
           </p>
 
-          {errors.auth && (
-            <Message
-              severity="error"
-              text={errors.auth}
-              className="mb-3 w-full"
-            />
-          )}
 
           {/* FORM */}
           <div className="space-y-4">
@@ -177,12 +122,6 @@ const LoginPage = () => {
                 className={`w-full ${errors.email ? "p-invalid" : ""}`}
               />
               <label htmlFor="email">Email Address</label>
-              {/* <InputText
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <label htmlFor="username">Username</label> */}
             </span>
             {errors.email && <small className="p-error">{errors.email}</small>}
 
@@ -205,7 +144,6 @@ const LoginPage = () => {
             {errors.password && (
               <small className="p-error">{errors.password}</small>
             )}
-
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-2">
                 <Checkbox
@@ -224,20 +162,12 @@ const LoginPage = () => {
                 Forgot password?
               </button>
             </div>
-
             <Button
-              label="Sign In"
-              onClick={handleLogin}
-              className="w-full p-button-lg bg-linear-to-r from-blue-600 to-sky-500 border-none"
-            />
-
-            {/* <Button
               label={isLoading ? "Signing In..." : "Sign In"}
               onClick={handleLogin}
               disabled={isLoading}
               className="w-full p-button-lg bg-linear-to-r from-blue-600 to-sky-500 border-none"
-            /> */}
-
+            />
             <p className="text-xs text-center text-gray-500 mt-4">
               Don’t have an account?{" "}
               <span className="text-blue-500 cursor-pointer">

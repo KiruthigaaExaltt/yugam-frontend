@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://dummyjson.com/",
+    baseUrl: "http://localhost:4000/api/",
 
     // ✅ Attach token automatically to all requests
     prepareHeaders: (headers) => {

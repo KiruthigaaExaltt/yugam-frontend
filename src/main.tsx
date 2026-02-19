@@ -29,12 +29,15 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+import { Toaster } from 'sonner';
+
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <PrimeReactProvider>
           <BrowserRouter>
+            <Toaster position="top-right" richColors />
             <App />
           </BrowserRouter>
         </PrimeReactProvider>
