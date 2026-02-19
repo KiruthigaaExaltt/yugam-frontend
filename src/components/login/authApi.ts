@@ -85,8 +85,8 @@ export const authApi = api.injectEndpoints({
     resetPassword: builder.mutation<
       ResetPasswordResponse,
       {
-        token: string;
-        password: string;
+        resetToken: string;
+        newPassword: string;
       }
     >({
       query: (body) => ({

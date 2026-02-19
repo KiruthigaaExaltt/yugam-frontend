@@ -94,16 +94,16 @@ const ForgotPassword = () => {
 
           {/* SUCCESS STATE */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            <span className="p-float-label w-full">
+            <div className="w-full">
               <InputText
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email Address"
                 className={`w-full ${errors.email ? "p-invalid" : ""}`}
                 disabled={isLoading}
               />
-              <label htmlFor="email">Email Address</label>
-            </span>
+            </div>
 
             {errors.email && (
               <small className="p-error">{errors.email}</small>
