@@ -1,17 +1,50 @@
 // src/services/authApi.ts
 import { api } from "../../api";
 
+type LoginResponse = {
+  success: boolean;
+  status: number;
+  message: string;
+  data: {
+    profile: boolean;
+    profileId: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    token: string;
+  };
+};
+
+type ForgotPasswordResponse = {
+  success: boolean;
+  status: number;
+  message: string;
+  data: {
+    value: string | null;
+  }
+};
+
+type VerifyOTPResponse = {
+  success: boolean;
+  status: number;
+  message: string;
+  data: {
+    resetToken: string | null;
+  }
+}
+
+type ResetPasswordResponse = {
+  success: boolean;
+  status: number;
+  message: string;
+}
+
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<
+      LoginResponse,
       {
-        token: string;
-        id: number;
         email: string;
-        username: string;
-      },
-      {
-        username: string;
         password: string;
       }
     >({
@@ -19,12 +52,55 @@ export const authApi = api.injectEndpoints({
         url: "auth/login",
         method: "POST",
         body,
-        headers: {
-          "Content-Type": "application/json",
-        },
+      }),
+    }),
+
+    forgotPassword: builder.mutation<
+      ForgotPasswordResponse,
+      {
+        email: string;
+      }
+    >({
+      query: (body) => ({
+        url: "auth/forgot-password",
+        method: "POST",
+        body,
+      }),
+    }),
+
+    verifyOTPToken: builder.mutation<
+      VerifyOTPResponse,
+      {
+        email: string;
+        otp: string;
+      }
+    >({
+      query: (body) => ({
+        url: "auth/verify-forgot-otp",
+        method: "POST",
+        body,
+      }),
+    }),
+
+    resetPassword: builder.mutation<
+      ResetPasswordResponse,
+      {
+        token: string;
+        password: string;
+      }
+    >({
+      query: (body) => ({
+        url: "auth/reset-password",
+        method: "POST",
+        body,
       }),
     }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const {
+  useLoginMutation,
+  useForgotPasswordMutation,
+  useVerifyOTPTokenMutation,
+  useResetPasswordMutation
+} = authApi;

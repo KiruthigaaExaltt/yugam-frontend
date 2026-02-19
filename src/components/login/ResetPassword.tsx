@@ -1,9 +1,10 @@
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
-import { Message } from "primereact/message";
 import { useState } from "react";
 import { FiLock } from "react-icons/fi";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useResetPasswordMutation } from "./authApi";
+import { toast } from "sonner";
 
 const ResetPassword = () => {
     const navigate = useNavigate();
@@ -17,8 +18,8 @@ const ResetPassword = () => {
         confirmPassword?: string;
         token?: string;
     }>({});
-    const [successMessage, setSuccessMessage] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const [resetPassword, { isLoading: isSubmitting }] = useResetPasswordMutation();
 
     const validate = () => {
         const newErrors: typeof errors = {};
@@ -49,19 +50,28 @@ const ResetPassword = () => {
     const handleSubmit = async () => {
         if (!validate()) return;
 
-        setIsSubmitting(true);
-        setSuccessMessage("");
+        if (!token) {
+            toast.error("Invalid or missing reset token");
+            return;
+        }
 
-        // Simulate API call
-        setTimeout(() => {
-            setSuccessMessage("Password reset successful! Redirecting to login...");
-            setIsSubmitting(false);
+        try {
+            const result = await resetPassword({
+                resetToken: token,
+                newPassword: password,
+            }).unwrap();
 
-            // Redirect to login after 2 seconds
-            setTimeout(() => {
-                navigate("/login");
-            }, 2000);
-        }, 1500);
+            if (result.success) {
+                toast.success("Password reset successful! Redirecting to login...");
+                setTimeout(() => {
+                    navigate("/login");
+                }, 2000);
+            } else {
+                toast.error(result.message || "Failed to reset password");
+            }
+        } catch (err: any) {
+            toast.error(err?.data?.message || "Password reset failed");
+        }
     };
 
     return (
@@ -104,21 +114,6 @@ const ResetPassword = () => {
                         Enter your new password below
                     </p>
 
-                    {errors.token && (
-                        <Message
-                            severity="error"
-                            text={errors.token}
-                            className="mb-4 w-full"
-                        />
-                    )}
-
-                    {successMessage && (
-                        <Message
-                            severity="success"
-                            text={successMessage}
-                            className="mb-4 w-full"
-                        />
-                    )}
 
                     {/* FORM */}
                     <div className="space-y-4">
