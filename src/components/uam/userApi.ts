@@ -31,13 +31,32 @@ export interface UsersResponse {
     };
 }
 
+export interface RolesResponse {
+    success: boolean;
+    status: number;
+    message: string;
+    data: UserRole[];
+}
+
 export const userApi = api.injectEndpoints({
     endpoints: (builder) => ({
         getUsers: builder.query<UsersResponse, void>({
             query: () => "/users",
-            providesTags: ["User" as any], // Adding User tag type if needed, though Lead was defined in api.ts
+            providesTags: ["User" as any],
+        }),
+        getRoles: builder.query<RolesResponse, void>({
+            query: () => "/role",
+            providesTags: ["User" as any],
+        }),
+        createUser: builder.mutation<any, any>({
+            query: (body) => ({
+                url: "/users",
+                method: "POST",
+                body,
+            }),
+            invalidatesTags: ["User" as any],
         }),
     }),
 });
 
-export const { useGetUsersQuery } = userApi;
+export const { useGetUsersQuery, useGetRolesQuery, useCreateUserMutation } = userApi;

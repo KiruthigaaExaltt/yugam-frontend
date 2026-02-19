@@ -15,6 +15,7 @@ import {
     Settings,
 } from "lucide-react";
 import { useGetUsersQuery } from "./userApi";
+import AddUserDialog from "./AddUserDialog";
 
 interface User {
     id: string;
@@ -34,6 +35,7 @@ const User = () => {
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(10);
     const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
+    const [displayAddDialog, setDisplayAddDialog] = useState(false);
 
     const { data, isLoading } = useGetUsersQuery();
 
@@ -180,6 +182,7 @@ const User = () => {
                 icon={<Plus size={16} />}
                 className="h-10 text-sm gap-2 bg-blue-600 border-none hover:bg-blue-700 text-white shadow-sm font-medium"
                 style={{ borderRadius: "8px" }}
+                onClick={() => setDisplayAddDialog(true)}
             />
         </div>
     );
@@ -224,6 +227,11 @@ const User = () => {
                     </div>
                 </div>
             </div>
+
+            <AddUserDialog
+                visible={displayAddDialog}
+                onHide={() => setDisplayAddDialog(false)}
+            />
         </div>
     );
 };
