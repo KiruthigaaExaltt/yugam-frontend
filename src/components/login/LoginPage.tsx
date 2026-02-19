@@ -114,24 +114,25 @@ const LoginPage = () => {
 
           {/* FORM */}
           <div className="space-y-4">
-            <span className="p-float-label w-full">
+            <div className="w-full">
               <InputText
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email Address"
                 className={`w-full ${errors.email ? "p-invalid" : ""}`}
               />
-              <label htmlFor="email">Email Address</label>
-            </span>
+            </div>
             {errors.email && <small className="p-error">{errors.email}</small>}
 
-            <span className="p-float-label w-full">
+            <div className="w-full">
               <Password
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 toggleMask
                 feedback={false}
+                placeholder="Password"
                 className={`w-full ${errors.password ? "p-invalid" : ""}`}
                 inputClassName="w-full"
                 pt={{
@@ -139,8 +140,7 @@ const LoginPage = () => {
                   input: { className: "w-full" }
                 }}
               />
-              <label htmlFor="password">Password</label>
-            </span>
+            </div>
             {errors.password && (
               <small className="p-error">{errors.password}</small>
             )}
