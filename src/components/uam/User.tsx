@@ -7,15 +7,15 @@ import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
 import {
     Search,
-    Filter,
     Download,
     Plus,
-    Eye,
     Pencil,
-    Settings,
+    Trash2,
 } from "lucide-react";
-import { useGetUsersQuery } from "./userApi";
+import { useGetUsersQuery, useDeleteUserMutation } from "./userApi";
 import AddUserDialog from "./AddUserDialog";
+import ConfirmationDialog from "../HOC/dialog/ConfirmationDialog";
+import { toast } from "sonner";
 
 interface User {
     id: string;
@@ -36,8 +36,12 @@ const User = () => {
     const [rows, setRows] = useState(10);
     const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
     const [displayAddDialog, setDisplayAddDialog] = useState(false);
+    const [editingUserId, setEditingUserId] = useState<string | null>(null);
+    const [displayDeleteDialog, setDisplayDeleteDialog] = useState(false);
+    const [deletingUserId, setDeletingUserId] = useState<string | null>(null);
 
     const { data, isLoading } = useGetUsersQuery();
+    const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
 
     const users = useMemo(() => {
         if (!data?.data?.items) return [];
@@ -102,25 +106,27 @@ const User = () => {
         );
     };
 
-    const actionsBodyTemplate = () => (
+    const actionsBodyTemplate = (rowData: User) => (
         <div className="flex items-center gap-4">
             <button
-                className="p-1 hover:bg-gray-100 rounded-md transition-colors text-gray-500"
-                title="View details"
-            >
-                <Eye size={18} />
-            </button>
-            <button
-                className="p-1 hover:bg-gray-100 rounded-md transition-colors text-gray-500"
+                className="p-1 hover:bg-gray-100 rounded-md transition-colors text-gray-500 !cursor-pointer"
                 title="Edit user"
+                onClick={() => {
+                    setEditingUserId(rowData.id);
+                    setDisplayAddDialog(true);
+                }}
             >
                 <Pencil size={18} />
             </button>
             <button
-                className="p-1 hover:bg-gray-100 rounded-md transition-colors text-gray-500"
-                title="User settings"
+                className="p-1 hover:bg-gray-100 rounded-md transition-colors text-red-500 hover:text-red-600 !cursor-pointer"
+                title="Delete user"
+                onClick={() => {
+                    setDeletingUserId(rowData.id);
+                    setDisplayDeleteDialog(true);
+                }}
             >
-                <Settings size={18} />
+                <Trash2 size={18} />
             </button>
         </div>
     );
@@ -160,12 +166,6 @@ const User = () => {
                 placeholder="All Status"
                 className="w-40 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm flex items-center"
             />
-            <Button
-                label="More Filters"
-                icon={<Filter size={16} />}
-                className="p-button-outlined p-button-secondary h-10 text-sm gap-2 border-gray-200 bg-white"
-                style={{ borderRadius: "8px" }}
-            />
         </div>
     );
 
@@ -182,7 +182,10 @@ const User = () => {
                 icon={<Plus size={16} />}
                 className="h-10 text-sm gap-2 bg-blue-600 border-none hover:bg-blue-700 text-white shadow-sm font-medium"
                 style={{ borderRadius: "8px" }}
-                onClick={() => setDisplayAddDialog(true)}
+                onClick={() => {
+                    setEditingUserId(null);
+                    setDisplayAddDialog(true);
+                }}
             />
         </div>
     );
@@ -230,7 +233,35 @@ const User = () => {
 
             <AddUserDialog
                 visible={displayAddDialog}
-                onHide={() => setDisplayAddDialog(false)}
+                onHide={() => {
+                    setDisplayAddDialog(false);
+                    setEditingUserId(null);
+                }}
+                userId={editingUserId}
+            />
+
+            <ConfirmationDialog
+                visible={displayDeleteDialog}
+                onHide={() => {
+                    setDisplayDeleteDialog(false);
+                    setDeletingUserId(null);
+                }}
+                onConfirm={async () => {
+                    if (deletingUserId) {
+                        try {
+                            await deleteUser(deletingUserId).unwrap();
+                            toast.success("User deleted successfully");
+                            setDisplayDeleteDialog(false);
+                            setDeletingUserId(null);
+                        } catch (error: any) {
+                            toast.error(error?.data?.message || "Failed to delete user");
+                        }
+                    }
+                }}
+                title="Delete User"
+                message="Are you sure you want to delete this user? This action cannot be undone."
+                confirmLabel="Delete"
+                isLoading={isDeleting}
             />
         </div>
     );

@@ -1,31 +1,42 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { UserPlus, Plus } from "lucide-react";
+import { UserPlus, Plus, Pencil, Save } from "lucide-react";
 import { RHFInput, RDropdown } from "../HOC/form/RHFFields";
-import { useGetRolesQuery, useCreateUserMutation } from "./userApi";
+import { useGetRolesQuery, useCreateUserMutation, useUpdateUserMutation, useGetUserByIdQuery } from "./userApi";
 import { toast } from "sonner";
 import ReusableDialog from "../HOC/dialog/ReusableDialog";
 
 interface AddUserDialogProps {
     visible: boolean;
     onHide: () => void;
+    userId?: string | null;
 }
 
 const addUserSchema = yup.object().shape({
     username: yup.string().required("Username is required"),
     email: yup.string().email("Invalid email").required("Email is required"),
-    password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+    password: yup.string().when("$isEdit", {
+        is: false,
+        then: (schema) => schema.min(6, "Password must be at least 6 characters").required("Password is required"),
+        otherwise: (schema) => schema.notRequired(),
+    }),
     roles: yup.string().required("Role is required"),
 });
 
-const AddUserDialog = ({ visible, onHide }: AddUserDialogProps) => {
+const AddUserDialog = ({ visible, onHide, userId }: AddUserDialogProps) => {
+    const isEdit = !!userId;
     const { data: rolesData } = useGetRolesQuery();
     const [createUser, { isLoading: isCreating }] = useCreateUserMutation();
+    const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
+    const { data: userData, isFetching: isFetchingUser } = useGetUserByIdQuery(userId as string, {
+        skip: !userId,
+    });
 
     const methods = useForm({
         resolver: yupResolver(addUserSchema),
+        context: { isEdit },
         defaultValues: {
             username: "",
             email: "",
@@ -33,6 +44,25 @@ const AddUserDialog = ({ visible, onHide }: AddUserDialogProps) => {
             roles: "",
         },
     });
+
+    useEffect(() => {
+        if (isEdit && userData?.data) {
+            const user = userData.data;
+            methods.reset({
+                username: user.username || "",
+                email: user.email || "",
+                password: "", // Don't pre-fill password for security
+                roles: user.roles?.[0]?.roleName?.toUpperCase() || "",
+            });
+        } else {
+            methods.reset({
+                username: "",
+                email: "",
+                password: "",
+                roles: "",
+            });
+        }
+    }, [userData, isEdit, methods]);
 
     const roleOptions = useMemo(() => {
         const data = rolesData?.data;
@@ -43,23 +73,33 @@ const AddUserDialog = ({ visible, onHide }: AddUserDialogProps) => {
 
         return rolesArray.map((role: any) => ({
             label: role.roleName,
-            value: role?.roleName?.toUpperCase(),
+            value: role?.roleCode,
         }));
     }, [rolesData]);
 
     const onAddUserSubmit = async (formData: any) => {
-
         try {
             const payload = {
-                ...formData,
+                username: formData.username,
+                email: formData.email,
                 roles: [formData.roles]
-            };
-            await createUser(payload).unwrap();
-            toast.success("User added successfully");
+            } as any;
+
+            if (formData.password) {
+                payload.password = formData.password;
+            }
+
+            if (isEdit && userId) {
+                await updateUser({ id: userId, body: payload }).unwrap();
+                toast.success("User updated successfully");
+            } else {
+                await createUser(payload).unwrap();
+                toast.success("User added successfully");
+            }
             onHide();
             methods.reset();
         } catch (error: any) {
-            toast.error(error?.data?.message || "Failed to add user");
+            toast.error(error?.data?.message || `Failed to ${isEdit ? 'update' : 'add'} user`);
         }
     };
 
@@ -68,7 +108,12 @@ const AddUserDialog = ({ visible, onHide }: AddUserDialogProps) => {
         methods.reset();
     };
 
-    const body = (
+    const body = isFetchingUser ? (
+        <div className="flex flex-col items-center justify-center py-12 gap-4">
+            <i className="pi pi-spin pi-spinner text-4xl text-blue-600"></i>
+            <p className="text-gray-500 font-medium">Loading user data...</p>
+        </div>
+    ) : (
         <FormProvider {...methods}>
             <form className="space-y-6">
                 <RHFInput
@@ -88,7 +133,7 @@ const AddUserDialog = ({ visible, onHide }: AddUserDialogProps) => {
                 />
                 <RHFInput
                     name="password"
-                    label="Password"
+                    label={isEdit ? "New Password (Leave blank to keep current)" : "Password"}
                     vertical={true}
                     placeholder="••••••••"
                     type="password"
@@ -110,14 +155,14 @@ const AddUserDialog = ({ visible, onHide }: AddUserDialogProps) => {
         <ReusableDialog
             visible={visible}
             onHide={handleHide}
-            title="Add New User"
-            subtitle="Create a new user account and assign roles"
-            icon={<UserPlus size={22} />}
+            title={isEdit ? "Edit User" : "Add New User"}
+            subtitle={isEdit ? "Modify user details and roles" : "Create a new user account and assign roles"}
+            icon={isEdit ? <Pencil size={22} /> : <UserPlus size={22} />}
             body={body}
-            submitLabel="Create User"
-            submitIcon={<Plus size={18} />}
+            submitLabel={isEdit ? "Update User" : "Create User"}
+            submitIcon={isEdit ? <Save size={18} /> : <Plus size={18} />}
             onConfirm={methods.handleSubmit(onAddUserSubmit)}
-            isLoading={isCreating}
+            isLoading={isCreating || isUpdating}
         />
     );
 };
