@@ -78,10 +78,10 @@ body {
   animation: slideDownFade 0.3s ease-out forwards;
 }
 
-.p-error-premium {
+/* .p-error-premium {
   @apply text-rose-500 text-xs font-medium flex items-center gap-1.5 mt-1.5 px-1;
 }
 
 .input-error-state {
   @apply border-rose-500 ! ring-rose-500/20 !;
-}
+} */

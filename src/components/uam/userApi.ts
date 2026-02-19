@@ -63,10 +63,10 @@ export const userApi = api.injectEndpoints({
         updateUser: builder.mutation<any, { id: string; body: any }>({
             query: ({ id, body }) => ({
                 url: `/users/${id}`,
-                method: "PUT",
+                method: "PATCH",
                 body,
             }),
-            invalidatesTags: (_result, _error, { id }) => [{ type: "User", id }],
+            invalidatesTags: ["User"],
         }),
         deleteUser: builder.mutation<any, string>({
             query: (id) => ({

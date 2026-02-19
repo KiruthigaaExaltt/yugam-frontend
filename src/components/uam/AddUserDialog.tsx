@@ -131,14 +131,16 @@ const AddUserDialog = ({ visible, onHide, userId }: AddUserDialogProps) => {
                     type="email"
                     className="bg-gray-50/50 border-gray-200! focus:border-blue-500! focus:bg-white transition-all py-3 px-4 rounded-xl text-gray-800 placeholder:text-gray-400"
                 />
-                <RHFInput
-                    name="password"
-                    label={isEdit ? "New Password (Leave blank to keep current)" : "Password"}
-                    vertical={true}
-                    placeholder="••••••••"
-                    type="password"
-                    className="bg-gray-50/50 border-gray-200! focus:border-blue-500! focus:bg-white transition-all py-3 px-4 rounded-xl text-gray-800 placeholder:text-gray-400"
-                />
+                {!isEdit && (
+                    <RHFInput
+                        name="password"
+                        label={isEdit ? "New Password (Leave blank to keep current)" : "Password"}
+                        vertical={true}
+                        placeholder="••••••••"
+                        type="password"
+                        className="bg-gray-50/50 border-gray-200! focus:border-blue-500! focus:bg-white transition-all py-3 px-4 rounded-xl text-gray-800 placeholder:text-gray-400"
+                    />
+                )}
                 <RDropdown
                     name="roles"
                     label="Role"
