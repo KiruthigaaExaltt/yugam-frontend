@@ -1,5 +1,6 @@
 import NavBarNew, { type NavItem } from "../HOC/navbarNew/NavBarNew";
 import User from "./User";
+import Role from "./Role";
 
 
 type NavBarProps = {
@@ -25,6 +26,9 @@ export default function NavBar({ activeTab = "dashboard", onTabClick }: NavBarPr
 
       {activeTab === 'user' && (
         <User />
+      )}
+      {activeTab === 'role' && (
+        <Role />
       )}
 
     </div>
