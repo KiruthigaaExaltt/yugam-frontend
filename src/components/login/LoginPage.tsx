@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
 import { useLoginMutation } from "./authApi";
 import { toast } from "sonner";
+import { AlertCircle } from "lucide-react";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -27,12 +28,18 @@ const LoginPage = () => {
   const validate = () => {
     const newErrors: typeof errors = {};
 
-    if (!email) {
-      newErrors.email = "Username/Email is required";
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
+      newErrors.email = "Enter a valid email address";
     }
 
     if (!password) {
       newErrors.password = "Password is required";
+    } else if (password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
+    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/.test(password)) {
+      newErrors.password = "Password must contain uppercase, lowercase, number, and special character";
     }
 
     setErrors(newErrors);
@@ -112,38 +119,51 @@ const LoginPage = () => {
           </p>
 
 
-          {/* FORM */}
           <div className="space-y-4">
             <div className="w-full">
               <InputText
                 id="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (errors.email) setErrors(prev => ({ ...prev, email: undefined }));
+                }}
                 placeholder="Email Address"
-                className={`w-full ${errors.email ? "p-invalid" : ""}`}
+                className={`w-full transition-all duration-300 ${errors.email ? "input-error-state" : ""}`}
               />
+              {errors.email && (
+                <div className="animate-error p-error-premium">
+                  <AlertCircle size={14} />
+                  <span>{errors.email}</span>
+                </div>
+              )}
             </div>
-            {errors.email && <small className="p-error">{errors.email}</small>}
 
             <div className="w-full">
               <Password
                 id="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (errors.password) setErrors(prev => ({ ...prev, password: undefined }));
+                }}
                 toggleMask
                 feedback={false}
                 placeholder="Password"
-                className={`w-full ${errors.password ? "p-invalid" : ""}`}
+                className={`w-full transition-all duration-300 ${errors.password ? "input-error-state" : ""}`}
                 inputClassName="w-full"
                 pt={{
                   root: { className: "w-full" },
                   input: { className: "w-full" }
                 }}
               />
+              {errors.password && (
+                <div className="animate-error p-error-premium">
+                  <AlertCircle size={14} />
+                  <span>{errors.password}</span>
+                </div>
+              )}
             </div>
-            {errors.password && (
-              <small className="p-error">{errors.password}</small>
-            )}
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-2">
                 <Checkbox

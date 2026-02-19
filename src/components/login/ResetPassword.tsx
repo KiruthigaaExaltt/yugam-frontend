@@ -1,10 +1,11 @@
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
 import { useState } from "react";
-import { FiLock, FiCheck, FiX } from "react-icons/fi";
+import { FiLock } from "react-icons/fi";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useResetPasswordMutation } from "./authApi";
 import { toast } from "sonner";
+import { AlertCircle } from "lucide-react";
 
 const ResetPassword = () => {
     const navigate = useNavigate();
@@ -20,32 +21,6 @@ const ResetPassword = () => {
     }>({});
 
     const [resetPassword, { isLoading: isSubmitting }] = useResetPasswordMutation();
-
-    const getPasswordRequirements = (pwd: string) => [
-        { label: "At least 8 characters", met: pwd.length >= 8 },
-        { label: "Uppercase & Lowercase", met: /[a-z]/.test(pwd) && /[A-Z]/.test(pwd) },
-        { label: "Has a number", met: /\d/.test(pwd) },
-        { label: "Special character", met: /[@$!%*?&]/.test(pwd) },
-    ];
-
-    const requirements = getPasswordRequirements(password);
-    const strengthScore = requirements.filter(r => r.met).length;
-
-    const getStrengthColor = (score: number) => {
-        if (score === 0) return "bg-gray-200";
-        if (score <= 1) return "bg-red-500";
-        if (score <= 2) return "bg-orange-500";
-        if (score <= 3) return "bg-yellow-500";
-        return "bg-emerald-500";
-    };
-
-    const getStrengthLabel = (score: number) => {
-        if (score === 0) return "Very Weak";
-        if (score <= 1) return "Weak";
-        if (score <= 2) return "Fair";
-        if (score <= 3) return "Good";
-        return "Strong";
-    };
 
     const validate = () => {
         const newErrors: typeof errors = {};
@@ -147,75 +122,47 @@ const ResetPassword = () => {
                             <Password
                                 id="password"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                    if (errors.password) setErrors(prev => ({ ...prev, password: undefined }));
+                                }}
                                 toggleMask
                                 feedback={false}
                                 placeholder="New Password"
-                                className={`w-full ${errors.password ? "p-invalid" : ""}`}
+                                className={`w-full transition-all duration-300 ${errors.password ? "input-error-state" : ""}`}
                                 inputClassName="w-full"
                                 disabled={isSubmitting || !!errors.token}
                             />
+                            {errors.password && (
+                                <div className="animate-error p-error-premium">
+                                    <AlertCircle size={14} />
+                                    <span>{errors.password}</span>
+                                </div>
+                            )}
                         </div>
-
-                        {/* Custom Strength UI */}
-                        {password && (
-                            <div className="mt-2 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
-                                <div className="flex items-center justify-between mb-1">
-                                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Password Strength
-                                    </span>
-                                    <span className={`text-xs font-bold ${strengthScore === 4 ? 'text-emerald-500' : 'text-gray-600'}`}>
-                                        {getStrengthLabel(strengthScore)}
-                                    </span>
-                                </div>
-
-                                <div className="flex gap-1.5 h-1.5">
-                                    {[1, 2, 3, 4].map((step) => (
-                                        <div
-                                            key={step}
-                                            className={`flex-1 rounded-full transition-all duration-500 ${strengthScore >= step
-                                                ? getStrengthColor(strengthScore)
-                                                : "bg-gray-100"
-                                                }`}
-                                        />
-                                    ))}
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-2 mt-3">
-                                    {requirements.map((req, index) => (
-                                        <div key={index} className="flex items-center gap-2">
-                                            <div className={`p-0.5 rounded-full ${req.met ? "bg-emerald-100 text-emerald-600" : "bg-gray-100 text-gray-400"}`}>
-                                                {req.met ? <FiCheck size={10} /> : <FiX size={10} />}
-                                            </div>
-                                            <span className={`text-[10px] font-medium transition-colors ${req.met ? "text-gray-700" : "text-gray-400"}`}>
-                                                {req.label}
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {errors.password && (
-                            <small className="p-error block mt-1">{errors.password}</small>
-                        )}
 
                         <div className="w-full">
                             <Password
                                 id="confirmPassword"
                                 value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                onChange={(e) => {
+                                    setConfirmPassword(e.target.value);
+                                    if (errors.confirmPassword) setErrors(prev => ({ ...prev, confirmPassword: undefined }));
+                                }}
                                 toggleMask
                                 feedback={false}
                                 placeholder="Confirm Password"
-                                className={`w-full ${errors.confirmPassword ? "p-invalid" : ""}`}
+                                className={`w-full transition-all duration-300 ${errors.confirmPassword ? "input-error-state" : ""}`}
                                 inputClassName="w-full"
                                 disabled={isSubmitting || !!errors.token}
                             />
+                            {errors.confirmPassword && (
+                                <div className="animate-error p-error-premium">
+                                    <AlertCircle size={14} />
+                                    <span>{errors.confirmPassword}</span>
+                                </div>
+                            )}
                         </div>
-                        {errors.confirmPassword && (
-                            <small className="p-error">{errors.confirmPassword}</small>
-                        )}
 
                         <Button
                             label={isSubmitting ? "Resetting..." : "Reset Password"}

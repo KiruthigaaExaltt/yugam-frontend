@@ -2,6 +2,7 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useState } from "react";
 import { FiMail } from "react-icons/fi";
+import { AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useForgotPasswordMutation } from "./authApi";
 import { toast } from "sonner";
@@ -92,22 +93,26 @@ const ForgotPassword = () => {
             No worries, we'll send you reset instructions
           </p>
 
-          {/* SUCCESS STATE */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="w-full">
               <InputText
                 id="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (errors.email) setErrors({});
+                }}
                 placeholder="Email Address"
-                className={`w-full ${errors.email ? "p-invalid" : ""}`}
+                className={`w-full transition-all duration-300 ${errors.email ? "input-error-state" : ""}`}
                 disabled={isLoading}
               />
+              {errors.email && (
+                <div className="animate-error p-error-premium">
+                  <AlertCircle size={14} />
+                  <span>{errors.email}</span>
+                </div>
+              )}
             </div>
-
-            {errors.email && (
-              <small className="p-error">{errors.email}</small>
-            )}
 
             <Button
               label={isLoading ? "Submitting..." : "Submit"}

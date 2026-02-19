@@ -5,6 +5,7 @@ import { FiShield } from "react-icons/fi";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useVerifyOTPTokenMutation } from "./authApi";
 import { toast } from "sonner";
+import { AlertCircle } from "lucide-react";
 
 const VerifyOtp = () => {
     const navigate = useNavigate();
@@ -17,14 +18,16 @@ const VerifyOtp = () => {
     const [verifyOTPToken, { isLoading }] = useVerifyOTPTokenMutation();
 
     const [otp, setOtp] = useState<string>("");
+    const [error, setError] = useState<string | null>(null);
 
     const handleSubmit = async () => {
         console.log("Submit clicked, OTP:", otp, "Length:", otp?.toString().length);
 
         if (!otp || otp.toString().length !== 6) {
-            toast.error("Please enter the complete 6-digit code");
+            setError("Please enter the complete 6-digit code");
             return;
         }
+        setError(null);
 
         try {
             console.log("Calling verifyOTPToken with:", { email, otp: otp.toString() });
@@ -95,15 +98,25 @@ const VerifyOtp = () => {
                     </p>
 
 
-                    {/* FORM */}
                     <div className="flex flex-col items-center space-y-6">
-                        <InputOtp
-                            value={otp}
-                            onChange={(e) => setOtp(e.value?.toString() ?? "")}
-                            length={6}
-                            disabled={isLoading}
-
-                        />
+                        <div className="flex flex-col items-center">
+                            <InputOtp
+                                value={otp}
+                                onChange={(e) => {
+                                    setOtp(e.value?.toString() ?? "");
+                                    if (error) setError(null);
+                                }}
+                                length={6}
+                                disabled={isLoading}
+                                className={error ? "p-invalid" : ""}
+                            />
+                            {error && (
+                                <div className="animate-error p-error-premium">
+                                    <AlertCircle size={14} />
+                                    <span>{error}</span>
+                                </div>
+                            )}
+                        </div>
 
                         <Button
                             label={isLoading ? "Verifying..." : "Verify Code"}
