@@ -9,6 +9,7 @@ import OrbitIndex from "./components/orbit/OrbitIndex";
 import EstimoIndex from "./components/estimo/EstimoIndex";
 import Userimport from "./components/dashboard/Dashindex";
 import Crewindex from "./components/crew/Crewindex";
+import UAMIndex from "./components/uam/UAMIndex";
 
 function App() {
   const isAuthenticated = !!localStorage.getItem("token");
@@ -32,6 +33,7 @@ function App() {
           <Route path="/estimo" element={<EstimoIndex />} />
           <Route path="/dashboard" element={<Userimport />} />
           <Route path="/crew" element={<Crewindex />} />
+          <Route path="/uam" element={<UAMIndex />} />
         </Route>
 
         {/* Default redirect */}
