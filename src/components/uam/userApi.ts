@@ -19,7 +19,7 @@ export interface ApiUser {
     roles: UserRole[];
     createdAt?: string;
     updatedAt?: string;
-    status?: string;
+    accountstatus?: string;
 }
 
 export interface UsersResponse {
@@ -28,6 +28,7 @@ export interface UsersResponse {
     message: string;
     data: {
         items: ApiUser[];
+        totalItems?: number;
     };
 }
 
@@ -40,8 +41,29 @@ export interface RolesResponse {
 
 export const userApi = api.injectEndpoints({
     endpoints: (builder) => ({
-        getUsers: builder.query<UsersResponse, void>({
-            query: () => "/users",
+        getUsers: builder.query<UsersResponse, { keyword?: string; status?: string; page?: number; limit?: number ; sortStatus?: string} | void>({
+            query: (params) => {
+                const queryParams: any = {
+                    page: params?.page || 1,
+                    limit: params?.limit || 10,
+                };
+
+                if (params?.keyword) {
+                    queryParams.keyword = params.keyword;
+                }
+                if (params?.sortStatus) {
+                    queryParams.sortStatus = params.sortStatus;
+                }
+
+                if (params?.status) {
+                    queryParams.deleted = params.status;
+                }
+
+                return {
+                    url: "/users",
+                    params: queryParams,
+                };
+            },
             providesTags: ["User"],
         }),
         // getRoles: builder.query<RolesResponse, void>({
@@ -78,4 +100,4 @@ export const userApi = api.injectEndpoints({
     }),
 });
 
-export const { useGetUsersQuery,  useCreateUserMutation, useGetUserByIdQuery, useUpdateUserMutation, useDeleteUserMutation } = userApi;
+export const { useGetUsersQuery, useCreateUserMutation, useGetUserByIdQuery, useUpdateUserMutation, useDeleteUserMutation } = userApi;
