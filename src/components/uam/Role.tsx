@@ -3,6 +3,7 @@ import ReusableCrudTable, {
     type CrudColumn,
 } from "../HOC/ReusableDataTable/ReusableDataTable";
 import { InputText } from "primereact/inputtext";
+import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
 import {
     Search,
@@ -20,6 +21,7 @@ import ConfirmationDialog from "../HOC/dialog/ConfirmationDialog";
 import { toast } from "sonner";
 import RoleForm from "./RoleForm";
 import RoleDetailsDialog from "./RoleDetailsDialog";
+import { useDebouncedValue } from "../customHooks/useDebouncedValue";
 
 interface RoleData {
     id: string;
@@ -35,6 +37,7 @@ const Role = () => {
     const [selectedRoles, setSelectedRoles] = useState<RoleData[]>([]);
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(10);
+    const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
 
     const [displayDeleteDialog, setDisplayDeleteDialog] = useState(false);
     const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -43,8 +46,15 @@ const Role = () => {
     const [displayViewDialog, setDisplayViewDialog] = useState(false);
     const [viewId, setViewId] = useState<string | null>(null);
 
+    const debouncedSearch = useDebouncedValue(globalFilter, 500);
 
-    const { data: rolesData, isLoading } = useGetRolesQuery();
+    const { data: rolesData, isLoading } = useGetRolesQuery({
+        deleted: "notdeleted",
+        keyword: debouncedSearch || undefined,
+        sortStatus: selectedStatus || "all",
+        page: (first / rows) + 1,
+        limit: rows,
+    });
 
     const [deleteRole, { isLoading: isDeleting }] = useDeleteRoleMutation();
 
@@ -68,7 +78,11 @@ const Role = () => {
             } as RoleData));
     }, [rolesData]);
 
-
+    const statusOptions = [
+        { label: "All Status", value: "all" },
+        { label: "Active", value: "notdeleted" },
+        { label: "Deleted", value: "deleted" },
+    ];
 
     const roleNameBodyTemplate = (rowData: RoleData) => (
         <div className="flex items-center gap-3">
@@ -156,12 +170,19 @@ const Role = () => {
                     className="w-64 pl-10 pr-4 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20"
                 />
             </div>
+            {/* <Dropdown
+                value={selectedStatus}
+                options={statusOptions}
+                onChange={(e) => setSelectedStatus(e.value)}
+                placeholder="All Status"
+                className="w-40 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm flex items-center"
+            />
             <Button
                 label="More Filters"
                 icon={<Filter size={16} />}
                 className="p-button-outlined p-button-secondary h-10 text-sm gap-2 border-gray-200 bg-white"
                 style={{ borderRadius: "8px" }}
-            />
+            /> */}
         </div>
     );
 
