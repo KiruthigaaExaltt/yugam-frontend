@@ -108,11 +108,10 @@ const VerifyOtp = () => {
                                 }}
                                 length={6}
                                 disabled={isLoading}
-                                className={error ? "p-invalid" : ""}
+                                className={error ? "p-invalid border-red-500" : ""}
                             />
                             {error && (
-                                <div className="animate-error p-error-premium">
-                                    <AlertCircle size={14} />
+                                <div className="animate-error text-red-500 text-xs font-medium mt-1.5 px-1">
                                     <span>{error}</span>
                                 </div>
                             )}

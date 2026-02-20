@@ -129,13 +129,15 @@ const ResetPassword = () => {
                                 toggleMask
                                 feedback={false}
                                 placeholder="New Password"
-                                className={`w-full transition-all duration-300 ${errors.password ? "input-error-state" : ""}`}
+                                className={`w-full transition-all duration-300 ${errors.password ? "border-red-500 focus:ring-red-500/20" : ""}`}
                                 inputClassName="w-full"
                                 disabled={isSubmitting || !!errors.token}
+                                pt={{
+                                    input: { className: `w-full ${errors.password ? "border-red-500 text-red-500" : ""}` }
+                                }}
                             />
                             {errors.password && (
-                                <div className="animate-error p-error-premium">
-                                    <AlertCircle size={14} />
+                                <div className="animate-error text-red-500 text-xs font-medium mt-1.5 px-1">
                                     <span>{errors.password}</span>
                                 </div>
                             )}
@@ -152,13 +154,15 @@ const ResetPassword = () => {
                                 toggleMask
                                 feedback={false}
                                 placeholder="Confirm Password"
-                                className={`w-full transition-all duration-300 ${errors.confirmPassword ? "input-error-state" : ""}`}
+                                className={`w-full transition-all duration-300 ${errors.confirmPassword ? "border-red-500 focus:ring-red-500/20" : ""}`}
                                 inputClassName="w-full"
                                 disabled={isSubmitting || !!errors.token}
+                                pt={{
+                                    input: { className: `w-full ${errors.confirmPassword ? "border-red-500 text-red-500" : ""}` }
+                                }}
                             />
                             {errors.confirmPassword && (
-                                <div className="animate-error p-error-premium">
-                                    <AlertCircle size={14} />
+                                <div className="animate-error text-red-500 text-xs font-medium mt-1.5 px-1">
                                     <span>{errors.confirmPassword}</span>
                                 </div>
                             )}
