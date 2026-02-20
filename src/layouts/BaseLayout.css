@@ -113,10 +113,36 @@ body {
 ================================ */
 .sidebar-content {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: auto !important;
   overflow-x: hidden;
   padding: 0.5rem 0;
   -webkit-overflow-scrolling: touch;
+
+  /* Force scrollbar to be visible and gray */
+  scrollbar-width: thin !important;
+  scrollbar-color: #94a3b8 transparent !important;
+}
+
+.sidebar-content::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+  display: block !important;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+  background-color: #94a3b8 !important;
+  /* Visible Gray */
+  border-radius: 20px !important;
+  border: 1px solid transparent !important;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+  background-color: #64748b !important;
+  /* Darker Gray */
 }
 
 /* ================================
@@ -153,6 +179,7 @@ body {
   font-size: 0.875rem;
   color: var(--text-muted);
 }
+
 .top-header .p-toolbar {
   min-height: 56px;
 }

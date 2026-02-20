@@ -206,13 +206,13 @@ export function RPermissionSelector({ name, label, options = [], vertical = fals
             <div className="space-y-4">
               {/* Search Box */}
               <div className="relative group">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[var(--primary-color)] transition-colors">
                   <Search size={18} />
                 </div>
                 <input
                   type="text"
                   placeholder="Search and select permissions..."
-                  className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 text-sm outline-none transition-all placeholder:text-gray-400"
+                  className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] outline-none transition-all"
                   style={{ fontFamily: 'var(--font-primary)' }}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
@@ -220,7 +220,7 @@ export function RPermissionSelector({ name, label, options = [], vertical = fals
               </div>
 
               {/* Options List */}
-              <div className="max-h-56 overflow-y-auto border border-gray-100 rounded-xl bg-white p-1.5 flex flex-col gap-1 custom-scrollbar shadow-inner">
+              <div className="max-h-56 overflow-y-auto border border-gray-100 rounded-xl bg-white p-1.5 flex flex-col gap-1 custom-scrollbar no-scrollbar shadow-inner">
                 {filteredOptions.length > 0 ? (
                   filteredOptions.map((opt: any) => {
                     const isSelected = selectedValues.includes(opt.value);
@@ -228,14 +228,14 @@ export function RPermissionSelector({ name, label, options = [], vertical = fals
                       <div
                         key={opt.value}
                         onClick={() => toggle(opt.value)}
-                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200 ${isSelected ? 'bg-blue-50/50' : 'hover:bg-gray-50 group'
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200 ${isSelected ? 'bg-[var(--primary-color-light)]' : 'hover:bg-gray-50 group'
                           }`}
                       >
-                        <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${isSelected ? 'bg-blue-600 border-blue-600 scale-110' : 'border-gray-200 group-hover:border-blue-400 bg-white'
+                        <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${isSelected ? 'bg-[var(--primary-color)] border-[var(--primary-color)] scale-110' : 'border-gray-200 group-hover:border-[var(--primary-color)] bg-white'
                           }`}>
                           {isSelected && <Check size={12} className="text-white stroke-[3px]" />}
                         </div>
-                        <span className={`text-sm font-medium transition-colors ${isSelected ? 'text-blue-700' : 'text-gray-600 group-hover:text-gray-900 uppercase text-[11px] tracking-wider'}`}>
+                        <span className={`text-sm font-medium transition-colors ${isSelected ? 'text-[var(--primary-color)]' : 'text-gray-600 group-hover:text-gray-900 uppercase text-[11px] tracking-wider'}`}>
                           {opt.label}
                         </span>
                       </div>
@@ -255,7 +255,7 @@ export function RPermissionSelector({ name, label, options = [], vertical = fals
               <div className="flex flex-col gap-2 pt-2">
                 <div className="flex items-center justify-between px-1">
                   <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                    Selected: <span className="text-blue-600">{selectedValues.length}</span>
+                    Selected: <span className="text-[var(--primary-color)]">{selectedValues.length}</span>
                   </span>
                   {selectedValues.length > 0 && (
                     <button
@@ -273,13 +273,13 @@ export function RPermissionSelector({ name, label, options = [], vertical = fals
                     selectedValues.map((val: string) => {
                       const label = options.find((o: any) => o.value === val)?.label || val;
                       return (
-                        <div key={val} className="group flex items-center gap-2 px-3 py-1.5 bg-blue-50 hover:bg-blue-100/80 text-blue-700 border border-blue-100 rounded-lg text-xs font-bold transition-all hover:shadow-sm">
-                          <ShieldCheck size={12} className="text-blue-500" />
+                        <div key={val} className="group flex items-center gap-2 px-3 py-1.5 bg-[var(--primary-color-light)] hover:bg-[var(--primary-color-light)] text-[var(--primary-color)] border border-[var(--primary-color-light)] rounded-lg text-xs font-bold transition-all hover:shadow-sm">
+                          <ShieldCheck size={12} className="text-[var(--primary-color)]" />
                           <span className="uppercase tracking-tight">{label}</span>
                           <button
                             type="button"
                             onClick={(e) => { e.stopPropagation(); remove(val); }}
-                            className="ml-1 p-0.5 hover:bg-blue-200/50 rounded-md transition-colors text-blue-400 hover:text-blue-600"
+                            className="ml-1 p-0.5 hover:bg-[var(--primary-color-light)] rounded-md transition-colors text-[var(--primary-color)] opacity-60 hover:opacity-100"
                           >
                             <X size={12} />
                           </button>
@@ -399,11 +399,11 @@ export function RFileUpload({ name, label, ...props }: any) {
                 border border-gray-300 
                 rounded-xl p-3 
                 cursor-pointer 
-                hover:border-blue-500 hover:bg-blue-50 
+                hover:border-[var(--primary-color)] hover:bg-[var(--primary-color-light)] 
                 transition
               "
             >
-              <FiUpload className="text-xl text-blue-600" />
+              <FiUpload className="text-xl text-[var(--primary-color)]" />
 
               <span className="text-gray-700">
                 {fileName ? <b>{fileName}</b> : "Choose a file…"}

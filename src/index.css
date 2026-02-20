@@ -40,12 +40,38 @@ body {
   scrollbar-width: none;
 }
 
+/* Global Focus & Hover Styles - Kill the Blue! */
+.p-inputtext:enabled:focus,
+.p-inputtext:enabled:hover:focus,
+.p-password input:focus,
+.p-dropdown:not(.p-disabled).p-focus,
 .p-button:focus,
 .p-button.p-focus,
-.p-button:active {
-  box-shadow: none !important;
+.p-button:active,
+.p-inputnumber-input:focus {
   outline: none !important;
-  border-color: transparent !important;
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 2px var(--primary-color-light) !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Kill Blue Border on Hover */
+.p-inputtext:not(.p-disabled):hover,
+.p-dropdown:not(.p-disabled):hover,
+.p-inputnumber-input:not(.p-disabled):hover,
+.p-password input:not(.p-disabled):hover {
+  border-color: #e5e7eb !important;
+  /* Keep it gray on hover, or use var(--primary-color) if you want green on hover */
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  background: var(--primary-color-light) !important;
+  color: var(--primary-color) !important;
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
+  background: #f9fafb !important;
+  color: var(--primary-color) !important;
 }
 
 /* Fix password field width to match email field */
@@ -78,10 +104,137 @@ body {
   animation: slideDownFade 0.3s ease-out forwards;
 }
 
-/* .p-error-premium {
-  @apply text-rose-500 text-xs font-medium flex items-center gap-1.5 mt-1.5 px-1;
+/* --- Global Placeholder Styling --- */
+/* Set placeholder to "light black" (dark gray) per user request */
+::placeholder,
+.p-inputtext::placeholder,
+.p-dropdown-label.p-placeholder {
+  color: #424242 !important;
+  font-size: 13.5px !important;
+  opacity: 1 !important;
 }
 
-.input-error-state {
-  @apply border-rose-500 ! ring-rose-500/20 !;
-} */
+/* --- Global Scrollbar Styling --- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  /* Gray-300 (Darker than before) */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+  /* Gray-400 */
+}
+
+/* Remove Arrows in Firefox/IE and set themed scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+/* --- Loading Dots Animation (Dribbble Inspired) --- */
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* --- Utility: Hide Scrollbar but keep functionality --- */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.loading-dot {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  animation: loading-bounce 0.6s infinite alternate ease-in-out;
+}
+
+.loading-dot:nth-child(1) {
+  background-color: var(--primary-color);
+  animation-delay: 0s;
+}
+
+.loading-dot:nth-child(2) {
+  background-color: var(--priority-high-text);
+  animation-delay: 0.1s;
+}
+
+.loading-dot:nth-child(3) {
+  background-color: var(--priority-medium-text);
+  animation-delay: 0.2s;
+}
+
+.loading-dot:nth-child(4) {
+  background-color: var(--priority-low-text);
+  animation-delay: 0.3s;
+}
+
+.loading-dot:nth-child(5) {
+  background-color: var(--priority-medium-text);
+  animation-delay: 0.4s;
+}
+
+@keyframes loading-bounce {
+  from {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+
+  to {
+    transform: translateY(-20px);
+    opacity: 1;
+  }
+}
+
+/* Replace PrimeReact DataTable Spinner with LoadingDots */
+.p-datatable-loading-overlay .p-datatable-loading-icon {
+  display: none !important;
+}
+
+.p-datatable-loading-overlay::after {
+  content: '';
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* --- ULTRA SPECIFIC CHECKBOX THEME --- */
+/* Ensures green branding always wins over PrimeReact defaults */
+body .p-checkbox .p-checkbox-box.p-highlight,
+body .p-radiobutton .p-radiobutton-box.p-highlight {
+  border-color: var(--primary-color) !important;
+  background: var(--primary-color) !important;
+}
+
+body .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus,
+body .p-radiobutton:not(.p-radiobutton-disabled) .p-radiobutton-box.p-focus {
+  box-shadow: 0 0 0 2px var(--primary-color-light) !important;
+  border-color: var(--primary-color) !important;
+}
+
+body .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover,
+body .p-radiobutton:not(.p-radiobutton-disabled) .p-radiobutton-box:hover {
+  border-color: var(--primary-color) !important;
+}

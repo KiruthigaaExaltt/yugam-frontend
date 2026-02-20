@@ -8,6 +8,7 @@ import { InputIcon } from "primereact/inputicon";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import "./reusableDataTable.css";
+import LoadingDots from "../loading/LoadingDots";
 
 import { FiDownload } from "react-icons/fi";
 
@@ -169,42 +170,49 @@ const ReusableCrudTable = <T extends object>({
         />
       )}
 
-      {/* @ts-ignore */}
-      <DataTable<any>
-        ref={dt}
-        value={data as any}
-        lazy
-        paginator={paginator}
-        first={page * rows}
-        rows={rows}
-        rowsPerPageOptions={[5, 10, 25]}
-        totalRecords={totalRecords}
-        onPage={onPageChange}
-        selection={selection as any}
-        onSelectionChange={(e: any) => onSelectionChange?.(e.value)}
-        selectionMode={selection ? "multiple" : undefined}
-        loading={loading}
-        dataKey={String(dataKey)}
-        header={header}
-        responsiveLayout="scroll"
-        tableStyle={{ minWidth: "100%", tableLayout: "auto" }}
-        showGridlines={showGridlines}
-      >
-        {columns.map((col, index) => (
-          <Column
-            key={index}
-            field={col.field ? String(col.field) : undefined}
-            header={col.header}
-            sortable={col.sortable}
-            body={col.body}
-            style={col.style}
-            headerStyle={col.headerStyle}
-            bodyStyle={col.bodyStyle}
-            selectionMode={col.selectionMode}
-            exportable={col.exportable}
-          />
-        ))}
-      </DataTable>
+      <div className="relative">
+        {/* @ts-ignore */}
+        <DataTable<any>
+          ref={dt}
+          value={data as any}
+          lazy
+          paginator={paginator}
+          first={page * rows}
+          rows={rows}
+          rowsPerPageOptions={[5, 10, 25]}
+          totalRecords={totalRecords}
+          onPage={onPageChange}
+          selection={selection as any}
+          onSelectionChange={(e: any) => onSelectionChange?.(e.value)}
+          selectionMode={selection ? "multiple" : undefined}
+          loading={false} // Disable PrimeReact default loading logic as we handle it manually
+          dataKey={String(dataKey)}
+          header={header}
+          responsiveLayout="scroll"
+          tableStyle={{ minWidth: "100%", tableLayout: "auto" }}
+          showGridlines={showGridlines}
+        >
+          {columns.map((col, index) => (
+            <Column
+              key={index}
+              field={col.field ? String(col.field) : undefined}
+              header={col.header}
+              sortable={col.sortable}
+              body={col.body}
+              style={col.style}
+              headerStyle={col.headerStyle}
+              bodyStyle={col.bodyStyle}
+              selectionMode={col.selectionMode}
+              exportable={col.exportable}
+            />
+          ))}
+        </DataTable>
+        {loading && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/60 backdrop-blur-[1px] transition-all duration-300">
+            <LoadingDots />
+          </div>
+        )}
+      </div>
     </>
   );
 

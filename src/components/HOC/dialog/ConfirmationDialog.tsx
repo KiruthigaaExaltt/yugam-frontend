@@ -1,7 +1,7 @@
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import type { ReactNode } from "react";
-import { AlertTriangle, X } from "lucide-react";
+// import type { ReactNode } from "react";
+import { Trash2, AlertTriangle, X } from "lucide-react";
 
 interface ConfirmationDialogProps {
     visible: boolean;
@@ -9,11 +9,11 @@ interface ConfirmationDialogProps {
     onConfirm: () => void;
     title: string;
     message: string;
-    icon?: ReactNode;
+    // icon?: ReactNode;
     confirmLabel?: string;
     cancelLabel?: string;
     isLoading?: boolean;
-    confirmClassName?: string;
+    // confirmClassName?: string;
 }
 
 const ConfirmationDialog = ({
@@ -22,27 +22,27 @@ const ConfirmationDialog = ({
     onConfirm,
     title,
     message,
-    icon,
     confirmLabel = "Delete",
     cancelLabel = "Cancel",
-    isLoading = false,
-    confirmClassName = "bg-red-600 hover:bg-red-700 shadow-red-100"
+    isLoading = false
 }: ConfirmationDialogProps) => {
 
     const footer = (
-        <div className="flex items-center justify-center gap-3 w-full p-6 pt-2">
+        <div className="flex items-center justify-center gap-4 w-full p-8 pt-2">
             <Button
                 label={cancelLabel}
                 onClick={onHide}
                 disabled={isLoading}
-                className="flex-1 py-3 px-4 border border-gray-200 bg-white text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all cursor-pointer"
+                style={{ backgroundColor: '#10b981', color: '#fff', border: 'none' }}
+                className="flex-1 py-3.5 px-6 font-bold rounded-xl transition-all active:scale-95 shadow-md shadow-green-100 cursor-pointer"
             />
             <Button
                 label={confirmLabel}
                 icon={isLoading ? "pi pi-spin pi-spinner" : undefined}
                 onClick={onConfirm}
                 disabled={isLoading}
-                className={`flex-1 py-3 px-4 text-white font-semibold rounded-xl transition-all shadow-lg active:scale-95 cursor-pointer border-none ${confirmClassName}`}
+                style={{ backgroundColor: '#f84c4c', color: '#fff', border: 'none' }}
+                className={`flex-1 py-3.5 px-6 font-bold rounded-xl transition-all shadow-md shadow-red-100 active:scale-95 cursor-pointer`}
             />
         </div>
     );
@@ -56,7 +56,12 @@ const ConfirmationDialog = ({
             className="w-[90vw] max-w-[400px]"
             maskClassName="bg-gray-900/60 backdrop-blur-sm"
             contentClassName="p-0 overflow-hidden"
-            style={{ borderRadius: '24px', border: 'none' }}
+            style={{
+                borderRadius: "30px",
+                overflow: "hidden",
+                boxShadow: "0 25px 60px rgba(0, 0, 0, 0.25)",
+                border: "none"
+            }}
             showHeader={false}
         >
             <div className="relative p-8 text-center">
@@ -68,10 +73,17 @@ const ConfirmationDialog = ({
                     <X size={18} />
                 </button>
 
-                {/* Icon Container */}
-                <div className="flex justify-center mb-6">
-                    <div className="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center border-4 border-white shadow-sm ring-8 ring-red-50/50">
-                        {icon || <AlertTriangle size={40} className="text-red-500" />}
+                {/* Icon Container (Improved Trash Design) */}
+                <div className="flex justify-center mb-8">
+                    <div className="relative w-24 h-24 bg-[#fff1f1] rounded-full flex items-center justify-center border-4 border-white shadow-md">
+                        <div className="relative flex items-center justify-center">
+                            <Trash2 size={42} className="text-[#f84c4c]" strokeWidth={2.5} />
+                            <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-0.5">
+                                <AlertTriangle size={14} className="text-[#f84c4c]" fill="#f84c4c" />
+                            </div>
+                        </div>
+                        {/* Outer Glow */}
+                        <div className="absolute inset-0 rounded-full border-[10px] border-[#fff1f1] opacity-50 -z-10 animate-pulse" />
                     </div>
                 </div>
 
