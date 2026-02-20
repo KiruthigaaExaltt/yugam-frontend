@@ -17,6 +17,8 @@ import AddUserDialog from "./AddUserDialog";
 import ConfirmationDialog from "../HOC/dialog/ConfirmationDialog";
 import { toast } from "sonner";
 
+import { useDebouncedValue } from "../customHooks/useDebouncedValue";
+
 interface User {
     id: string;
     name: string;
@@ -40,7 +42,14 @@ const User = () => {
     const [displayDeleteDialog, setDisplayDeleteDialog] = useState(false);
     const [deletingUserId, setDeletingUserId] = useState<string | null>(null);
 
-    const { data, isLoading } = useGetUsersQuery();
+    const debouncedSearch = useDebouncedValue(globalFilter, 500);
+
+    const { data, isLoading } = useGetUsersQuery({
+        keyword: debouncedSearch || undefined,
+        sortStatus: selectedStatus || "all",
+        page: (first / rows) + 1,
+        limit: rows,
+    });
     const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
 
     const users = useMemo(() => {
@@ -54,7 +63,7 @@ const User = () => {
                 email: apiUser.email || "N/A",
                 department: "General", // Default value as it's not in the API
                 role: primaryRole,
-                status: apiUser.status === "suspended" ? "suspended" : "active",
+                status: apiUser.accountstatus,
                 lastLogin: apiUser.createdAt ? new Date(apiUser.createdAt).toLocaleDateString() + " " + new Date(apiUser.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "N/A",
                 initials: (apiUser.username || "U").substring(0, 2).toUpperCase(),
                 avatarBg: "#E0F2FE",
@@ -64,8 +73,9 @@ const User = () => {
 
     const statusOptions = [
         { label: "All Status", value: null },
-        { label: "Active", value: "active" },
-        { label: "Suspended", value: "suspended" },
+        { label: "Active", value: "Active" },
+         { label: "Inactive", value: "Inactive" },
+        { label: "Suspended", value: "Suspended" },
     ];
 
     const getStatusColor = (status: User["status"]) => {
@@ -210,7 +220,7 @@ const User = () => {
                             data={users}
                             columns={columns}
                             dataKey="id"
-                            totalRecords={users.length}
+                            totalRecords={data?.data?.totalItems || users.length}
                             selection={selectedUsers}
                             onSelectionChange={setSelectedUsers}
                             globalFilter={globalFilter}
