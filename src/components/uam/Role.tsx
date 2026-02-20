@@ -3,11 +3,9 @@ import ReusableCrudTable, {
     type CrudColumn,
 } from "../HOC/ReusableDataTable/ReusableDataTable";
 import { InputText } from "primereact/inputtext";
-import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
 import {
     Search,
-    Filter,
     Download,
     Plus,
     Eye,
@@ -59,26 +57,20 @@ const Role = () => {
     const [deleteRole, { isLoading: isDeleting }] = useDeleteRoleMutation();
 
     const roles = useMemo(() => {
-        const data = rolesData?.data;
-        if (!data) return [];
+        const rolesArray = rolesData?.data?.roles;
+        if (!rolesArray || !Array.isArray(rolesArray)) return [];
 
-        // Handle cases where data might be an object or array
-        const rolesArray = Array.isArray(data) ? data : Object.values(data);
-
-        // Filter out any entries that aren't valid role objects (e.g. metadata)
-        return rolesArray
-            .filter((role: any) => role && typeof role === 'object' && role._id && role.roleName)
-            .map((role: any) => ({
-                id: role._id,
-                roleName: role.roleName,
-                roleDescription: role.roleDescription || "No description provided",
-                permissions: role.permissions || [],
-                lastLogin: role.updatedAt ? new Date(role.updatedAt).toLocaleDateString() : "N/A",
-                status: role.isDeleted ? "denied" : "active",
-            } as RoleData));
+        return rolesArray.map((role: any) => ({
+            id: role._id,
+            roleName: role.roleName,
+            roleDescription: role.roleDescription || "No description provided",
+            permissions: role.permissions || [],
+            lastLogin: role.updatedAt ? new Date(role.updatedAt).toLocaleDateString() : "N/A",
+            status: role.isDeleted ? "denied" : "active",
+        } as RoleData));
     }, [rolesData]);
 
-   
+
 
     const roleNameBodyTemplate = (rowData: RoleData) => (
         <div className="flex items-center gap-3">

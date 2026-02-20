@@ -27,7 +27,9 @@ export interface RolesResponse {
     success: boolean;
     status: number;
     message: string;
-    data: UserRole[];
+    data: {
+        roles: UserRole[];
+    };
 }
 
 export interface PermissionResponse {
