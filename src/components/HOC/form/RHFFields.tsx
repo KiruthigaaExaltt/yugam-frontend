@@ -6,10 +6,11 @@ import { InputSwitch } from "primereact/inputswitch";
 import { useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { FiUpload } from "react-icons/fi";
+import { Search, Check, X, ShieldCheck } from "lucide-react";
 
 // Common wrapper
 const Row = ({ label, children, vertical = false }: any) => (
-  <div className={vertical ? "flex flex-col gap-2" : "flex items-start gap-3"}>
+  <div className={vertical ? "flex flex-col gap-2" : "flex items-start gap-3"} style={{ fontFamily: "var(--font-primary)" }}>
     {label ? (
       <label className={vertical ? "text-sm font-medium text-gray-700" : "w-32 pt-2 font-medium"}>
         {label}
@@ -172,49 +173,136 @@ export function RRadio({ name, label, options = [] }: any) {
   );
 }
 
-// ===============================================================
-// MULTI SELECT (array) — Controller Simplified
-// ===============================================================
-export function RMultiSelect({ name, label, options = [] }: any) {
+// Custom Permission Selector with Search and Tags
+export function RPermissionSelector({ name, label, options = [], vertical = false }: any) {
   const { control } = useFormContext();
+  const [search, setSearch] = useState("");
+
+  const filteredOptions = options.filter((opt: any) =>
+    opt.label.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <Row label={label}>
+    <Row label={label} vertical={vertical}>
       <Controller
         name={name}
         control={control}
         defaultValue={[]}
         render={({ field, fieldState }) => {
-          const toggle = (value: string) => {
-            const exists = field.value.includes(value);
-            const updated = exists
-              ? field.value.filter((v: string) => v !== value)
-              : [...field.value, value];
+          const selectedValues = Array.isArray(field.value) ? field.value : [];
 
+          const toggle = (val: string) => {
+            const updated = selectedValues.includes(val)
+              ? selectedValues.filter((v: string) => v !== val)
+              : [...selectedValues, val];
             field.onChange(updated);
           };
 
+          const remove = (val: string) => {
+            field.onChange(selectedValues.filter((v: string) => v !== val));
+          };
+
           return (
-            <>
-              <div className="flex flex-wrap gap-6">
-                {options.map((opt: any) => (
-                  <label key={opt.value} className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={field.value.includes(opt.value)}
-                      onChange={() => toggle(opt.value)}
-                    />
-                    {opt.label}
-                  </label>
-                ))}
+            <div className="space-y-4">
+              {/* Search Box */}
+              <div className="relative group">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors">
+                  <Search size={18} />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search and select permissions..."
+                  className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 text-sm outline-none transition-all placeholder:text-gray-400"
+                  style={{ fontFamily: 'var(--font-primary)' }}
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+
+              {/* Options List */}
+              <div className="max-h-56 overflow-y-auto border border-gray-100 rounded-xl bg-white p-1.5 flex flex-col gap-1 custom-scrollbar shadow-inner">
+                {filteredOptions.length > 0 ? (
+                  filteredOptions.map((opt: any) => {
+                    const isSelected = selectedValues.includes(opt.value);
+                    return (
+                      <div
+                        key={opt.value}
+                        onClick={() => toggle(opt.value)}
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200 ${isSelected ? 'bg-blue-50/50' : 'hover:bg-gray-50 group'
+                          }`}
+                      >
+                        <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${isSelected ? 'bg-blue-600 border-blue-600 scale-110' : 'border-gray-200 group-hover:border-blue-400 bg-white'
+                          }`}>
+                          {isSelected && <Check size={12} className="text-white stroke-[3px]" />}
+                        </div>
+                        <span className={`text-sm font-medium transition-colors ${isSelected ? 'text-blue-700' : 'text-gray-600 group-hover:text-gray-900 uppercase text-[11px] tracking-wider'}`}>
+                          {opt.label}
+                        </span>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="py-10 text-center">
+                    <div className="bg-gray-50 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <Search className="text-gray-300" size={20} />
+                    </div>
+                    <p className="text-gray-400 text-sm font-medium">No permissions found matching "{search}"</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Selected Chips Below */}
+              <div className="flex flex-col gap-2 pt-2">
+                <div className="flex items-center justify-between px-1">
+                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    Selected: <span className="text-blue-600">{selectedValues.length}</span>
+                  </span>
+                  {selectedValues.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => field.onChange([])}
+                      className="text-[10px] font-bold text-red-400 hover:text-red-600 uppercase tracking-widest transition-colors"
+                    >
+                      Clear All
+                    </button>
+                  )}
+                </div>
+
+                <div className="flex flex-wrap gap-2 animate-in fade-in duration-500 min-h-8">
+                  {selectedValues.length > 0 ? (
+                    selectedValues.map((val: string) => {
+                      const label = options.find((o: any) => o.value === val)?.label || val;
+                      return (
+                        <div key={val} className="group flex items-center gap-2 px-3 py-1.5 bg-blue-50 hover:bg-blue-100/80 text-blue-700 border border-blue-100 rounded-lg text-xs font-bold transition-all hover:shadow-sm">
+                          <ShieldCheck size={12} className="text-blue-500" />
+                          <span className="uppercase tracking-tight">{label}</span>
+                          <button
+                            type="button"
+                            onClick={(e) => { e.stopPropagation(); remove(val); }}
+                            className="ml-1 p-0.5 hover:bg-blue-200/50 rounded-md transition-colors text-blue-400 hover:text-blue-600"
+                          >
+                            <X size={12} />
+                          </button>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="w-full py-4 border-2 border-dashed border-gray-100 rounded-xl flex items-center justify-center">
+                      <p className="text-xs text-gray-300 font-medium italic">No permissions selected yet</p>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {fieldState.error && (
-                <small className="text-red-500">
-                  {String(fieldState.error.message)}
-                </small>
+                <div className="flex items-center gap-1.5 text-red-500 px-1 pt-1">
+                  <span className="w-1 h-1 rounded-full bg-red-500" />
+                  <small className="text-xs font-semibold uppercase tracking-tight">
+                    {String(fieldState.error.message)}
+                  </small>
+                </div>
               )}
-            </>
+            </div>
           );
         }}
       />

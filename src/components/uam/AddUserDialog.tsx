@@ -4,9 +4,10 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserPlus, Plus, Pencil, Save } from "lucide-react";
 import { RHFInput, RDropdown } from "../HOC/form/RHFFields";
-import { useGetRolesQuery, useCreateUserMutation, useUpdateUserMutation, useGetUserByIdQuery } from "./userApi";
+import { useCreateUserMutation, useUpdateUserMutation, useGetUserByIdQuery } from "./userApi";
 import { toast } from "sonner";
 import ReusableDialog from "../HOC/dialog/ReusableDialog";
+import { useGetRolesQuery } from "./roleApi";
 
 interface AddUserDialogProps {
     visible: boolean;
@@ -51,7 +52,7 @@ const AddUserDialog = ({ visible, onHide, userId }: AddUserDialogProps) => {
             methods.reset({
                 username: user.username || "",
                 email: user.email || "",
-                password: "", // Don't pre-fill password for security
+                password: "",
                 roles: user.roles?.[0]?.roleName?.toUpperCase() || "",
             });
         } else {

@@ -11,11 +11,15 @@ import {
     Plus,
     Eye,
     Pencil,
-    Settings,
+    Trash2,
 } from "lucide-react";
-import { useGetUsersQuery } from "./userApi";
+import { useGetRolesQuery, useDeleteRoleMutation } from "./roleApi";
 
 import { ShieldAlert, ShieldCheck } from "lucide-react";
+import ConfirmationDialog from "../HOC/dialog/ConfirmationDialog";
+import { toast } from "sonner";
+import RoleForm from "./RoleForm";
+import RoleDetailsDialog from "./RoleDetailsDialog";
 
 interface RoleData {
     id: string;
@@ -32,43 +36,49 @@ const Role = () => {
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(10);
 
+    const [displayDeleteDialog, setDisplayDeleteDialog] = useState(false);
+    const [deleteId, setDeleteId] = useState<string | null>(null);
+    const [displayAddDialog, setDisplayAddDialog] = useState(false);
+    const [editingById, setEditingById] = useState<string | null>(null);
+    const [displayViewDialog, setDisplayViewDialog] = useState(false);
+    const [viewId, setViewId] = useState<string | null>(null);
 
-    const { data, isLoading } = useGetUsersQuery();
+
+    const { data: rolesData, isLoading } = useGetRolesQuery();
+
+    const [deleteRole, { isLoading: isDeleting }] = useDeleteRoleMutation();
 
     const roles = useMemo(() => {
-        if (!data?.data?.items) return [];
+        const data = rolesData?.data;
+        if (!data) return [];
 
-        const uniqueRolesMap = new Map<string, RoleData>();
+        // Handle cases where data might be an object or array
+        const rolesArray = Array.isArray(data) ? data : Object.values(data);
 
-        data.data.items.forEach((apiUser) => {
-            apiUser.roles?.forEach((role) => {
-                if (!uniqueRolesMap.has(role.roleCode)) {
-                    uniqueRolesMap.set(role.roleCode, {
-                        id: role._id,
-                        roleName: role.roleName,
-                        roleDescription: role.roleDescription || "No description provided",
-                        permissions: role.permissions || [],
-                        lastLogin: role.updatedAt ? new Date(role.updatedAt).toLocaleDateString() : "N/A",
-                        status: role.isDeleted ? "denied" : "active",
-                    });
-                }
-            });
-        });
-
-        return Array.from(uniqueRolesMap.values());
-    }, [data]);
+        // Filter out any entries that aren't valid role objects (e.g. metadata)
+        return rolesArray
+            .filter((role: any) => role && typeof role === 'object' && role._id && role.roleName)
+            .map((role: any) => ({
+                id: role._id,
+                roleName: role.roleName,
+                roleDescription: role.roleDescription || "No description provided",
+                permissions: role.permissions || [],
+                lastLogin: role.updatedAt ? new Date(role.updatedAt).toLocaleDateString() : "N/A",
+                status: role.isDeleted ? "denied" : "active",
+            } as RoleData));
+    }, [rolesData]);
 
 
 
     const roleNameBodyTemplate = (rowData: RoleData) => (
         <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${rowData.roleName.toLowerCase().includes('admin') ? 'bg-orange-50 text-orange-600' : 'bg-blue-50 text-blue-600'
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${rowData?.roleName?.toLowerCase().includes('admin') ? 'bg-orange-50 text-orange-600' : 'bg-blue-50 text-blue-600'
                 }`}>
-                {rowData.roleName.toLowerCase().includes('admin') ? <ShieldAlert size={20} /> : <ShieldCheck size={20} />}
+                {rowData?.roleName?.toLowerCase().includes('admin') ? <ShieldAlert size={20} /> : <ShieldCheck size={20} />}
             </div>
             <div className="flex flex-col">
-                <span className="font-bold text-gray-900 tracking-tight">{rowData.roleName}</span>
-                <span className="text-[10px] text-gray-400 font-mono uppercase">ID: {rowData.id.substring(rowData.id.length - 6)}</span>
+                <span className="font-bold text-gray-900 tracking-tight">{rowData?.roleName}</span>
+                <span className="text-[10px] text-gray-400 font-mono uppercase">ID: {rowData?.id?.substring(rowData?.id?.length - 6)}</span>
             </div>
         </div>
     );
@@ -84,25 +94,37 @@ const Role = () => {
         );
     };
 
-    const actionsBodyTemplate = () => (
+    const actionsBodyTemplate = (rowData: RoleData) => (
         <div className="flex items-center gap-4">
             <button
                 className="p-1 hover:bg-gray-100 rounded-md transition-colors text-gray-500"
                 title="View details"
+                onClick={() => {
+                    setViewId(rowData.id);
+                    setDisplayViewDialog(true);
+                }}
             >
                 <Eye size={18} />
             </button>
             <button
                 className="p-1 hover:bg-gray-100 rounded-md transition-colors text-gray-500"
-                title="Edit user"
+                title="Edit role"
+                onClick={() => {
+                    setEditingById(rowData.id);
+                    setDisplayAddDialog(true);
+                }}
             >
                 <Pencil size={18} />
             </button>
             <button
-                className="p-1 hover:bg-gray-100 rounded-md transition-colors text-gray-500"
-                title="User settings"
+                className="p-1 hover:bg-gray-100 rounded-md transition-colors text-red-500 hover:text-red-600 !cursor-pointer"
+                title="Delete role"
+                onClick={() => {
+                    setDeleteId(rowData.id);
+                    setDisplayDeleteDialog(true);
+                }}
             >
-                <Settings size={18} />
+                <Trash2 size={18} />
             </button>
         </div>
     );
@@ -152,10 +174,14 @@ const Role = () => {
                 style={{ borderRadius: "8px" }}
             />
             <Button
-                label="Add User"
+                label="Add Role"
                 icon={<Plus size={16} />}
                 className="h-10 text-sm gap-2 bg-blue-600 border-none hover:bg-blue-700 text-white shadow-sm font-medium"
                 style={{ borderRadius: "8px" }}
+                onClick={() => {
+                    setEditingById(null);
+                    setDisplayAddDialog(true);
+                }}
             />
         </div>
     );
@@ -200,6 +226,48 @@ const Role = () => {
                     </div>
                 </div>
             </div>
+
+            <RoleForm
+                visible={displayAddDialog}
+                onHide={() => {
+                    setDisplayAddDialog(false);
+                    setEditingById(null);
+                }}
+                roleId={editingById}
+            />
+
+            <RoleDetailsDialog
+                visible={displayViewDialog}
+                onHide={() => {
+                    setDisplayViewDialog(false);
+                    setViewId(null);
+                }}
+                roleId={viewId}
+            />
+
+            <ConfirmationDialog
+                visible={displayDeleteDialog}
+                onHide={() => {
+                    setDisplayDeleteDialog(false);
+                    setDeleteId(null);
+                }}
+                onConfirm={async () => {
+                    if (deleteId) {
+                        try {
+                            await deleteRole(deleteId).unwrap();
+                            toast.success("Role deleted successfully");
+                            setDisplayDeleteDialog(false);
+                            setDeleteId(null);
+                        } catch (error: any) {
+                            toast.error(error?.data?.message || "Failed to delete role");
+                        }
+                    }
+                }}
+                title="Delete Role"
+                message="Are you sure you want to delete this role? This action cannot be undone."
+                confirmLabel="Delete"
+                isLoading={isDeleting}
+            />
         </div>
     );
 };
