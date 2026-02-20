@@ -1,4 +1,5 @@
 import { api } from "../../api";
+import { formatQueryParams, type CommonQueryParams } from "../../utils/apiHelpers";
 
 export interface UserRole {
     _id: string;
@@ -40,10 +41,15 @@ export interface PermissionResponse {
     };
 }
 
+// End of generic types
+
 export const roleApi = api.injectEndpoints({
     endpoints: (builder) => ({
-        getRoles: builder.query<RolesResponse, void>({
-            query: () => "/role",
+        getRoles: builder.query<RolesResponse, CommonQueryParams | void>({
+            query: (params) => ({
+                url: "role",
+                params: formatQueryParams(params),
+            }),
             providesTags: ["Role"],
         }),
         getRoleById: builder.query<any, string>({

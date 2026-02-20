@@ -1,4 +1,5 @@
 import { api } from "../../api";
+import { formatQueryParams, type CommonQueryParams } from "../../utils/apiHelpers";
 
 export interface UserRole {
     _id: string;
@@ -41,29 +42,11 @@ export interface RolesResponse {
 
 export const userApi = api.injectEndpoints({
     endpoints: (builder) => ({
-        getUsers: builder.query<UsersResponse, { keyword?: string; status?: string; page?: number; limit?: number ; sortStatus?: string} | void>({
-            query: (params) => {
-                const queryParams: any = {
-                    page: params?.page || 1,
-                    limit: params?.limit || 10,
-                };
-
-                if (params?.keyword) {
-                    queryParams.keyword = params.keyword;
-                }
-                if (params?.sortStatus) {
-                    queryParams.sortStatus = params.sortStatus;
-                }
-
-                if (params?.status) {
-                    queryParams.deleted = params.status;
-                }
-
-                return {
-                    url: "/users",
-                    params: queryParams,
-                };
-            },
+        getUsers: builder.query<UsersResponse, CommonQueryParams | void>({
+            query: (params) => ({
+                url: "users",
+                params: formatQueryParams(params),
+            }),
             providesTags: ["User"],
         }),
         // getRoles: builder.query<RolesResponse, void>({

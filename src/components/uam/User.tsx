@@ -45,6 +45,7 @@ const User = () => {
     const debouncedSearch = useDebouncedValue(globalFilter, 500);
 
     const { data, isLoading } = useGetUsersQuery({
+        deleted: "notdeleted",
         keyword: debouncedSearch || undefined,
         sortStatus: selectedStatus || "all",
         page: (first / rows) + 1,
@@ -72,7 +73,7 @@ const User = () => {
     }, [data]);
 
     const statusOptions = [
-        { label: "All Status", value: null },
+        { label: "All Status", value: "all" },
         { label: "Active", value: "Active" },
          { label: "Inactive", value: "Inactive" },
         { label: "Suspended", value: "Suspended" },
