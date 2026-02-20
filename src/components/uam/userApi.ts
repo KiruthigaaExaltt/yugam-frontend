@@ -44,10 +44,10 @@ export const userApi = api.injectEndpoints({
             query: () => "/users",
             providesTags: ["User"],
         }),
-        getRoles: builder.query<RolesResponse, void>({
-            query: () => "/role",
-            providesTags: ["User"],
-        }),
+        // getRoles: builder.query<RolesResponse, void>({
+        //     query: () => "/role",
+        //     providesTags: ["User"],
+        // }),
         createUser: builder.mutation<any, any>({
             query: (body) => ({
                 url: "/users",
@@ -78,4 +78,4 @@ export const userApi = api.injectEndpoints({
     }),
 });
 
-export const { useGetUsersQuery, useGetRolesQuery, useCreateUserMutation, useGetUserByIdQuery, useUpdateUserMutation, useDeleteUserMutation } = userApi;
+export const { useGetUsersQuery,  useCreateUserMutation, useGetUserByIdQuery, useUpdateUserMutation, useDeleteUserMutation } = userApi;
