@@ -129,11 +129,10 @@ const LoginPage = () => {
                   if (errors.email) setErrors(prev => ({ ...prev, email: undefined }));
                 }}
                 placeholder="Email Address"
-                className={`w-full transition-all duration-300 ${errors.email ? "input-error-state" : ""}`}
+                className={`w-full transition-all duration-300 ${errors.email ? "border-red-500 focus:ring-red-500/20" : ""}`}
               />
               {errors.email && (
-                <div className="animate-error p-error-premium">
-                  <AlertCircle size={14} />
+                <div className="animate-error text-red-500 text-xs font-medium mt-1.5 px-1">
                   <span>{errors.email}</span>
                 </div>
               )}
@@ -150,16 +149,15 @@ const LoginPage = () => {
                 toggleMask
                 feedback={false}
                 placeholder="Password"
-                className={`w-full transition-all duration-300 ${errors.password ? "input-error-state" : ""}`}
+                className={`w-full transition-all duration-300 ${errors.password ? "border-red-500 focus:ring-red-500/20" : ""}`}
                 inputClassName="w-full"
                 pt={{
                   root: { className: "w-full" },
-                  input: { className: "w-full" }
+                  input: { className: `w-full ${errors.password ? "border-red-500 text-red-500" : ""}` }
                 }}
               />
               {errors.password && (
-                <div className="animate-error p-error-premium">
-                  <AlertCircle size={14} />
+                <div className="animate-error text-red-500 text-xs font-medium mt-1.5 px-1">
                   <span>{errors.password}</span>
                 </div>
               )}

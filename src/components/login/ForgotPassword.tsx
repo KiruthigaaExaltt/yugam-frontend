@@ -103,12 +103,11 @@ const ForgotPassword = () => {
                   if (errors.email) setErrors({});
                 }}
                 placeholder="Email Address"
-                className={`w-full transition-all duration-300 ${errors.email ? "input-error-state" : ""}`}
+                className={`w-full transition-all duration-300 ${errors.email ? "border-red-500 focus:ring-red-500/20" : ""}`}
                 disabled={isLoading}
               />
               {errors.email && (
-                <div className="animate-error p-error-premium">
-                  <AlertCircle size={14} />
+                <div className="animate-error text-red-500 text-xs font-medium mt-1.5 px-1">
                   <span>{errors.email}</span>
                 </div>
               )}
