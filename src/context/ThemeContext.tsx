@@ -9,8 +9,8 @@ interface ThemeContextType {
 }
 
 const themes = {
-  light: 'lara-light-blue',
-  dark: 'lara-dark-blue',
+  light: 'lara-light-green',
+  dark: 'lara-dark-green',
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);

@@ -40,7 +40,7 @@ const ReusableDialog = ({
     const defaultHeader = (
         <div className="flex items-center gap-3 text-left">
             {icon && (
-                <div className="p-2.5 bg-blue-50 rounded-xl text-blue-600 shadow-sm border border-blue-100">
+                <div className="p-2.5 rounded-xl shadow-sm border" style={{ backgroundColor: 'var(--primary-color-light)', color: 'var(--primary-color)', borderColor: 'var(--primary-color-light)' }}>
                     {icon}
                 </div>
             )}
@@ -52,11 +52,17 @@ const ReusableDialog = ({
     );
 
     const defaultFooter = (
-        <div className="flex justify-end gap-3 w-full">
+        <div className="flex flex-col sm:flex-row justify-end gap-3 w-full">
             <Button
                 label={cancelLabel}
                 onClick={onHide}
-                className="p-button-text p-button-secondary text-gray-600 font-semibold px-6 hover:bg-gray-100 rounded-xl transition-all"
+                className="px-6 py-2.5 font-semibold transition-all w-full sm:w-auto"
+                style={{
+                    backgroundColor: "transparent",
+                    color: "var(--primary-color)",
+                    border: "1.5px solid var(--primary-color)",
+                    borderRadius: "8px"
+                }}
             />
             {onConfirm && (
                 <Button
@@ -64,7 +70,13 @@ const ReusableDialog = ({
                     icon={isLoading ? "pi pi-spin pi-spinner" : submitIcon}
                     onClick={onConfirm}
                     disabled={isLoading}
-                    className="bg-blue-600 border-none hover:bg-blue-700 text-white px-8 font-semibold shadow-lg shadow-blue-200/50 rounded-xl transition-all active:scale-95"
+                    className="px-8 py-2.5 font-bold transition-all active:scale-95 w-full sm:w-auto shadow-lg"
+                    style={{
+                        backgroundColor: "var(--primary-color)",
+                        color: "#fff",
+                        border: "1px solid var(--primary-color)",
+                        borderRadius: "8px"
+                    }}
                 />
             )}
         </div>
@@ -90,7 +102,7 @@ const ReusableDialog = ({
                 </div>
             }
             footer={
-                <div className="flex justify-end gap-3 p-5 bg-gray-50/80 rounded-b-2xl border-t border-gray-100/50">
+                <div className="flex flex-col sm:flex-row justify-end gap-3 p-5 rounded-b-2xl ">
                     {footer || defaultFooter}
                 </div>
             }

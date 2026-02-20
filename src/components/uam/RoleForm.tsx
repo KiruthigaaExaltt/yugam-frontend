@@ -12,6 +12,7 @@ import {
 } from "./roleApi";
 import { toast } from "sonner";
 import ReusableDialog from "../HOC/dialog/ReusableDialog";
+import LoadingDots from "../HOC/loading/LoadingDots";
 
 interface DialogProps {
     visible: boolean;
@@ -107,9 +108,9 @@ const RoleForm = ({ visible, onHide, roleId }: DialogProps) => {
     };
 
     const body = isFetchingRole ? (
-        <div className="flex flex-col items-center justify-center py-12 gap-4">
-            <i className="pi pi-spin pi-spinner text-4xl text-blue-600"></i>
-            <p className="text-gray-500 font-medium">Loading role data...</p>
+        <div className="flex flex-col items-center justify-center py-12 gap-2">
+            <LoadingDots />
+            <p className="text-gray-500 font-medium text-sm">Loading role data...</p>
         </div>
     ) : (
         <FormProvider {...methods}>
@@ -119,14 +120,14 @@ const RoleForm = ({ visible, onHide, roleId }: DialogProps) => {
                     label="Role Name"
                     vertical={true}
                     placeholder="e.g. Content Manager"
-                    className="bg-gray-50/50 border-gray-200! focus:border-blue-500! focus:bg-white transition-all py-3 px-4 rounded-xl text-gray-800 placeholder:text-gray-400"
+                    className="bg-gray-50/50 border border-gray-200 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] transition-all py-3 px-4 rounded-xl text-gray-800 outline-none"
                 />
                 <RHFInput
                     name="roleDescription"
                     label="Description"
                     vertical={true}
                     placeholder="What can this role do?"
-                    className="bg-gray-50/50 border-gray-200! focus:border-blue-500! focus:bg-white transition-all py-3 px-4 rounded-xl text-gray-800 placeholder:text-gray-400"
+                    className="bg-gray-50/50 border border-gray-200 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] transition-all py-3 px-4 rounded-xl text-gray-800 outline-none"
                 />
                 <RPermissionSelector
                     name="permissions"
@@ -145,7 +146,7 @@ const RoleForm = ({ visible, onHide, roleId }: DialogProps) => {
             onHide={handleHide}
             title={isEdit ? "Edit Role" : "Create New Role"}
             subtitle={isEdit ? "Update role description and access levels" : "Define a new role and its associated permissions"}
-            icon={isEdit ? <Pencil size={22} /> : <ShieldCheck size={22} />}
+            icon={isEdit ? <Pencil size={22} className="text-[var(--primary-color)]" /> : <ShieldCheck size={22} className="text-[var(--primary-color)]" />}
             body={body}
             submitLabel={isEdit ? "Update Role" : "Create Role"}
             submitIcon={isEdit ? <Save size={18} /> : <Plus size={18} />}

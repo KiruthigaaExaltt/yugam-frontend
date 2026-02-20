@@ -78,16 +78,11 @@ const Role = () => {
             } as RoleData));
     }, [rolesData]);
 
-    const statusOptions = [
-        { label: "All Status", value: "all" },
-        { label: "Active", value: "notdeleted" },
-        { label: "Deleted", value: "deleted" },
-    ];
+   
 
     const roleNameBodyTemplate = (rowData: RoleData) => (
         <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${rowData?.roleName?.toLowerCase().includes('admin') ? 'bg-orange-50 text-orange-600' : 'bg-blue-50 text-blue-600'
-                }`}>
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${rowData?.roleName?.toLowerCase().includes('admin') ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'}`}>
                 {rowData?.roleName?.toLowerCase().includes('admin') ? <ShieldAlert size={20} /> : <ShieldCheck size={20} />}
             </div>
             <div className="flex flex-col">
@@ -131,7 +126,7 @@ const Role = () => {
                 <Pencil size={18} />
             </button>
             <button
-                className="p-1 hover:bg-gray-100 rounded-md transition-colors text-red-500 hover:text-red-600 !cursor-pointer"
+                className="p-1 hover:bg-gray-100 rounded-lg transition-colors text-red-500 hover:text-red-600 !cursor-pointer"
                 title="Delete role"
                 onClick={() => {
                     setDeleteId(rowData.id);
@@ -157,8 +152,8 @@ const Role = () => {
     ];
 
     const headerFilters = (
-        <div className="flex items-center gap-3">
-            <div className="relative">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+            <div className="relative w-full sm:w-64">
                 <Search
                     className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
                     size={18}
@@ -167,7 +162,7 @@ const Role = () => {
                     value={globalFilter}
                     onChange={(e) => setGlobalFilter(e.target.value)}
                     placeholder="Search users..."
-                    className="w-64 pl-10 pr-4 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full !pl-12 pr-4 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm"
                 />
             </div>
             {/* <Dropdown
@@ -180,25 +175,25 @@ const Role = () => {
             <Button
                 label="More Filters"
                 icon={<Filter size={16} />}
-                className="p-button-outlined p-button-secondary h-10 text-sm gap-2 border-gray-200 bg-white"
+                className="p-button-outlined p-button-secondary h-10 text-sm gap-2 border-gray-200 bg-white w-full sm:w-auto hover:border-[var(--primary-color)] hover:text-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] transition-all"
                 style={{ borderRadius: "8px" }}
             /> */}
         </div>
     );
 
     const toolbarRight = (
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <Button
                 label="Export"
                 icon={<Download size={16} />}
-                className="p-button-outlined p-button-secondary h-10 text-sm gap-2 border-gray-200 bg-white shadow-sm"
+                className="p-button-outlined p-button-secondary h-10 text-sm gap-2 border-gray-200 bg-white shadow-sm w-full sm:w-auto hover:border-[var(--primary-color)] hover:text-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] transition-all"
                 style={{ borderRadius: "8px" }}
             />
             <Button
                 label="Add Role"
                 icon={<Plus size={16} />}
-                className="h-10 text-sm gap-2 bg-blue-600 border-none hover:bg-blue-700 text-white shadow-sm font-medium"
-                style={{ borderRadius: "8px" }}
+                className="h-10 text-sm gap-2 border-none shadow-sm font-medium w-full sm:w-auto"
+                style={{ borderRadius: "8px", backgroundColor: "var(--primary-color)", color: "#fff", border: "1px solid var(--primary-color)" }}
                 onClick={() => {
                     setEditingById(null);
                     setDisplayAddDialog(true);
@@ -208,9 +203,9 @@ const Role = () => {
     );
 
     return (
-        <div className="p-6 bg-gray-50/20 min-h-[calc(100vh-200px)]">
+        <div className="p-4 sm:p-6 bg-gray-50/20 min-h-[calc(100vh-200px)] no-scrollbar">
             <div className="flex flex-col gap-6 max-w-[1400px] mx-auto">
-                <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+                <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
                     {headerFilters}
                     {toolbarRight}
                 </div>

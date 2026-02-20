@@ -2,12 +2,13 @@ import { useMemo, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { UserPlus, Plus, Pencil, Save } from "lucide-react";
+import { UserPlus, Pencil } from "lucide-react";
 import { RHFInput, RDropdown } from "../HOC/form/RHFFields";
 import { useCreateUserMutation, useUpdateUserMutation, useGetUserByIdQuery } from "./userApi";
 import { toast } from "sonner";
 import ReusableDialog from "../HOC/dialog/ReusableDialog";
 import { useGetRolesQuery } from "./roleApi";
+import LoadingDots from "../HOC/loading/LoadingDots";
 
 interface AddUserDialogProps {
     visible: boolean;
@@ -109,20 +110,25 @@ const AddUserDialog = ({ visible, onHide, userId }: AddUserDialogProps) => {
         methods.reset();
     };
 
+
+
+    const inputClassName = "bg-white border border-gray-200 focus:border-[var(--primary-color)] focus:ring-4 focus:ring-[var(--primary-color-light)] transition-all py-3 px-4 rounded-xl outline-none";
+    const dropdownClassName = "bg-white border border-gray-200 focus-within:border-[var(--primary-color)] focus-within:ring-4 focus-within:ring-[var(--primary-color-light)] transition-all rounded-xl  outline-none w-full flex items-center h-12 px-4 shadow-none";
+
     const body = isFetchingUser ? (
-        <div className="flex flex-col items-center justify-center py-12 gap-4">
-            <i className="pi pi-spin pi-spinner text-4xl text-blue-600"></i>
-            <p className="text-gray-500 font-medium">Loading user data...</p>
+        <div className="flex flex-col items-center justify-center py-12 gap-2">
+            <LoadingDots />
+            <p className="text-gray-500 font-medium text-sm">Loading user data...</p>
         </div>
     ) : (
         <FormProvider {...methods}>
-            <form className="space-y-6">
+            <form className="space-y-5 p-1">
                 <RHFInput
                     name="username"
                     label="Username"
                     vertical={true}
                     placeholder="Enter username"
-                    className="bg-gray-50/50 border-gray-200! focus:border-blue-500! focus:bg-white transition-all py-3 px-4 rounded-xl text-gray-800 placeholder:text-gray-400"
+                    className={inputClassName}
                 />
                 <RHFInput
                     name="email"
@@ -130,16 +136,16 @@ const AddUserDialog = ({ visible, onHide, userId }: AddUserDialogProps) => {
                     vertical={true}
                     placeholder="name@company.com"
                     type="email"
-                    className="bg-gray-50/50 border-gray-200! focus:border-blue-500! focus:bg-white transition-all py-3 px-4 rounded-xl text-gray-800 placeholder:text-gray-400"
+                    className={inputClassName}
                 />
                 {!isEdit && (
                     <RHFInput
                         name="password"
-                        label={isEdit ? "New Password (Leave blank to keep current)" : "Password"}
+                        label={isEdit ? "New Password" : "Password"}
                         vertical={true}
                         placeholder="••••••••"
                         type="password"
-                        className="bg-gray-50/50 border-gray-200! focus:border-blue-500! focus:bg-white transition-all py-3 px-4 rounded-xl text-gray-800 placeholder:text-gray-400"
+                        className={inputClassName}
                     />
                 )}
                 <RDropdown
@@ -148,7 +154,7 @@ const AddUserDialog = ({ visible, onHide, userId }: AddUserDialogProps) => {
                     vertical={true}
                     options={roleOptions}
                     placeholder="Select a role"
-                    className="bg-gray-50/50 border-gray-200! focus:border-blue-500! transition-all py-2 rounded-xl text-gray-800"
+                    className={dropdownClassName}
                 />
             </form>
         </FormProvider>
@@ -160,10 +166,9 @@ const AddUserDialog = ({ visible, onHide, userId }: AddUserDialogProps) => {
             onHide={handleHide}
             title={isEdit ? "Edit User" : "Add New User"}
             subtitle={isEdit ? "Modify user details and roles" : "Create a new user account and assign roles"}
-            icon={isEdit ? <Pencil size={22} /> : <UserPlus size={22} />}
+            icon={isEdit ? <Pencil size={22} className="text-[var(--primary-color)]" /> : <UserPlus size={22} className="text-[var(--primary-color)]" />}
             body={body}
             submitLabel={isEdit ? "Update User" : "Create User"}
-            submitIcon={isEdit ? <Save size={18} /> : <Plus size={18} />}
             onConfirm={methods.handleSubmit(onAddUserSubmit)}
             isLoading={isCreating || isUpdating}
         />
