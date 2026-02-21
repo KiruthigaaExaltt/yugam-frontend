@@ -100,11 +100,13 @@ export function RDropdown({ name, label, options = [], vertical = false, ...prop
 // ===============================================================
 // CALENDAR (Controller)
 // ===============================================================
-export function RCalendar({ name, label, ...props }: any) {
+export function RCalendar({ name, label, vertical = false, ...props }: any) {
+
   const { control } = useFormContext();
 
   return (
-    <Row label={label}>
+    <Row label={label} vertical={vertical}>
+
       <Controller
         name={name}
         control={control}
@@ -381,12 +383,14 @@ export function RSwitch({ name, label, vertical = false }: any) {
 // ===============================================================
 // FILE UPLOAD — Controller Version
 // ===============================================================
-export function RFileUpload({ name, label, ...props }: any) {
+export function RFileUpload({ name, label, vertical = false, ...props }: any) {
+
   const { control } = useFormContext();
   const [fileName, setFileName] = useState("");
 
   return (
-    <Row label={label}>
+    <Row label={label} vertical={vertical}>
+
       <Controller
         name={name}
         control={control}
