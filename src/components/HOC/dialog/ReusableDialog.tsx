@@ -18,7 +18,9 @@ interface ReusableDialogProps {
     cancelLabel?: string;
     maxWidth?: string;
     closable?: boolean;
+    children?: ReactNode;
 }
+
 
 const ReusableDialog = ({
     visible,
@@ -34,8 +36,10 @@ const ReusableDialog = ({
     isLoading = false,
     cancelLabel = "Cancel",
     maxWidth = "max-w-lg",
-    closable = true
+    closable = true,
+    children
 }: ReusableDialogProps) => {
+
 
     const defaultHeader = (
         <div className="flex items-center gap-3 text-left">
@@ -115,7 +119,9 @@ const ReusableDialog = ({
         >
             <div className="p-8">
                 {body}
+                {children}
             </div>
+
         </Dialog>
     );
 };

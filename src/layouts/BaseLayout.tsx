@@ -18,6 +18,8 @@ import type { MenuItem } from "primereact/menuitem";
 import "./BaseLayout.css";
 import NavigationMenu from "../components/sideBar/NavigationMenu";
 import { Outlet, useNavigate } from "react-router-dom";
+import ProfileDialog from "../components/profile/ProfileDialog";
+
 
 interface BaseLayoutProps {
   children?: ReactNode;
@@ -29,6 +31,8 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [customLogo, setCustomLogo] = useState<string | null>(null);
+  const [profileDialogVisible, setProfileDialogVisible] = useState(false);
+
 
   useEffect(() => {
     const handleBrandingUpdate = (e: any) => {
@@ -77,7 +81,8 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
           <FiUser /> Profile
         </div>
       ),
-      command: () => console.log("Profile clicked"),
+      command: () => setProfileDialogVisible(true),
+
     },
     {
       label: "Settings",
@@ -249,7 +254,12 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
           </footer>
         </main>
       </div>
+      <ProfileDialog
+        visible={profileDialogVisible}
+        onHide={() => setProfileDialogVisible(false)}
+      />
     </div>
+
   );
 };
 
