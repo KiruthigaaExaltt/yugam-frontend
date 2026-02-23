@@ -134,13 +134,13 @@
   --dark-surface-border: #3b3b3d;
   --dark-surface-hover: #323236;
 
-  --dark-text-color: #e5e7eb;
-  --dark-text-muted: #b0b3b8;
+  --dark-text-color: #ffffff;
+  --dark-text-muted: #94a3b8;
 
-  --dark-primary-color: #60a5fa;
-  --dark-primary-light: #a7c7ff;
-  --dark-secondary-color: #34d399;
-  --dark-secondary-light: #064e3b;
+  --dark-primary-color: #10b981;
+  --dark-primary-light: #064e3b;
+  --dark-secondary-color: #3b82f6;
+  --dark-secondary-light: #1e293b;
   /* Dark Green tint for secondary, wait... I need to swap dark theme too if needed? User mainly asked for general primary/secondary swap. Let's assume Dark theme also follows Primary=Green, Secondary=Blue logic. */
 
   --dark-sidebar-bg: #27272a;
@@ -167,8 +167,8 @@
 
   --dark-navbar-bg: #27272a;
   --dark-navbar-active-bg: #323237;
-  --dark-navbar-item-color: #e5e7eb;
-  --dark---itemcard-bg: rgb(189, 39, 64);
+  --dark-navbar-item-color: #ffffff;
+  --dark---itemcard-bg: #3f3f46;
 
   /* ===================================== */
   /*      ACTIVE (LIVE) SEMANTIC VARS      */
@@ -247,36 +247,34 @@
   gap: 2rem;
   padding: 0 1.5rem;
   margin-top: 1rem;
-  border-bottom: 2px solid #e5e7eb;
-  background: white;
+  border-bottom: 1px solid var(--surface-border);
+  background: var(--surface-card);
   width: 100%;
 }
 
 .tab-item {
   padding: 0.75rem 0;
-  color: #6b7280;
+  color: var(--text-muted);
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
   position: relative;
   transition: all 0.2s ease;
+  background: transparent !important;
+  border: none !important;
+}
+
+.tab-item:hover {
+  color: var(--text-color);
 }
 
 .tab-item.active {
-  color: #3b82f6;
+  color: var(--text-color);
+  font-weight: 600;
 }
 
-.tab-item.active::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: #3b82f6;
-  border-radius: 2px 2px 0 0;
-}
+/* Removed underline to keep it clean as requested */
 
 /* ===================================== */
 /*      CARD DIMENSION OVERRIDES         */
@@ -363,4 +361,20 @@ body.dark {
 
   --progress-bg: var(--dark-progress-bg);
   --progress-fill: var(--dark-progress-fill);
+
+  /* PrimeReact DataTable Overrides for Dark Mode */
+  --p-datatable-row-hover-background: var(--surface-hover) !important;
+  --p-datatable-row-selected-background: var(--primary-color-light) !important;
+  --p-datatable-row-selected-color: var(--primary-color) !important;
+}
+
+/* Force overrides for PrimeReact rows in dark mode */
+body.dark .p-datatable .p-datatable-tbody>tr:hover {
+  background: var(--surface-hover) !important;
+  color: var(--text-color) !important;
+}
+
+body.dark .p-datatable .p-datatable-tbody>tr.p-highlight {
+  background: var(--primary-color-light) !important;
+  color: var(--primary-color) !important;
 }

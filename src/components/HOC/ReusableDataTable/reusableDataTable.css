@@ -5,7 +5,7 @@
     display: inline-flex !important;
     align-items: center !important;
     border-color: var(--surface-border) !important;
-    background: white !important;
+    background: var(--surface-card) !important;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 

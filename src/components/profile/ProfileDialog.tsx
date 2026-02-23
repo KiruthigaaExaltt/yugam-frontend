@@ -1,6 +1,6 @@
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, Controller } from "react-hook-form";
 import ReusableDialog from "../HOC/dialog/ReusableDialog";
-import { RHFInput, RCalendar, RDropdown, RFileUpload } from "../HOC/form/RHFFields";
+import { RHFInput, RCalendar, RDropdown, RFileUpload, RPhoneNumberInput } from "../HOC/form/RHFFields";
 import { User, Lock } from "lucide-react";
 import { useState } from "react";
 import { Button } from "primereact/button";
@@ -10,6 +10,7 @@ import ChangePasswordDialog from "./ChangePasswordDialog";
 import { useGetProfileQuery, useUpdateProfileMutation } from "./profileApi";
 import { useEffect } from "react";
 import { primeToast } from "../customHooks/usePrimeToast";
+
 
 interface ProfileDialogProps {
     visible: boolean;
@@ -97,18 +98,60 @@ const ProfileDialog = ({ visible, onHide }: ProfileDialogProps) => {
                 ) : (
                     <>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <RHFInput name="firstName" label="First Name" vertical />
-                            <RHFInput name="lastName" label="Last Name" vertical />
+                            <RHFInput
+                                name="firstName"
+                                label="First Name"
+                                vertical
+                                rules={{
+                                    required: "First name is required",
+                                    minLength: { value: 2, message: "Minimum 2 characters" }
+                                }}
+                            />
+                            <RHFInput
+                                name="lastName"
+                                label="Last Name"
+                                vertical
+                            />
                         </div>
-                        <RFileUpload name="profilePicture" label="Profile Picture" vertical />
+                        <RFileUpload
+                            name="profilePicture"
+                            label="Profile Picture (Optional)"
+                            vertical
+                        />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <RCalendar name="dob" label="Date of Birth" vertical />
-                            <RDropdown name="gender" label="Gender" options={genderOptions} vertical />
+                            <RCalendar
+                                name="dob"
+                                label="Date of Birth"
+                                vertical
+                                rules={{ required: "Date of birth is required" }}
+                            />
+                            <RDropdown
+                                name="gender"
+                                label="Gender"
+                                options={genderOptions}
+                                vertical
+                                rules={{ required: "Gender is required" }}
+                            />
                         </div>
-                        <RHFInput name="phoneNumber" label="Phone Number" vertical />
-                        <RHFInput name="social" label="Social Link" vertical />
+                        <RPhoneNumberInput
+                            name="phoneNumber"
+                            label="Phone Number"
+                            vertical
+                            required
+                        />
+                        <RHFInput
+                            name="social"
+                            label="Social Link (Optional)"
+                            vertical
+                            rules={{
+                                pattern: {
+                                    value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
+                                    message: "Enter a valid URL"
+                                }
+                            }}
+                        />
 
-                        <div className="pt-2 border-t border-gray-100 mt-4">
+                        <div className="pt-2  border-gray-100 mt-4">
                             <Button
                                 type="button"
                                 label="Change Password"

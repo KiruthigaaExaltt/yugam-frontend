@@ -208,7 +208,7 @@ const ReusableCrudTable = <T extends object>({
           ))}
         </DataTable>
         {loading && (
-          <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/60 backdrop-blur-[1px] transition-all duration-300">
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-[var(--surface-ground)]/60 backdrop-blur-[1px] transition-all duration-300">
             <LoadingDots />
           </div>
         )}
@@ -222,7 +222,7 @@ const ReusableCrudTable = <T extends object>({
 
   return (
     <div
-      className="card border shadow-sm  transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      className="card border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-[var(--surface-card)]"
       style={{
         borderRadius: "var(--border-radius)",
         borderColor: "var(--surface-border)",

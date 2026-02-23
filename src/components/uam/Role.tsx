@@ -178,7 +178,7 @@ const Role = () => {
             <Button
                 label="Export"
                 icon={<Download size={16} />}
-                className="p-button-outlined p-button-secondary h-10 text-sm gap-2 border-gray-200 bg-white shadow-sm w-full sm:w-auto hover:border-[var(--primary-color)] hover:text-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] transition-all"
+                className="p-button-outlined p-button-secondary h-10 text-sm gap-2 border-gray-200   shadow-sm w-full sm:w-auto hover:border-[var(--primary-color)] hover:text-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] transition-all"
                 style={{ borderRadius: "8px" }}
             />
             <Button
@@ -197,12 +197,12 @@ const Role = () => {
     return (
         <div className="p-4 sm:p-6 bg-gray-50/20 min-h-[calc(100vh-200px)] no-scrollbar">
             <div className="flex flex-col gap-6 max-w-[1400px] mx-auto">
-                <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-4 p-4 rounded-xl border border-gray-100 shadow-sm">
                     {headerFilters}
                     {toolbarRight}
                 </div>
 
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="  rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div className="px-6 py-5 border-b border-gray-50 flex items-center justify-between">
                         <h2 className="text-lg font-semibold text-gray-800">
                             Role Management

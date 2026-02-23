@@ -8,6 +8,10 @@ import { useFormContext, Controller } from "react-hook-form";
 import { FiUpload } from "react-icons/fi";
 import { Search, Check, X, ShieldCheck } from "lucide-react";
 
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import { isValidPhoneNumber } from "react-phone-number-input";
+
 // Common wrapper
 const Row = ({ label, children, vertical = false }: any) => (
   <div className={vertical ? "flex flex-col gap-2" : "flex items-start gap-3"} style={{ fontFamily: "var(--font-primary)" }}>
@@ -25,7 +29,7 @@ const Row = ({ label, children, vertical = false }: any) => (
 // ===============================================================
 // INPUT  (Controller Version)
 // ===============================================================
-export function RHFInput({ name, label, type = "text", vertical = false, ...props }: any) {
+export function RHFInput({ name, label, type = "text", vertical = false, rules, ...props }: any) {
   const { control } = useFormContext();
 
   return (
@@ -34,18 +38,19 @@ export function RHFInput({ name, label, type = "text", vertical = false, ...prop
         name={name}
         control={control}
         defaultValue=""
+        rules={rules}
         render={({ field, fieldState }) => (
           <>
             <input
               {...field}
               type={type}
               {...props}
-              className={`w-full border rounded-xl px-3 py-2 focus:ring-2 ${fieldState.error ? "border-red-500" : "border-gray-300"
+              className={`w-full border rounded-xl px-3 py-2 transition-all focus:ring-2 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] outline-none ${fieldState.error ? "border-red-500" : "border-gray-300"
                 } ${props.className || ""}`}
             />
 
             {fieldState.error && (
-              <small className="text-red-500">
+              <small className="text-red-500 animate-error">
                 {String(fieldState.error.message)}
               </small>
             )}
@@ -60,7 +65,7 @@ export function RHFInput({ name, label, type = "text", vertical = false, ...prop
 // ===============================================================
 // DROPDOWN (Controller Version)
 // ===============================================================
-export function RDropdown({ name, label, options = [], vertical = false, ...props }: any) {
+export function RDropdown({ name, label, options = [], vertical = false, rules, ...props }: any) {
   const { control } = useFormContext();
 
   return (
@@ -69,6 +74,7 @@ export function RDropdown({ name, label, options = [], vertical = false, ...prop
         name={name}
         control={control}
         defaultValue=""
+        rules={rules}
         render={({ field, fieldState }) => (
           <>
             <Dropdown
@@ -86,7 +92,7 @@ export function RDropdown({ name, label, options = [], vertical = false, ...prop
             />
 
             {fieldState.error && (
-              <small className="text-red-500">
+              <small className="text-red-500 animate-error">
                 {String(fieldState.error.message)}
               </small>
             )}
@@ -100,7 +106,7 @@ export function RDropdown({ name, label, options = [], vertical = false, ...prop
 // ===============================================================
 // CALENDAR (Controller)
 // ===============================================================
-export function RCalendar({ name, label, vertical = false, ...props }: any) {
+export function RCalendar({ name, label, vertical = false, rules, ...props }: any) {
 
   const { control } = useFormContext();
 
@@ -111,6 +117,7 @@ export function RCalendar({ name, label, vertical = false, ...props }: any) {
         name={name}
         control={control}
         defaultValue={null}
+        rules={rules}
         render={({ field, fieldState }) => (
           <>
             <Calendar
@@ -124,7 +131,7 @@ export function RCalendar({ name, label, vertical = false, ...props }: any) {
             />
 
             {fieldState.error && (
-              <small className="text-red-500">
+              <small className="text-red-500 animate-error">
                 {String(fieldState.error.message)}
               </small>
             )}
@@ -383,7 +390,7 @@ export function RSwitch({ name, label, vertical = false }: any) {
 // ===============================================================
 // FILE UPLOAD — Controller Version
 // ===============================================================
-export function RFileUpload({ name, label, vertical = false, ...props }: any) {
+export function RFileUpload({ name, label, vertical = false, rules, ...props }: any) {
 
   const { control } = useFormContext();
   const [fileName, setFileName] = useState("");
@@ -395,17 +402,18 @@ export function RFileUpload({ name, label, vertical = false, ...props }: any) {
         name={name}
         control={control}
         defaultValue={null}
+        rules={rules}
         render={({ field, fieldState }) => (
           <div className="w-full">
             <label
-              className="
+              className={`
                 flex items-center gap-3 
-                border border-gray-300 
-                rounded-xl p-3 
+                border rounded-xl p-3 
                 cursor-pointer 
-                hover:border-[var(--primary-color)] hover:bg-[var(--primary-color-light)] 
                 transition
-              "
+                ${fieldState.error ? "border-red-500" : "border-gray-300"}
+                hover:border-[var(--primary-color)] hover:bg-[var(--primary-color-light)] 
+              `}
             >
               <FiUpload className="text-xl text-[var(--primary-color)]" />
 
@@ -426,7 +434,7 @@ export function RFileUpload({ name, label, vertical = false, ...props }: any) {
             </label>
 
             {fieldState.error && (
-              <small className="text-red-500 mt-1">
+              <small className="text-red-500 mt-1 animate-error">
                 {String(fieldState.error.message)}
               </small>
             )}
@@ -470,3 +478,56 @@ export function RQuillEditor({ name, label }: any) {
     </Row>
   );
 }
+
+
+// ===============================================================
+// PHONE NUMBER INPUT (Controller Version)
+// ===============================================================
+export function RPhoneNumberInput({
+  name,
+  label,
+  vertical = false,
+  required = false,
+}: any) {
+  const { control } = useFormContext();
+
+  return (
+    <Row label={label} vertical={vertical}>
+      <Controller
+        name={name}
+        control={control}
+        defaultValue=""
+        rules={{
+          required: required ? "Phone number is required" : false,
+          validate: (value) =>
+            !value ||
+            isValidPhoneNumber(value) ||
+            "Enter a valid phone number",
+        }}
+        render={({ field, fieldState }) => (
+          <>
+            <div
+              className={`border rounded-xl px-3 py-2 transition-all focus-within:ring-2 focus-within:ring-[var(--primary-color-light)] focus-within:border-[var(--primary-color)] ${fieldState.error ? "border-red-500" : "border-gray-300"
+                }`}
+            >
+              <PhoneInput
+                international
+                defaultCountry="IN"
+                value={field.value}
+                onChange={(value) => field.onChange(value)}
+                className="focus:outline-none"
+              />
+            </div>
+
+            {fieldState.error && (
+              <small className="text-red-500">
+                {String(fieldState.error.message)}
+              </small>
+            )}
+          </>
+        )}
+      />
+    </Row>
+  );
+}
+

@@ -13,7 +13,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
 import { BrowserRouter } from 'react-router-dom';
-import "primereact/resources/themes/lara-light-blue/theme.css";
+// import "primereact/resources/themes/lara-light-blue/theme.css";
 
 
 if ('serviceWorker' in navigator) {
