@@ -1,10 +1,12 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react'
 
-type ThemeType = 'light' | 'dark';
+type ThemeType = 'light' | 'dark' | 'system';
 
 interface ThemeContextType {
   theme: ThemeType;
+  activeTheme: 'light' | 'dark';
+  setTheme: (theme: ThemeType) => void;
   toggleTheme: () => void;
 }
 
@@ -16,60 +18,42 @@ const themes = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<ThemeType>('light');
+  const [theme, setTheme] = useState<ThemeType>(() => {
+    return (localStorage.getItem('theme') as ThemeType) || 'system';
+  });
+
+  const [activeTheme, setActiveTheme] = useState<'light' | 'dark'>('light');
 
   const toggleTheme = () => setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
 
-  // Load theme CSS dynamically
-  // useEffect(() => {
-  //   const themeName = themes[theme];
-  //    const existingLink = document.getElementById('theme-css') as HTMLLinkElement;
-  //   if (existingLink) {
-  //     existingLink.href = `https://unpkg.com/primereact/resources/themes/${themeName}/theme.css`;
-  //   } else {
-  //     const link = document.createElement('link');
-  //     link.id = 'theme-css';
-  //     link.rel = 'stylesheet';
-  //     link.href = `https://unpkg.com/primereact/resources/themes/${themeName}/theme.css`;
-  //     document.head.appendChild(link);
-  //   }
-  //   const existingVariable = document.getElementById('variable-css') as HTMLLinkElement;
-  //   if (existingVariable) {
-  //     existingVariable.href = 'http://localhost:5173/src/styles/variables.css';
-  //   } else {
-  //     const link = document.createElement('link');
-  //     link.id = 'variable-css';
-  //     link.rel = 'stylesheet';
-  //     link.href = 'http://localhost:5173/src/styles/variables.css';
-  //     document.head.appendChild(link);
-  //   }
-  // }, [theme]);
-
   useEffect(() => {
-    const themeName = themes[theme];
+    localStorage.setItem('theme', theme);
 
-    /** ==========================================
-     *  APPLY DARK CLASS TO BODY (CSS VARIABLES)
-     ========================================== */
-    if (theme === 'dark') {
+    const resolveTheme = () => {
+      if (theme === 'system') {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      return theme;
+    };
+
+    const currentActive = resolveTheme();
+    setActiveTheme(currentActive);
+
+    const themeName = themes[currentActive as keyof typeof themes];
+
+    if (currentActive === 'dark') {
       document.body.classList.add('dark');
     } else {
       document.body.classList.remove('dark');
     }
 
-    /** -------------------------------
-     *  1. LOAD PRIMEREACT THEME
-     --------------------------------*/
     function loadCssLink(id: string, href: string) {
       let link = document.getElementById(id) as HTMLLinkElement;
-
       if (link) {
-        // Update only if changed
-        if (link.href !== href) {
-          link.href = href;
-        }
+        if (link.href !== href) link.href = href;
+        // Move to end of head to ensure it overrides static styles
+        document.head.appendChild(link);
       } else {
-        // Create <link> tag
         link = document.createElement("link");
         link.id = id;
         link.rel = "stylesheet";
@@ -78,29 +62,33 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       }
     }
 
-    // Load PrimeReact theme
-    loadCssLink(
-      "theme-css",
-      `https://unpkg.com/primereact/resources/themes/${themeName}/theme.css`
-    );
+    loadCssLink("theme-css", `https://unpkg.com/primereact/resources/themes/${themeName}/theme.css`);
 
-    /** -------------------------------
-     *  2. LOAD YOUR variables.css
-     --------------------------------*/
-    loadCssLink(
-      "variables-css",
-      `${window.location.origin}/src/styles/variables.css`
-    );
-
+    // Listener for system changes
+    if (theme === 'system') {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const handleChange = () => {
+        const newActive = mediaQuery.matches ? 'dark' : 'light';
+        setActiveTheme(newActive);
+        const newThemeName = themes[newActive as keyof typeof themes];
+        if (newActive === 'dark') document.body.classList.add('dark');
+        else document.body.classList.remove('dark');
+        loadCssLink("theme-css", `https://unpkg.com/primereact/resources/themes/${newThemeName}/theme.css`);
+      };
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    }
   }, [theme]);
 
-
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, activeTheme, setTheme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 };
+
+
+
 
 // Custom hook for easy access
 export const useTheme = () => {

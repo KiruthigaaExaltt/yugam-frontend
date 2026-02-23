@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import type { ReactNode } from "react";
 import { Button } from "primereact/button";
 import { Toolbar } from "primereact/toolbar";
-import { TieredMenu } from "primereact/tieredmenu";
+// import { TieredMenu } from "primereact/tieredmenu";
 import { useTheme } from "../context/ThemeContext";
 import {
   FiMenu,
@@ -13,12 +13,15 @@ import {
   FiSettings,
   FiUser,
   FiLogOut,
+  FiChevronRight,
+  FiLock,
 } from "react-icons/fi";
-import type { MenuItem } from "primereact/menuitem";
+import { Monitor } from "lucide-react";
 import "./BaseLayout.css";
 import NavigationMenu from "../components/sideBar/NavigationMenu";
 import { Outlet, useNavigate } from "react-router-dom";
 import ProfileDialog from "../components/profile/ProfileDialog";
+import ChangePasswordDialog from "../components/profile/ChangePasswordDialog";
 
 
 interface BaseLayoutProps {
@@ -32,7 +35,11 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [customLogo, setCustomLogo] = useState<string | null>(null);
   const [profileDialogVisible, setProfileDialogVisible] = useState(false);
-
+  const [profileMenuVisible, setProfileMenuVisible] = useState(false);
+  const [themeMenuVisible, setThemeMenuVisible] = useState(false);
+  const [passwordDialogVisible, setPasswordDialogVisible] = useState(false);
+  const settingsBtnRef = useRef<any>(null);
+  const themeBtnRef = useRef<any>(null);
 
   useEffect(() => {
     const handleBrandingUpdate = (e: any) => {
@@ -46,8 +53,7 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
     };
   }, []);
 
-  const menuRef = useRef<TieredMenu>(null);
-  const { theme, toggleTheme } = useTheme();
+  const { theme, activeTheme, setTheme } = useTheme();
 
   const navigate = useNavigate();
   // const location = useLocation();
@@ -73,44 +79,129 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
     document.body.style.overflow = mobileSidebarOpen ? "hidden" : "";
   }, [mobileSidebarOpen]);
 
-  const profileMenuItems: MenuItem[] = [
-    {
-      label: "Profile",
-      template: () => (
-        <div className="p-menuitem-link flex items-center gap-2">
-          <FiUser /> Profile
-        </div>
-      ),
-      command: () => setProfileDialogVisible(true),
+  // Handle clicks outside to close menus
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        themeMenuVisible &&
+        themeBtnRef.current &&
+        !themeBtnRef.current.contains(event.target as Node)
+      ) {
+        setThemeMenuVisible(false);
+      }
+      if (
+        profileMenuVisible &&
+        settingsBtnRef.current &&
+        !settingsBtnRef.current.contains(event.target as Node)
+      ) {
+        setProfileMenuVisible(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [themeMenuVisible, profileMenuVisible]);
 
-    },
-    {
-      label: "Settings",
-      template: () => (
-        <div className="p-menuitem-link flex items-center gap-2">
-          <FiSettings /> Settings
-        </div>
-      ),
-      command: () => console.log("Settings clicked"),
-    },
-    { separator: true },
-    {
-      label: "Logout",
-      template: () => (
-        <div className="p-menuitem-link flex items-center gap-2">
-          <FiLogOut /> Logout
-        </div>
-      ),
-      command: () => {
-        // 🔐 Clear auth data
-        localStorage.removeItem("token");
-        localStorage.removeItem("remember"); // optional
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const name = `${user.firstName || "User"} ${user.lastName || ""}`.trim();
+  const role = user.role || "Administrator";
+  const initials = name.split(" ").map((n: string) => n[0]).join("").toUpperCase();
 
-        // 🚪 Redirect to login
-        navigate("/login");
-      },
-    },
-  ];
+  const renderProfileMenu = () => {
+    if (!profileMenuVisible) return null;
+
+    return (
+      <div
+        className="profile-menu shadow-2xl animate-in fade-in zoom-in duration-200"
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        <div className="profile-menu-header">
+          <div className="menu-avatar">
+            {user.profilePicture ? (
+              <img src={user.profilePicture} alt="Profile" className="w-full h-full object-cover rounded-full" />
+            ) : (
+              <span className="initials">{initials}</span>
+            )}
+          </div>
+          <div className="menu-header-info">
+            <h3 className="menu-name">{name}</h3>
+            <p className="menu-role">{role}</p>
+          </div>
+        </div>
+
+        <div className="menu-links">
+          <div className="menu-link settings" onClick={() => setProfileMenuVisible(false)}>
+            <div className="link-content">
+              <FiSettings size={18} />
+              <span>Settings</span>
+            </div>
+            <FiChevronRight size={14} className="chevron" />
+          </div>
+
+          <div className="menu-link" onClick={() => { setProfileDialogVisible(true); setProfileMenuVisible(false); }}>
+            <div className="link-content">
+              <FiUser size={18} />
+              <span>Profile</span>
+            </div>
+          </div>
+
+          <div className="menu-link" onClick={() => { setPasswordDialogVisible(true); setProfileMenuVisible(false); }}>
+            <div className="link-content">
+              <FiLock size={18} />
+              <span>Change Password</span>
+            </div>
+          </div>
+
+          <div className="menu-divider"></div>
+
+          <div className="menu-link logout" onClick={() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("remember");
+            navigate("/login");
+          }}>
+            <div className="link-content">
+              <FiLogOut size={18} />
+              <span className="text-red-500">Logout</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderThemeMenu = () => {
+    if (!themeMenuVisible) return null;
+
+    const themeOptions = [
+      { label: "Light", value: "light" as const, icon: <FiSun size={18} /> },
+      { label: "Dark", value: "dark" as const, icon: <FiMoon size={18} /> },
+      { label: "System", value: "system" as const, icon: <Monitor size={18} /> },
+    ];
+
+    return (
+      <div
+        className="theme-menu shadow-2xl animate-in fade-in zoom-in duration-200"
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        <div className="menu-links">
+          {themeOptions.map((opt) => (
+            <div
+              key={opt.value}
+              className={`menu-link ${theme === opt.value ? "active" : ""}`}
+              onClick={() => {
+                setTheme(opt.value);
+                setThemeMenuVisible(false);
+              }}
+            >
+              <div className="link-content">
+                {opt.icon}
+                <span>{opt.label}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   const toolbarStart = (
     <div className="flex items-center gap-2 min-w-0">
@@ -141,8 +232,9 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
             <div
               className="w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold"
               style={{
-                background:
-                  "linear-gradient(to right, var(--secondary-color), var(--primary-color))",
+                background: activeTheme === "light"
+                  ? "linear-gradient(to right, #10b981, #059669)"
+                  : "linear-gradient(to right, #34d399, #10b981)",
               }}
             >
               E
@@ -153,8 +245,8 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
             <span
               className="text-xs px-2 py-0.5 rounded"
               style={{
-                backgroundColor: "var(--light-primary-light)",
-                color: "var(--primary-color)",
+                backgroundColor: activeTheme === "dark" ? "rgba(16, 185, 129, 0.1)" : "var(--light-primary-light)",
+                color: activeTheme === "dark" ? "#34d399" : "var(--primary-color)",
               }}
             >
               DEMO
@@ -186,13 +278,21 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
     </div>
   );
 
+  const getThemeIcon = () => {
+    if (theme === "system") return <Monitor size={22} color={activeTheme === "dark" ? "#34d399" : "#059669"} />;
+    if (theme === "dark") return <FiMoon size={22} color="#34d399" />;
+    return <FiSun size={22} color="#f59e0b" />;
+  };
+
   const toolbarEnd = (
     <div className="flex items-center gap-1 sm:gap-2">
       <Button
+        ref={themeBtnRef}
         className="p-button-rounded p-button-text p-button-sm"
-        icon={theme === "dark" ? <FiSun size={22} /> : <FiMoon size={22} />}
-        onClick={toggleTheme}
+        icon={getThemeIcon()}
+        onClick={() => setThemeMenuVisible(!themeMenuVisible)}
       />
+      {renderThemeMenu()}
       <Button
         className="p-button-rounded p-button-text p-button-sm hidden sm:inline-flex"
         icon={<FiBell size={25} />}
@@ -200,11 +300,12 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
         badgeClassName="p-badge-danger"
       />
       <Button
+        ref={settingsBtnRef}
         className="p-button-rounded p-button-text p-button-sm"
         icon={<FiSettings size={30} />}
-        onClick={(e) => menuRef.current?.toggle(e)}
+        onClick={() => setProfileMenuVisible(!profileMenuVisible)}
       />
-      <TieredMenu ref={menuRef} model={profileMenuItems} popup />
+      {renderProfileMenu()}
     </div>
   );
 
@@ -257,6 +358,10 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
       <ProfileDialog
         visible={profileDialogVisible}
         onHide={() => setProfileDialogVisible(false)}
+      />
+      <ChangePasswordDialog
+        visible={passwordDialogVisible}
+        onHide={() => setPasswordDialogVisible(false)}
       />
     </div>
 

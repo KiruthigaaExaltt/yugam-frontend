@@ -75,7 +75,7 @@ const User = () => {
     const statusOptions = [
         { label: "All Status", value: "all" },
         { label: "Active", value: "Active" },
-         { label: "Inactive", value: "Inactive" },
+        { label: "Inactive", value: "Inactive" },
         { label: "Suspended", value: "Suspended" },
     ];
 
@@ -103,8 +103,8 @@ const User = () => {
                 {rowData.initials}
             </div>
             <div className="flex flex-col">
-                <span className="font-semibold text-gray-900">{rowData.name}</span>
-                <span className="text-xs text-gray-500">{rowData.email}</span>
+                <span className="font-semibold text-[var(--text-color)]">{rowData.name}</span>
+                <span className="text-xs text-[var(--text-muted)]">{rowData.email}</span>
             </div>
         </div>
     );
@@ -124,7 +124,7 @@ const User = () => {
     const actionsBodyTemplate = (rowData: User) => (
         <div className="flex items-center gap-4">
             <button
-                className="p-1 hover:bg-gray-100 rounded-lg transition-colors text-gray-500 !cursor-pointer"
+                className="p-1 hover:bg-[var(--surface-hover)] rounded-lg transition-colors text-[var(--text-muted)] !cursor-pointer"
                 title="Edit user"
                 onClick={() => {
                     setEditingUserId(rowData.id);
@@ -134,7 +134,7 @@ const User = () => {
                 <Pencil size={18} />
             </button>
             <button
-                className="p-1 hover:bg-gray-100 rounded-lg transition-colors text-red-500 hover:text-red-600 !cursor-pointer"
+                className="p-1 hover:bg-[var(--surface-hover)] rounded-lg transition-colors text-red-500 hover:text-red-600 !cursor-pointer"
                 title="Delete user"
                 onClick={() => {
                     setDeletingUserId(rowData.id);
@@ -171,7 +171,7 @@ const User = () => {
                     value={globalFilter}
                     onChange={(e) => setGlobalFilter(e.target.value)}
                     placeholder="Search users..."
-                    className="w-full !pl-12 pr-4 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] transition-all"
+                    className="w-full !pl-12 pr-4 h-10 bg-[var(--surface-card)] border-[var(--surface-border)] rounded-lg text-sm focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] transition-all text-[var(--text-color)]"
                 />
             </div>
             <Dropdown
@@ -179,7 +179,7 @@ const User = () => {
                 options={statusOptions}
                 onChange={(e) => setSelectedStatus(e.value)}
                 placeholder="All Status"
-                className="w-full sm:w-40 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm flex items-center focus-within:border-[var(--primary-color)] focus-within:ring-2 focus-within:ring-[var(--primary-color-light)]"
+                className="w-full sm:w-40 h-10 bg-[var(--surface-card)] border-[var(--surface-border)] rounded-lg text-sm flex items-center focus-within:border-[var(--primary-color)] focus-within:ring-2 focus-within:ring-[var(--primary-color-light)] text-[var(--text-color)]"
             />
         </div>
     );
@@ -189,7 +189,7 @@ const User = () => {
             <Button
                 label="Export"
                 icon={<Download size={16} />}
-                className="p-button-outlined p-button-secondary h-10 text-sm gap-2 border-gray-200 bg-white shadow-sm hover:border-[var(--primary-color)] hover:text-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] transition-all w-full sm:w-auto"
+                className="p-button-outlined p-button-secondary h-10 text-sm gap-2 border-[var(--surface-border)] bg-[var(--surface-card)] shadow-sm hover:border-[var(--primary-color)] hover:text-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] transition-all w-full sm:w-auto text-[var(--text-color)]"
                 style={{ borderRadius: "8px" }}
             />
             <Button
@@ -211,16 +211,16 @@ const User = () => {
     );
 
     return (
-        <div className="p-4 sm:p-6 bg-gray-50/20 min-h-[calc(100vh-200px)]">
+        <div className="p-4 sm:p-6 bg-transparent min-h-[calc(100vh-200px)]">
             <div className="flex flex-col gap-6 max-w-[1400px] mx-auto">
-                <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-4 bg-[var(--surface-card)] p-4 rounded-xl border border-[var(--surface-border)] shadow-sm">
                     {headerFilters}
                     {toolbarRight}
                 </div>
 
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div className="px-6 py-5 border-b border-gray-50 flex items-center justify-between">
-                        <h2 className="text-lg font-semibold text-gray-800">
+                <div className="bg-[var(--surface-card)] rounded-xl shadow-sm border border-[var(--surface-border)] overflow-hidden">
+                    <div className="px-6 py-5 border-b border-[var(--surface-border)] flex items-center justify-between">
+                        <h2 className="text-lg font-semibold text-[var(--text-color)]">
                             User Directory
                         </h2>
                     </div>

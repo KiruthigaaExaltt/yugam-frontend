@@ -45,12 +45,17 @@ const ChangePasswordDialog = ({ visible, onHide }: ChangePasswordDialogProps) =>
                     label="Current Password"
                     type="password"
                     vertical
+                    rules={{ required: "Current password is required" }}
                 />
                 <RHFInput
                     name="newPassword"
                     label="New Password"
                     type="password"
                     vertical
+                    rules={{
+                        required: "New password is required",
+                        minLength: { value: 6, message: "Password must be at least 6 characters" }
+                    }}
                 />
             </form>
         </FormProvider>
