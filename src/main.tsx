@@ -37,7 +37,7 @@ createRoot(document.getElementById('root')!).render(
       <PersistGate loading={null} persistor={persistor}>
         <PrimeReactProvider>
           <BrowserRouter>
-            <Toaster position="top-right" richColors />
+            <Toaster position="top-right" richColors closeButton />
             <App />
           </BrowserRouter>
         </PrimeReactProvider>
