@@ -2,7 +2,7 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useState } from "react";
 import { FiMail } from "react-icons/fi";
-import { AlertCircle } from "lucide-react";
+
 import { useNavigate } from "react-router-dom";
 import { useForgotPasswordMutation } from "./authApi";
 import { toast } from "sonner";
@@ -78,7 +78,7 @@ const ForgotPassword = () => {
 
       {/* RIGHT SECTION */}
       <div className="flex flex-1 items-center justify-center px-4">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+        <div className="w-full max-w-md bg-[var(--surface-card)] rounded-2xl shadow-xl p-8 border border-[var(--surface-border)]">
           {/* Icon */}
           <div className="flex justify-center mb-4">
             <div className="w-14 h-14 rounded-xl bg-blue-500 flex items-center justify-center text-white">
@@ -86,10 +86,10 @@ const ForgotPassword = () => {
             </div>
           </div>
 
-          <h2 className="text-2xl font-semibold text-center mb-1">
+          <h2 className="text-2xl font-semibold text-center mb-1 text-[var(--text-color)]">
             Forgot Password?
           </h2>
-          <p className="text-sm text-gray-500 text-center mb-6">
+          <p className="text-sm text-[var(--text-muted)] text-center mb-6">
             No worries, we'll send you reset instructions
           </p>
 
@@ -117,7 +117,7 @@ const ForgotPassword = () => {
               label={isLoading ? "Submitting..." : "Submit"}
               type="submit"
               disabled={isLoading}
-              className="w-full p-button-lg bg-linear-to-r from-blue-600 to-sky-500 border-none"
+              className="w-full p-button-lg bg-linear-to-r from-blue-600 to-sky-500 border-none text-white"
             />
 
             <div className="text-center mt-4">

@@ -1,4 +1,4 @@
-import { FileText, Phone, Target,  UserPlus } from "lucide-react"
+import { FileText, Phone, Target, UserPlus } from "lucide-react"
 import SmallCard from "../../HOC/SmallCard/SmallCard"
 import QuickActions from "../../HOC/quickActions/QuickAction"
 import { FaBolt, FaChartLine, FaFileAlt, FaPlus } from "react-icons/fa";

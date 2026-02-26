@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
 import { useLoginMutation } from "./authApi";
 import { toast } from "sonner";
-import { AlertCircle } from "lucide-react";
+
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -105,7 +105,7 @@ const LoginPage = () => {
 
       {/* RIGHT SECTION */}
       <div className="flex flex-1 items-center justify-center px-4">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+        <div className="w-full max-w-md bg-[var(--surface-card)] rounded-2xl shadow-xl p-8 border border-[var(--surface-border)]">
           {/* Icon */}
           <div className="flex justify-center mb-4">
             <div className="w-14 h-14 rounded-xl bg-blue-500 flex items-center justify-center text-white">
@@ -113,13 +113,13 @@ const LoginPage = () => {
             </div>
           </div>
 
-          <h2 className="text-2xl font-semibold text-center mb-1">Sign In</h2>
-          <p className="text-sm text-gray-500 text-center mb-6">
+          <h2 className="text-2xl font-semibold text-center mb-1 text-[var(--text-color)]">Sign In</h2>
+          <p className="text-sm text-[var(--text-muted)] text-center mb-6">
             Enter your credentials to access your dashboard
           </p>
 
 
-          <div className="space-y-4">
+          <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
             <div className="w-full">
               <InputText
                 id="email"
@@ -169,7 +169,7 @@ const LoginPage = () => {
                   checked={remember}
                   onChange={(e) => setRemember(e.checked ?? false)}
                 />
-                <label htmlFor="remember">Remember me</label>
+                <label htmlFor="remember" className="text-[var(--text-color)]">Remember me</label>
               </div>
 
               <button
@@ -181,18 +181,18 @@ const LoginPage = () => {
               </button>
             </div>
             <Button
+              type="submit"
               label={isLoading ? "Signing In..." : "Sign In"}
-              onClick={handleLogin}
               disabled={isLoading}
-              className="w-full p-button-lg bg-linear-to-r from-blue-600 to-sky-500 border-none"
+              className="w-full p-button-lg bg-linear-to-r from-blue-600 to-sky-500 border-none text-white"
             />
-            <p className="text-xs text-center text-gray-500 mt-4">
+            <p className="text-xs text-center text-[var(--text-muted)] mt-4">
               Don’t have an account?{" "}
-              <span className="text-blue-500 cursor-pointer">
+              <span className="text-blue-500 cursor-pointer hover:underline">
                 Contact your administrator
               </span>
             </p>
-          </div>
+          </form>
         </div>
       </div>
     </div>

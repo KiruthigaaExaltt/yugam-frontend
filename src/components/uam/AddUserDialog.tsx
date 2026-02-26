@@ -67,7 +67,7 @@ const AddUserDialog = ({ visible, onHide, userId }: AddUserDialogProps) => {
     }, [userData, isEdit, methods]);
 
     const roleOptions = useMemo(() => {
-        const data = rolesData?.data;
+        const data = rolesData?.data?.roles;
         if (!data) return [];
 
         // Handle cases where data is an object with numeric keys instead of an array
@@ -112,8 +112,8 @@ const AddUserDialog = ({ visible, onHide, userId }: AddUserDialogProps) => {
 
 
 
-    const inputClassName = "bg-white border border-gray-200 focus:border-[var(--primary-color)] focus:ring-4 focus:ring-[var(--primary-color-light)] transition-all py-3 px-4 rounded-xl outline-none";
-    const dropdownClassName = "bg-white border border-gray-200 focus-within:border-[var(--primary-color)] focus-within:ring-4 focus-within:ring-[var(--primary-color-light)] transition-all rounded-xl  outline-none w-full flex items-center h-12 px-4 shadow-none";
+    const inputClassName = "bg-[var(--surface-card)] text-[var(--text-color)] border border-[var(--surface-border)] focus:border-[var(--primary-color)] focus:ring-4 focus:ring-[var(--primary-color-light)] transition-all py-3 px-4 rounded-xl outline-none";
+    const dropdownClassName = "bg-[var(--surface-card)] text-[var(--text-color)] border border-[var(--surface-border)] focus-within:border-[var(--primary-color)] focus-within:ring-4 focus-within:ring-[var(--primary-color-light)] transition-all rounded-xl  outline-none w-full flex items-center h-12 px-4 shadow-none";
 
     const body = isFetchingUser ? (
         <div className="flex flex-col items-center justify-center py-12 gap-2">

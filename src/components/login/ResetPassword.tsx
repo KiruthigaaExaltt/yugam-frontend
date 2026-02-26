@@ -5,7 +5,7 @@ import { FiLock } from "react-icons/fi";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useResetPasswordMutation } from "./authApi";
 import { toast } from "sonner";
-import { AlertCircle } from "lucide-react";
+
 
 const ResetPassword = () => {
     const navigate = useNavigate();
@@ -100,7 +100,7 @@ const ResetPassword = () => {
 
             {/* RIGHT SECTION */}
             <div className="flex flex-1 items-center justify-center px-4">
-                <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+                <div className="w-full max-w-md bg-[var(--surface-card)] rounded-2xl shadow-xl p-8 border border-[var(--surface-border)]">
                     {/* Icon */}
                     <div className="flex justify-center mb-4">
                         <div className="w-14 h-14 rounded-xl bg-blue-500 flex items-center justify-center text-white">
@@ -108,16 +108,16 @@ const ResetPassword = () => {
                         </div>
                     </div>
 
-                    <h2 className="text-2xl font-semibold text-center mb-1">
+                    <h2 className="text-2xl font-semibold text-center mb-1 text-[var(--text-color)]">
                         Reset Password
                     </h2>
-                    <p className="text-sm text-gray-500 text-center mb-6">
+                    <p className="text-sm text-[var(--text-muted)] text-center mb-6">
                         Enter your new password below
                     </p>
 
 
                     {/* FORM */}
-                    <div className="space-y-4">
+                    <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
                         <div className="w-full">
                             <Password
                                 id="password"
@@ -169,10 +169,10 @@ const ResetPassword = () => {
                         </div>
 
                         <Button
+                            type="submit"
                             label={isSubmitting ? "Resetting..." : "Reset Password"}
-                            onClick={handleSubmit}
                             disabled={isSubmitting || !!errors.token}
-                            className="w-full p-button-lg bg-linear-to-r from-blue-600 to-sky-500 border-none"
+                            className="w-full p-button-lg bg-linear-to-r from-blue-600 to-sky-500 border-none text-white"
                         />
 
                         <div className="text-center mt-4">
@@ -183,7 +183,7 @@ const ResetPassword = () => {
                                 ← Back to Sign In
                             </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

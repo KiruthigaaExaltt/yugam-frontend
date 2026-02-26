@@ -14,7 +14,7 @@ const RoleDetailsDialog = ({ visible, onHide, roleId }: RoleDetailsDialogProps) 
         skip: !roleId,
     });
 
-    const role = roleResponse?.data;
+    const role = roleResponse?.data?.role || roleResponse?.data || null;
 
     const body = isFetching ? (
         <div className="flex flex-col items-center justify-center py-16 gap-2">
@@ -24,7 +24,7 @@ const RoleDetailsDialog = ({ visible, onHide, roleId }: RoleDetailsDialogProps) 
     ) : role ? (
         <div className="space-y-8" style={{ fontFamily: 'var(--font-primary)' }}>
             {/* Header Info Section */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50/50 rounded-2xl border border-gray-100">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-[var(--surface-card)] rounded-2xl border border-[var(--surface-border)]">
                 <div className="space-y-1">
                     <div className="flex items-center gap-2 text-gray-400">
                         <Info size={14} />
@@ -35,11 +35,11 @@ const RoleDetailsDialog = ({ visible, onHide, roleId }: RoleDetailsDialogProps) 
                     </p>
                 </div>
                 <div className="space-y-1">
-                    <div className="flex items-center gap-2 text-gray-400">
+                    <div className="flex items-center gap-2 text-[var(--text-muted)]">
                         <Clock size={14} />
                         <span className="text-[10px] font-bold uppercase tracking-wider">Last Updated</span>
                     </div>
-                    <p className="text-sm font-semibold text-gray-700">
+                    <p className="text-sm font-semibold text-[var(--text-color)]">
                         {role.updatedAt ? new Date(role.updatedAt).toLocaleString('en-US', {
                             dateStyle: 'medium',
                             timeStyle: 'short'
@@ -47,11 +47,11 @@ const RoleDetailsDialog = ({ visible, onHide, roleId }: RoleDetailsDialogProps) 
                     </p>
                 </div>
                 <div className="md:col-span-2 space-y-1">
-                    <div className="flex items-center gap-2 text-gray-400">
+                    <div className="flex items-center gap-2 text-[var(--text-muted)]">
                         <Shield size={14} />
                         <span className="text-[10px] font-bold uppercase tracking-wider">Description</span>
                     </div>
-                    <p className="text-sm text-gray-600 leading-relaxed">
+                    <p className="text-sm text-[var(--text-color)] leading-relaxed">
                         {role.roleDescription || 'No description provided for this role.'}
                     </p>
                 </div>
@@ -59,8 +59,8 @@ const RoleDetailsDialog = ({ visible, onHide, roleId }: RoleDetailsDialogProps) 
 
             {/* Permissions Section */}
             <div className="space-y-4">
-                <div className="flex items-center justify-between border-b border-gray-100 pb-2">
-                    <h4 className="text-sm font-bold text-gray-800 uppercase tracking-widest flex items-center gap-2">
+                <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-2">
+                    <h4 className="text-sm font-bold text-[var(--text-color)] uppercase tracking-widest flex items-center gap-2">
                         Granted Permissions
                         <span className="text-white text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: 'var(--primary-color)' }}>
                             {role.permissions?.length || 0}
@@ -78,14 +78,14 @@ const RoleDetailsDialog = ({ visible, onHide, roleId }: RoleDetailsDialogProps) 
                                 <div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-colors">
                                     <CheckCircle2 size={14} />
                                 </div>
-                                <span className="text-[11px] font-bold text-gray-600 uppercase tracking-tight group-hover:text-gray-900">
+                                <span className="text-[11px] font-bold text-[var(--text-color)] uppercase tracking-tight">
                                     {perm.replace(/_/g, " ")}
                                 </span>
                             </div>
                         ))
                     ) : (
-                        <div className="col-span-full py-8 text-center bg-gray-50 rounded-xl border border-dashed border-gray-200">
-                            <p className="text-gray-400 text-sm italic">No permissions assigned to this role.</p>
+                        <div className="col-span-full py-8 text-center bg-[var(--surface-card)] rounded-xl border border-dashed border-[var(--surface-border)]">
+                            <p className="text-[var(--text-muted)] text-sm italic">No permissions assigned to this role.</p>
                         </div>
                     )}
                 </div>
