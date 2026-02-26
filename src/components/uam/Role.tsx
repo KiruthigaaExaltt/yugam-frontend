@@ -35,7 +35,7 @@ const Role = () => {
     const [selectedRoles, setSelectedRoles] = useState<RoleData[]>([]);
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(10);
-    const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
+    // const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
 
     const [displayDeleteDialog, setDisplayDeleteDialog] = useState(false);
     const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -46,10 +46,10 @@ const Role = () => {
 
     const debouncedSearch = useDebouncedValue(globalFilter, 500);
 
-    const { data: rolesData, isLoading } = useGetRolesQuery({
+    const { data: rolesData, isLoading} = useGetRolesQuery({
         deleted: "notdeleted",
         keyword: debouncedSearch || undefined,
-        sortStatus: selectedStatus || "all",
+        // sortStatus: selectedStatus || "all",
         page: (first / rows) + 1,
         limit: rows,
     });
@@ -98,7 +98,7 @@ const Role = () => {
     const actionsBodyTemplate = (rowData: RoleData) => (
         <div className="flex items-center gap-4">
             <button
-                className="p-1 hover:bg-gray-100 rounded-md transition-colors text-gray-500"
+                className="p-1 hover:bg-[var(--surface-hover)] rounded-lg transition-colors text-[var(--text-muted)] !cursor-pointer"
                 title="View details"
                 onClick={() => {
                     setViewId(rowData.id);
@@ -108,7 +108,7 @@ const Role = () => {
                 <Eye size={18} />
             </button>
             <button
-                className="p-1 hover:bg-gray-100 rounded-md transition-colors text-gray-500"
+                className="p-1 hover:bg-[var(--surface-hover)] rounded-lg transition-colors text-red-500 hover:text-red-600 !cursor-pointer"
                 title="Edit role"
                 onClick={() => {
                     setEditingById(rowData.id);
@@ -118,7 +118,7 @@ const Role = () => {
                 <Pencil size={18} />
             </button>
             <button
-                className="p-1 hover:bg-gray-100 rounded-lg transition-colors text-red-500 hover:text-red-600 !cursor-pointer"
+                className="p-1 hover:bg-[var(--surface-hover)] rounded-lg transition-colors text-red-500 hover:text-red-600 !cursor-pointer"
                 title="Delete role"
                 onClick={() => {
                     setDeleteId(rowData.id);
@@ -154,7 +154,7 @@ const Role = () => {
                     value={globalFilter}
                     onChange={(e) => setGlobalFilter(e.target.value)}
                     placeholder="Search users..."
-                    className="w-full !pl-12 pr-4 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm"
+                    className="w-full !pl-12 pr-4 h-10 bg-[var(--surface-card)] border-[var(--surface-border)] rounded-lg text-sm focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] transition-all text-[var(--text-color)]"
                 />
             </div>
             {/* <Dropdown
@@ -178,7 +178,7 @@ const Role = () => {
             <Button
                 label="Export"
                 icon={<Download size={16} />}
-                className="p-button-outlined p-button-secondary h-10 text-sm gap-2 border-gray-200   shadow-sm w-full sm:w-auto hover:border-[var(--primary-color)] hover:text-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] transition-all"
+                className="p-button-outlined p-button-secondary h-10 text-sm gap-2 border-[var(--surface-border)] bg-[var(--surface-card)] shadow-sm hover:border-[var(--primary-color)] hover:text-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] transition-all w-full sm:w-auto text-[var(--text-color)]"
                 style={{ borderRadius: "8px" }}
             />
             <Button
@@ -195,16 +195,16 @@ const Role = () => {
     );
 
     return (
-        <div className="p-4 sm:p-6 bg-gray-50/20 min-h-[calc(100vh-200px)] no-scrollbar">
+        <div className="p-4 sm:p-6 min-h-[calc(100vh-200px)]">
             <div className="flex flex-col gap-6 max-w-[1400px] mx-auto">
-                <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-4 p-4 rounded-xl border border-gray-100 shadow-sm">
+               <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-4 bg-[var(--surface-card)] p-4 rounded-xl border border-[var(--surface-border)] shadow-sm">  
                     {headerFilters}
                     {toolbarRight}
                 </div>
 
-                <div className="  rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div className="px-6 py-5 border-b border-gray-50 flex items-center justify-between">
-                        <h2 className="text-lg font-semibold text-gray-800">
+                <div className="bg-[var(--surface-card)] rounded-xl shadow-sm border border-[var(--surface-border)] overflow-hidden">
+                    <div className="px-6 py-5 border-b border-[var(--surface-border)] flex items-center justify-between">
+                        <h2 className="text-lg font-semibold text-[var(--text-color)]">
                             Role Management
                         </h2>
                     </div>

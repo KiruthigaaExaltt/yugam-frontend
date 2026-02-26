@@ -103,7 +103,7 @@ const User = () => {
                 {rowData.initials}
             </div>
             <div className="flex flex-col">
-                <span className="font-semibold text-[var(--text-color)]">{rowData.name}</span>
+                <span className="font-bold text-gray-900 tracking-tight">{rowData.name}</span>
                 <span className="text-xs text-[var(--text-muted)]">{rowData.email}</span>
             </div>
         </div>
@@ -220,7 +220,7 @@ const User = () => {
 
                 <div className="bg-[var(--surface-card)] rounded-xl shadow-sm border border-[var(--surface-border)] overflow-hidden">
                     <div className="px-6 py-5 border-b border-[var(--surface-border)] flex items-center justify-between">
-                        <h2 className="text-lg font-semibold text-[var(--text-color)]">
+                        <h2 className="text-lg font-bold text-[var(--text-color)]">
                             User Directory
                         </h2>
                     </div>

@@ -120,14 +120,14 @@ const RoleForm = ({ visible, onHide, roleId }: DialogProps) => {
                     label="Role Name"
                     vertical={true}
                     placeholder="e.g. Content Manager"
-                    className="bg-gray-50/50 border border-gray-200 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] transition-all py-3 px-4 rounded-xl text-gray-800 outline-none"
+                    className="bg-[var(--surface-card)] border border-[var(--surface-border)] focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] transition-all py-3 px-4 rounded-xl text-[var(--text-color)] outline-none"
                 />
                 <RHFInput
                     name="roleDescription"
                     label="Description"
                     vertical={true}
                     placeholder="What can this role do?"
-                    className="bg-gray-50/50 border border-gray-200 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] transition-all py-3 px-4 rounded-xl text-gray-800 outline-none"
+                    className="bg-[var(--surface-card)] border border-[var(--surface-border)] focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] transition-all py-3 px-4 rounded-xl text-[var(--text-color)] outline-none"
                 />
                 <RPermissionSelector
                     name="permissions"

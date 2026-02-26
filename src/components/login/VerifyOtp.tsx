@@ -5,7 +5,7 @@ import { FiShield } from "react-icons/fi";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useVerifyOTPTokenMutation } from "./authApi";
 import { toast } from "sonner";
-import { AlertCircle } from "lucide-react";
+
 
 const VerifyOtp = () => {
     const navigate = useNavigate();
@@ -82,7 +82,7 @@ const VerifyOtp = () => {
 
             {/* RIGHT SECTION */}
             <div className="flex flex-1 items-center justify-center px-4">
-                <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+                <div className="w-full max-w-md bg-[var(--surface-card)] rounded-2xl shadow-xl p-8 border border-[var(--surface-border)]">
                     {/* Icon */}
                     <div className="flex justify-center mb-4">
                         <div className="w-14 h-14 rounded-xl bg-blue-500 flex items-center justify-center text-white">
@@ -90,15 +90,15 @@ const VerifyOtp = () => {
                         </div>
                     </div>
 
-                    <h2 className="text-2xl font-semibold text-center mb-1">
+                    <h2 className="text-2xl font-semibold text-center mb-1 text-[var(--text-color)]">
                         Enter Verification Code
                     </h2>
-                    <p className="text-sm text-gray-500 text-center mb-6">
+                    <p className="text-sm text-[var(--text-muted)] text-center mb-6">
                         Sent to {email}
                     </p>
 
 
-                    <div className="flex flex-col items-center space-y-6">
+                    <form className="flex flex-col items-center space-y-6" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
                         <div className="flex flex-col items-center">
                             <InputOtp
                                 value={otp}
@@ -118,14 +118,14 @@ const VerifyOtp = () => {
                         </div>
 
                         <Button
+                            type="submit"
                             label={isLoading ? "Verifying..." : "Verify Code"}
-                            onClick={handleSubmit}
                             disabled={isLoading || !otp || otp.toString().length !== 6}
-                            className="w-full p-button-lg bg-linear-to-r from-blue-600 to-sky-500 border-none"
+                            className="w-full p-button-lg bg-linear-to-r from-blue-600 to-sky-500 border-none text-white"
                         />
 
                         <div className="text-center mt-2">
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-[var(--text-muted)]">
                                 Didn't receive the code?{" "}
                                 <button
                                     onClick={handleResend}
@@ -140,12 +140,12 @@ const VerifyOtp = () => {
                         <div className="text-center mt-2">
                             <button
                                 onClick={() => navigate("/login")}
-                                className="text-sm text-gray-500 hover:text-gray-700 hover:underline"
+                                className="text-sm text-[var(--text-muted)] hover:text-[var(--text-color)] hover:underline"
                             >
                                 ← Back to Sign In
                             </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
