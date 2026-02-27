@@ -10,6 +10,7 @@ import { useLoginMutation } from "./authApi";
 import { toast } from "sonner";
 
 
+
 const LoginPage = () => {
   const navigate = useNavigate();
 
@@ -18,6 +19,7 @@ const LoginPage = () => {
   const [remember, setRemember] = useState(false);
 
   const [login, { isLoading }] = useLoginMutation();
+
 
   const [errors, setErrors] = useState<{
     email?: string;
@@ -58,8 +60,6 @@ const LoginPage = () => {
       // ✅ Check success from backend
       if (result.success) {
         toast.success("Login successful!");
-        // Store token
-        localStorage.setItem("token", result.data.token);
 
         // Store full user data
         localStorage.setItem("user", JSON.stringify(result.data));

@@ -1,6 +1,7 @@
 import React from "react";
 import PageHeader from "../HOC/pageHeader/PageHeader";
 import NavBar from "./NavBar";
+import { Calculator } from "lucide-react";
 
 
 const Header = () => {
@@ -11,7 +12,7 @@ const Header = () => {
   return (
     <>
       <PageHeader
-        icon={<i className="pi pi-calculator text-lg" />}
+          icon={<Calculator size={22} />}
         title="Estimo"
         subtitle="Quote Generator with BOM/BOQ builder, RFQ comparison & industry templates"
       />

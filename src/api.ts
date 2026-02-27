@@ -5,14 +5,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:4000/api/",
 
-    // ✅ Attach token automatically to all requests
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
+    credentials: "include",
   }),
 
   tagTypes: ["Product", "Lead", "User", "Role"],

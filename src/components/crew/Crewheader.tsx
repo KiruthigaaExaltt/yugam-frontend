@@ -1,6 +1,7 @@
 
 import PageHeader from "../HOC/pageHeader/PageHeader";
 // import NavBar from "./NavBar";
+import { Users } from "lucide-react";
 
 
 const Crewheader = () => {
@@ -11,7 +12,7 @@ const Crewheader = () => {
   return (
     <>
       <PageHeader
-        icon={<i className="pi pi-calculator text-lg" />}
+          icon={<Users size={22} />}
         title="Crew"
         subtitle="Employee management, attendance, leaves & performance tracking"
       />

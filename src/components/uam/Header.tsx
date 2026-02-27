@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Shield } from "lucide-react";
 import PageHeader from "../HOC/pageHeader/PageHeader";
 import NavBar from "./NavBar";
 
@@ -12,7 +13,7 @@ const Header = () => {
   return (
     <>
       <PageHeader
-        icon={<i className="pi pi-calculator text-lg" />}
+        icon={<Shield size={22} />}
         title="Gate"
         subtitle="Identity & Access Management"
       />

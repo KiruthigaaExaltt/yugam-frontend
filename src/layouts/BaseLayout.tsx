@@ -154,7 +154,7 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
           <div className="menu-divider"></div>
 
           <div className="menu-link logout" onClick={() => {
-            localStorage.removeItem("token");
+            localStorage.removeItem("user");
             localStorage.removeItem("remember");
             navigate("/login");
           }}>
