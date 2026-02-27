@@ -11,8 +11,10 @@ import Userimport from "./components/dashboard/Dashindex";
 import Crewindex from "./components/crew/Crewindex";
 import UAMIndex from "./components/uam/UAMIndex";
 
+
+
 function App() {
-  const isAuthenticated = !!localStorage.getItem("token");
+  const isAuthenticated = !!localStorage.getItem("user");
 
   return (
     <ThemeProvider>

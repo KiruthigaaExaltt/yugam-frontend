@@ -49,8 +49,8 @@ const ReusableDialog = ({
                 </div>
             )}
             <div>
-                <h3 className="text-xl font-bold text-gray-900 tracking-tight">{title}</h3>
-                {subtitle && <p className="text-sm font-normal text-gray-500 mt-0.5">{subtitle}</p>}
+                <h3 className="text-xl font-bold text-[var(--text-color)] tracking-tight">{title}</h3>
+                {subtitle && <p className="text-sm font-normal text-[var(--text-muted)] mt-0.5">{subtitle}</p>}
             </div>
         </div>
     );
@@ -98,7 +98,7 @@ const ReusableDialog = ({
                     {closable && (
                         <button
                             onClick={onHide}
-                            className="p-2 hover:bg-gray-100 rounded-lg transition-all text-gray-400 hover:text-gray-600 ml-4 group"
+                            className="p-2 hover:bg-[var(--surface-hover)] rounded-lg transition-all text-[var(--text-muted)] hover:text-[var(--text-color)] ml-4 group"
                         >
                             <X size={20} className="group-hover:rotate-90 transition-transform duration-200" />
                         </button>
@@ -111,9 +111,9 @@ const ReusableDialog = ({
                 </div>
             }
             className={`w-[95vw] ${maxWidth}`}
-            contentClassName="p-0"
-            headerClassName="px-6 py-6 border-b border-gray-50 rounded-t-2xl"
-            maskClassName="bg-gray-900/40 backdrop-blur-[2px]"
+            contentClassName="p-0 bg-[var(--surface-card)]"
+            headerClassName="px-6 py-6 border-b border-[var(--surface-border)] rounded-t-2xl bg-[var(--surface-card)]"
+            maskClassName="bg-black/40 backdrop-blur-[2px]"
             style={{ borderRadius: '24px', overflow: 'hidden', border: 'none', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)' }}
             closable={false}
         >

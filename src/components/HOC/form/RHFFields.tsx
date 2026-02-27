@@ -16,7 +16,7 @@ import { isValidPhoneNumber } from "react-phone-number-input";
 const Row = ({ label, children, vertical = false }: any) => (
   <div className={vertical ? "flex flex-col gap-2" : "flex items-start gap-3"} style={{ fontFamily: "var(--font-primary)" }}>
     {label ? (
-      <label className={vertical ? "text-sm font-medium text-gray-700" : "w-32 pt-2 font-medium"}>
+      <label className={vertical ? "text-sm font-medium text-[var(--text-color)]" : "w-32 pt-2 font-medium text-[var(--text-color)]"}>
         {label}
       </label>
     ) : (
@@ -45,7 +45,7 @@ export function RHFInput({ name, label, type = "text", vertical = false, rules, 
               {...field}
               type={type}
               {...props}
-              className={`w-full border rounded-xl px-3 py-2 transition-all focus:ring-2 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] outline-none ${fieldState.error ? "border-red-500" : "border-gray-300"
+              className={`w-full border rounded-xl px-3 py-2 transition-all focus:ring-2 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] outline-none bg-transparent text-[var(--text-color)] ${fieldState.error ? "border-red-500" : "border-[var(--surface-border)]"
                 } ${props.className || ""}`}
             />
 
@@ -221,7 +221,7 @@ export function RPermissionSelector({ name, label, options = [], vertical = fals
                 <input
                   type="text"
                   placeholder="Search and select permissions..."
-                  className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] outline-none transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 bg-[var(--surface-ground)] border border-[var(--surface-border)] rounded-xl focus:ring-4 focus:ring-[var(--primary-color-light)] focus:border-[var(--primary-color)] outline-none transition-all text-[var(--text-color)]"
                   style={{ fontFamily: 'var(--font-primary)' }}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
@@ -229,7 +229,7 @@ export function RPermissionSelector({ name, label, options = [], vertical = fals
               </div>
 
               {/* Options List */}
-              <div className="max-h-56 overflow-y-auto border border-gray-100 rounded-xl bg-white p-1.5 flex flex-col gap-1 custom-scrollbar no-scrollbar shadow-inner">
+              <div className="max-h-56 overflow-y-auto border border-[var(--surface-border)] rounded-xl bg-[var(--surface-card)] p-1.5 flex flex-col gap-1 custom-scrollbar no-scrollbar shadow-inner">
                 {filteredOptions.length > 0 ? (
                   filteredOptions.map((opt: any) => {
                     const isSelected = selectedValues.includes(opt.value);
@@ -237,14 +237,14 @@ export function RPermissionSelector({ name, label, options = [], vertical = fals
                       <div
                         key={opt.value}
                         onClick={() => toggle(opt.value)}
-                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200 ${isSelected ? 'bg-[var(--primary-color-light)]' : 'hover:bg-gray-50 group'
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200 ${isSelected ? 'bg-[var(--primary-color-light)]' : 'hover:bg-[var(--surface-hover)] group'
                           }`}
                       >
-                        <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${isSelected ? 'bg-[var(--primary-color)] border-[var(--primary-color)] scale-110' : 'border-gray-200 group-hover:border-[var(--primary-color)] bg-white'
+                        <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${isSelected ? 'bg-[var(--primary-color)] border-[var(--primary-color)] scale-110' : 'border-[var(--surface-border)] group-hover:border-[var(--primary-color)] bg-[var(--surface-card)]'
                           }`}>
                           {isSelected && <Check size={12} className="text-white stroke-[3px]" />}
                         </div>
-                        <span className={`text-sm font-medium transition-colors ${isSelected ? 'text-[var(--primary-color)]' : 'text-gray-600 group-hover:text-gray-900 uppercase text-[11px] tracking-wider'}`}>
+                        <span className={`text-sm font-medium transition-colors ${isSelected ? 'text-[var(--primary-color)]' : 'text-[var(--text-muted)] group-hover:text-[var(--text-color)] uppercase text-[11px] tracking-wider'}`}>
                           {opt.label}
                         </span>
                       </div>
@@ -252,10 +252,10 @@ export function RPermissionSelector({ name, label, options = [], vertical = fals
                   })
                 ) : (
                   <div className="py-10 text-center">
-                    <div className="bg-gray-50 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <Search className="text-gray-300" size={20} />
+                    <div className="bg-[var(--surface-ground)] w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <Search className="text-[var(--text-muted)]" size={20} />
                     </div>
-                    <p className="text-gray-400 text-sm font-medium">No permissions found matching "{search}"</p>
+                    <p className="text-[var(--text-muted)] text-sm font-medium">No permissions found matching "{search}"</p>
                   </div>
                 )}
               </div>
@@ -263,7 +263,7 @@ export function RPermissionSelector({ name, label, options = [], vertical = fals
               {/* Selected Chips Below */}
               <div className="flex flex-col gap-2 pt-2">
                 <div className="flex items-center justify-between px-1">
-                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">
                     Selected: <span className="text-[var(--primary-color)]">{selectedValues.length}</span>
                   </span>
                   {selectedValues.length > 0 && (
@@ -296,8 +296,8 @@ export function RPermissionSelector({ name, label, options = [], vertical = fals
                       );
                     })
                   ) : (
-                    <div className="w-full py-4 border-2 border-dashed border-gray-100 rounded-xl flex items-center justify-center">
-                      <p className="text-xs text-gray-300 font-medium italic">No permissions selected yet</p>
+                    <div className="w-full py-4 border-2 border-dashed border-[var(--surface-border)] rounded-xl flex items-center justify-center">
+                      <p className="text-xs text-[var(--text-muted)] font-medium italic">No permissions selected yet</p>
                     </div>
                   )}
                 </div>
@@ -340,7 +340,7 @@ export function RCheckbox({ name, label, vertical = false }: any) {
                 onChange={(e) => field.onChange(e.target.checked)}
                 className="w-4 h-4 rounded text-(--primary-color) focus:ring-(--primary-color)"
               />
-              <span className="text-sm text-gray-700">{label}</span>
+              <span className="text-sm text-[var(--text-color)]">{label}</span>
             </label>
 
             {fieldState.error && (
@@ -372,7 +372,7 @@ export function RSwitch({ name, label, vertical = false }: any) {
                 onChange={(e) => field.onChange(e.value)}
                 className={fieldState.error ? "p-invalid" : ""}
               />
-              {label && <span className="text-sm text-gray-700 cursor-pointer" onClick={() => field.onChange(!field.value)}>{label}</span>}
+              {label && <span className="text-sm text-[var(--text-color)] cursor-pointer" onClick={() => field.onChange(!field.value)}>{label}</span>}
             </div>
 
             {fieldState.error && (
@@ -411,13 +411,13 @@ export function RFileUpload({ name, label, vertical = false, rules, ...props }: 
                 border rounded-xl p-3 
                 cursor-pointer 
                 transition
-                ${fieldState.error ? "border-red-500" : "border-gray-300"}
-                hover:border-[var(--primary-color)] hover:bg-[var(--primary-color-light)] 
+                ${fieldState.error ? "border-red-500" : "border-[var(--surface-border)]"}
+                hover:border-[var(--primary-color)] hover:bg-[var(--primary-color-light)] bg-transparent
               `}
             >
               <FiUpload className="text-xl text-[var(--primary-color)]" />
 
-              <span className="text-gray-700">
+              <span className="text-[var(--text-color)]">
                 {fileName ? <b>{fileName}</b> : "Choose a file…"}
               </span>
 
@@ -463,8 +463,8 @@ export function RQuillEditor({ name, label }: any) {
               value={field.value}
               onTextChange={(e) => field.onChange(e.htmlValue)}
               style={{ height: "180px", borderRadius: '0.75rem' }}
-              className={`border ${fieldState.error ? "border-red-500" : "border-gray-300"
-                } rounded-xl`}
+              className={`border ${fieldState.error ? "border-red-500" : "border-[var(--surface-border)]"
+                } rounded-xl bg-transparent text-[var(--text-color)]`}
             />
 
             {fieldState.error && (
@@ -507,7 +507,7 @@ export function RPhoneNumberInput({
         render={({ field, fieldState }) => (
           <>
             <div
-              className={`border rounded-xl px-3 py-2 transition-all focus-within:ring-2 focus-within:ring-[var(--primary-color-light)] focus-within:border-[var(--primary-color)] ${fieldState.error ? "border-red-500" : "border-gray-300"
+              className={`border rounded-xl px-3 py-2 transition-all focus-within:ring-2 focus-within:ring-[var(--primary-color-light)] focus-within:border-[var(--primary-color)] bg-transparent ${fieldState.error ? "border-red-500" : "border-[var(--surface-border)]"
                 }`}
             >
               <PhoneInput

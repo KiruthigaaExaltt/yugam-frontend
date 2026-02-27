@@ -44,7 +44,7 @@ const PageHeader: React.FC<PageHeaderProps & { children?: React.ReactNode }> = (
               className="flex items-center justify-center rounded-lg"
               style={{
                 background: "var(--primary-color)",
-                color: "var(--primary-color)",
+                color: "#ffffff",
                 width: "clamp(36px, 4vw, 40px)",
                 height: "clamp(36px, 4vw, 40px)",
               }}
