@@ -1,7 +1,5 @@
 import { type JSX, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCurrentPermissions } from "../login/authSlice";
 import "./NavigationMenu.css";
 import {
   PiHouse,
@@ -28,9 +26,8 @@ import {
   PiGear,
   PiCaretDownBold,
   PiCaretRightBold,
-  PiUserGear,
 } from "react-icons/pi";
-
+ 
 interface NavItem {
   id: string;
   label: string;
@@ -38,27 +35,25 @@ interface NavItem {
   icon: JSX.Element;
   route: string;
   badge?: string | number;
-  permission?: string; // Add permission field
 }
-
+ 
 interface NavCategory {
   category: string;
   items: NavItem[];
 }
-
+ 
 interface NavigationMenuProps {
   collapsed?: boolean;
   onNavigate?: () => void;
 }
-
+ 
 const NavigationMenu = ({
   collapsed = false,
   onNavigate,
 }: NavigationMenuProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const userPermissions = useSelector(selectCurrentPermissions);
-
+ 
   const navigationData: NavCategory[] = [
     {
       category: "CORE",
@@ -81,7 +76,6 @@ const NavigationMenu = ({
           description: "Sales CRM with lead managem",
           icon: <PiUsers />,
           route: "/orbit",
-          permission: "VIEW_ORBIT", // Example mapping
         },
         {
           id: "estimo",
@@ -89,7 +83,6 @@ const NavigationMenu = ({
           description: "Quote Generator with BOM/BO",
           icon: <PiFileText />,
           route: "/estimo",
-          permission: "VIEW_ESTIMO",
         },
       ],
     },
@@ -102,7 +95,6 @@ const NavigationMenu = ({
           description: "Human resource management",
           icon: <PiUser />,
           route: "/crew",
-          permission: "VIEW_USERS",
         },
         {
           id: "hire",
@@ -110,7 +102,6 @@ const NavigationMenu = ({
           description: "Recruitment management",
           icon: <PiUserPlus />,
           route: "/hire",
-          permission: "VIEW_HIRE",
         },
         {
           id: "crewpay",
@@ -118,7 +109,6 @@ const NavigationMenu = ({
           description: "Payroll system",
           icon: <PiCurrencyDollar />,
           route: "/payroll",
-          permission: "VIEW_PAYROLL",
         },
       ],
     },
@@ -131,7 +121,6 @@ const NavigationMenu = ({
           description: "Quick invoicing system",
           icon: <PiReceipt />,
           route: "/accounts",
-          permission: "VIEW_BILLR",
         },
         {
           id: "cycle",
@@ -139,7 +128,6 @@ const NavigationMenu = ({
           description: "Subscription management",
           icon: <PiArrowsCounterClockwise />,
           route: "/subscriptions",
-          permission: "VIEW_CYCLE",
         },
         {
           id: "flex",
@@ -147,7 +135,6 @@ const NavigationMenu = ({
           description: "Workforce management & pro",
           icon: <PiClock />,
           route: "/flex",
-          permission: "VIEW_FLEX",
         },
         {
           id: "trail",
@@ -155,7 +142,6 @@ const NavigationMenu = ({
           description: "Expense management & receip",
           icon: <PiCreditCard />,
           route: "/trail",
-          permission: "VIEW_TRAIL",
         },
         {
           id: "ledger",
@@ -163,7 +149,6 @@ const NavigationMenu = ({
           description: "Financial accounting & bookke",
           icon: <PiCalculator />,
           route: "/ledger",
-          permission: "VIEW_LEDGER",
         },
       ],
     },
@@ -176,7 +161,6 @@ const NavigationMenu = ({
           description: "Inventory, warehouse & assets",
           icon: <PiCube />,
           route: "/inventory",
-          permission: "VIEW_VAULT",
         },
         {
           id: "forge",
@@ -184,7 +168,6 @@ const NavigationMenu = ({
           description: "Production planning, work ord",
           icon: <PiHammer />,
           route: "/forge",
-          permission: "VIEW_FORGE",
         },
         {
           id: "flow",
@@ -192,7 +175,6 @@ const NavigationMenu = ({
           description: "Project management",
           icon: <PiFolder />,
           route: "/projects",
-          permission: "VIEW_FLOW",
         },
         {
           id: "sprintx",
@@ -200,7 +182,6 @@ const NavigationMenu = ({
           description: "Agile development",
           icon: <PiCheckSquare />,
           route: "/tasks-v2",
-          permission: "VIEW_SPRINTX",
         },
         {
           id: "sync",
@@ -208,7 +189,6 @@ const NavigationMenu = ({
           description: "Communications & collaborati",
           icon: <PiPhone />,
           route: "/collaboration/messages",
-          permission: "VIEW_SYNC",
         },
         {
           id: "field",
@@ -216,7 +196,6 @@ const NavigationMenu = ({
           description: "Field service management",
           icon: <PiTruck />,
           route: "/field",
-          permission: "VIEW_FIELD",
         },
       ],
     },
@@ -229,7 +208,6 @@ const NavigationMenu = ({
           description: "Social media management",
           icon: <PiShareNetwork />,
           route: "/social",
-          permission: "VIEW_REACH",
         },
       ],
     },
@@ -242,7 +220,6 @@ const NavigationMenu = ({
           description: "Contract management",
           icon: <PiFileText />,
           route: "/contracts",
-          permission: "VIEW_CONTRACTA",
         },
       ],
     },
@@ -255,7 +232,6 @@ const NavigationMenu = ({
           description: "Business intelligence",
           icon: <PiBrain />,
           route: "/reports",
-          permission: "VIEW_VISION",
         },
         {
           id: "gate",
@@ -263,7 +239,6 @@ const NavigationMenu = ({
           description: "Identity management",
           icon: <PiKey />,
           route: "/security",
-          permission: "VIEW_GATE",
         },
       ],
     },
@@ -276,7 +251,6 @@ const NavigationMenu = ({
           description: "Cloud storage",
           icon: <PiHardDrive />,
           route: "/collaboration/storage",
-          permission: "VIEW_DRIVE",
         },
       ],
     },
@@ -289,49 +263,30 @@ const NavigationMenu = ({
           description: "System administration, RBAC &",
           icon: <PiGear />,
           route: "/settings",
-          permission: "VIEW_SETTINGS",
-        },
-        {
-          id: "uam",
-          label: "User Access Management",
-          description: "User management, RBAC & permissions",
-          icon: <PiUserGear />,
-          route: "/uam",
-          permission: "VIEW_ROLES", // Based on your screenshot
         },
       ],
     },
   ];
-
-  // Filter navigation data based on permissions
-  const filteredNavigationData = navigationData
-    .map((category) => ({
-      ...category,
-      items: category.items.filter(
-        (item) => !item.permission || userPermissions.includes(item.permission)
-      ),
-    }))
-    .filter((category) => category.items.length > 0);
-
+ 
   /** Active item */
   const activeItemId =
-    filteredNavigationData
+    navigationData
       .flatMap((section) => section.items)
       .find((item) => location.pathname.startsWith(item.route))?.id ?? "";
-
+ 
   /** Active category (derived, no effect needed) */
   const activeCategory =
-    filteredNavigationData.find((section) =>
+    navigationData.find((section) =>
       section.items.some((item) =>
         location.pathname.startsWith(item.route)
       )
     )?.category ?? "CORE";
-
+ 
   /* Expanded category state (only one at a time) */
   const [expandedCategories, setExpandedCategories] = useState<string[]>([
     activeCategory,
   ]);
-
+ 
   const toggleCategory = (category: string) => {
     setExpandedCategories((prev) => {
       // Accordion behavior: if clicking the already open one, close it.
@@ -342,16 +297,16 @@ const NavigationMenu = ({
       return [category];
     });
   };
-
+ 
   return (
     <div className={`navigation-menu ${collapsed ? "collapsed" : ""}`}>
-      {filteredNavigationData.map((section) => {
+      {navigationData.map((section) => {
         // "CORE" and "WORK" are always expanded visually and have no header toggles.
         // Updated to remove "WORK" as it's no longer a category in the new structure
         const isAlwaysExpanded = ["CORE"].includes(section.category);
         // Check if explicitly expanded OR always expanded
         const isExpanded = isAlwaysExpanded || expandedCategories.includes(section.category);
-
+ 
         return (
           <div key={section.category} className="nav-section">
             {!collapsed && !isAlwaysExpanded && (
@@ -369,28 +324,29 @@ const NavigationMenu = ({
                 </span>
               </div>
             )}
-
+ 
             {(collapsed || isExpanded) && (
               <div className="nav-items">
                 {section.items.map((item) => (
                   <button
                     key={item.id}
-                    className={`nav-item ${activeItemId === item.id ? "active" : ""
-                      }`}
+                    className={`nav-item ${
+                      activeItemId === item.id ? "active" : ""
+                    }`}
                     onClick={() => {
                       navigate(item.route);
                       onNavigate?.();
                     }}
                   >
                     <div className="nav-item-icon">{item.icon}</div>
-
+ 
                     {!collapsed && (
                       <div className="nav-item-content">
                         <div className="nav-item-label-row">
-                          <div className="nav-item-label">{item.label}</div>
-                          {item.badge !== undefined && (
-                            <span className="nav-item-badge">{item.badge}</span>
-                          )}
+                             <div className="nav-item-label">{item.label}</div>
+                             {item.badge !== undefined && (
+                                <span className="nav-item-badge">{item.badge}</span>
+                             )}
                         </div>
                         {item.description && <div className="nav-item-description">
                           {item.description}
@@ -407,5 +363,5 @@ const NavigationMenu = ({
     </div>
   );
 };
-
+ 
 export default NavigationMenu;
