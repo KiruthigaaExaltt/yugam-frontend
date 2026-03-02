@@ -10,11 +10,11 @@ import EstimoIndex from "./components/estimo/EstimoIndex";
 import Userimport from "./components/dashboard/Dashindex";
 import Crewindex from "./components/crew/Crewindex";
 import UAMIndex from "./components/uam/UAMIndex";
-
-
+import { useSelector } from "react-redux";
+import { selectIsAuthenticated } from "./components/login/authSlice";
 
 function App() {
-  const isAuthenticated = !!localStorage.getItem("user");
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   return (
     <ThemeProvider>

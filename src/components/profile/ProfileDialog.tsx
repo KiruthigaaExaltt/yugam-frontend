@@ -1,4 +1,4 @@
-import { useForm, FormProvider, Controller } from "react-hook-form";
+import { useForm, FormProvider} from "react-hook-form";
 import ReusableDialog from "../HOC/dialog/ReusableDialog";
 import { RHFInput, RCalendar, RDropdown, RFileUpload, RPhoneNumberInput } from "../HOC/form/RHFFields";
 import { User, Lock } from "lucide-react";
@@ -10,6 +10,8 @@ import ChangePasswordDialog from "./ChangePasswordDialog";
 import { useGetProfileQuery, useUpdateProfileMutation } from "./profileApi";
 import { useEffect } from "react";
 import { primeToast } from "../customHooks/usePrimeToast";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../login/authSlice";
 
 
 interface ProfileDialogProps {
@@ -28,7 +30,7 @@ interface ProfileFormValues {
 }
 
 const ProfileDialog = ({ visible, onHide }: ProfileDialogProps) => {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const user = useSelector(selectCurrentUser) || {};
     const profileId = user.profileId || "";
 
     const { data: profileResponse, isLoading: isFetching } = useGetProfileQuery(profileId, {
