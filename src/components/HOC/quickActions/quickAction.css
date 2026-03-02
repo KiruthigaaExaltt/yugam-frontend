@@ -106,7 +106,7 @@
 .demo-button {
   align-self: flex-start;
   background-color: #ffffff;
-  color: var(--text-color);
+  color: #1f2937;
   border: 1px solid var(--surface-border);
   padding: 0.45rem 1rem;
   border-radius: 999px;

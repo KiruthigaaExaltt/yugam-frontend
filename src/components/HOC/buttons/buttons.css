@@ -8,7 +8,7 @@
 .demo-button {
   align-self: flex-start;
   background-color: #ffffff !important;
-  color: var(--text-color) !important;
+  color: #1f2937 !important;
   border: 1px solid var(--surface-border) !important;
   padding: 0.45rem 1rem;
   border-radius: var(--btn-border-radius);

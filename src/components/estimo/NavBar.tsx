@@ -41,13 +41,13 @@ const dashboardButtons: ButtonAction[] = [
   {
     label: "Export Templates",
     icon: <i className="pi pi-download" />,
-    variant: "secondary",
+    variant: "primary",
     onClick: () => { }
   },
   {
     label: "View Reports",
     icon: <i className="pi pi-chart-bar" />,
-    variant: "secondary",
+    variant: "primary",
     onClick: () => { }
   }
 ];
