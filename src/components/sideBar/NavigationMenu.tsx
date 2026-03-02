@@ -26,6 +26,7 @@ import {
   PiGear,
   PiCaretDownBold,
   PiCaretRightBold,
+  PiUserGear,
 } from "react-icons/pi";
  
 interface NavItem {
@@ -263,6 +264,14 @@ const NavigationMenu = ({
           description: "System administration, RBAC &",
           icon: <PiGear />,
           route: "/settings",
+        },
+        {
+          id: "uam",
+          label: "User Access Management",
+          description: "User management, RBAC & permissions",
+          icon: <PiUserGear />,
+          route: "/uam",
+          // permission: "VIEW_ROLES", // Based on your screenshot
         },
       ],
     },
