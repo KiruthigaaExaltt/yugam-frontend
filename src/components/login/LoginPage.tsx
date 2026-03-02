@@ -6,19 +6,23 @@ import { useState } from "react";
 import { FiLogIn } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
-import { useLoginMutation } from "./authApi";
+import { useLoginMutation, useLazyGetMeQuery } from "./authApi";
 import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { setCredentials, setPermissions } from "./authSlice";
 
 
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
 
   const [login, { isLoading }] = useLoginMutation();
+  const [getMe] = useLazyGetMeQuery();
 
 
   const [errors, setErrors] = useState<{
@@ -59,10 +63,20 @@ const LoginPage = () => {
 
       // ✅ Check success from backend
       if (result.success) {
-        toast.success("Login successful!");
+        // 1. Set credentials in Redux (cookie is handled by browser)
+        dispatch(setCredentials({ user: result.data }));
 
-        // Store full user data
-        localStorage.setItem("user", JSON.stringify(result.data));
+        // 2. Fetch permissions using /auth/me
+        try {
+          const meResult = await getMe().unwrap();
+          if (meResult.success) {
+            dispatch(setPermissions(meResult.data.permissions));
+          }
+        } catch (meError) {
+          console.error("Failed to fetch user permissions:", meError);
+        }
+
+        toast.success("Login successful!");
 
         if (remember) {
           localStorage.setItem("remember", "true");
@@ -186,7 +200,7 @@ const LoginPage = () => {
               disabled={isLoading}
               className="w-full p-button-lg bg-linear-to-r from-blue-600 to-sky-500 border-none text-white"
             />
-            <p className="text-xs text-center text-[var(--text-muted)] mt-4">
+            <p className="text-xs text-center text-(--text-muted) mt-4">
               Don’t have an account?{" "}
               <span className="text-blue-500 cursor-pointer hover:underline">
                 Contact your administrator

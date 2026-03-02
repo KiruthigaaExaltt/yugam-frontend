@@ -11,7 +11,23 @@ type LoginResponse = {
     firstName: string;
     lastName: string;
     email: string;
-    token: string;
+  };
+};
+
+type MeResponse = {
+  success: boolean;
+  status: number;
+  message: string;
+  data: {
+    id: string;
+    email: string;
+    status: string;
+    roles: {
+      id: string;
+      code: string;
+      name: string;
+    }[];
+    permissions: string[];
   };
 };
 
@@ -52,6 +68,13 @@ export const authApi = api.injectEndpoints({
         url: "auth/login",
         method: "POST",
         body,
+      }),
+    }),
+
+    getMe: builder.query<MeResponse, void>({
+      query: () => ({
+        url: "auth/me",
+        method: "GET",
       }),
     }),
 
@@ -100,6 +123,8 @@ export const authApi = api.injectEndpoints({
 
 export const {
   useLoginMutation,
+  useGetMeQuery,
+  useLazyGetMeQuery,
   useForgotPasswordMutation,
   useVerifyOTPTokenMutation,
   useResetPasswordMutation

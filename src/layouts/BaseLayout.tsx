@@ -22,6 +22,8 @@ import NavigationMenu from "../components/sideBar/NavigationMenu";
 import { Outlet, useNavigate } from "react-router-dom";
 import ProfileDialog from "../components/profile/ProfileDialog";
 import ChangePasswordDialog from "../components/profile/ChangePasswordDialog";
+import { useSelector, useDispatch } from "react-redux";
+import { logout, selectCurrentUser } from "../components/login/authSlice";
 
 
 interface BaseLayoutProps {
@@ -41,6 +43,10 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
   const settingsBtnRef = useRef<any>(null);
   const themeBtnRef = useRef<any>(null);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector(selectCurrentUser) || {};
+
   useEffect(() => {
     const handleBrandingUpdate = (e: any) => {
       if (e.detail && e.detail.logo) {
@@ -55,7 +61,6 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
 
   const { theme, activeTheme, setTheme } = useTheme();
 
-  const navigate = useNavigate();
   // const location = useLocation();
 
   // const topNavItems = [
@@ -101,7 +106,6 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [themeMenuVisible, profileMenuVisible]);
 
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
   const name = `${user.firstName || "User"} ${user.lastName || ""}`.trim();
   const role = user.role || "Administrator";
   const initials = name.split(" ").map((n: string) => n[0]).join("").toUpperCase();
@@ -109,6 +113,8 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
   const renderProfileMenu = () => {
     if (!profileMenuVisible) return null;
 
+
+    
     return (
       <div
         className="profile-menu shadow-2xl animate-in fade-in zoom-in duration-200"
@@ -154,7 +160,7 @@ const BaseLayout = ({ title }: BaseLayoutProps) => {
           <div className="menu-divider"></div>
 
           <div className="menu-link logout" onClick={() => {
-            localStorage.removeItem("user");
+            dispatch(logout());
             localStorage.removeItem("remember");
             navigate("/login");
           }}>
