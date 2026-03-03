@@ -74,10 +74,12 @@ const RoleForm = ({ visible, onHide, roleId }: DialogProps) => {
             }
         });
 
-        return Array.from(allPermissions).map((perm) => ({
-            label: perm.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, (l) => l.toUpperCase()),
-            value: perm,
-        }));
+        return Array.from(allPermissions)
+            .filter((perm): perm is string => perm !== null && perm !== undefined && typeof perm === "string")
+            .map((perm) => ({
+                label: perm.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, (l) => l.toUpperCase()),
+                value: perm,
+            }));
     }, [permissionsData]);
 
     const onRoleSubmit = async (formData: any) => {

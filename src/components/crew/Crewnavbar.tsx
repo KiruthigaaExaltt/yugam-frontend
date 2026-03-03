@@ -1,6 +1,5 @@
 import Dashboard from "../crew/module/Crewdashboard";
 import NavBarNew, { type NavItem } from "../HOC/navbarNew/NavBarNew";
-import Directory from "./module/Directory";
 import Attendance from "./module/Attendance";
 import Leaves from "./module/Leaves";
 import Performance from "./module/Performance";
@@ -37,7 +36,7 @@ export default function Crewnavbar({
 
       {activeTab === "Dashboard" && <Dashboard />}
 
-      {activeTab === "Directory" && <Directory />}
+      {activeTab === "Employee" && <EmployeeIndex />}
 
       {activeTab === "Attendance" && <Attendance />}
 

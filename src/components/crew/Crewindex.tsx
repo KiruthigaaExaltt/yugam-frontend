@@ -1,13 +1,18 @@
-import Crewheader from '../crew/Crewheader'
 import Crewnavbar from './Crewnavbar'
 import { useState } from 'react'
+import PageHeader from "../HOC/pageHeader/PageHeader";
+import { Users } from "lucide-react";
 
 
 const Crewindex = () => {
     const [activeTab, setActiveTab] = useState("Dashboard");
   return (
     <>
-    <Crewheader />
+   <PageHeader
+          icon={<Users size={22} />}
+        title="Crew"
+        subtitle="Employee management, attendance, leaves & performance tracking"
+      />
     <Crewnavbar activeTab={activeTab} onTabClick={setActiveTab} />
     </>
   )
