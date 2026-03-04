@@ -6,6 +6,7 @@ import Performance from "./module/Performance";
 import Onboarding from "./module/Onboarding";
 import Shifts from "./module/Shifts";
 import Assets from "./module/Assests";   
+import EmployeeIndex from "./module/employee/EmployeeIndex";
 type NavBarProps = {
   activeTab?: string;
   onTabClick?: (value: string) => void;
@@ -13,7 +14,7 @@ type NavBarProps = {
 
 const navItems: NavItem[] = [
   { label: "Dashboard", value: "Dashboard" },
-  { label: "Directory", value: "Directory" },
+  { label: "Employee", value: "Employee" },
   { label: "Attendance", value: "Attendance" },
   { label: "Leaves", value: "Leaves" },
   { label: "Performance", value: "Performance" },
