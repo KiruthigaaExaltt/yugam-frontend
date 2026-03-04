@@ -20,6 +20,7 @@ function App() {
     <ThemeProvider>
       <Routes>
         {/* 🔓 Public routes */}
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
