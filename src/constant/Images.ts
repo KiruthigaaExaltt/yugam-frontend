@@ -1,7 +1,7 @@
-// import Avatar from "../";
+import notFound from "../assets/images/notfound.png";
 
-// const images = {
-//     Avatar
-// }
+const images = {
+    notFound
+}
 
-// export default images;
+export default images;
