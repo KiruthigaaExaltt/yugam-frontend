@@ -8,15 +8,21 @@ import { useNavigate } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
 import { useLoginMutation, useLazyGetMeQuery } from "./authApi";
 import { toast } from "sonner";
-import { useDispatch } from "react-redux";
-import { setCredentials, setPermissions } from "./authSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials, setPermissions, selectIsAuthenticated } from "./authSlice";
 
 
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
   const dispatch = useDispatch();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
@@ -119,7 +125,7 @@ const LoginPage = () => {
 
       {/* RIGHT SECTION */}
       <div className="flex flex-1 items-center justify-center px-4">
-        <div className="w-full max-w-md bg-[var(--surface-card)] rounded-2xl shadow-xl p-8 border border-[var(--surface-border)]">
+        <div className="w-full max-w-md bg-(--surface-card) rounded-2xl shadow-xl p-8 border border-(--surface-border)">
           {/* Icon */}
           <div className="flex justify-center mb-4">
             <div className="w-14 h-14 rounded-xl bg-blue-500 flex items-center justify-center text-white">
@@ -127,8 +133,8 @@ const LoginPage = () => {
             </div>
           </div>
 
-          <h2 className="text-2xl font-semibold text-center mb-1 text-[var(--text-color)]">Sign In</h2>
-          <p className="text-sm text-[var(--text-muted)] text-center mb-6">
+          <h2 className="text-2xl font-semibold text-center mb-1 text-(--text-color)">Sign In</h2>
+          <p className="text-sm text-(--text-muted) text-center mb-6">
             Enter your credentials to access your dashboard
           </p>
 
@@ -183,7 +189,7 @@ const LoginPage = () => {
                   checked={remember}
                   onChange={(e) => setRemember(e.checked ?? false)}
                 />
-                <label htmlFor="remember" className="text-[var(--text-color)]">Remember me</label>
+                <label htmlFor="remember" className="text-(--text-color)">Remember me</label>
               </div>
 
               <button
