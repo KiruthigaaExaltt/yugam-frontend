@@ -12,6 +12,7 @@ import Crewindex from "./components/crew/Crewindex";
 import UAMIndex from "./components/uam/UAMIndex";
 import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "./components/login/authSlice";
+import NotFound from "./components/NotFound";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -38,9 +39,10 @@ function App() {
           <Route path="/crew" element={<Crewindex />} />
           <Route path="/uam" element={<UAMIndex />} />
         </Route>
-
-        {/* Default redirect */}
-        <Route path="*" element={<Navigate to="/login" />} />
+            {/* Default redirect
+        <Route path="*" element={<Navigate to="/login" />} /> */}
+        {/* Default redirect to NotFound */}
+        <Route path="*" element={<NotFound />} />
 
 
       </Routes>

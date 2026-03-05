@@ -96,7 +96,7 @@ const MainContent = () => {
     return (
       <div className="flex items-center gap-3">
         <div
-          className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium text-gray-600 border border-gray-100"
+          className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium text-gray-600 border border-[var(--surface-border)]"
           style={{ backgroundColor: rowData.avatarBg }}
         >
           {rowData.initials}
@@ -358,8 +358,8 @@ const MainContent = () => {
 
   return (
     <div className="flex flex-col gap-6 p-6">
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-2">
-        <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-50">
+      <div className="bg-white rounded-xl shadow-sm border border-[var(--surface-border)] p-2">
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--surface-border)]">
           <span className="flex items-center gap-2 text-gray-600 font-medium">
             <Filter className="text-gray-600" size={16} /> Filters
           </span>

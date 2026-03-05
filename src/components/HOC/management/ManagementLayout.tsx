@@ -91,7 +91,7 @@ const ManagementLayout = <T extends Record<string, any>>({
 
   if (isCard) {
     return (
-      <Card 
+      <Card
         className="rounded-2xl border shadow-sm"
         style={{
           borderColor: "var(--surface-border)",
@@ -170,10 +170,10 @@ export const ManagementItemCard = <T extends Record<string, any>>({
             )}
             {/* Optional secondary badge for recurring/monthly as seen in images */}
             {item.billingType && (
-               <span className="flex items-center gap-1 text-xs text-gray-400">
-                  <i className="pi pi-calendar" style={{ fontSize: '10px' }}></i>
-                  {item.billingType}
-               </span>
+              <span className="flex items-center gap-1 text-xs text-gray-400">
+                <i className="pi pi-calendar" style={{ fontSize: '10px' }}></i>
+                {item.billingType}
+              </span>
             )}
           </div>
 
@@ -184,7 +184,7 @@ export const ManagementItemCard = <T extends Record<string, any>>({
           {tagsKey && Array.isArray(item[tagsKey]) && (
             <div className="flex flex-wrap gap-2 mb-2">
               {(item[tagsKey] as string[]).map((tag, idx) => (
-                <span key={idx} className="px-3 py-1 bg-gray-50 text-gray-600 border border-gray-100 rounded-full text-[11px] font-medium">
+                <span key={idx} className="px-3 py-1 bg-gray-50 text-gray-600 border border-[var(--surface-border)] rounded-full text-[11px] font-medium">
                   {tag}
                 </span>
               ))}
@@ -199,7 +199,7 @@ export const ManagementItemCard = <T extends Record<string, any>>({
 
           {reasonKey && item[reasonKey] && (
             <div className="text-gray-400 text-[11px] mb-2 italic">
-               Reason: {item[reasonKey]}
+              Reason: {item[reasonKey]}
             </div>
           )}
 
@@ -216,7 +216,7 @@ export const ManagementItemCard = <T extends Record<string, any>>({
             {valueKey ? item[valueKey] : ""}
           </div>
           {valueLabelKey && (
-            <div className={`text-xs ${item[statusKey]?.toLowerCase() === 'overdue' ? 'text-red-500 font-semibold' : 'text-gray-400'}`}>
+            <div className={`text-xs ${(statusKey && item[statusKey]?.toLowerCase() === 'overdue') ? 'text-red-500 font-semibold' : 'text-gray-400'}`}>
               {item[valueLabelKey]}
             </div>
           )}
@@ -227,13 +227,13 @@ export const ManagementItemCard = <T extends Record<string, any>>({
           )}
           {item.alertInfo && (
             <div className="mt-auto flex items-center gap-1 text-gray-400 text-xs pt-4">
-               <i className="pi pi-bell" style={{ fontSize: '10px' }}></i>
-               {item.alertInfo}
+              <i className="pi pi-bell" style={{ fontSize: '10px' }}></i>
+              {item.alertInfo}
             </div>
           )}
           {item.itemCount && (
             <div className="mt-auto text-gray-400 text-xs pt-4">
-               {item.itemCount} items
+              {item.itemCount} items
             </div>
           )}
         </div>
@@ -241,7 +241,7 @@ export const ManagementItemCard = <T extends Record<string, any>>({
 
       {/* ACTIONS BOTTOM */}
       {actions.length > 0 && (
-        <div className="management-card-actions flex gap-3 mt-4 pt-4 border-t border-gray-50">
+        <div className="management-card-actions flex gap-3 mt-4 pt-4 border-t border-[var(--surface-border)]">
           {actions.map((action, idx) => (
             <Button
               key={idx}
