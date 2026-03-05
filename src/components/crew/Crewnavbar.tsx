@@ -1,6 +1,6 @@
 import Dashboard from "../crew/module/Crewdashboard";
 import NavBarNew, { type NavItem } from "../HOC/navbarNew/NavBarNew";
-import Attendance from "./module/Attendance";
+import Attendance from "./module/attendance/AttendanceIndex";
 import Leaves from "./module/Leaves";
 import Performance from "./module/Performance";
 import Onboarding from "./module/Onboarding";
