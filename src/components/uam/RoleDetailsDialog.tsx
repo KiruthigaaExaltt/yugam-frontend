@@ -73,7 +73,7 @@ const RoleDetailsDialog = ({ visible, onHide, roleId }: RoleDetailsDialogProps) 
                         role.permissions.map((perm: string) => (
                             <div
                                 key={perm}
-                                className="flex items-center gap-3 p-3 bg-white border border-gray-100 rounded-xl hover:border-green-200 hover:shadow-md transition-all group"
+                                className="flex items-center gap-3 p-3 bg-white border border-[var(--surface-border)] rounded-xl hover:border-green-200 hover:shadow-md transition-all group"
                             >
                                 <div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-colors">
                                     <CheckCircle2 size={14} />

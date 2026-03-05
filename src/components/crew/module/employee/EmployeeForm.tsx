@@ -74,21 +74,21 @@ const EmployeeForm = ({ visible, onHide, employeeId }: EmployeeFormProps) => {
           label="Full Name"
           vertical={true}
           placeholder="Enter full name"
-          className="bg-gray-50/50 border-gray-200 focus:bg-white transition-all rounded-xl"
+          className="bg-gray-50/50 border-[var(--surface-border)] focus:bg-white transition-all rounded-xl"
         />
         <RHFInput
           name="employeeId"
           label="Employee ID"
           vertical={true}
           placeholder="e.g. EMP001"
-          className="bg-gray-50/50 border-gray-200 focus:bg-white transition-all rounded-xl"
+          className="bg-gray-50/50 border-[var(--surface-border)] focus:bg-white transition-all rounded-xl"
         />
         <RHFInput
           name="email"
           label="Email"
           vertical={true}
           placeholder="e.g. employee@company.com"
-          className="bg-gray-50/50 border-gray-200 focus:bg-white transition-all rounded-xl"
+          className="bg-gray-50/50 border-[var(--surface-border)] focus:bg-white transition-all rounded-xl"
         />
         <Controller
           name="phone"
@@ -99,6 +99,7 @@ const EmployeeForm = ({ visible, onHide, employeeId }: EmployeeFormProps) => {
               <PhoneNumberField
                 value={field.value}
                 onChange={field.onChange}
+                className="bg-gray-50/50 border border-[var(--surface-border)] focus:bg-white transition-all rounded-xl h-11 px-4 PhoneInput"
               />
               {fieldState.error && (
                 <small className="text-red-500">{fieldState.error.message}</small>
@@ -119,7 +120,7 @@ const EmployeeForm = ({ visible, onHide, employeeId }: EmployeeFormProps) => {
           label="Designation"
           vertical={true}
           placeholder="e.g. Software Engineer"
-          className="bg-gray-50/50 border-gray-200 focus:bg-white transition-all rounded-xl"
+          className="bg-gray-50/50 border-[var(--surface-border)] focus:bg-white transition-all rounded-xl"
         />
         <RCalendar
           name="joiningDate"

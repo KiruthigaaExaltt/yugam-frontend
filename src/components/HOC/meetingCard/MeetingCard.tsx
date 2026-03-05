@@ -472,7 +472,7 @@ const MeetingCard: React.FC<MeetingSectionProps> = ({
               key={i}
               className={`cursor-pointer transition-all duration-300 hover:brightness-95 p-3 ${isRecentCall || isPayment
                 ? getTintClass(m)
-                : "bg-white border border-(--surface-border)"
+                : "bg-white border border-[var(--surface-border)]"
                 }`}
               style={{
                 borderRadius: "12px",
