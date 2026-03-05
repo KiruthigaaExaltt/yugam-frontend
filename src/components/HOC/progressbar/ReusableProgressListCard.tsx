@@ -89,7 +89,7 @@ const ReusableStatCard: React.FC<ReusableStatCardProps> = ({
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-sm">{title}</h3>
         {showEyeButton && (
-          <button className="w-9 h-9 flex items-center justify-center rounded-md border border-gray-300 bg-white hover:bg-gray-50">
+          <button className="w-9 h-9 flex items-center justify-center rounded-md border border-[var(--surface-border)] bg-white hover:bg-gray-50">
             <FiEye className="text-gray-600 text-sm" />
           </button>
         )}
@@ -161,8 +161,8 @@ const ReusableStatCard: React.FC<ReusableStatCardProps> = ({
             >
               <span
                 className={`w-6 h-6 flex items-center justify-center rounded-full border ${item.completed
-                    ? "border-(--primary-color) bg-(--primary-color-light) text-(--primary-color)"
-                    : "border-red-400 bg-red-50 text-red-500"
+                  ? "border-(--primary-color) bg-(--primary-color-light) text-(--primary-color)"
+                  : "border-red-400 bg-red-50 text-red-500"
                   }`}
               >
                 {item.completed ? "✔" : "✖"}
@@ -178,7 +178,7 @@ const ReusableStatCard: React.FC<ReusableStatCardProps> = ({
             </div>
           ))}
 
-          <div className="border-t border-gray-200 my-3" />
+          <div className="border-t border-[var(--surface-border)] my-3" />
 
           {/* COMPLIANCE SCORE */}
           {scorePercent !== undefined && (

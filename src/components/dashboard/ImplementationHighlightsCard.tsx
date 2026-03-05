@@ -49,7 +49,7 @@ const ImplementationHighlightsCard = () => {
           ))}
         </div>
 
-        <div className="border-t border-gray-100 my-8" />
+        <div className="border-t border-[var(--surface-border)] my-8" />
 
         {/* Achievements Section */}
         <div className="mt-4">

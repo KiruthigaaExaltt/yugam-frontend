@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import ReusableCrudTable, {
     type CrudColumn,
 } from "../../../HOC/ReusableDataTable/ReusableDataTable";
-import { Phone, Mail, Eye, Edit3, Calendar, CreditCard, Briefcase, Building2 } from "lucide-react";
+import { Phone, Mail, Eye, Edit3, Calendar, CreditCard, Briefcase, Building2, Search, Plus, ChevronDown } from "lucide-react";
+import { InputText } from "primereact/inputtext";
+import { Button } from "primereact/button";
+import { Dropdown } from "primereact/dropdown";
+import EmployeeForm from "./EmployeeForm";
+import { useDebouncedValue } from "../../../customHooks/useDebouncedValue";
 
 interface Employee {
     id: string;
@@ -59,8 +64,6 @@ const DUMMY_EMPLOYEES: Employee[] = [
         attendance: "83.3%",
         performance: "4.2/5.0"
     },
-    
-
 ];
 
 const EmployeeTable = () => {
@@ -69,6 +72,43 @@ const EmployeeTable = () => {
     const [rows, setRows] = useState(10);
     const [selectedEmployees, setSelectedEmployees] = useState<Employee[]>([]);
     const [isLoading] = useState(false);
+    const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
+    const [showForm, setShowForm] = useState(false);
+
+    const debouncedSearch = useDebouncedValue(globalFilter, 500);
+
+    const statusOptions = [
+        { label: "All Status", value: "All Status" },
+        { label: "Active", value: "active" },
+        { label: "On Leave", value: "on leave" }
+    ];
+
+    const filteredEmployees = useMemo(() => {
+        let filtered = [...DUMMY_EMPLOYEES];
+
+        // Status Filter
+        if (selectedStatus !== "All Status") {
+            filtered = filtered.filter(emp => emp.status === selectedStatus);
+        }
+
+        // Global Search
+        if (debouncedSearch) {
+            const searchLower = debouncedSearch.toLowerCase();
+            filtered = filtered.filter(emp =>
+                emp.name.toLowerCase().includes(searchLower) ||
+                emp.employee_id.toLowerCase().includes(searchLower) ||
+                emp.position.toLowerCase().includes(searchLower) ||
+                emp.department.toLowerCase().includes(searchLower) ||
+                emp.email.toLowerCase().includes(searchLower)
+            );
+        }
+
+        return filtered;
+    }, [debouncedSearch, selectedStatus]);
+
+    const onAdd = () => {
+        setShowForm(true);
+    };
 
     const profileTemplate = (rowData: Employee) => (
         <div className="flex items-center gap-4 py-1">
@@ -92,13 +132,13 @@ const EmployeeTable = () => {
     const designationTemplate = (rowData: Employee) => (
         <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2.5 text-sm text-gray-600 font-medium">
-                <div className="w-6 h-6 rounded-lg bg-gray-50 flex items-center justify-center border border-gray-100">
+                <div className="w-6 h-6 rounded-lg bg-gray-50 flex items-center justify-center border border-[var(--surface-border)]">
                     <Briefcase size={12} className="text-gray-400" />
                 </div>
                 <span>{rowData.position}</span>
             </div>
             <div className="flex items-center gap-2.5 text-sm text-gray-600 font-medium">
-                <div className="w-6 h-6 rounded-lg bg-gray-50 flex items-center justify-center border border-gray-100">
+                <div className="w-6 h-6 rounded-lg bg-gray-50 flex items-center justify-center border border-[var(--surface-border)]">
                     <Building2 size={12} className="text-gray-400" />
                 </div>
                 <span>{rowData.department}</span>
@@ -109,13 +149,13 @@ const EmployeeTable = () => {
     const contactTemplate = (rowData: Employee) => (
         <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2.5 text-sm text-gray-500">
-                <div className="w-6 h-6 rounded-lg bg-gray-50 flex items-center justify-center border border-gray-100">
+                <div className="w-6 h-6 rounded-lg bg-gray-50 flex items-center justify-center border border-[var(--surface-border)]">
                     <Phone size={12} className="text-gray-400" />
                 </div>
                 <span>{rowData.phone}</span>
             </div>
             <div className="flex items-center gap-2.5 text-sm text-gray-500">
-                <div className="w-6 h-6 rounded-lg bg-gray-50 flex items-center justify-center border border-gray-100">
+                <div className="w-6 h-6 rounded-lg bg-gray-50 flex items-center justify-center border border-[var(--surface-border)]">
                     <Mail size={12} className="text-gray-400" />
                 </div>
                 <span className="truncate max-w-[140px] lowercase">{rowData.email}</span>
@@ -124,7 +164,7 @@ const EmployeeTable = () => {
     );
 
     const statsTemplate = (value: string, label: string, colorClass: string, bgClass: string) => (
-        <div className="flex flex-col items-center justify-center py-2 px-3 rounded-2xl bg-gray-50/50 border border-transparent hover:border-gray-100 transition-colors">
+        <div className="flex flex-col items-center justify-center py-2 px-3 rounded-2xl bg-gray-50/50 border border-transparent hover:border-[var(--surface-border)] transition-colors">
             <span className={`text-lg font-black tracking-tight ${colorClass}`}>{value}</span>
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">{label}</span>
         </div>
@@ -132,16 +172,16 @@ const EmployeeTable = () => {
 
     const actionsTemplate = () => (
         <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all cursor-pointer border border-blue-100/50" title="View">
+            <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all cursor-pointer border border-[var(--surface-border)]" title="View">
                 <Eye size={16} />
             </div>
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 hover:bg-emerald-600 hover:text-white transition-all cursor-pointer border border-emerald-100/50" title="Mark">
+            <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 hover:bg-emerald-600 hover:text-white transition-all cursor-pointer border border-[var(--surface-border)]" title="Mark">
                 <Edit3 size={16} />
             </div>
-            <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 hover:bg-amber-600 hover:text-white transition-all cursor-pointer border border-amber-100/50" title="Leave">
+            <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 hover:bg-amber-600 hover:text-white transition-all cursor-pointer border border-[var(--surface-border)]" title="Leave">
                 <Calendar size={16} />
             </div>
-            <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all cursor-pointer border border-indigo-100/50" title="Pay">
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all cursor-pointer border border-[var(--surface-border)]" title="Pay">
                 <CreditCard size={16} />
             </div>
         </div>
@@ -164,40 +204,86 @@ const EmployeeTable = () => {
         { body: actionsTemplate, header: "Actions", style: { minWidth: '180px' } },
     ];
 
-    return (
-        <div className="mt-8 rounded-3xl overflow-hidden border border-gray-100 shadow-sm bg-white">
-            <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between bg-white">
-                <h2 className="text-lg font-extrabold text-gray-800 tracking-tight">Employee Management</h2>
-                <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{DUMMY_EMPLOYEES.length} Records</span>
-                </div>
-            </div>
-            <div className="overflow-x-auto no-scrollbar">
-                <ReusableCrudTable
-                    data={DUMMY_EMPLOYEES}
-                    columns={columns}
-                    dataKey="id"
-                    totalRecords={DUMMY_EMPLOYEES.length}
-                    selection={selectedEmployees}
-                    onSelectionChange={setSelectedEmployees}
-                    globalFilter={globalFilter}
-                    onGlobalFilterChange={setGlobalFilter}
-                    page={first / rows}
-                    rows={rows}
-                    onPageChange={(e: any) => {
-                        setFirst(e.first);
-                        setRows(e.rows);
-                    }}
-                    loading={isLoading}
-                    title=""
-                    toolbar={false}
-                    showSearch={false}
-                    isCard={false}
-                    showGridlines={false}
+    const headerFilters = (
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+            <div className="relative w-full sm:w-64">
+                <Search
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                    size={18}
+                />
+                <InputText
+                    value={globalFilter}
+                    onChange={(e) => setGlobalFilter(e.target.value)}
+                    placeholder="Search users..."
+                    className="w-full !pl-12 pr-4 h-10 bg-[var(--surface-card)] border-[var(--surface-border)] rounded-lg text-sm focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color-light)] transition-all text-[var(--text-color)]"
                 />
             </div>
+            <Dropdown
+                value={selectedStatus}
+                options={statusOptions}
+                onChange={(e) => setSelectedStatus(e.value)}
+                placeholder="All Status"
+                className="w-40 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm flex items-center"
+            />
         </div>
+
+    );
+    const toolbarRight = (
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+            <Button
+                onClick={onAdd}
+                className="h-10 px-4 bg-[var(--primary-color)] hover:opacity-90 border-none flex items-center gap-2 rounded-lg text-white font-medium w-full sm:w-auto justify-center"
+            >
+                <Plus size={18} />
+                <span className="text-[14px]">Add Employee</span>
+            </Button>
+            <EmployeeForm
+                visible={showForm}
+                onHide={() => setShowForm(false)}
+            />
+        </div>
+    );
+
+    return (
+        <>
+            <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-4 bg-[var(--surface-card)] p-4 rounded-xl border border-[var(--surface-border)] shadow-sm">
+                {headerFilters}
+                {toolbarRight}
+            </div>
+            <div className="bg-[var(--surface-card)] rounded-xl shadow-sm border border-[var(--surface-border)] overflow-hidden">
+                <div className="px-6 py-5 border-b border-[var(--surface-border)] flex items-center justify-between">
+                    <h2 className="text-lg font-semibold text-[var(--text-color)]">
+                        Employee Management</h2>
+                    <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{filteredEmployees.length} Records</span>
+                    </div>
+                </div>
+                <div className="overflow-x-auto no-scrollbar">
+                    <ReusableCrudTable
+                        data={DUMMY_EMPLOYEES}
+                        columns={columns}
+                        dataKey="id"
+                        totalRecords={DUMMY_EMPLOYEES.length}
+                        selection={selectedEmployees}
+                        onSelectionChange={setSelectedEmployees}
+                        globalFilter={globalFilter}
+                        onGlobalFilterChange={setGlobalFilter}
+                        page={first / rows}
+                        rows={rows}
+                        onPageChange={(e: any) => {
+                            setFirst(e.first);
+                            setRows(e.rows);
+                        }}
+                        loading={isLoading}
+                        title=""
+                        toolbar={false}
+                        showSearch={false}
+                        isCard={false}
+                        showGridlines={false}
+                    />
+                </div>
+            </div>
+        </>
     )
 }
-
 export default EmployeeTable;

@@ -38,7 +38,7 @@ const General = () => {
     ];
 
     return (
-        <div className="mt-4 p-8 bg-white rounded-xl shadow-sm border border-gray-100">
+        <div className="mt-4 p-8 bg-white rounded-xl shadow-sm border border-[var(--surface-border)]">
             <h2 className="text-lg font-semibold text-gray-800 mb-8">
                 General Settings
             </h2>

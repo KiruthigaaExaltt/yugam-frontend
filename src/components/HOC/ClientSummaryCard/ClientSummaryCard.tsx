@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "primereact/card";
 import { ProgressBar } from "primereact/progressbar";
-import { FiMail, FiPhone, FiClock , FiEdit, FiX , FiMoreHorizontal} from "react-icons/fi";
+import { FiMail, FiPhone, FiClock, FiEdit, FiX, FiMoreHorizontal } from "react-icons/fi";
 import { useState } from "react";
 export interface ClientSummaryCardProps {
   fullName?: string;
@@ -42,11 +42,11 @@ export interface ClientSummaryCardProps {
   isRenewalOverdue?: boolean;
   autoRenew?: boolean;
   showCancel?: boolean;
-  role?:string | number;
-  attendance?:number;
-  performance?: number;  
-   profileImage?: string;
-    onView?: () => void;
+  role?: string | number;
+  attendance?: number;
+  performance?: number;
+  profileImage?: string;
+  onView?: () => void;
   onMark?: () => void;
   onLeave?: () => void;
   onPay?: () => void;
@@ -82,23 +82,23 @@ const ClientSummaryCard: React.FC<ClientSummaryCardProps> = (props) => {
     props.onCancel?.();
   };
 
- const avatarStyles: React.CSSProperties = {
+  const avatarStyles: React.CSSProperties = {
     width: "44px",
     height: "44px",
     borderRadius: "50%",
     objectFit: "cover",
-    border: "1px solid #E5E7EB",
+    border: "1px solid var(--surface-border)",
   };
 
 
   return (
-  <Card
-  className="w-full transition-all duration-300 hover:-translate-y-1 hover:shadow-(--card-shadow-hover) border border-(--surface-border)"
-  style={{ 
-    backgroundColor: "var(--surface-card)",
-    borderRadius: "var(--card-radius)"
-  }}
-     pt={{
+    <Card
+      className="w-full transition-all duration-300 hover:-translate-y-1 hover:shadow-(--card-shadow-hover) border border-[var(--surface-border)]"
+      style={{
+        backgroundColor: "var(--surface-card)",
+        borderRadius: "var(--card-radius)"
+      }}
+      pt={{
         body: { style: { padding: isClientCard ? "14px 18px" : "18px 22px" } },
         content: { className: 'p-0' }
       }}
@@ -116,31 +116,31 @@ const ClientSummaryCard: React.FC<ClientSummaryCardProps> = (props) => {
           )}
 
           {isClientCard && (
-  <>
-    {props.profileImage ? (
-      <img
-        src={props.profileImage}
-        alt={props.fullName || props.name}
-        style={avatarStyles}
-        onError={(e) => {
-          e.currentTarget.src = "/avatar.png";
-        }}
-      />
-    ) : (
-      props.initials && (
-        <div
-          className="h-11 w-11 rounded-full flex items-center justify-center font-bold text-sm shrink-0"
-          style={{
-            backgroundColor: "var(--icon-bg-primary)",
-            color: "var(--icon-color-primary)",
-          }}
-        >
-          {props.initials}
-        </div>
-      )
-    )}
-  </>
-)}
+            <>
+              {props.profileImage ? (
+                <img
+                  src={props.profileImage}
+                  alt={props.fullName || props.name}
+                  style={avatarStyles}
+                  onError={(e) => {
+                    e.currentTarget.src = "/avatar.png";
+                  }}
+                />
+              ) : (
+                props.initials && (
+                  <div
+                    className="h-11 w-11 rounded-full flex items-center justify-center font-bold text-sm shrink-0"
+                    style={{
+                      backgroundColor: "var(--icon-bg-primary)",
+                      color: "var(--icon-color-primary)",
+                    }}
+                  >
+                    {props.initials}
+                  </div>
+                )
+              )}
+            </>
+          )}
           <div className="flex flex-col justify-center">
             <div className="flex items-center gap-2">
               {props.isVerified && (
@@ -171,16 +171,16 @@ const ClientSummaryCard: React.FC<ClientSummaryCardProps> = (props) => {
         <div className={`flex ${isClientCard ? 'flex-col items-end gap-1' : 'items-center gap-2'}`}>
           {[currentStatus, isClientCard && props.priority].map((val, i) => val && (
             <span key={i} className={`text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider ${i === 0 ? statusColorMap[currentStatus!] : priorityColorMap[props.priority!]}`}>
-               {val}
+              {val}
             </span>
           ))}
           {props.showWarning && (
-             <div className="text-red-400">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-                  <circle cx="12" cy="13" r="0.5" fill="currentColor"/><line x1="12" y1="8" x2="12" y2="12" />
-                </svg>
-             </div>
+            <div className="text-red-400">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <circle cx="12" cy="13" r="0.5" fill="currentColor" /><line x1="12" y1="8" x2="12" y2="12" />
+              </svg>
+            </div>
           )}
         </div>
       </div>
@@ -188,8 +188,8 @@ const ClientSummaryCard: React.FC<ClientSummaryCardProps> = (props) => {
       {isSubscriptionCard && (
         <>
           {/* STATS STRIP */}
-          <div className="grid grid-cols-2 gap-4 mt-6 mb-8 border-b border-t border-gray-200 pb-4">
-            <div className="text-center border-r border-gray-200">
+          <div className="grid grid-cols-2 gap-4 mt-6 mb-8 border-b border-t border-[var(--surface-border)] pb-4">
+            <div className="text-center border-r border-[var(--surface-border)]">
               <p className="font-extrabold text-xl mb-0.5" style={{ color: "var(--primary-color)" }}>${props.monthlyCost}</p>
               <p className="text-[10px] text-(--text-muted) font-semibold uppercase">Monthly Cost</p>
             </div>
@@ -202,16 +202,16 @@ const ClientSummaryCard: React.FC<ClientSummaryCardProps> = (props) => {
           {/* PROGRESS SECTION */}
           <div className="mb-6">
             <div className="flex justify-between items-center mb-2">
-               <span className="text-xs font-bold text-(--text-color)">Utilization Rate</span>
-               <span className="text-xs font-extrabold text-(--text-color)">{props.utilizationRate}%</span>
+              <span className="text-xs font-bold text-(--text-color)">Utilization Rate</span>
+              <span className="text-xs font-extrabold text-(--text-color)">{props.utilizationRate}%</span>
             </div>
-            <ProgressBar 
-              value={props.utilizationRate || 0} 
-              showValue={false} 
+            <ProgressBar
+              value={props.utilizationRate || 0}
+              showValue={false}
               pt={{
                 root: { style: { height: "7px", borderRadius: "999px", backgroundColor: "var(--progress-bg)" } },
                 value: { style: { borderRadius: "999px", backgroundColor: "var(--progress-fill)" } }
-              }} 
+              }}
             />
             <p className="text-[10px] text-gray-400 mt-2 font-medium">{props.usersActive} active users</p>
             <p className="text-right text-[10px] text-gray-400 -mt-4 mb-4 font-medium">Last accessed {props.lastAccessed}</p>
@@ -221,7 +221,7 @@ const ClientSummaryCard: React.FC<ClientSummaryCardProps> = (props) => {
           <div className="space-y-4 mb-6">
             <div className="flex justify-between items-center">
               <span className="text-xs font-medium text-gray-500">Department:</span>
-              <span className="text-xs font-bold text-gray-700 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">{props.department}</span>
+              <span className="text-xs font-bold text-gray-700 bg-gray-50 px-3 py-1 rounded-full border border-[var(--surface-border)]">{props.department}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-xs font-medium text-gray-500">Billing Cycle:</span>
@@ -236,7 +236,7 @@ const ClientSummaryCard: React.FC<ClientSummaryCardProps> = (props) => {
             </div>
             <div className="flex justify-between items-center">
               <span className="text-xs font-medium text-gray-500">Auto Renew:</span>
-              <div 
+              <div
                 className={`w-10 h-5 rounded-full p-1 cursor-pointer transition-colors duration-200 ${autoRenew ? 'bg-[#10B981]' : 'bg-gray-200'}`}
                 onClick={() => setAutoRenew(!autoRenew)}
               >
@@ -248,12 +248,12 @@ const ClientSummaryCard: React.FC<ClientSummaryCardProps> = (props) => {
           {/* TAGS */}
           <div className="flex flex-wrap gap-2 mb-8">
             {props.tags?.map((tag) => (
-              <span key={tag} className="text-xs font-bold text-gray-600 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">{tag}</span>
+              <span key={tag} className="text-xs font-bold text-gray-600 bg-gray-50 px-3 py-1 rounded-full border border-[var(--surface-border)]">{tag}</span>
             ))}
           </div>
 
           {/* FOOTER ACTIONS */}
-          <div className="flex items-center pt-4 border-t border-gray-50">
+          <div className="flex items-center pt-4 border-t border-[var(--surface-border)]">
             <div className="flex gap-2">
               <button
                 onClick={() => props.onEdit?.()}
@@ -309,14 +309,14 @@ const ClientSummaryCard: React.FC<ClientSummaryCardProps> = (props) => {
             {props.tags?.map((tag) => (
               <span
                 key={tag}
-                className="text-[10px] font-bold text-gray-500 bg-white px-3 py-0.5 rounded-full border border-gray-200"
+                className="text-[10px] font-bold text-gray-500 bg-white px-3 py-0.5 rounded-full border border-[var(--surface-border)]"
               >
                 {tag}
               </span>
             ))}
           </div>
 
-          <div className="mb-6 border-t border-gray-300"></div>
+          <div className="mb-6 border-t border-[var(--surface-border)]"></div>
 
           {/* PROGRESS SECTION */}
           {(props.progressValue !== undefined || props.progressText) && (
@@ -330,24 +330,24 @@ const ClientSummaryCard: React.FC<ClientSummaryCardProps> = (props) => {
                 showValue={false}
                 pt={{
                   root: { style: { height: "7px", borderRadius: "999px", backgroundColor: "var(--progress-bg)" } },
-                value: { style: { borderRadius: "999px", backgroundColor: "var(--progress-fill)" } }
-              }}
-            />
-          </div>
-        )}
+                  value: { style: { borderRadius: "999px", backgroundColor: "var(--progress-fill)" } }
+                }}
+              />
+            </div>
+          )}
 
-        {/* FOOTER */}
-        <div className="flex items-center justify-between pt-2 border-t border-gray-300">
-          <div className="flex flex-col">
-            <span className="text-[10px] font-semibold text-(--text-muted) uppercase tracking-tight">Revenue</span>
-            <span className="text-sm font-extrabold" style={{ color: "var(--primary-color)" }}>{props.revenue}</span>
+          {/* FOOTER */}
+          <div className="flex items-center justify-between pt-2 border-t border-[var(--surface-border)]">
+            <div className="flex flex-col">
+              <span className="text-[10px] font-semibold text-(--text-muted) uppercase tracking-tight">Revenue</span>
+              <span className="text-sm font-extrabold" style={{ color: "var(--primary-color)" }}>{props.revenue}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-bold text-(--text-color) bg-(--surface-ground) px-3 py-1.5 rounded-full border border-[var(--surface-border)]">
+                {props.projectsCount} projects
+              </span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold text-(--text-color) bg-(--surface-ground) px-3 py-1.5 rounded-full border border-gray-200">
-              {props.projectsCount} projects
-            </span>
-          </div>
-        </div>
         </div>
       )}
     </Card>

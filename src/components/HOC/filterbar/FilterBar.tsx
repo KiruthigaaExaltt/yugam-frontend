@@ -77,7 +77,7 @@ export default function FilterBar({
               }}
               placeholder="Search templates..."
               style={{ paddingLeft: "3rem", paddingRight: "2.5rem" }}
-              className="w-full h-11 rounded-full bg-gray-50 border border-gray-200
+              className="w-full h-11 rounded-full bg-gray-50 border border-[var(--surface-border)]
                         focus:bg-white focus:border-blue-400"
             />
           </div>
