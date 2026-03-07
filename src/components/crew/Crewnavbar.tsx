@@ -5,7 +5,7 @@ import Leaves from "./module/leave/LeaveIndex";
 import Performance from "./module/Performance";
 import Onboarding from "./module/Onboarding";
 import Shifts from "./module/Shifts";
-import Assets from "./module/Assests";
+import AssetsIndex from "./module/assests/AssestsIndex";
 import EmployeeIndex from "./module/employee/EmployeeIndex";
 type NavBarProps = {
   activeTab?: string;
@@ -49,7 +49,7 @@ export default function Crewnavbar({
 
       {activeTab === "Shifts" && <Shifts />}
 
-      {activeTab === "Assets" && <Assets />}
+      {activeTab === "Assets" && <AssetsIndex />}
     </div>
   );
 }
