@@ -39,8 +39,8 @@ function App() {
           <Route path="/crew" element={<Crewindex />} />
           <Route path="/uam" element={<UAMIndex />} />
         </Route>
-            {/* Default redirect
-        <Route path="*" element={<Navigate to="/login" />} /> */}
+        {/* Default redirect */}
+        <Route path="*" element={<Navigate to="/login" />} />
         {/* Default redirect to NotFound */}
         <Route path="*" element={<NotFound />} />
 
