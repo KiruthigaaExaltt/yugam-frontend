@@ -1,11 +1,13 @@
-    
-
-const Dashboard = () => {
+import LeaveHeader from "./leave/LeaveHeader"
+import LeaveTable from "./leave/LeaveTable"
+const Leaves = () => {
   return (
-    <div>
-      <h1>Dashboard</h1>
-    </div>
-  )
-}
 
-export default Dashboard
+    <div className="max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8 transition-all duration-300">
+      <LeaveHeader />
+      <LeaveTable />
+    </div>
+  );
+};
+
+export default Leaves
