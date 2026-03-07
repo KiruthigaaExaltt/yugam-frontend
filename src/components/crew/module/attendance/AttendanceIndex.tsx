@@ -3,9 +3,11 @@ import AttendanceTable from "./AttendanceTable";
 
 const AttendanceIndex = () => {
     return (
-        <div className="max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8 transition-all duration-300">
-            <AttendanceHeader />
-            <AttendanceTable />
+        <div className="p-4 sm:p-6 min-h-[calc(100vh-200px)]">
+            <div className="flex flex-col gap-6 max-w-[1400px] mx-auto">
+                <AttendanceHeader />
+                <AttendanceTable />
+            </div>
         </div>
     );
 };
