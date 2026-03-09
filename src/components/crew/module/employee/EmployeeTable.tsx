@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import ReusableCrudTable, {
     type CrudColumn,
 } from "../../../HOC/ReusableDataTable/ReusableDataTable";
-import { Phone, Mail, Eye, Edit3, Calendar, CreditCard, Briefcase, Building2, Search, Plus, ChevronDown } from "lucide-react";
+import { Phone, Mail, Eye, Edit3, Calendar, CreditCard, Briefcase, Building2, Search, Plus } from "lucide-react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
@@ -163,7 +163,7 @@ const EmployeeTable = () => {
         </div>
     );
 
-    const statsTemplate = (value: string, label: string, colorClass: string, bgClass: string) => (
+    const statsTemplate = (value: string, label: string, colorClass: string,) => (
         <div className="flex flex-col items-center justify-center py-2 px-3 rounded-2xl bg-gray-50/50 border border-transparent hover:border-[var(--surface-border)] transition-colors">
             <span className={`text-lg font-black tracking-tight ${colorClass}`}>{value}</span>
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">{label}</span>
@@ -192,12 +192,12 @@ const EmployeeTable = () => {
         { body: designationTemplate, header: "Designation", style: { minWidth: '190px' } },
         { body: contactTemplate, header: "Contact", style: { minWidth: '190px' } },
         {
-            body: (rowData) => statsTemplate(rowData.attendance, "Attendance", "text-emerald-600", "bg-emerald-50/50"),
+            body: (rowData) => statsTemplate(rowData.attendance, "Attendance", "text-emerald-600"),
             header: "Attendance",
             style: { minWidth: '120px', textAlign: 'center' }
         },
         {
-            body: (rowData) => statsTemplate(rowData.performance, "Performance", "text-blue-600", "bg-blue-50/50"),
+            body: (rowData) => statsTemplate(rowData.performance, "Performance", "text-blue-600"),
             header: "Performance",
             style: { minWidth: '120px', textAlign: 'center' }
         },

@@ -13,6 +13,7 @@ import UAMIndex from "./components/uam/UAMIndex";
 import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "./components/login/authSlice";
 import NotFound from "./components/NotFound";
+import ResponsiveImage from "./components/ResponsiveImage/ResponsiveImage";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -26,6 +27,8 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
+
+        <Route path="/responsive-image" element={<ResponsiveImage />} />
 
         {/* 🔒 Protected routes */}
         <Route
