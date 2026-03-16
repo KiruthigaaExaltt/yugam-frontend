@@ -18,12 +18,12 @@ import {
 } from "react-icons/fi";
 import { Monitor } from "lucide-react";
 import "./BaseLayout.css";
-import NavigationMenu from "../components/sideBar/NavigationMenu";
+import NavigationMenu from "../components/layout/sideBar/NavigationMenu";
 import { Outlet, useNavigate } from "react-router-dom";
-import ProfileDialog from "../components/profile/ProfileDialog";
-import ChangePasswordDialog from "../components/profile/ChangePasswordDialog";
+import ProfileDialog from "../features/profile/ProfileDialog";
+import ChangePasswordDialog from "../features/profile/ChangePasswordDialog";
 import { useSelector, useDispatch } from "react-redux";
-import { logout, selectCurrentUser } from "../components/login/authSlice";
+import { logout, selectCurrentUser } from "../features/auth/authSlice";
 
 
 interface BaseLayoutProps {

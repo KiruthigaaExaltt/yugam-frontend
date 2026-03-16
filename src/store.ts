@@ -3,7 +3,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 // import counterReducer from './components/examplePostApi/exampleCounterSlice';
 
 import { api } from './api'; // ONLY THIS api slice for all injected endpoints
-import authReducer from './components/login/authSlice';
+import authReducer from './features/auth/authSlice';
 
 // 1. Combine reducers
 const rootReducer = combineReducers({

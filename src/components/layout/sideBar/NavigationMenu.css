@@ -1,0 +1,284 @@
+/* ============================
+   Navigation Menu Styles
+=============================== */
+
+/* Apply global font */
+.navigation-menu,
+.navigation-menu * {
+  font-family: var(--font-primary);
+}
+
+.navigation-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+
+/* ============================
+   Category Section
+=============================== */
+
+.nav-section {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+}
+
+.nav-section:not(:last-child) {
+  /* border-bottom: 1px solid var(--surface-border); */
+  /* User requested removal of lines */
+  padding-bottom: 0.5rem;
+}
+
+/* CATEGORY TITLE */
+.nav-category-title {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  /* color: var(--text-muted); */
+  padding: 0.75rem 1rem 0.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nav-category-title:hover {
+  color: var(--text-color);
+}
+
+.nav-category-icon {
+  font-size: 14px;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+/* ============================
+   Navigation Items
+=============================== */
+
+.nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin: 0 0.5rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  text-align: left;
+  transition: background 0.2s ease, transform 0.2s ease;
+  color: var(--text-color);
+  font-size: var(--font-size-body);
+}
+
+.nav-item:hover {
+  /* background-color: var(--surface-hover);
+  transform: translateX(4px); */
+  transform: none;
+}
+
+/* ACTIVE ITEM */
+.nav-item.active {
+  background-color: color-mix(in srgb,
+      var(--primary-color) 12%,
+      transparent);
+  border-left: 3px solid var(--primary-color);
+  transform: translateX(0);
+}
+
+/* ============================
+   Icon
+=============================== */
+
+.nav-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 0.5rem;
+  color: var(--primary-color);
+  font-size: var(--font-size-button);
+  /* background: var(--icon-bg-primary); */
+  background: transparent;
+  /* Updated to match cleaner look if desired, or keep logic. User image shows simple icons. */
+  flex-shrink: 0;
+}
+
+.nav-item.active .nav-item-icon {
+  background-color: color-mix(in srgb,
+      var(--primary-color) 15%,
+      transparent);
+}
+
+/* ============================
+   Content (Label + Description)
+=============================== */
+
+.nav-item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav-item-label {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-color);
+  line-height: var(--line-height-normal);
+}
+
+.nav-item-description {
+  font-size: var(--font-size-body-sm);
+  color: var(--text-muted);
+  line-height: var(--line-height-tight);
+}
+
+/* ACTIVE CONTENT */
+.nav-item.active .nav-item-label {
+  color: var(--primary-color);
+  font-weight: var(--font-weight-semibold);
+}
+
+.nav-item.active .nav-item-description {
+  color: var(--primary-color);
+  opacity: 0.8;
+}
+
+/* ============================
+   BADGE
+=============================== */
+.nav-item-badge {
+  background-color: #10b981;
+  /* Default green, use var if available */
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  min-width: 1.25rem;
+  text-align: center;
+  line-height: 1.2;
+}
+
+
+/* ============================
+   Dark Mode (automatic via vars)
+=============================== */
+
+body.dark .nav-item.active {
+  background-color: color-mix(in srgb,
+      var(--primary-color) 18%,
+      transparent);
+}
+
+/* ============================
+   Responsive Layout Tweaks
+   (NO font-size changes needed)
+=============================== */
+
+@media (max-width: 768px) {
+  .nav-item {
+    padding: 0.625rem 0.75rem;
+    margin: 0 0.25rem;
+    gap: 0.5rem;
+  }
+
+  .nav-item-icon {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+  }
+}
+
+/* ============================
+   Accessibility
+=============================== */
+
+.nav-item:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.navigation-menu {
+  padding: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.navigation-menu.collapsed .nav-item {
+  justify-content: center;
+  padding: 12px 0;
+}
+
+.nav-item-icon {
+  font-size: 22px;
+  color: #475569;
+}
+
+.nav-item.active {
+  background: var(--primary-color-light);
+  /* was #eef2ff */
+}
+
+.nav-item.active .nav-item-icon {
+  color: var(--primary-color);
+  /* was #2563eb */
+}
+
+/* ============================
+   COLLAPSED SIDEBAR MODE
+=============================== */
+
+.navigation-menu.collapsed {
+  padding: 0.5rem 0;
+}
+
+.navigation-menu.collapsed .nav-category-title {
+  display: none;
+}
+
+.navigation-menu.collapsed .nav-item {
+  justify-content: center;
+  padding: 12px 0;
+  margin: 4px 0;
+}
+
+.navigation-menu.collapsed .nav-item-content {
+  display: none;
+}
+
+.navigation-menu.collapsed .nav-item-icon {
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+}

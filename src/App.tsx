@@ -1,19 +1,19 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "../src/context/ThemeContext";
 import BaseLayout from "./layouts/BaseLayout";
-import LoginPage from "./components/login/LoginPage";
-import ForgotPassword from "./components/login/ForgotPassword";
-import ResetPassword from "./components/login/ResetPassword";
-import VerifyOtp from "./components/login/VerifyOtp"; // Import VerifyOtp
-import OrbitIndex from "./components/orbit/OrbitIndex";
-import EstimoIndex from "./components/estimo/EstimoIndex";
-import Userimport from "./components/dashboard/Dashindex";
-import Crewindex from "./components/crew/Crewindex";
-import UAMIndex from "./components/uam/UAMIndex";
+import LoginPage from "./features/auth/LoginPage";
+import ForgotPassword from "./features/auth/ForgotPassword";
+import ResetPassword from "./features/auth/ResetPassword";
+import VerifyOtp from "./features/auth/VerifyOtp"; 
+import OrbitIndex from "./features/orbit/OrbitIndex";
+import EstimoIndex from "./features/estimo/EstimoIndex";
+import Userimport from "./features/dashboard/Dashindex";
+import Crewindex from "./features/crew/Crewindex";
+import UAMIndex from "./features/uam/UAMIndex";
 import { useSelector } from "react-redux";
-import { selectIsAuthenticated } from "./components/login/authSlice";
+import { selectIsAuthenticated } from "./features/auth/authSlice";
 import NotFound from "./components/NotFound";
-import ResponsiveImage from "./components/ResponsiveImage/ResponsiveImage";
+import ResponsiveImage from "./components/common/ResponsiveImage/ResponsiveImage";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
