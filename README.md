@@ -1,75 +1,103 @@
-# React + TypeScript + Vite
+# Yugam Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, high-performance dashboard and management application built with React 19, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## 🚀 Technologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend Framework**: [React 19](https://react.dev/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Programming Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/), [PrimeReact](https://primereact.org/)
+- **State Management**: [Redux Toolkit](https://redux-toolkit.js.org/)
+- **Routing**: [React Router v7](https://reactrouter.com/)
+- **Icons**: [Lucide React](https://lucide.dev/), [PrimeIcons](https://primereact.org/icons/)
+- **Data Visualization**: [Recharts](https://recharts.org/), [Chart.js](https://www.chartjs.org/)
+- **Forms**: [React Hook Form](https://react-hook-form.com/) with [Yup](https://github.com/jquense/yup) validation
+- **Backend Services**: [Firebase](https://firebase.google.com/) (Cloud Messaging/FCM)
+- **Utilities**: `date-fns`, `lodash`, `xlsx`, `jspdf`, `html2canvas`, `sonner`
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- **Authentication**: Secure login flow, forgot password recovery, and OTP verification.
+- **UAM (User Access Management)**: Robust role-based access control (RBAC) with detailed user and role management.
+- **Orbit Module**: Specialized module for data processing and visualization.
+- **Estimo Module**: Advanced estimation and assessment toolkit.
+- **Dynamic Dashboard**: Real-time business insights and implementation highlights.
+- **Crew Management**: Efficient management of team members and organizational resources.
+- **Media Support**: Integrated video players (Plyr, React Player) and responsive image handling.
+- **Export Capabilities**: Export data to Excel, PDF, and various image formats.
+- **Responsive Design**: Fully adaptive UI optimized for desktop, tablet, and mobile.
+- **Performance Optimized**: Features React Compiler integration, lazy loading, and automated image optimization.
 
-Note: This will impact Vite dev & build performances.
+## 📂 Project Structure
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+src/
+├── api/               # API service layers (Generic API handlers)
+├── assets/            # Static assets (optimized images, global styles)
+├── components/        # Reusable UI components
+│   ├── crew/          # Crew management modules
+│   ├── dashboard/     # Dashboard features and visualizations
+│   ├── estimo/        # Estimation tool components
+│   ├── login/         # Auth screens (Login, Forgot Password, OTP)
+│   ├── orbit/         # Orbit module views
+│   ├── uam/           # User Access Management (Users, Roles)
+│   └── ...
+├── context/           # React Context providers (ThemeContext, etc.)
+├── layouts/           # Page layouts (BaseLayout with sidebar/nav)
+├── store.ts           # Centralized Redux store configuration
+├── types/             # Shared TypeScript interfaces and types
+└── utils/             # Business logic and helper utilities
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Node.js**: v18 or later
+- **npm**: v9 or later
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   ```
+2. **Navigate to the project directory**:
+   ```bash
+   cd yugam-frontend
+   ```
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+### Available Scripts
+
+- **Development**: Start the Vite dev server.
+  ```bash
+  npm run dev
+  ```
+- **Build**: Compile and optimize the project for production.
+  ```bash
+  npm run build
+  ```
+- **Preview**: Locally preview the production build.
+  ```bash
+  npm run preview
+  ```
+- **Lint**: Run ESLint to identify and fix code quality issues.
+  ```bash
+  npm run lint
+  ```
+
+## 🔧 Configuration
+
+- **Tailwind CSS**: Leverages Tailwind v4 for modern, utility-first styling.
+- **Vite Plugins**: 
+  - `@vitejs/plugin-react`: React support with React Compiler.
+  - `vite-plugin-image-optimizer`: High-performance image compression.
+  - `vite-imagetools`: Tooling for responsive image generation.
+- **Firebase**: Service worker configured in `/public/firebase-messaging-sw.js` for push notifications.
+
+---

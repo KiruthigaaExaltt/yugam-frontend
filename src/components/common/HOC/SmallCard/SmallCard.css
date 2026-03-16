@@ -1,0 +1,122 @@
+/* ===================================== */
+/*              CARD BASE                */
+/* ===================================== */
+
+.stat-card {
+  background-color: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--border-radius);
+  /* padding: 1rem 1.25rem; */
+  display: flex;
+  align-items: center;
+}
+
+/* Remove PrimeReact padding */
+.stat-card .p-card-content {
+  padding: 0 !important;
+}
+
+/* ===================================== */
+/*              CARD LAYOUT              */
+/* ===================================== */
+
+.stat-card-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* ===================================== */
+/*                 ICON                  */
+/* ===================================== */
+
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--primary-color);
+  font-size: 18px;
+}
+
+/* ===================================== */
+/*                 TEXT                  */
+/* ===================================== */
+
+.stat-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.stat-title {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+  line-height: 1.2;
+}
+
+@media (max-width: 1280px) {
+  .stat-value {
+    font-size: 1.25rem;
+  }
+}
+
+.stat-subtext {
+  font-size: 0.75rem;
+  color: var(--secondary-color);
+  line-height: 1.2;
+}
+
+/* ===================================== */
+/*              DARK MODE                */
+/* ===================================== */
+
+body.dark .stat-card {
+  background-color: var(--card-bg);
+  box-shadow: var(--card-shadow);
+}
+
+.card-wrapper-5 {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem;
+
+  /* Large desktop */
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+/* Laptop */
+@media (max-width: 1280px) {
+  .card-wrapper-5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .card-wrapper-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .card-wrapper-5 {
+    grid-template-columns: 1fr;
+    /* ✅ Full width */
+  }
+}

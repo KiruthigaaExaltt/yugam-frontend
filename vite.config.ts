@@ -1,40 +1,20 @@
-import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
-import react from '@vitejs/plugin-react'
-import { imagetools } from "vite-imagetools";
-import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import { defineConfig } from "vite";
+import { vitePlugins } from "./vite/plugins";
+import { optimizeDepsConfig } from "./vite/optimizeDeps";
+import { manualChunks } from "./vite/chunkConfig";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    tailwindcss(),
-    react({
-      babel: {
-        plugins: [['babel-plugin-react-compiler']],
-      },
-    }),
-    imagetools(),
-    ViteImageOptimizer({
-      png: {
-        quality: 80,
-      },
-      jpeg: {
-        quality: 80,
-      },
-      jpg: {
-        quality: 80,
-      },
-      webp: {
-        lossless: true,
-      },
-      avif: {
-        lossless: true,
-      },
-    }),
-  ],
+  plugins: vitePlugins,
 
-  // ⬇️ ADD THIS BLOCK
-  optimizeDeps: {
-    include: ["primereact/editor", "quill"],
+  optimizeDeps: optimizeDepsConfig,
+
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks,
+      },
+    },
+    chunkSizeWarningLimit: 1000,
   },
-})
+});
