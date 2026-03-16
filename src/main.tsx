@@ -10,10 +10,16 @@ import './index.css';
 import './layouts/BaseLayout.css';
 
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './store';
+import { store } from './store';
 import { BrowserRouter } from 'react-router-dom';
 // import "primereact/resources/themes/lara-light-blue/theme.css";
+
+// Ensure sensitive auth state (token/user) is not persisted in localStorage
+if (typeof window !== 'undefined') {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  localStorage.removeItem('persist:root');
+}
 
 
 if ('serviceWorker' in navigator) {
@@ -34,14 +40,12 @@ import { Toaster } from 'sonner';
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <PrimeReactProvider>
-          <BrowserRouter>
-            <Toaster position="top-right" richColors closeButton />
-            <App />
-          </BrowserRouter>
-        </PrimeReactProvider>
-      </PersistGate>
+      <PrimeReactProvider>
+        <BrowserRouter>
+          <Toaster position="top-right" richColors closeButton />
+          <App />
+        </BrowserRouter>
+      </PrimeReactProvider>
     </Provider>
   </React.StrictMode>
 );
