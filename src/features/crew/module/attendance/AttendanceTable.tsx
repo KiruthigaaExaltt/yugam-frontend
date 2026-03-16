@@ -7,7 +7,9 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { useDebouncedValue } from "../../../../hooks/useDebouncedValue";
-
+import AttendanceForm from "../attendance/AttendanceForm";
+ 
+ 
 interface AttendanceRecord {
     id: string;
     name: string;
@@ -18,7 +20,7 @@ interface AttendanceRecord {
     status: "present" | "on leave" | "absent" | "late";
     location: string;
 }
-
+ 
 const DUMMY_ATTENDANCE: AttendanceRecord[] = [
     {
         id: "1",
@@ -51,16 +53,19 @@ const DUMMY_ATTENDANCE: AttendanceRecord[] = [
         location: "WFH",
     },
 ];
-
+ 
 const AttendanceTable = () => {
     const [globalFilter, setGlobalFilter] = useState("");
     const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(10);
     const [selectedRecords, setSelectedRecords] = useState<AttendanceRecord[]>([]);
-
+    const [showForm, setShowForm] = useState(false);
+    const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
+ 
+ 
     const debouncedSearch = useDebouncedValue(globalFilter, 500);
-
+ 
     const statusOptions = [
         { label: "All Status", value: "All Status" },
         { label: "Present", value: "present" },
@@ -68,24 +73,24 @@ const AttendanceTable = () => {
         { label: "Late", value: "late" },
         { label: "On Leave", value: "on leave" }
     ];
-
+ 
     const filteredAttendance = useMemo(() => {
         let filtered = [...DUMMY_ATTENDANCE];
-
+ 
         if (selectedStatus && selectedStatus !== "All Status") {
             filtered = filtered.filter(record => record.status === selectedStatus);
         }
-
+ 
         if (debouncedSearch) {
             const searchLower = debouncedSearch.toLowerCase();
             filtered = filtered.filter(record =>
                 record.name.toLowerCase().includes(searchLower)
             );
         }
-
+ 
         return filtered;
     }, [debouncedSearch, selectedStatus]);
-
+ 
     const employeeTemplate = (rowData: AttendanceRecord) => (
         <div className="flex items-center gap-3 py-1">
             <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-white shadow-sm ring-2 ring-white ${rowData.name === 'Jabastin' || rowData.name === 'Amit Kumar' ? 'bg-blue-500' : 'bg-[#EAB308]'
@@ -95,7 +100,7 @@ const AttendanceTable = () => {
             <span className="font-semibold text-gray-700">{rowData.name}</span>
         </div>
     );
-
+ 
     const statusTemplate = (rowData: AttendanceRecord) => {
         const statusConfig = {
             present: "bg-emerald-50 text-emerald-600 border-emerald-100",
@@ -103,17 +108,26 @@ const AttendanceTable = () => {
             late: "bg-amber-50 text-amber-600 border-amber-100",
             "on leave": "bg-amber-100/50 text-amber-600 border-amber-200",
         };
-
+ 
         return (
             <span className={`text-[11px] px-2.5 py-1 rounded-full font-bold lowercase border ${statusConfig[rowData.status]}`}>
                 {rowData.status}
             </span>
         );
     };
-
-    const actionsTemplate = () => (
+   
+    const onEdit = (id: string) => {
+        setSelectedRecordId(id);
+        setShowForm(true);
+    };
+ 
+    const actionsTemplate = (rowData: AttendanceRecord) => (
         <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 hover:bg-emerald-600 hover:text-white transition-all cursor-pointer border border-emerald-100/50" title="Mark">
+            <div
+                className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 hover:bg-emerald-600 hover:text-white transition-all cursor-pointer border border-emerald-100/50"
+                title="Mark"
+                onClick={() => onEdit(rowData.id)}
+            >
                 <Edit3 size={16} />
             </div>
             <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all cursor-pointer border border-blue-100/50" title="View">
@@ -121,7 +135,8 @@ const AttendanceTable = () => {
             </div>
         </div>
     );
-
+ 
+ 
     const columns: CrudColumn<AttendanceRecord>[] = [
         { body: employeeTemplate, header: "Employee", style: { minWidth: '180px' } },
         { field: "checkIn", header: "Check In", style: { minWidth: '120px' } },
@@ -131,7 +146,7 @@ const AttendanceTable = () => {
         { field: "location", header: "Location", style: { minWidth: '120px' } },
         { body: actionsTemplate, header: "Actions", style: { minWidth: '120px' } },
     ];
-
+ 
     const headerFilters = (
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <div className="relative w-full sm:w-64">
@@ -155,18 +170,27 @@ const AttendanceTable = () => {
             />
         </div>
     );
-
+ 
     const toolbarRight = (
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <Button
+                onClick={() => {
+                    setSelectedRecordId(null);
+                    setShowForm(true);
+                }}
                 className="h-10 px-4 bg-[var(--primary-color)] hover:opacity-90 border-none flex items-center gap-2 rounded-lg text-white font-medium w-full sm:w-auto justify-center"
             >
                 <Plus size={18} />
                 <span className="text-[14px]">Mark Attendance</span>
             </Button>
+            <AttendanceForm
+                visible={showForm}
+                onHide={() => setShowForm(false)}
+                recordId={selectedRecordId}
+            />
         </div>
     );
-
+ 
     return (
         <>
             <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-4 bg-[var(--surface-card)] p-4 rounded-xl border border-[var(--surface-border)] shadow-sm">
@@ -211,5 +235,5 @@ const AttendanceTable = () => {
         </>
     )
 }
-
+ 
 export default AttendanceTable;

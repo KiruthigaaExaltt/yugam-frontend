@@ -7,7 +7,9 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { useDebouncedValue } from "../../../../hooks/useDebouncedValue";
-
+import LeaveForm from "../leave/LeaveForm";
+ 
+ 
 interface LeaveApplication {
     id: string;
     employee: string;
@@ -18,7 +20,7 @@ interface LeaveApplication {
     days: number;
     status: "approved" | "pending" | "rejected";
 }
-
+ 
 const DUMMY_LEAVES: LeaveApplication[] = [
     {
         id: "1",
@@ -41,30 +43,33 @@ const DUMMY_LEAVES: LeaveApplication[] = [
         status: "pending",
     },
 ];
-
+ 
 const LeaveTable = () => {
     const [globalFilter, setGlobalFilter] = useState("");
     const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(10);
     const [selectedLeaves, setSelectedLeaves] = useState<LeaveApplication[]>([]);
-
+    const [showForm, setShowForm] = useState(false);
+    const [selectedLeaveId, setSelectedLeaveId] = useState<string | null>(null);
+ 
+ 
     const debouncedSearch = useDebouncedValue(globalFilter, 500);
-
+ 
     const statusOptions = [
         { label: "All Status", value: "All Status" },
         { label: "Approved", value: "approved" },
         { label: "Pending", value: "pending" },
         { label: "Rejected", value: "rejected" }
     ];
-
+ 
     const filteredLeaves = useMemo(() => {
         let filtered = [...DUMMY_LEAVES];
-
+ 
         if (selectedStatus && selectedStatus !== "All Status") {
             filtered = filtered.filter(leave => leave.status === selectedStatus);
         }
-
+ 
         if (debouncedSearch) {
             const searchLower = debouncedSearch.toLowerCase();
             filtered = filtered.filter(leave =>
@@ -72,10 +77,10 @@ const LeaveTable = () => {
                 leave.leaveType.toLowerCase().includes(searchLower)
             );
         }
-
+ 
         return filtered;
     }, [debouncedSearch, selectedStatus]);
-
+ 
     const employeeTemplate = (rowData: LeaveApplication) => (
         <div className="flex items-center gap-3 py-1">
             <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white shadow-sm ${rowData.initials === 'AK' ? 'bg-blue-500' : 'bg-indigo-500'}`}>
@@ -84,13 +89,13 @@ const LeaveTable = () => {
             <span className="font-semibold text-gray-800">{rowData.employee}</span>
         </div>
     );
-
+ 
     const leaveTypeTemplate = (rowData: LeaveApplication) => (
         <span className={`px-3 py-1 rounded-lg text-xs font-bold uppercase ${rowData.leaveType === 'sick' ? 'bg-red-50 text-red-400' : 'bg-blue-50 text-blue-400'}`}>
             {rowData.leaveType}
         </span>
     );
-
+ 
     const statusTemplate = (rowData: LeaveApplication) => (
         <span className={`px-3 py-1 rounded-lg text-xs font-bold uppercase ${rowData.status === 'approved'
             ? 'bg-emerald-50 text-emerald-600'
@@ -101,7 +106,7 @@ const LeaveTable = () => {
             {rowData.status}
         </span>
     );
-
+ 
     const actionsTemplate = (rowData: LeaveApplication) => (
         <div className="flex items-center gap-2">
             {rowData.status === 'pending' ? (
@@ -115,7 +120,7 @@ const LeaveTable = () => {
             </div>
         </div>
     );
-
+ 
     const columns: CrudColumn<LeaveApplication>[] = [
         { body: employeeTemplate, header: "Employee", style: { minWidth: '200px' } },
         { body: leaveTypeTemplate, header: "Leave Type", style: { minWidth: '120px' } },
@@ -125,7 +130,7 @@ const LeaveTable = () => {
         { body: statusTemplate, header: "Status", style: { minWidth: '120px' } },
         { body: actionsTemplate, header: "Actions", style: { minWidth: '220px' } },
     ];
-
+ 
     const headerFilters = (
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <div className="relative w-full sm:w-64">
@@ -148,20 +153,29 @@ const LeaveTable = () => {
                 className="w-40 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm flex items-center"
             />
         </div>
-
+ 
     );
-
+ 
     const toolbarRight = (
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <Button
+                onClick={() => {
+                    setSelectedLeaveId(null);
+                    setShowForm(true);
+                }}
                 className="h-10 px-4 bg-[var(--primary-color)] hover:opacity-90 border-none flex items-center gap-2 rounded-lg text-white font-medium w-full sm:w-auto justify-center"
             >
                 <Plus size={18} />
                 <span className="text-[14px]">Apply Leave</span>
             </Button>
+            <LeaveForm
+                visible={showForm}
+                onHide={() => setShowForm(false)}
+                recordId={selectedLeaveId}
+            />
         </div>
     );
-
+ 
     return (
         <>
             <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-4 bg-[var(--surface-card)] p-4 rounded-xl border border-[var(--surface-border)] shadow-sm">
@@ -204,5 +218,5 @@ const LeaveTable = () => {
         </>
     );
 };
-
+ 
 export default LeaveTable;

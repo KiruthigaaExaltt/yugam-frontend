@@ -5,13 +5,13 @@ import { Plus, Save, MonitorSmartphone } from "lucide-react";
 import { RHFInput, RDropdown, RCalendar } from "../../../../components/common/HOC/form/RHFFields";
 import { toast } from "sonner";
 import ReusableDialog from "../../../../components/common/HOC/dialog/ReusableDialog";
-
+ 
 interface AssestsFormProps {
   visible: boolean;
   onHide: () => void;
   assetId?: string | null;
 }
-
+ 
 const assetSchema = yup.object().shape({
   employeeId: yup.string().required("Employee is required"),
   assetName: yup.string().required("Asset name is required"),
@@ -22,35 +22,35 @@ const assetSchema = yup.object().shape({
   value: yup.number().typeError("Value must be a number").positive("Value must be positive").required("Value is required"),
   status: yup.string().required("Status is required"),
 });
-
+ 
 const EMPLOYEE_OPTIONS = [
   { label: "Jabastin", value: "EMP001" },
   { label: "Priya Patel", value: "EMP002" },
   { label: "Amit Kumar", value: "EMP003" },
 ];
-
+ 
 const ASSET_TYPE_OPTIONS = [
   { label: "Laptop", value: "laptop" },
   { label: "Monitor", value: "monitor" },
   { label: "Mobile", value: "mobile" },
   { label: "Other", value: "other" },
 ];
-
+ 
 const CONDITION_OPTIONS = [
   { label: "Excellent", value: "excellent" },
   { label: "Good", value: "good" },
   { label: "Fair", value: "fair" },
   { label: "Poor", value: "poor" },
 ];
-
+ 
 const STATUS_OPTIONS = [
   { label: "Allocated", value: "allocated" },
   { label: "Returned", value: "returned" },
 ];
-
+ 
 const AssestsForm = ({ visible, onHide, assetId }: AssestsFormProps) => {
   const isEdit = !!assetId;
-
+ 
   const methods = useForm({
     resolver: yupResolver(assetSchema),
     defaultValues: {
@@ -64,7 +64,7 @@ const AssestsForm = ({ visible, onHide, assetId }: AssestsFormProps) => {
       status: "allocated",
     },
   });
-
+ 
   const onAssetSubmit = async (formData: any) => {
     try {
       console.log("Form Data:", formData);
@@ -75,29 +75,29 @@ const AssestsForm = ({ visible, onHide, assetId }: AssestsFormProps) => {
       toast.error(`Failed to ${isEdit ? 'update' : 'allocate'} asset`);
     }
   };
-
+ 
   const handleHide = () => {
     onHide();
     methods.reset();
   };
-
+ 
   const body = (
     <FormProvider {...methods}>
-      <form className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 py-2">
+      <form className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 py-2">
         <RDropdown
           name="employeeId"
           label="Select Employee"
           vertical={true}
           options={EMPLOYEE_OPTIONS}
           placeholder="Choose employee"
-          className="bg-gray-50/50 border-gray-200 focus:bg-white transition-all rounded-xl h-11"
+          className="bg-white border border-gray-200 focus:border-blue-500 transition-all rounded-xl h-11"
         />
         <RHFInput
           name="assetName"
           label="Asset Name"
           vertical={true}
           placeholder="e.g. MacBook Pro 14"
-          className="bg-gray-50/50 border-[var(--surface-border)] focus:bg-white transition-all rounded-xl"
+          className="bg-white border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all px-4 rounded-xl text-sm"
         />
         <RDropdown
           name="assetType"
@@ -105,21 +105,21 @@ const AssestsForm = ({ visible, onHide, assetId }: AssestsFormProps) => {
           vertical={true}
           options={ASSET_TYPE_OPTIONS}
           placeholder="Choose type"
-          className="bg-gray-50/50 border-gray-200 focus:bg-white transition-all rounded-xl h-11"
+          className="bg-white border border-gray-200 focus:border-blue-500 transition-all rounded-xl h-11"
         />
         <RHFInput
           name="assetId"
           label="Asset ID"
           vertical={true}
           placeholder="e.g. LAPTOP-001"
-          className="bg-gray-50/50 border-[var(--surface-border)] focus:bg-white transition-all rounded-xl"
+          className="bg-white border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all px-4 rounded-xl text-sm"
         />
         <RCalendar
           name="allocatedDate"
           label="Allocated Date"
           vertical={true}
           placeholder="Select date"
-          className="bg-gray-50/50 border-gray-200 focus:bg-white transition-all rounded-xl h-11"
+          className="bg-white border border-gray-200 focus:border-blue-500 transition-all rounded-xl h-11"
           showIcon
         />
         <RDropdown
@@ -128,7 +128,7 @@ const AssestsForm = ({ visible, onHide, assetId }: AssestsFormProps) => {
           vertical={true}
           options={CONDITION_OPTIONS}
           placeholder="Choose condition"
-          className="bg-gray-50/50 border-gray-200 focus:bg-white transition-all rounded-xl h-11"
+          className="bg-white border border-gray-200 focus:border-blue-500 transition-all rounded-xl h-11"
         />
         <RHFInput
           name="value"
@@ -136,7 +136,7 @@ const AssestsForm = ({ visible, onHide, assetId }: AssestsFormProps) => {
           type="number"
           vertical={true}
           placeholder="e.g. 150000"
-          className="bg-gray-50/50 border-gray-200 focus:bg-white transition-all rounded-xl"
+          className="bg-white border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all px-4 rounded-xl text-sm"
         />
         <RDropdown
           name="status"
@@ -144,12 +144,12 @@ const AssestsForm = ({ visible, onHide, assetId }: AssestsFormProps) => {
           vertical={true}
           options={STATUS_OPTIONS}
           placeholder="Choose status"
-          className="bg-gray-50/50 border-gray-200 focus:bg-white transition-all rounded-xl h-11"
+          className="bg-white border border-gray-200 focus:border-blue-500 transition-all rounded-xl h-11"
         />
       </form>
     </FormProvider>
   );
-
+ 
   return (
     <ReusableDialog
       visible={visible}
@@ -165,5 +165,5 @@ const AssestsForm = ({ visible, onHide, assetId }: AssestsFormProps) => {
     />
   );
 };
-
+ 
 export default AssestsForm;

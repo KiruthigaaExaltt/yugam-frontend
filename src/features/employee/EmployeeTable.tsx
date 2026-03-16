@@ -1,13 +1,13 @@
 import { useState, useMemo } from "react";
 import ReusableCrudTable, {
     type CrudColumn,
-} from "../../../../components/common/HOC/ReusableDataTable/ReusableDataTable";
+} from "../../components/common/HOC/ReusableDataTable/ReusableDataTable";
 import { Phone, Mail, Eye, Edit3, Calendar, CreditCard, Briefcase, Building2, Search, Plus } from "lucide-react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import EmployeeForm from "./EmployeeForm";
-import { useDebouncedValue } from "../../../../hooks/useDebouncedValue";
+import { useDebouncedValue } from "../../hooks/useDebouncedValue";
 
 interface Employee {
     id: string;
@@ -66,8 +66,13 @@ const DUMMY_EMPLOYEES: Employee[] = [
     },
 ];
 
-const EmployeeTable = () => {
+interface EmployeeTableProps {
+    onView?: (employee: Employee) => void;
+}
+
+const EmployeeTable = ({ onView }: EmployeeTableProps) => {
     const [globalFilter, setGlobalFilter] = useState("");
+
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(10);
     const [selectedEmployees, setSelectedEmployees] = useState<Employee[]>([]);
@@ -170,14 +175,19 @@ const EmployeeTable = () => {
         </div>
     );
 
-    const actionsTemplate = () => (
+    const actionsTemplate = (rowData: Employee) => (
         <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all cursor-pointer border border-[var(--surface-border)]" title="View">
+            <div 
+                className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all cursor-pointer border border-[var(--surface-border)]" 
+                title="View"
+                onClick={() => onView?.(rowData)}
+            >
                 <Eye size={16} />
             </div>
             <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 hover:bg-emerald-600 hover:text-white transition-all cursor-pointer border border-[var(--surface-border)]" title="Mark">
                 <Edit3 size={16} />
             </div>
+
             <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 hover:bg-amber-600 hover:text-white transition-all cursor-pointer border border-[var(--surface-border)]" title="Leave">
                 <Calendar size={16} />
             </div>

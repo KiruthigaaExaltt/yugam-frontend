@@ -2,11 +2,11 @@ import { useForm, FormProvider, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserPlus, Plus, Save } from "lucide-react";
-import { RHFInput, RDropdown, RCalendar } from "../../../../components/common/HOC/form/RHFFields";
-import PhoneNumberField from "../../../../components/common/HOC/phonenumber/PhoneNumberField";
+import { RHFInput, RDropdown, RCalendar } from "../../components/common/HOC/form/RHFFields";
+import PhoneNumberField from "../../components/common/HOC/phonenumber/PhoneNumberField";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { toast } from "sonner";
-import ReusableDialog from "../../../../components/common/HOC/dialog/ReusableDialog";
+import ReusableDialog from "../../components/common/HOC/dialog/ReusableDialog";
 
 interface EmployeeFormProps {
   visible: boolean;
