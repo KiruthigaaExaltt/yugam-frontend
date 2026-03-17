@@ -16,9 +16,7 @@ export const manualChunks: GetManualChunk = (id) => {
       return "ui-vendor";
     }
 
-    if (id.includes("node_modules/firebase/") || id.includes("node_modules/@firebase/")) {
-      return "firebase-vendor";
-    }
+
 
     return "vendor";
   }

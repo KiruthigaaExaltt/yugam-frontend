@@ -13,7 +13,7 @@ A modern, high-performance dashboard and management application built with React
 - **Icons**: [Lucide React](https://lucide.dev/), [PrimeIcons](https://primereact.org/icons/)
 - **Data Visualization**: [Recharts](https://recharts.org/), [Chart.js](https://www.chartjs.org/)
 - **Forms**: [React Hook Form](https://react-hook-form.com/) with [Yup](https://github.com/jquense/yup) validation
-- **Backend Services**: [Firebase](https://firebase.google.com/) (Cloud Messaging/FCM)
+
 - **Utilities**: `date-fns`, `lodash`, `xlsx`, `jspdf`, `html2canvas`, `sonner`
 
 ## ✨ Features
@@ -105,6 +105,6 @@ src/
   - `@vitejs/plugin-react`: React support with React Compiler.
   - `vite-plugin-image-optimizer`: High-performance image compression.
   - `vite-imagetools`: Tooling for responsive image generation.
-- **Firebase**: Service worker configured in `/public/firebase-messaging-sw.js` for push notifications.
+
 
 ---
