@@ -33,18 +33,25 @@ A modern, high-performance dashboard and management application built with React
 
 ```text
 src/
-├── api/               # API service layers (Generic API handlers)
-├── assets/            # Static assets (optimized images, global styles)
-├── components/        # Reusable UI components
-│   ├── crew/          # Crew management modules
-│   ├── dashboard/     # Dashboard features and visualizations
-│   ├── estimo/        # Estimation tool components
-│   ├── login/         # Auth screens (Login, Forgot Password, OTP)
-│   ├── orbit/         # Orbit module views
-│   ├── uam/           # User Access Management (Users, Roles)
-│   └── ...
-├── context/           # React Context providers (ThemeContext, etc.)
-├── layouts/           # Page layouts (BaseLayout with sidebar/nav)
+├── api/               # Generic API clients/services
+├── assets/            # Static assets (images, global fonts)
+├── components/        # Shared UI components
+│   ├── common/        # Highly reusable UI elements (Buttons, HOCs, etc.)
+│   └── layout/        # Core layout components (SideBar, Header, Footer)
+├── features/          # Domain-specific modules (Feature-based structure)
+│   ├── auth/          # Login, Forgot Password, OTP, auth state
+│   ├── crew/          # Crew & HR management features
+│   ├── dashboard/     # Main analytic views & business overview
+│   ├── employee/      # Employee directory & profiles
+│   ├── estimo/        # Estimation tool & quote generation
+│   ├── orbit/         # Specialized data visualization module
+│   ├── profile/       # User profile & account settings
+│   ├── shift/         # Shift scheduling & management
+│   └── uam/           # User & Role Access Management (Gate)
+├── hooks/             # Global custom React hooks
+├── context/           # Global React Context providers
+├── layouts/           # Page template structures
+├── api.ts             # Redux ToolKit Query service configuration
 ├── store.ts           # Centralized Redux store configuration
 ├── types/             # Shared TypeScript interfaces and types
 └── utils/             # Business logic and helper utilities
