@@ -4,9 +4,9 @@ import Attendance from "./module/attendance/AttendanceIndex";
 import Leaves from "./module/leave/LeaveIndex";
 import Performance from "./module/Performance";
 import Onboarding from "./module/Onboarding";
-import Shifts from "../shift/Shifts";
-import AssetsIndex from "./module/assests/AssestsIndex";   
-import EmployeeIndex from "../employee/EmployeeIndex";
+import Shifts from "./module/shift/Shifts";
+import AssetsIndex from "./module/assests/AssestsIndex";
+import EmployeeIndex from "./module/employee/EmployeeIndex";
 type NavBarProps = {
   activeTab?: string;
   onTabClick?: (value: string) => void;

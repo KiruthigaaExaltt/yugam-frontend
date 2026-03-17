@@ -2,14 +2,13 @@ import { useState, useMemo } from "react";
 import ReusableCrudTable, {
     type CrudColumn,
 } from "../../../../components/common/HOC/ReusableDataTable/ReusableDataTable";
-import { Eye, Edit3, Clock, Search, Plus } from "lucide-react";
+import { Eye, Edit3, Clock, Search, Plus, Minus, X } from "lucide-react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { useDebouncedValue } from "../../../../hooks/useDebouncedValue";
-import AttendanceForm from "../attendance/AttendanceForm";
- 
- 
+// import AttendanceForm from "../attendance/AttendanceForm";
+
 interface AttendanceRecord {
     id: string;
     name: string;
@@ -20,7 +19,7 @@ interface AttendanceRecord {
     status: "present" | "on leave" | "absent" | "late";
     location: string;
 }
- 
+
 const DUMMY_ATTENDANCE: AttendanceRecord[] = [
     {
         id: "1",
@@ -53,7 +52,7 @@ const DUMMY_ATTENDANCE: AttendanceRecord[] = [
         location: "WFH",
     },
 ];
- 
+
 const AttendanceTable = () => {
     const [globalFilter, setGlobalFilter] = useState("");
     const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
@@ -62,10 +61,11 @@ const AttendanceTable = () => {
     const [selectedRecords, setSelectedRecords] = useState<AttendanceRecord[]>([]);
     const [showForm, setShowForm] = useState(false);
     const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
- 
- 
+    const [notification, setNotification] = useState<{ message: string; visible: boolean } | null>(null);
+
+
     const debouncedSearch = useDebouncedValue(globalFilter, 500);
- 
+
     const statusOptions = [
         { label: "All Status", value: "All Status" },
         { label: "Present", value: "present" },
@@ -73,24 +73,24 @@ const AttendanceTable = () => {
         { label: "Late", value: "late" },
         { label: "On Leave", value: "on leave" }
     ];
- 
+
     const filteredAttendance = useMemo(() => {
         let filtered = [...DUMMY_ATTENDANCE];
- 
+
         if (selectedStatus && selectedStatus !== "All Status") {
             filtered = filtered.filter(record => record.status === selectedStatus);
         }
- 
+
         if (debouncedSearch) {
             const searchLower = debouncedSearch.toLowerCase();
             filtered = filtered.filter(record =>
                 record.name.toLowerCase().includes(searchLower)
             );
         }
- 
+
         return filtered;
     }, [debouncedSearch, selectedStatus]);
- 
+
     const employeeTemplate = (rowData: AttendanceRecord) => (
         <div className="flex items-center gap-3 py-1">
             <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-white shadow-sm ring-2 ring-white ${rowData.name === 'Jabastin' || rowData.name === 'Amit Kumar' ? 'bg-blue-500' : 'bg-[#EAB308]'
@@ -100,7 +100,7 @@ const AttendanceTable = () => {
             <span className="font-semibold text-gray-700">{rowData.name}</span>
         </div>
     );
- 
+
     const statusTemplate = (rowData: AttendanceRecord) => {
         const statusConfig = {
             present: "bg-emerald-50 text-emerald-600 border-emerald-100",
@@ -108,19 +108,19 @@ const AttendanceTable = () => {
             late: "bg-amber-50 text-amber-600 border-amber-100",
             "on leave": "bg-amber-100/50 text-amber-600 border-amber-200",
         };
- 
+
         return (
             <span className={`text-[11px] px-2.5 py-1 rounded-full font-bold lowercase border ${statusConfig[rowData.status]}`}>
                 {rowData.status}
             </span>
         );
     };
-   
+
     const onEdit = (id: string) => {
         setSelectedRecordId(id);
         setShowForm(true);
     };
- 
+
     const actionsTemplate = (rowData: AttendanceRecord) => (
         <div className="flex items-center gap-3">
             <div
@@ -135,8 +135,8 @@ const AttendanceTable = () => {
             </div>
         </div>
     );
- 
- 
+
+
     const columns: CrudColumn<AttendanceRecord>[] = [
         { body: employeeTemplate, header: "Employee", style: { minWidth: '180px' } },
         { field: "checkIn", header: "Check In", style: { minWidth: '120px' } },
@@ -146,7 +146,7 @@ const AttendanceTable = () => {
         { field: "location", header: "Location", style: { minWidth: '120px' } },
         { body: actionsTemplate, header: "Actions", style: { minWidth: '120px' } },
     ];
- 
+
     const headerFilters = (
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <div className="relative w-full sm:w-64">
@@ -170,29 +170,68 @@ const AttendanceTable = () => {
             />
         </div>
     );
- 
+    const showNotification = (message: string) => {
+        setNotification({ message, visible: true });
+        setTimeout(() => {
+            setNotification(null);
+        }, 3000);
+    };
+
+    const showCheckInSuccess = () => showNotification("Check In Successful");
+    const showCheckOutSuccess = () => showNotification("Check Out Successful");
     const toolbarRight = (
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <Button
                 onClick={() => {
                     setSelectedRecordId(null);
                     setShowForm(true);
+                    showCheckInSuccess();
                 }}
-                className="h-10 px-4 bg-[var(--primary-color)] hover:opacity-90 border-none flex items-center gap-2 rounded-lg text-white font-medium w-full sm:w-auto justify-center"
+                className="h-11 px-6 bg-rose-50 text-rose-600 border border-rose-100/50 hover:bg-rose-600 hover:text-white transition-all duration-300 rounded-xl shadow-sm flex items-center gap-2 font-bold group"
             >
-                <Plus size={18} />
-                <span className="text-[14px]">Mark Attendance</span>
+                <Plus size={18} className="group-hover:rotate-90 transition-transform duration-300" />
+                <span className="text-[13px] tracking-wide">CHECK IN</span>
             </Button>
-            <AttendanceForm
+
+            <Button
+                onClick={() => {
+                    setSelectedRecordId(null);
+                    setShowForm(true);
+                    showCheckOutSuccess();
+                }}
+                className="h-11 px-6 bg-rose-50 text-rose-600 border border-rose-100/50 hover:bg-rose-600 hover:text-white transition-all duration-300 rounded-xl shadow-sm flex items-center gap-2 font-bold group"
+            >
+                <Minus size={18} className="group-hover:-rotate-90 transition-transform duration-300" />
+                <span className="text-[13px] tracking-wide">CHECK OUT</span>
+            </Button>
+            {/* <AttendanceForm
                 visible={showForm}
                 onHide={() => setShowForm(false)}
                 recordId={selectedRecordId}
-            />
+            /> */}
         </div>
     );
- 
+
     return (
-        <>
+        <div className="flex flex-col gap-6">
+            {notification?.visible && (
+                <div className="animate-in slide-in-from-top duration-300 sticky top-4 z-50">
+                    <div className="bg-rose-50 border border-rose-100 text-rose-600 px-6 py-4 rounded-2xl shadow-lg flex items-center justify-between backdrop-blur-md bg-white/80 max-w-md mx-auto ring-4 ring-rose-500/5">
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-full bg-rose-600 flex items-center justify-center text-white">
+                                <Plus size={16} className="rotate-45" />
+                            </div>
+                            <span className="font-bold text-sm tracking-tight">{notification.message}</span>
+                        </div>
+                        <button 
+                            onClick={() => setNotification(null)}
+                            className="p-1 hover:bg-rose-100 rounded-full transition-colors"
+                        >
+                            <X size={18} />
+                        </button>
+                    </div>
+                </div>
+            )}
             <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-4 bg-[var(--surface-card)] p-4 rounded-xl border border-[var(--surface-border)] shadow-sm">
                 {headerFilters}
                 {toolbarRight}
@@ -232,8 +271,8 @@ const AttendanceTable = () => {
                     />
                 </div>
             </div>
-        </>
+        </div>
     )
 }
- 
+
 export default AttendanceTable;

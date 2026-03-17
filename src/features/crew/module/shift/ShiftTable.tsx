@@ -1,11 +1,11 @@
 import { useState, useMemo } from "react";
 import ReusableCrudTable, {
     type CrudColumn,
-} from "../../components/common/HOC/ReusableDataTable/ReusableDataTable";
+} from "../../../../components/common/HOC/ReusableDataTable/ReusableDataTable";
 import { Search, Plus, Eye, Edit2, Play, PauseCircle, Clock, Coffee } from "lucide-react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { useDebouncedValue } from "../../hooks/useDebouncedValue";
+import { useDebouncedValue } from "../../../../hooks/useDebouncedValue";
 import ShiftForm from "./ShiftForm";
 
 interface Shift {
@@ -120,13 +120,12 @@ const ShiftTable = () => {
     const daysTemplate = (rowData: Shift) => (
         <div className="flex gap-1">
             {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
-                <span 
-                    key={day} 
-                    className={`text-[9px] font-black px-1.5 py-0.5 rounded border ${
-                        rowData.days.includes(day) 
-                        ? 'bg-blue-50 text-blue-600 border-blue-100' 
-                        : 'bg-gray-50 text-gray-300 border-transparent'
-                    }`}
+                <span
+                    key={day}
+                    className={`text-[9px] font-black px-1.5 py-0.5 rounded border ${rowData.days.includes(day)
+                            ? 'bg-blue-50 text-blue-600 border-blue-100'
+                            : 'bg-gray-50 text-gray-300 border-transparent'
+                        }`}
                 >
                     {day.charAt(0)}
                 </span>
@@ -135,18 +134,17 @@ const ShiftTable = () => {
     );
 
     const statusTemplate = (rowData: Shift) => (
-        <span className={`text-[10px] w-fit px-2.5 py-1 rounded-full font-black uppercase tracking-widest border ${
-            rowData.status === 'active' 
-            ? 'bg-emerald-50 text-emerald-600 border-emerald-100' 
-            : 'bg-gray-50 text-gray-400 border-gray-100'
-        }`}>
+        <span className={`text-[10px] w-fit px-2.5 py-1 rounded-full font-black uppercase tracking-widest border ${rowData.status === 'active'
+                ? 'bg-emerald-50 text-emerald-600 border-emerald-100'
+                : 'bg-gray-50 text-gray-400 border-gray-100'
+            }`}>
             {rowData.status}
         </span>
     );
 
     const actionsTemplate = (rowData: Shift) => (
         <div className="flex items-center gap-2">
-            <button 
+            <button
                 onClick={() => handleEdit(rowData.id)}
                 className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition-all border border-gray-100" title="Edit"
             >
@@ -230,7 +228,7 @@ const ShiftTable = () => {
                 </div>
             </div>
 
-            <ShiftForm 
+            <ShiftForm
                 visible={showForm}
                 onHide={() => setShowForm(false)}
                 shiftId={selectedShiftId}

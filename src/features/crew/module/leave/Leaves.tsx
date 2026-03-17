@@ -1,5 +1,5 @@
-import LeaveHeader from "./leave/LeaveHeader"
-import LeaveTable from "./leave/LeaveTable"
+import LeaveHeader from "./LeaveHeader"
+import LeaveTable from "./LeaveTable"
 const Leaves = () => {
   return (
 

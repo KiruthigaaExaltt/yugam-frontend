@@ -1,5 +1,5 @@
-import ShiftIndex from "../shift/ShiftIndex";
- 
+import ShiftIndex from "./ShiftIndex";
+
 const Shifts = () => {
   return (
     <div className="p-6 bg-gray-50/30 min-h-screen">
@@ -7,5 +7,5 @@ const Shifts = () => {
     </div>
   );
 };
- 
+
 export default Shifts;

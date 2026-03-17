@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LeaveForm from "../../features/crew/module/leave/LeaveForm";
+import LeaveForm from "../leave/LeaveForm";
 
 interface LeaveBalanceCardProps {
     type: string;
@@ -11,7 +11,7 @@ interface LeaveBalanceCardProps {
 
 const LeaveBalanceCard = ({ type, earned, used, remaining, colorClass }: LeaveBalanceCardProps) => {
     const percentage = (used / earned) * 100;
-    
+
     return (
         <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-all">
             <h4 className="text-gray-700 font-black text-sm uppercase tracking-tight mb-4">{type}</h4>
@@ -29,7 +29,7 @@ const LeaveBalanceCard = ({ type, earned, used, remaining, colorClass }: LeaveBa
                     <span className={`font-black text-lg ${colorClass}`}>{remaining}</span>
                 </div>
                 <div className="w-full bg-gray-50 rounded-full h-1.5 overflow-hidden">
-                    <div 
+                    <div
                         className={`h-full ${colorClass.replace('text-', 'bg-')} transition-all duration-500`}
                         style={{ width: `${percentage}%` }}
                     />
@@ -71,7 +71,7 @@ const LeavesTab = ({ employee: _employee }: { employee: any }) => {
             <div className="bg-white rounded-3xl sm:rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden">
                 <div className="px-6 sm:px-10 py-6 sm:py-8 border-b border-gray-50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <h3 className="text-base sm:text-lg font-black text-gray-800 tracking-tight uppercase">Recent Applications</h3>
-                    <button 
+                    <button
                         onClick={() => setIsFormOpen(true)}
                         className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-black text-[10px] sm:text-xs px-6 py-3 sm:py-2.5 rounded-xl uppercase tracking-widest transition-all shadow-md shadow-emerald-100"
                     >
@@ -80,7 +80,7 @@ const LeavesTab = ({ employee: _employee }: { employee: any }) => {
                 </div>
                 <div className="flex flex-col">
                     {recentApplications.map((app, index) => (
-                                <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between px-6 sm:px-10 py-5 sm:py-6 border-b border-gray-50 last:border-none hover:bg-gray-50/30 transition-colors group gap-3 sm:gap-0">
+                        <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between px-6 sm:px-10 py-5 sm:py-6 border-b border-gray-50 last:border-none hover:bg-gray-50/30 transition-colors group gap-3 sm:gap-0">
                             <div className="flex flex-col gap-0.5 sm:gap-1">
                                 <span className="font-black text-gray-700 text-sm tracking-tight">{app.type}</span>
                                 <span className="text-gray-400 text-[10px] sm:text-xs font-bold uppercase tracking-wider">{app.date} • {app.duration}</span>
@@ -93,7 +93,7 @@ const LeavesTab = ({ employee: _employee }: { employee: any }) => {
                 </div>
             </div>
 
-            <LeaveForm 
+            <LeaveForm
                 visible={isFormOpen}
                 onHide={() => setIsFormOpen(false)}
                 recordId={null}

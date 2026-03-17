@@ -1,13 +1,13 @@
 import { useState, useMemo } from "react";
 import ReusableCrudTable, {
     type CrudColumn,
-} from "../../components/common/HOC/ReusableDataTable/ReusableDataTable";
+} from "../../../../components/common/HOC/ReusableDataTable/ReusableDataTable";
 import { Phone, Mail, Eye, Edit3, Calendar, CreditCard, Briefcase, Building2, Search, Plus } from "lucide-react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import EmployeeForm from "./EmployeeForm";
-import { useDebouncedValue } from "../../hooks/useDebouncedValue";
+import { useDebouncedValue } from "../../../../hooks/useDebouncedValue";
 
 interface Employee {
     id: string;
@@ -177,8 +177,8 @@ const EmployeeTable = ({ onView }: EmployeeTableProps) => {
 
     const actionsTemplate = (rowData: Employee) => (
         <div className="flex items-center gap-3">
-            <div 
-                className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all cursor-pointer border border-[var(--surface-border)]" 
+            <div
+                className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all cursor-pointer border border-[var(--surface-border)]"
                 title="View"
                 onClick={() => onView?.(rowData)}
             >

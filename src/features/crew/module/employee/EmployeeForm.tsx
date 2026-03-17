@@ -2,11 +2,11 @@ import { useForm, FormProvider, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserPlus, Plus, Save } from "lucide-react";
-import { RHFInput, RDropdown, RCalendar } from "../../components/common/HOC/form/RHFFields";
-import PhoneNumberField from "../../components/common/HOC/phonenumber/PhoneNumberField";
+import { RHFInput, RDropdown, RCalendar } from "../../../../components/common/HOC/form/RHFFields";
+import PhoneNumberField from "../../../../components/common/HOC/phonenumber/PhoneNumberField";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { toast } from "sonner";
-import ReusableDialog from "../../components/common/HOC/dialog/ReusableDialog";
+import ReusableDialog from "../../../../components/common/HOC/dialog/ReusableDialog";
 
 interface EmployeeFormProps {
   visible: boolean;
@@ -23,6 +23,7 @@ const employeeSchema = yup.object().shape({
   designation: yup.string().required("Designation is required"),
   joiningDate: yup.date().nullable().required("Joining date is required"),
   salary: yup.number().typeError("Salary must be a number").positive("Salary must be positive").required("Salary is required"),
+  shift: yup.string().required("Shift is required"),
 });
 
 const DEPARTMENT_OPTIONS = [
@@ -31,6 +32,11 @@ const DEPARTMENT_OPTIONS = [
   { label: "Sales", value: "Sales" },
   { label: "Human Resources", value: "Human Resources" },
   { label: "Finance", value: "Finance" },
+];
+const SHIFT_OPTIONS = [
+  { label: "Morning", value: "Morning" },
+  { label: "Evening", value: "Evening" },
+  { label: "Night", value: "Night" },
 ];
 
 const EmployeeForm = ({ visible, onHide, employeeId }: EmployeeFormProps) => {
@@ -47,6 +53,7 @@ const EmployeeForm = ({ visible, onHide, employeeId }: EmployeeFormProps) => {
       designation: "",
       joiningDate: null as any,
       salary: undefined as any,
+      shift: "",
     },
   });
 
@@ -137,6 +144,14 @@ const EmployeeForm = ({ visible, onHide, employeeId }: EmployeeFormProps) => {
           vertical={true}
           placeholder="Enter salary"
           className="bg-gray-50/50 border-gray-200 focus:bg-white transition-all rounded-xl"
+        />
+        <RDropdown
+          name="shift"
+          label="Select Shift"
+          vertical={true}
+          options={SHIFT_OPTIONS}
+          placeholder="Choose Shift"
+          className="bg-gray-50/50 border-[var(--surface-border)] focus:bg-white transition-all rounded-xl"
         />
       </form>
     </FormProvider>

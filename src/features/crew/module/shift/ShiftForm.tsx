@@ -1,10 +1,10 @@
 import { useForm, FormProvider } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Clock, Save, Plus} from "lucide-react";
-import { RHFInput, RDropdown } from "../../components/common/HOC/form/RHFFields";
+import { Clock, Save, Plus } from "lucide-react";
+import { RHFInput, RDropdown } from "../../../../components/common/HOC/form/RHFFields";
 import { toast } from "sonner";
-import ReusableDialog from "../../components/common/HOC/dialog/ReusableDialog";
+import ReusableDialog from "../../../../components/common/HOC/dialog/ReusableDialog";
 
 interface ShiftFormProps {
     visible: boolean;
@@ -98,11 +98,10 @@ const ShiftForm = ({ visible, onHide, shiftId }: ShiftFormProps) => {
                     <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Working Days</label>
                     <div className="flex flex-wrap gap-2">
                         {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
-                            <div key={day} className={`px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-black border transition-all cursor-pointer ${
-                                ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(day)
-                                ? 'bg-blue-600 text-white border-blue-500 shadow-sm shadow-blue-100'
-                                : 'bg-gray-50 text-gray-400 border-gray-100'
-                            }`}>
+                            <div key={day} className={`px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-black border transition-all cursor-pointer ${['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(day)
+                                    ? 'bg-blue-600 text-white border-blue-500 shadow-sm shadow-blue-100'
+                                    : 'bg-gray-50 text-gray-400 border-gray-100'
+                                }`}>
                                 {day}
                             </div>
                         ))}

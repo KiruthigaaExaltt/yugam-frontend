@@ -1,5 +1,5 @@
-import AttendanceHeader from "./attendance/AttendanceHeader";
-import AttendanceTable from "./attendance/AttendanceTable";
+import AttendanceHeader from "./AttendanceHeader";
+import AttendanceTable from "./AttendanceTable";
 
 const Attendance = () => {
   return (

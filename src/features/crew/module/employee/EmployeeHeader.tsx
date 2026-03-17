@@ -1,4 +1,4 @@
-import SmallCard from "../../components/common/HOC/SmallCard/SmallCard";
+import SmallCard from "../../../../components/common/HOC/SmallCard/SmallCard";
 import { UserPlus, Phone, Target, FileText } from "lucide-react";
 
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import EmployeeHeader from "../employee/EmployeeHeader";
-import EmployeeTable from "../employee/EmployeeTable";
-import EmployeeDetail from "../employee/EmployeeDetail";
+import EmployeeHeader from "./EmployeeHeader";
+import EmployeeTable from "./EmployeeTable";
+import EmployeeDetail from "./EmployeeDetail";
 
 
 const EmployeeIndex = () => {
@@ -11,9 +11,9 @@ const EmployeeIndex = () => {
     <div className="p-4 sm:p-6 min-h-[calc(100vh-200px)]">
       <div className="flex flex-col gap-6 max-w-[1400px] mx-auto">
         {selectedEmployee ? (
-          <EmployeeDetail 
-            employee={selectedEmployee} 
-            onBack={() => setSelectedEmployee(null)} 
+          <EmployeeDetail
+            employee={selectedEmployee}
+            onBack={() => setSelectedEmployee(null)}
           />
         ) : (
           <>
